@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 	int token;
 	do
 	{
-		
+			//test
 			token = yylex();
 			printf("token %d\n", token);
 		} while (token != 0);
