@@ -6,6 +6,7 @@
 d [0-9]
 w [a-zA-Z_]
 W [ \r\n\t]
+_regex_char [^/]|(\\\/)
 
 _regex_flags [gimuy]
 
@@ -17,12 +18,16 @@ _regex_flags [gimuy]
 									fprintf(stderr, "Syntax Error: Illegal First Char (%s)\n", _strdup(yytext));
 									exit(0);
 								}
+[\/]{_regex_char}*$				{
+									fprintf(stderr, "Syntax Error: Regex Not Closing (%s)\n", _strdup(yytext));
+									exit(0);
+								}
 [\/]							{	// Regex Begins
 									yylval.regexStart = _strdup(yytext);
 									BEGIN(__REGEX);
 									return REGEX_START;
 								}
-<__REGEX>([^\/]|(\\\/))*		{	// Regex Body
+<__REGEX>{_regex_char}*			{	// Regex Body
 									yylval.regexBody = _strdup(yytext);
 									return REGEX_BODY;
 								}
