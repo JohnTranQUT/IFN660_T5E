@@ -2,8 +2,7 @@
 
 ##Todos
 - [ ] **Week 2**
-	- [ ] **Add REGEX_END**
-	- [ ] Add REGEX_FLAGS
+	- [ ] **Add REGEX_FLAGS**
 	- [ ] Add REGEX_BODY
 	- [ ] Add Syntax Error Detection
 
@@ -11,5 +10,10 @@
 - [ ] **Week 2**
 	- [x] Initialization
 	- [x] Add REGEX_START
+	- [x] Add REGEX_END
 
-##Project Logs
+##Test Logs
+Literal Type | Test Result | Test Scripts
+--- | --- | ---
+REGEX_START | Pass | `/`
+REGEX_END | Pass | `//`
