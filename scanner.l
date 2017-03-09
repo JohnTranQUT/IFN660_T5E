@@ -8,6 +8,10 @@ w [a-zA-Z_]
 W [ \r\n\t]
 
 %%
+[\/]						{
+								yylval.regexStart = _strdup(yytext);
+								return REGEX_START;
+							}
 {W}
 .                           {
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
