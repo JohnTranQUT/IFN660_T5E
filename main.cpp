@@ -27,6 +27,10 @@ void main(int argc, char *argv[]) {
 				printf("REGEX_FLAGS (%s)\n", yylval.regexFlags);
 				break;
 			}
+			case REGEX_BODY: {
+				printf("REGEX_BODY (%s)\n", yylval.regexBody);
+				break;
+			}
 			case 0: {
 				printf("EOF\n");
 				break;
