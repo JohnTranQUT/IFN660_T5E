@@ -7,10 +7,18 @@ d [0-9]
 w [a-zA-Z_]
 W [ \r\n\t]
 
+%x __REGEX
+
 %%
-[\/]						{
+[\/]						{	// Regex begins
 								yylval.regexStart = _strdup(yytext);
+								BEGIN(__REGEX);
 								return REGEX_START;
+							}
+<__REGEX>[\/]				{	// Regex Ends
+								yylval.regexEnd = _strdup(yytext);
+								BEGIN(INITIAL);
+								return REGEX_END;
 							}
 {W}
 .                           {
