@@ -1,19 +1,16 @@
 #Regular Expression Literals Scanner (Alfred)
 
 ##Todos
-- [ ] **Week 2**
-	- [ ] **Add Syntax Error Detection**
 
 ##Completed
-- [ ] **Week 2**
-	- [x] Initialization
-	- [x] Add REGEX_START
-	- [x] Add REGEX_END
-	- [x] Add REGEX_FLAGS
-	- [x] Add REGEX_BODY
-	- [x] Add Syntax Error Detection
-		- [x] Illegal REGEX_FIRST_CHAR
-		- [x] REGEX Not Closing
+- [x] Initialization
+- [x] Add REGEX_START
+- [x] Add REGEX_END
+- [x] Add REGEX_FLAGS
+- [x] Add REGEX_BODY
+- [x] Add Syntax Error Detection
+	- [x] Illegal REGEX_FIRST_CHAR
+	- [x] REGEX Not Closing
 
 ##Test Logs
 Literal Type | Test Result | Test Scripts | Remark
