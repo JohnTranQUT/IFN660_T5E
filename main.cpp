@@ -23,6 +23,10 @@ void main(int argc, char *argv[]) {
 				printf("REGEX_END (%s)\n", yylval.regexEnd);
 				break;
 			}
+			case REGEX_FLAGS: {
+				printf("REGEX_FLAGS (%s)\n", yylval.regexFlags);
+				break;
+			}
 			case 0: {
 				printf("EOF\n");
 				break;
