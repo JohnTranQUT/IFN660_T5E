@@ -1,8 +1,8 @@
 %%
-/* enter the scanner here */
-null        {return null;}
-true                          { return true; }
-false                        { return false; }
+.                           {
+                                fprintf(stderr, "invalid character '%c'\n", *yytext);
+                                exit(0);
+                            }
 %%
 int yywrap()
 {
