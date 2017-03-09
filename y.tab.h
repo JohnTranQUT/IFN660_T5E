@@ -4,7 +4,7 @@ enum yytokentype
 	IDENT = 259,
 	INT = 262,
 	BOOL = 263,
-	//Manh Tuan Nguyen (Jin) - 20170308
+	//Manh Tuan Nguyen (Jin) - keywords
 	BREAK = 300,
 	DO,
 	IN,
@@ -39,7 +39,37 @@ enum yytokentype
 	IMPORT,
 	TRY,
 	AWAIT,
-	ENUM
+	ENUM,
+	//Manh Tuan Nguyen (Jin) - extra puntuators
+	TDOT,
+	LE,
+	GE,
+	EQ,
+	DIFF,
+	EQTYPE,
+	DFTYPE,
+	INCREASE,
+	DECREASE,
+	LSHIFT,
+	RSHIFT,
+	URSHIFT,
+	LOGAND,
+	LOOR,
+	ADDASS,
+	SUBASS,
+	MULASS,
+	REMASS,
+	LSHIFTASS,
+	RSHIFTASS,
+	URSHIFTASS,
+	BWANDASS,
+	BWORASS,
+	BWXORASS,
+	ARROWF,
+	EXP,
+	EXPASS,
+	DIVASS
+
 };
 
 typedef union YYSTYPE

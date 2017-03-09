@@ -46,20 +46,64 @@ import						{ return IMPORT; }
 try							{ return TRY; }
 await						{ return AWAIT; }
 enum						{ return ENUM; }
-
+%{ //Manh Tuan Nguyen (Jin) - End of Keywords %}
 {letter}({letter}|{digit})*     { yylval.name = _strdup(yytext); return IDENT; }
 {digit}+                        { yylval.num = atoi(yytext); return NUMBER; }
 
-
-"="                         { return '='; }
-"+"                         { return '+'; }
-"<"                         { return '<'; }
-"("                         { return '('; }
-")"                         { return ')'; }
-"{"                         { return '{'; }
-"}"                         { return '}'; }
-";"                         { return ';'; }
-"<="						{ return '<='; }
+%{ //Manh Tuan Nguyen (Jin) - Punctuators %}
+"{"							{ return '{'; }
+"}"							{ return '}'; }
+"("							{ return '('; }
+")"							{ return ')'; }
+"["							{ return '['; }
+"]"							{ return ']'; }
+"."							{ return '.'; }
+"..."						{ return TDOT; }
+";"							{ return ';'; }
+","							{ return ','; }
+"<"							{ return '<'; }
+">"							{ return '>'; }
+"<="						{ return LE; }
+">="						{ return GE; }
+"=="						{ return EQ; }
+"!="						{ return DIFF; }
+"==="						{ return EQTYPE; }
+"!=="						{ return DFTYPE; }
+"+"							{ return '+'; }
+"-"							{ return '-'; }
+"*"							{ return '*'; }
+"%"							{ return '%'; }
+"++"						{ return INCREASE; }
+"--"						{ return DECREASE; }
+"<<"						{ return LSHIFT; }
+">>"						{ return RSHIFT; }
+">>>"						{ return URSHIFT; }
+"&"							{ return '&'; }
+"|"							{ return '|'; }
+"^"							{ return '^'; }
+"!"							{ return '!'; }
+"~"							{ return '~'; }
+"&&"						{ return LOGAND; }
+"||"						{ return LOOR; }
+"?"							{ return '?'; }
+":"							{ return ':'; }
+"="							{ return '='; }
+"+="						{ return ADDASS; }
+"-="						{ return SUBASS; }
+"*="						{ return MULASS; }
+"%="						{ return REMASS; }
+"<<="						{ return LSHIFTASS; }
+">>="						{ return RSHIFTASS; }
+">>>="						{ return URSHIFTASS; }
+"&="						{ return BWANDASS; }
+"|="						{ return BWORASS; }	
+"^="						{ return BWXORASS; }
+"=>"						{ return ARROWF; }
+"**"						{ return EXP; }
+"**="						{ return EXPASS; }
+"/"							{ return '/'; }
+"/="						{ return DIVASS; }
+%{ //Manh Tuan Nguyen (Jin) - End of Punctuators %}
 
 [ \r\n\t]                   /* skip whitespace */
 

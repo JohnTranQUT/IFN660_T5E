@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 		case BOOL:
 			printf("BOOL\n");
 			break;
-			//Manh Tuan Nguyen (Jin) - 20170308
+			//Manh Tuan Nguyen (Jin) - 20170309
 		case BREAK:		printf("BREAK\n");		break;
 		case DO:		printf("DO\n");		break;
 		case IN:		printf("IN\n");		break;
@@ -69,8 +69,35 @@ int main(int argc, char* argv[])
 		case TRY:		printf("TRY\n");		break;
 		case AWAIT:		printf("AWAIT\n");		break;
 		case ENUM:		printf("ENUM\n");		break;
-
-
+		case TDOT:		printf("'...'\n");		break;
+		case LE:		printf("'<='\n");		break;
+		case GE:		printf("'>='\n");		break;
+		case EQ:		printf("'=='\n");		break;
+		case DIFF:		printf("'!='\n");		break;
+		case EQTYPE:		printf("'==='\n");		break;
+		case DFTYPE:		printf("'!=='\n");		break;
+		case INCREASE:		printf("'++'\n");		break;
+		case DECREASE:		printf("'--'\n");		break;
+		case LSHIFT:		printf("'<<'\n");		break;
+		case RSHIFT:		printf("'>>'\n");		break;
+		case URSHIFT:		printf("'>>>'\n");		break;
+		case LOGAND:		printf("'&&'\n");		break;
+		case LOOR:		printf("'||'\n");		break;
+		case ADDASS:		printf("'+='\n");		break;
+		case SUBASS:		printf("'-='\n");		break;
+		case MULASS:		printf("'*='\n");		break;
+		case REMASS:		printf("'%='\n");		break;
+		case LSHIFTASS:		printf("'<<='\n");		break;
+		case RSHIFTASS:		printf("'>>='\n");		break;
+		case URSHIFTASS:		printf("'>>>='\n");		break;
+		case BWANDASS:		printf("'&='\n");		break;
+		case BWORASS:		printf("'|='\n");		break;
+		case BWXORASS:		printf("'^='\n");		break;
+		case ARROWF:		printf("'=>'\n");		break;
+		case EXP:		printf("'**'\n");		break;
+		case EXPASS:		printf("'**='\n");		break;
+		case DIVASS:		printf("'/='\n");		break;
+			//Manh Tuan Nguyen (Jin) - 20170309 end of keywords and extra punctuators
 		case 0:
 			printf("EOF\n");
 			break;
