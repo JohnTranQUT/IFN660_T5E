@@ -19,6 +19,10 @@ void main(int argc, char *argv[]) {
 				printf("REGEX_START (%s)\n", yylval.regexStart);
 				break;
 			}
+			case REGEX_END: {
+				printf("REGEX_END (%s)\n", yylval.regexEnd);
+				break;
+			}
 			case 0: {
 				printf("EOF\n");
 				break;
