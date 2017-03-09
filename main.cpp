@@ -19,10 +19,6 @@ void main(int argc, char *argv[]) {
 				puts("REGEX_START");
 				break;
 			}
-			case REGEX_END: {
-				puts("REGEX_END");
-				break;
-			}
 			case 0: {
 				printf("EOF\n");
 				break;

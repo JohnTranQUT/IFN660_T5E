@@ -7,17 +7,10 @@ d [0-9]
 w [a-zA-Z_]
 W [ \r\n\t]
 
-%x __REGEX
-
 %%
 
-[/]							{
-								BEGIN(__REGEX);
+[/]							{	// N9571604 See Chuen Hong
 								return REGEX_START;
-							}
-<__REGEX>[/]				{
-								BEGIN(INITIAL);
-								return REGEX_END;
 							}
 {W}
 
