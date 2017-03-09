@@ -67,6 +67,8 @@ int main(int argc, char* argv[])
 		case DELETE:		printf("DELETE\n");		break;
 		case IMPORT:		printf("IMPORT\n");		break;
 		case TRY:		printf("TRY\n");		break;
+		case AWAIT:		printf("AWAIT\n");		break;
+		case ENUM:		printf("ENUM\n");		break;
 
 
 		case 0:

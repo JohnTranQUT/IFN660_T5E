@@ -10,7 +10,7 @@ letter [a-zA-Z]
 %%                   
 int                         { return INT; }
 bool                        { return BOOL; }
-
+%{ //Manh Tuan Nguyen (Jin) - Keywords %}
 break						{ return BREAK; }
 do							{ return DO; }
 in							{ return IN; }
@@ -44,6 +44,8 @@ throw						{ return THROW; }
 delete						{ return DELETE; }
 import						{ return IMPORT; }
 try							{ return TRY; }
+await						{ return AWAIT; }
+enum						{ return ENUM; }
 
 {letter}({letter}|{digit})*     { yylval.name = _strdup(yytext); return IDENT; }
 {digit}+                        { yylval.num = atoi(yytext); return NUMBER; }
@@ -57,6 +59,7 @@ try							{ return TRY; }
 "{"                         { return '{'; }
 "}"                         { return '}'; }
 ";"                         { return ';'; }
+"<="						{ return '<='; }
 
 [ \r\n\t]                   /* skip whitespace */
 
