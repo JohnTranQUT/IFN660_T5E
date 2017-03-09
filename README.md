@@ -1,14 +1,15 @@
-#IFN660-T5E GitHub Repository
-
-##Message
+#Regular Expression Literals Scanner (Alfred)
 
 ##Todos
 - [ ] **Week 2**
-	- [ ] **Everyone submits at least one token to the master repository.**
-	- [ ] Everyone finishes their task allocated in Week 2 and commits the source code to individual branches.
-	- [ ] Merging everyone's branches to master repository.
+	- [ ] **Add REGEX_START**
+	- [ ] Add REGEX_END
+	- [ ] Add REGEX_FLAGS
+	- [ ] Add REGEX_BODY
+	- [ ] Add Syntax Error Detection
 
 ##Completed
 - [ ] **Week 2**
+	- [x] Initialization
 
 ##Project Logs
