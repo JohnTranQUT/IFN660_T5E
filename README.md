@@ -3,8 +3,7 @@
 ##Todos
 - [ ] **Week 2**
 	- [ ] **Add Syntax Error Detection**
-		- [ ] **Illegal REGEX_FIRST_CHAR**
-		- [ ] REGEX Not Closing
+		- [ ] **REGEX Not Closing**
 
 ##Completed
 - [ ] **Week 2**
@@ -13,6 +12,8 @@
 	- [x] Add REGEX_END
 	- [x] Add REGEX_FLAGS
 	- [x] Add REGEX_BODY
+	- [ ] **Add Syntax Error Detection**
+		- [x] Illegal REGEX_FIRST_CHAR
 
 ##Test Logs
 Literal Type | Test Result | Test Scripts
@@ -25,3 +26,5 @@ REGEX_FLAGS | Pass | `//gmi`
 REGEX_BODY | Pass | `/HelloWorld/gmi`
 REGEX_BODY | Pass | `/Hello\/World/gmi`
 REGEX_BODY | Pass | `/[Hello]{1,5}\/[World]+/`
+ILL_FIRST_CHAR | Pass | `//`
+ILL_FIRST_CHAR | Pass | `/*`
