@@ -15,6 +15,14 @@ void main(int argc, char *argv[]) {
 		token = yylex();
 		printf("Next Token: ");
 		switch (token) {
+			case REGEX_START: {
+				puts("REGEX_START");
+				break;
+			}
+			case REGEX_END: {
+				puts("REGEX_END");
+				break;
+			}
 			case 0: {
 				printf("EOF\n");
 				break;

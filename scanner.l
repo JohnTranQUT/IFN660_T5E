@@ -1,10 +1,32 @@
+%{
+#include <y.tab.h>
+#include <cstdio>
+%}
+
+d [0-9]
+w [a-zA-Z_]
+W [ \r\n\t]
+
+%x __REGEX
+
 %%
-/* enter the scanner here */
-null        {return null;}
-true                          { return true; }
-false                        { return false; }
+
+[/]							{
+								BEGIN(__REGEX);
+								return REGEX_START;
+							}
+<__REGEX>[/]				{
+								BEGIN(INITIAL);
+								return REGEX_END;
+							}
+{W}
+
+.                           {
+                                fprintf(stderr, "invalid character '%c'\n", *yytext);
+                                exit(0);
+                            }
 %%
-int yywrap()
-{
+
+int yywrap() {
     return 1;
 }
