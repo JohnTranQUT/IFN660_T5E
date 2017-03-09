@@ -18,6 +18,10 @@ _regex_flags [gimuy]
 									BEGIN(__REGEX);
 									return REGEX_START;
 								}
+<__REGEX>([^\/]|(\\\/))*		{	// Regex Body
+									yylval.regexBody = _strdup(yytext);
+									return REGEX_BODY;
+								}
 <__REGEX>[\/]/{_regex_flags}+	{	// Regex Ends with Flags
 									yylval.regexEnd = _strdup(yytext);
 									BEGIN(__REGEX_FLAGS);
