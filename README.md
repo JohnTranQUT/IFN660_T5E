@@ -22,5 +22,4 @@ For more information, please check [the announcement on BlackBoard](https://blac
 - [ ] **Week 2**
 
 ##Project Logs
-=======
 *Added REGEX_START as tokens (Alfred)
