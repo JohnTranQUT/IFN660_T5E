@@ -16,6 +16,10 @@ W [ \r\n\t]
 true                        {   // N9871586	Xuelei Wang
                                 return TRUE; 
 							}
+(({nonZeroDigit}{digit}*|0)"."{digit}*([eE](["+"-])?{digit}+)?)|("."{digit}+([eE](["+"-])?{digit}+)?	{
+								//John Tran
+								return DECIMAL;
+							}
 {W}
 .                           {
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);

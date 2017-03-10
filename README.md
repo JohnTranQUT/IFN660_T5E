@@ -7,7 +7,7 @@ Please commit scanner.l, main.cpp, and y.tab.h containing one token to the GitHu
 - [ ] Jin
 - [ ] Jason
 - [ ] Michael
-- [ ] John
+- [x] John
 - [ ] Gem
 
 For more information, please check [the announcement on BlackBoard](https://blackboard.qut.edu.au/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_133133_1&handle=announcements_entry&mode=view).
@@ -24,4 +24,4 @@ For more information, please check [the announcement on BlackBoard](https://blac
 ##Project Logs
 * Added REGEX_START as tokens (Alfred)
 * Added true as tokens (Ray)
-* Added Numeric Literals (John)
+* Added Numeric Decimal tokens (John)

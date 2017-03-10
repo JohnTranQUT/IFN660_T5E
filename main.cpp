@@ -23,6 +23,10 @@ void main(int argc, char *argv[]) {
 				puts("true");
 				break;
 			}
+			case DECIMAL: {
+				puts("decimal");
+				break;
+			}
 			case 0: {
 				printf("EOF\n");
 				break;
