@@ -18,7 +18,7 @@ _regex_flags [gimuy]
 									fprintf(stderr, "Syntax Error: Illegal First Char (%s)\n", _strdup(yytext));
 									exit(0);
 								}
-[\/]{_regex_char}*$				{
+[\/]{_regex_char}*$				{	// Syntax Error: Regex Not Closing
 									fprintf(stderr, "Syntax Error: Regex Not Closing (%s)\n", _strdup(yytext));
 									exit(0);
 								}
