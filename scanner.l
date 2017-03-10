@@ -13,6 +13,9 @@ W [ \r\n\t]
 [/]							{	// N9571604 See Chuen Hong
 								return REGEX_START;
 							}
+true                        {   // N9871586	Xuelei Wang
+                                return TRUE; 
+							}
 {W}
 .                           {
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
