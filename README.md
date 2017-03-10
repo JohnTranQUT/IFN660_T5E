@@ -25,3 +25,10 @@ For more information, please check [the announcement on BlackBoard](https://blac
 * Added REGEX_START as tokens (Alfred)
 * Added true as tokens (Ray)
 * Added Numeric Decimal tokens (John)
+
+##Useful Links
+- [Flex Reference](http://www.delorie.com/gnu/docs/flex/flex.html)
+- [Google Doc Link](https://drive.google.com/open?id=0B9oGgiMd13T8TlFodFZ1dkstZ0k)
+- [ECMA Standard](http://www.ecma-international.org/ecma-262/7.0/index.html)
+- [FaceBook Group](https://www.facebook.com/groups/1294849777217759/)
+- [Readme.md cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
