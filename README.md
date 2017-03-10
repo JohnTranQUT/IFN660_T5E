@@ -24,3 +24,4 @@ For more information, please check [the announcement on BlackBoard](https://blac
 ##Project Logs
 * Added REGEX_START as tokens (Alfred)
 * Added true as tokens (Ray)
+* Added Numeric Literals (John)
