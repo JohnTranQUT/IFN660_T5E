@@ -16,7 +16,7 @@ W [ \r\n\t]
 true                        {   // N9871586	Xuelei Wang
                                 return TRUE; 
 							}
-(({nonZeroDigit}{digit}*|0)"."{digit}*([eE](["+"-])?{digit}+)?)|("."{digit}+([eE](["+"-])?{digit}+)?	{
+(([1-9]{d}*|0)"."{d}*([eE](["+"-])?{d}+)?)|("."{d}+([eE](["+"-])?{d}+)?)	{
 								//John Tran
 								return DECIMAL;
 							}
