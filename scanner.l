@@ -1,38 +1,62 @@
 %{
+#include <iostream>
 #include <y.tab.h>
-#include <stdio.h>
+#include <string>
+#include <list>
+#include <vector>
+
+
+using namespace std;
+string templateLiteral;
 %}
 
-digit [0-9]
-letter [a-zA-Z]
+d [0-9]
+w [a-zA-Z_]
 
+sourceChar [a-zA-Z0-9_ \n]
+%x template_head
+%x template_start
+%x template_component
 %%
+`					            {
+									BEGIN(template_start);								
+									templateLiteral="";
+									printf("\n");
+								}
 
-if                          { return IF; }
-else                        { return ELSE; }
-int                         { return INT; }
-bool                        { return BOOL; }
+<template_start>{sourceChar}*\$\{        {
+									//Template head
+									BEGIN(template_component);
+									templateLiteral+=yytext;
+								}
 
-{letter}({letter}|{digit})*     {  return IDENT; }
+<template_component>{sourceChar}+/\}     {
+									printf("\t*)Literal component: ${%s} \n",yytext);									
+									BEGIN(template_start);									
+									templateLiteral+=yytext;
+								}
 
-{digit}+                        {return NUMBER; }
+<template_start>\}{sourceChar}*\$\{		{
+									//Template middle
+									BEGIN(template_component);
+									templateLiteral+=yytext;
+								}
+<template_start>\}{sourceChar}*\`		{
+									//Literal tail								
+									templateLiteral+=yytext;								
+									yylval.templateLiteral=_strdup( templateLiteral.c_str());
+									BEGIN(0);
+									return TEMPLATE_LITERAL; 								
+								}
+<template_start>{sourceChar}*\`          {
+									//No substitution							
+									BEGIN(0);
+									templateLiteral+=yytext;
+									yylval.templateLiteral=_strdup( templateLiteral.c_str());
+									return TEMPLATE_LITERAL;
+								}
 
 
-"="                         { return '='; }
-"+"                         { return '+'; }
-"<"                         { return '<'; }
-"("                         { return '('; }
-")"                         { return ')'; }
-"{"                         { return '{'; }
-"}"                         { return '}'; }
-";"                         { return ';'; }
-
-[ \r\n\t]                   /* skip whitespace */
-
-.                           { 
-                                fprintf(stderr, "invalid character '%c'\n", *yytext);
-                                exit(0);
-                            }
 %%
 
 int yywrap()
