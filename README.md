@@ -5,7 +5,7 @@ Please commit scanner.l, main.cpp, and y.tab.h containing one token to the GitHu
 - [x] Alfred
 - [x] Ray
 - [ ] Jin
-- [ ] Jason
+- [x] Jason
 - [ ] Michael
 - [x] John
 - [ ] Gem

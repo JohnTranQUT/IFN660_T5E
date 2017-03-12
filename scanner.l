@@ -20,6 +20,12 @@ true                        {   // N9871586	Xuelei Wang
 								//John Tran
 								return DECIMAL;
 							}
+							
+`							{
+								//n9639799 Trung Hieu Tran
+								return TEMPLATE_LITERAL;
+							}
+							
 {W}
 .                           {
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
