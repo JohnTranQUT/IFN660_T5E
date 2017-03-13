@@ -4,7 +4,7 @@
 Please commit scanner.l, main.cpp, and y.tab.h containing one token to the GitHub master repository. Before committing, make sure you pull or fetch from remote master first. After editing and commit, please update the README.md to indicate your completion by changing - [ ] beside your name to - [x].
 - [x] Alfred
 - [x] Ray
-- [ ] Jin
+- [x] Jin
 - [x] Jason
 - [ ] Michael
 - [x] John

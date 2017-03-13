@@ -27,6 +27,10 @@ void main(int argc, char *argv[]) {
 				puts("decimal");
 				break;
 			}
+			case BREAK:	{
+				printf("BREAK\n");		
+				break;			
+			}
 			case TEMPLATE_LITERAL: {
 				puts("TEMPLATE_LITERAL START");
 				break;

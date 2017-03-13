@@ -16,6 +16,9 @@ W [ \r\n\t]
 true                        {   // N9871586	Xuelei Wang
                                 return TRUE; 
 							}
+break						{ // n9569898 Manh Tuan Nguyen
+								return BREAK;
+							}							
 (([1-9]{d}*|0)"."{d}*([eE](["+"-])?{d}+)?)|("."{d}+([eE](["+"-])?{d}+)?)	{
 								//John Tran
 								return DECIMAL;
