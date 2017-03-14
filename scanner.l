@@ -13,6 +13,9 @@ W [ \r\n\t]
 [/]							{	// N9571604 See Chuen Hong
 								return REGEX_START;
 							}
+
+null    {return NULL}; //n8706638 Chun Chan
+
 true                        {   // N9871586	Xuelei Wang
                                 return TRUE; 
 							}
@@ -34,6 +37,7 @@ break						{ // n9569898 Manh Tuan Nguyen
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
                                 exit(0);
                             }
+
 %%
 
 int yywrap() {
