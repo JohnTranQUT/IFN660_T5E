@@ -20,7 +20,7 @@ void main(int argc, char *argv[]) {
 				break;
 			}
 			case TRUE: {
-				puts("true");
+				puts("BooleanLiteral");
 				break;
 			}
 			case DECIMAL: {
