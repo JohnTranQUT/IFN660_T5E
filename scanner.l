@@ -6,7 +6,7 @@
 
 %%
  /* n08706638 Null literal start */
-null|NULL        {return NULL_L;}
+null        {return NULL_L;}
  /* end of Null literal  */
  
  /*n08706638 Chun Chan String literal*/		
