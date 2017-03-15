@@ -3,35 +3,32 @@
 #include "y.tab.h"
 
 %}
-illegal_escape (\\[^\\'"bfnrtv])
 
 %%
+ /* n08706638 Null literal start */
 null|NULL        {return NULL_L;}
+ /* end of Null literal  */
+ 
+ /*n08706638 Chun Chan String literal*/		
 
-(\".*{illegal_escape}.*) 	{yylval.name = "Syntax Error: Illegal escape sequence detected\n";
-        return ERROR;}
-		
-(\'.*{illegal_escape}.*) 	{yylval.name = "Syntax Error: Illegal escape sequence detected\n";
-        return ERROR;}	
-		
-
-(\"(\\.|[^"\r\n])*\")    {
+(\"(\\.|[^"\x0D\x2028\x2029\x0A])*\")    {
 	yylval.name = _strdup(yytext);
 	return STRING_L;
 	}
-
 	
-(\'(\\.|[^'\r\n])*\')    {
+(\'(\\.|[^'\x0D\x2028\x2029\x0A])*\')    {
 	yylval.name = _strdup(yytext);
 	return STRING_L;
 	}
 
 
-(\'(\\.|[^'\r\n])*)     {yylval.name = "Syntax Error: String not ended, \"'\"expected\n";
+(\'.*)     {yylval.name = "Syntax Error: String not ended, \"'\"expected\n";
     return ERROR;}
 	
-(\"(\\.|[^"\r\n])*)     {yylval.name = "Syntax Error: String not ended, \"\"\"expected\n";
+(\".*)     {yylval.name = "Syntax Error: String not ended, \"\"\"expected\n";
     return ERROR;}
+
+ /* End of String scanner */
 	
 .* {yylval.name = "Syntax Error: unhandled pattern\n";
         return ERROR;}
