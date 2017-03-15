@@ -1,45 +1,42 @@
-
 %{
-#include <y.tab.h>
-#include <cstdio>
+#include <string>
+#include "y.tab.h"
+
 %}
-
-d [0-9]
-w [a-zA-Z_]
-W [ \r\n\t]
+illegal_escape (\\[^\\'"bfnrtv])
 
 %%
+null|NULL        {return NULL_L;}
 
-[/]							{	// N9571604 See Chuen Hong
-								return REGEX_START;
-							}
+(\".*{illegal_escape}.*) 	{yylval.name = "Syntax Error: Illegal escape sequence detected\n";
+        return ERROR;}
+		
+(\'.*{illegal_escape}.*) 	{yylval.name = "Syntax Error: Illegal escape sequence detected\n";
+        return ERROR;}	
+		
 
-null    {return NULL}; //n8706638 Chun Chan
+(\"(\\.|[^"\r\n])*\")    {
+	yylval.name = _strdup(yytext);
+	return STRING_L;
+	}
 
-true                        {   // N9871586	Xuelei Wang
-                                return TRUE; 
-							}
-break						{ // n9569898 Manh Tuan Nguyen
-								return BREAK;
-							}							
-(([1-9]{d}*|0)"."{d}*([eE](["+"-])?{d}+)?)|("."{d}+([eE](["+"-])?{d}+)?)	{
-								//John Tran
-								return DECIMAL;
-							}
-							
-`							{
-								//n9639799 Trung Hieu Tran
-								return TEMPLATE_LITERAL;
-							}
-							
-{W}
-.                           {
-                                fprintf(stderr, "invalid character '%c'\n", *yytext);
-                                exit(0);
-                            }
+	
+(\'(\\.|[^'\r\n])*\')    {
+	yylval.name = _strdup(yytext);
+	return STRING_L;
+	}
 
+
+(\'(\\.|[^'\r\n])*)     {yylval.name = "Syntax Error: String not ended, \"'\"expected\n";
+    return ERROR;}
+	
+(\"(\\.|[^"\r\n])*)     {yylval.name = "Syntax Error: String not ended, \"\"\"expected\n";
+    return ERROR;}
+	
+.* {yylval.name = "Syntax Error: unhandled pattern\n";
+        return ERROR;}
 %%
-
-int yywrap() {
+int yywrap()
+{
     return 1;
 }
