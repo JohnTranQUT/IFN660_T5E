@@ -1,14 +1,13 @@
 #pragma once
 
-enum yytokentype {
-	REGEX_START = 258, // N9571604 See Chuen Hong
-    TRUE = 259, // n9871586 Xuelei Wang
-	DECIMAL = 260, //n9301836 John Tran
-	BREAK = 300, //n9569898 Manh Tuan Nguyen
-	TEMPLATE_LITERAL //n9639799 Trung Hieu Tran
+enum yytokentype
+{
+	STRING_L = 264,
+	NULL_L = 265,
+	ERROR = 999
 };
-
-union YYSTYPE {
+typedef union YYSTYPE
+{
+	char* name;
 };
-
 extern YYSTYPE yylval;
