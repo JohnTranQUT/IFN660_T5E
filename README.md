@@ -1,13 +1,13 @@
-#Numeric Literals Scanner (John)
+# Numeric Literals Scanner (John)
 
-##Important Links
+## Important Links
 - [Flex Reference](http://www.delorie.com/gnu/docs/flex/flex.html)
 - [Google Doc Link](https://drive.google.com/open?id=0B9oGgiMd13T8TlFodFZ1dkstZ0k)
 - [ECMA Standard](http://www.ecma-international.org/ecma-262/7.0/index.html)
 - [FaceBook Group](https://www.facebook.com/groups/1294849777217759/)
 - [Readme.md cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-##Completed/Todos
+## Completed/Todos
 - [x] Initialization
 - [x] Identify Decimal with . only
 - [x] Identify Decimal with 0.
@@ -28,7 +28,7 @@
 - [x] Whitespace
 - [ ] Get test.js file working
 
-##Test Logs
+## Test Logs
 Literal Type | Test Result | Test Scripts | Remark
 --- | --- | --- | ---
 NUMERIC_Decimal_Integers | Passed | 0 <br/>423 | 
