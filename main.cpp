@@ -15,26 +15,6 @@ void main(int argc, char *argv[]) {
 		token = yylex();
 		printf("Next Token: ");
 		switch (token) {
-			case REGEX_START: {
-				puts("REGEX_START");
-				break;
-			}
-			case TRUE: {
-				puts("BooleanLiteral");
-				break;
-			}
-			case DECIMAL: {
-				puts("decimal");
-				break;
-			}
-			case BREAK:	{
-				printf("BREAK\n");		
-				break;			
-			}
-			case TEMPLATE_LITERAL: {
-				puts("TEMPLATE_LITERAL START");
-				break;
-			}
 			case 0: {
 				printf("EOF\n");
 				break;
