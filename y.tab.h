@@ -1,5 +1,4 @@
-enum yytokentype
-{
+enum yytokentype {
 	// JIN - START -------------------------------------------------------
 	BREAK = 258,
 	DO,
@@ -65,12 +64,15 @@ enum yytokentype
 	EXPASS,
 	DIVASS,
 	// JIN - END -------------------------------------------------------
+	// JASON - START -------------------------------------------------------
+	TEMPLATE_LITERAL,
+	// JASON - END -------------------------------------------------------
 };
 
-typedef union YYSTYPE
-{
+typedef union YYSTYPE {
 	char* name;
 	int num;
+	char* templateLiteral;
 };
 
 extern YYSTYPE yylval;

@@ -15,6 +15,14 @@ void main(int argc, char *argv[]) {
 		printf("Next Token: ");
 		switch (token) {
 
+			// JASON - START -------------------------------------------------------
+
+			case TEMPLATE_LITERAL:
+				printf("TEMPLATE_LITERAL (%s)\n", yylval.templateLiteral);
+				break;
+
+			// JASON - END -------------------------------------------------------
+
 			// JIN - START -------------------------------------------------------
 
 			case BREAK: puts("BREAK");
