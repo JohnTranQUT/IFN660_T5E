@@ -15,9 +15,9 @@ sourceChar [a-zA-Z0-9_ \n]
 _regex_char [^/]|(\\\/)
 _regex_flags [gimuy]
 
-LineTerminator (\x0D\x2028\x2029\x0A)
+LineTerminator (\x0D\x0A)
 LineCont (\\{LineTerminatorSeq})
-LineTerminatorSeq (\x0A\x0D|\x0D[^\x0A]|[\x0A\x2028\x2029])
+LineTerminatorSeq (\x0A\x0D|\x0D[^\x0A]|\x0A)
 EscSeq ({CharEscSeq}|0[^0-9]|{HexEscSeq}|{UnicodeEscSeq})
 CharEscSeq ([{SingleEscChar}]|{NonEscChar})
 SingleEscChar ('"\\bfnrtv)
@@ -25,8 +25,8 @@ NonEscChar ([^{EscChar}{LineTerminator}])
 EscChar ({SingleEscChar}0-9xu)
 HexEscSeq (x[0-9A-Fa-f]{2})
 UnicodeEscSeq (u([0-9A-Fa-f]{4})|\{[0-9A-Fa-f][0-9A-Fa-f]*\})
-DoubleStrChar ([ 0-9]|[^"\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
-SingleStrChar ([ 0-9]|[^'\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
+DoubleStrChar ([^"\\\x0D\x0A]|\\{EscSeq}|{LineCont})
+SingleStrChar ([^'\\\x0D\x0A]|\\{EscSeq}|{LineCont})
 
 %x template_head
 %x template_start
