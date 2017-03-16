@@ -1,5 +1,6 @@
 enum yytokentype
 {
+	// JIN - START -------------------------------------------------------
 	BREAK = 258,
 	DO,
 	IN,
@@ -62,8 +63,8 @@ enum yytokentype
 	ARROWF,
 	EXP,
 	EXPASS,
-	DIVASS
-
+	DIVASS,
+	// JIN - END -------------------------------------------------------
 };
 
 typedef union YYSTYPE

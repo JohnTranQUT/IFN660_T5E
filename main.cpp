@@ -14,6 +14,9 @@ void main(int argc, char *argv[]) {
 		token = yylex();
 		printf("Next Token: ");
 		switch (token) {
+
+			// JIN - START -------------------------------------------------------
+
 			case BREAK: puts("BREAK");
 				break;
 			case DO: puts("DO");
@@ -140,6 +143,8 @@ void main(int argc, char *argv[]) {
 				break;
 			case DIVASS: puts("'/='");
 				break;
+
+			// JIN - END -------------------------------------------------------
 
 			case 0:
 				puts("EOF");

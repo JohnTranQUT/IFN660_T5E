@@ -99,7 +99,6 @@ enum						{ return ENUM; }
 
 .                           { 
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
-                                exit(0);
                             }
 
 %%
