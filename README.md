@@ -9,7 +9,7 @@ If you want to modify your scanner files, please pull the master repository, cre
 ## Status
 Merging
 - [x] Alfred
-- [ ] Ray
+- [x] Ray
 - [x] Michael
 - [ ] Gem
 - [x] Jason
