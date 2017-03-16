@@ -142,6 +142,14 @@ null						{ return NULL_L; }
 
 0[xX][0-9a-fA-F]+		{ yylval.num = strtof(yytext, NULL); return HEXIDECIMAL; }
 
+true					{
+							return TRUE; 
+						}
+
+false                   {
+							return FALSE;
+						}
+
 break						{ return BREAK; }
 do							{ return DO; }
 in							{ return IN; }
@@ -230,14 +238,13 @@ enum						{ return ENUM; }
 "/"							{ return '/'; }
 "/="						{ return DIVASS; }
 
-{line_term}		{return LINE_TERM;}
+{line_term}					{ return LINE_TERM; }
 
 [ \r\n\t]                   /* skip whitespace */
 
 .                           {
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
                             }
-
 %%
 
 

@@ -83,19 +83,24 @@ enum yytokentype {
 	ERROR,
 	// MICHAEL - END -------------------------------------------------------
 
-	// JOHN - START
+	// JOHN - START -------------------------------------------------------
 	DECIMAL,
 	INTEGER,
 	BINARYSTART,
 	BINARY,
 	OCTALSTART,
 	OCTAL,
-	HEXIDECIMALSTART, //This is not required.
+	HEXIDECIMALSTART,
 	HEXIDECIMAL,
 	LINE_TERM,
 	COMMENT,
 	TEST,
-	// JOHN - END
+	// JOHN - END -------------------------------------------------------
+
+	// RAY - START -------------------------------------------------------
+	TRUE,
+	FALSE,
+	// RAY - END -------------------------------------------------------
 };
 
 union YYSTYPE {
@@ -112,4 +117,5 @@ union YYSTYPE {
 	float num;
 	
 };
+
 extern YYSTYPE yylval;

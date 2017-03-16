@@ -15,7 +15,20 @@ void main(int argc, char *argv[]) {
 		printf("Next Token: ");
 		switch (token) {
 
-			// JOHN - START
+			// RAY - START -------------------------------------------------------
+
+			case TRUE: {
+				printf("true \n");
+				break;
+			}
+			case FALSE: {
+				printf("false \n");
+				break;
+			}
+
+			// RAY - END -------------------------------------------------------
+
+			// JOHN - START -------------------------------------------------------
 
 			case DECIMAL:
 				printf("NUMBER DECIMAL (%f)\n", yylval.num);
@@ -45,7 +58,7 @@ void main(int argc, char *argv[]) {
 				printf("TEST (%s)\n", yylval.name);
 				break;
 
-			// JOHN - END
+			// JOHN - END -------------------------------------------------------
 
 			// MICHAEL - START -------------------------------------------------------
 
