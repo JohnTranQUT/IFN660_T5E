@@ -14,14 +14,6 @@ _regex_flags [gimuy]
 %x __REGEX_FLAGS
 
 %%
-[\/][*\/]						{	// Syntax Error: Illegal First Char
-									fprintf(stderr, "Syntax Error: Illegal First Char (%s)\n", _strdup(yytext));
-									exit(0);
-								}
-[\/]{_regex_char}*$				{	// Syntax Error: Regex Not Closing
-									fprintf(stderr, "Syntax Error: Regex Not Closing (%s)\n", _strdup(yytext));
-									exit(0);
-								}
 [\/]							{	// Regex Begins
 									yylval.regexStart = _strdup(yytext);
 									BEGIN(__REGEX);
