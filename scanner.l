@@ -1,7 +1,7 @@
 %{
 #include <y.tab.h>
-<<<<<<< HEAD
 #include <string>
+#include <cstdio>
 
 using namespace std;
 string templateLiteral;
@@ -9,13 +9,45 @@ string templateLiteral;
 
 digit [0-9]
 letter [a-zA-Z]
+
 sourceChar [a-zA-Z0-9_ \n]
+
+_regex_char [^/]|(\\\/)
+_regex_flags [gimuy]
 
 %x template_head
 %x template_start
 %x template_component
 
+%x __REGEX
+%x __REGEX_FLAGS
+
 %%
+
+[\/]/{_regex_char}+[\/]			{	// Regex Begins
+									yylval.regexStart = _strdup(yytext);
+									BEGIN(__REGEX);
+									return REGEX_START;
+								}
+<__REGEX>{_regex_char}*			{	// Regex Body
+									yylval.regexBody = _strdup(yytext);
+									return REGEX_BODY;
+								}
+<__REGEX>[\/]/{_regex_flags}+	{	// Regex Ends with Flags
+									yylval.regexEnd = _strdup(yytext);
+									BEGIN(__REGEX_FLAGS);
+									return REGEX_END;
+								}
+<__REGEX>[\/]					{	// Regex Ends without Flags
+									yylval.regexEnd = _strdup(yytext);
+									BEGIN(INITIAL);
+									return REGEX_END;
+								}
+<__REGEX_FLAGS>{_regex_flags}+	{	// Regex Flags
+									yylval.regexFlags = _strdup(yytext);
+									BEGIN(INITIAL);
+									return REGEX_FLAGS;
+								}
 
 `										{
 											BEGIN(template_start);								
@@ -154,53 +186,4 @@ enum						{ return ENUM; }
 
 int yywrap() {
 	return 1;
-=======
-#include <cstdio>
-%}
-
-d [0-9]
-w [a-zA-Z_]
-W [ \r\n\t]
-_regex_char [^/]|(\\\/)
-
-_regex_flags [gimuy]
-
-%x __REGEX
-%x __REGEX_FLAGS
-
-%%
-[\/]							{	// Regex Begins
-									yylval.regexStart = _strdup(yytext);
-									BEGIN(__REGEX);
-									return REGEX_START;
-								}
-<__REGEX>{_regex_char}*			{	// Regex Body
-									yylval.regexBody = _strdup(yytext);
-									return REGEX_BODY;
-								}
-<__REGEX>[\/]/{_regex_flags}+	{	// Regex Ends with Flags
-									yylval.regexEnd = _strdup(yytext);
-									BEGIN(__REGEX_FLAGS);
-									return REGEX_END;
-								}
-<__REGEX>[\/]					{	// Regex Ends without Flags
-									yylval.regexEnd = _strdup(yytext);
-									BEGIN(INITIAL);
-									return REGEX_END;
-								}
-<__REGEX_FLAGS>{_regex_flags}+	{	// Regex Flags
-									yylval.regexFlags = _strdup(yytext);
-									BEGIN(INITIAL);
-									return REGEX_FLAGS;
-								}
-{W}
-.								{
-									fprintf(stderr, "invalid character '%c'\n", *yytext);
-									exit(0);
-								}
-%%
-
-int yywrap() {
-    return 1;
->>>>>>> 0f6687b226cc5e9dc3b7a2afcec7040b9c813118
 }

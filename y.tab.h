@@ -65,9 +65,11 @@ enum yytokentype {
 	EXPASS,
 	DIVASS,
 	// JIN - END -------------------------------------------------------
+
 	// JASON - START -------------------------------------------------------
 	TEMPLATE_LITERAL,
 	// JASON - END -------------------------------------------------------
+
 	// ALFRED - START -------------------------------------------------------
 	REGEX_START,
 	REGEX_END,
@@ -77,13 +79,14 @@ enum yytokentype {
 };
 
 union YYSTYPE {
-	char* name;
-	int num;
+
 	char* templateLiteral;
+
 	char *regexStart;
 	char *regexEnd;
 	char *regexFlags;
 	char *regexBody;
+
 };
 
 extern YYSTYPE yylval;
