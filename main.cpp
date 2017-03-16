@@ -1,3 +1,4 @@
+
 #define _CRT_SECURE_NO_DEPRECATE 
 #include <cstdio>
 #include <y.tab.h>
@@ -5,8 +6,8 @@
 int yylex();
 YYSTYPE yylval;
 extern FILE *yyin;
-
 using namespace std;
+
 void main(int argc, char *argv[]) {
 	int token;
 	yyin = fopen(argv[1], "r");
@@ -14,6 +15,20 @@ void main(int argc, char *argv[]) {
 		token = yylex();
 		printf("Next Token: ");
 		switch (token) {
+
+			// MICHAEL - START -------------------------------------------------------
+
+			case STRING_L:
+				printf("String (%s)\n", yylval.name);
+				break;
+			case NULL_L:
+				printf("NULL Literal");
+				break;
+			case ERROR:
+				printf("ERROR, (%s)\n", yylval.name);
+				break;
+
+			// MICHAEL - END -------------------------------------------------------
 
 			// ALFRED - START -------------------------------------------------------
 

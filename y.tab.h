@@ -76,6 +76,12 @@ enum yytokentype {
 	REGEX_FLAGS,
 	REGEX_BODY,
 	// ALFRED - END -------------------------------------------------------
+
+	// MICHAEL - START -------------------------------------------------------
+	STRING_L,
+	NULL_L,
+	ERROR
+	// MICHAEL - END -------------------------------------------------------
 };
 
 union YYSTYPE {
@@ -87,6 +93,7 @@ union YYSTYPE {
 	char *regexFlags;
 	char *regexBody;
 
-};
+	char* name;
 
+};
 extern YYSTYPE yylval;
