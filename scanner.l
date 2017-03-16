@@ -75,7 +75,7 @@ SingleStrChar ([ 0-9]|[^'\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
 										}
 
 <template_component>{sourceChar}+/\}	{
-											printf("\t*)Literal component: ${%s} \n",yytext);									
+											printf("\tLiteral component: ${%s} \n",yytext);									
 											BEGIN(template_start);									
 											templateLiteral+=yytext;
 										}
