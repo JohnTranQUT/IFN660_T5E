@@ -1,9 +1,75 @@
-#pragma once
+enum yytokentype
+{
+	BREAK = 258,
+	DO,
+	IN,
+	TYPEOF,
+	CASE,
+	ELSE,
+	INSTANCEOF,
+	VAR,
+	CATCH,
+	EXPORT,
+	NEW,
+	VOID,
+	CLASS,
+	EXTENDS,
+	RETURN,
+	WHILE,
+	CONST,
+	FINALLY,
+	SUPER,
+	WITH,
+	CONTINUE,
+	FOR,
+	SWITCH,
+	YIELD,
+	DEBUGGER,
+	FUNCTION,
+	THIS,
+	DEFAULT,
+	IF,
+	THROW,
+	DELETE,
+	IMPORT,
+	TRY,
+	AWAIT,
+	ENUM,
+	TDOT,
+	LE,
+	GE,
+	EQ,
+	DIFF,
+	EQTYPE,
+	DFTYPE,
+	INCREASE,
+	DECREASE,
+	LSHIFT,
+	RSHIFT,
+	URSHIFT,
+	LOGAND,
+	LOOR,
+	ADDASS,
+	SUBASS,
+	MULASS,
+	REMASS,
+	LSHIFTASS,
+	RSHIFTASS,
+	URSHIFTASS,
+	BWANDASS,
+	BWORASS,
+	BWXORASS,
+	ARROWF,
+	EXP,
+	EXPASS,
+	DIVASS
 
-enum yytokentype {
 };
 
-union YYSTYPE {
+typedef union YYSTYPE
+{
+	char* name;
+	int num;
 };
 
 extern YYSTYPE yylval;
