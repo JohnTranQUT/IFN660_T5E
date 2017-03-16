@@ -29,7 +29,6 @@ DoubleStrChar ([^"\\\x0D\x0A]|\\{EscSeq}|{LineCont})
 SingleStrChar ([^'\\\x0D\x0A]|\\{EscSeq}|{LineCont})
 
 nonZeroDigit [1-9]
-line_term [\x0A\x0D\xE280AC\xE280A9]
 whitespace [\x09\x0B\x0C\x20\xC2A0\xEFBBBF]
 singleLineCommentStart "/""/"
 sourceCharNotTermLine [^\x0A\x0D\xE280AC\xE280A9]
@@ -230,7 +229,7 @@ enum						{ return ENUM; }
 "/"							{ return '/'; }
 "/="						{ return DIVASS; }
 
-{line_term}		{return LINE_TERM;}
+{LineTerminator}		{return LINE_TERM;}
 
 [ \r\n\t]                   /* skip whitespace */
 
