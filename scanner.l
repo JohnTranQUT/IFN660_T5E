@@ -14,7 +14,7 @@ HexEscSeq (x[0-9A-Fa-f]{2})
 UnicodeEscSeq (u([0-9A-Fa-f]{4})|\{[0-9A-Fa-f][0-9A-Fa-f]*\})
 DoubleStrChar ([^"\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
 SingleStrChar ([^'\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
-/* End of String */
+/* End of String regex */
 
 %%
 
