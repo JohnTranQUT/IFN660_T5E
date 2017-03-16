@@ -13,5 +13,5 @@ Merging
 - [x] Michael
 - [ ] Gem
 - [x] Jason
-- [ ] John
+- [x] John
 - [x] Jin
