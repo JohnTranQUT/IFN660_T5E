@@ -1,20 +1,36 @@
 
 %{
-#include <y.tab.h>
+#include <parser.h>
 #include <cstdio>
+
+int lines = 0;
 %}
 
-d [0-9]
-w [a-zA-Z_]
-W [ \r\n\t]
+digit [0-9]
+letter [a-zA-Z]
 
 %%
 
-[/]							{	// N9571604 See Chuen Hong
-								return REGEX_START;
-							}
-{W}
-.                           {
+if                          { return IF; }
+else                        { return ELSE; }
+int                         { return INT; }
+bool                        { return BOOL; }
+
+{letter}({letter}|{digit})* { return IDENT; }
+{digit}+                    { return NUMBER; }
+
+"="                         { return '='; }
+"+"                         { return '+'; }
+"<"                         { return '<'; }
+"("                         { return '('; }
+")"                         { return ')'; }
+"{"                         { return '{'; }
+"}"                         { return '}'; }
+";"                         { return ';'; }
+
+[ \r\n\t]                   /* skip whitespace */
+
+.                           { 
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
                                 exit(0);
                             }
@@ -23,4 +39,8 @@ W [ \r\n\t]
 
 int yywrap() {
     return 1;
+}
+
+void yyerror(char* message) {
+	fprintf(stderr, "Error: line %d, %s\n", lines, message);
 }
