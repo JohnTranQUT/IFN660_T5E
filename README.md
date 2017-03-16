@@ -10,7 +10,7 @@ If you want to modify your scanner files, please pull the master repository, cre
 Merging
 - [x] Alfred
 - [ ] Ray
-- [ ] Michael
+- [x] Michael
 - [ ] Gem
 - [x] Jason
 - [ ] John
