@@ -1,3 +1,4 @@
+#pragma once
 enum yytokentype {
 	// JIN - START -------------------------------------------------------
 	BREAK = 258,
@@ -67,12 +68,22 @@ enum yytokentype {
 	// JASON - START -------------------------------------------------------
 	TEMPLATE_LITERAL,
 	// JASON - END -------------------------------------------------------
+	// ALFRED - START -------------------------------------------------------
+	REGEX_START,
+	REGEX_END,
+	REGEX_FLAGS,
+	REGEX_BODY,
+	// ALFRED - END -------------------------------------------------------
 };
 
-typedef union YYSTYPE {
+union YYSTYPE {
 	char* name;
 	int num;
 	char* templateLiteral;
+	char *regexStart;
+	char *regexEnd;
+	char *regexFlags;
+	char *regexBody;
 };
 
 extern YYSTYPE yylval;

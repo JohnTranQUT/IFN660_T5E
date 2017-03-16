@@ -15,6 +15,27 @@ void main(int argc, char *argv[]) {
 		printf("Next Token: ");
 		switch (token) {
 
+			// ALFRED - START -------------------------------------------------------
+
+			case REGEX_START: {
+				printf("REGEX_START (%s)\n", yylval.regexStart);
+				break;
+			}
+			case REGEX_END: {
+				printf("REGEX_END (%s)\n", yylval.regexEnd);
+				break;
+			}
+			case REGEX_FLAGS: {
+				printf("REGEX_FLAGS (%s)\n", yylval.regexFlags);
+				break;
+			}
+			case REGEX_BODY: {
+				printf("REGEX_BODY (%s)\n", yylval.regexBody);
+				break;
+			}
+
+			// ALFRED - END -------------------------------------------------------
+
 			// JASON - START -------------------------------------------------------
 
 			case TEMPLATE_LITERAL:
@@ -156,6 +177,26 @@ void main(int argc, char *argv[]) {
 
 			case 0:
 				puts("EOF");
+=======
+			case REGEX_START: {
+				printf("REGEX_START (%s)\n", yylval.regexStart);
+				break;
+			}
+			case REGEX_END: {
+				printf("REGEX_END (%s)\n", yylval.regexEnd);
+				break;
+			}
+			case REGEX_FLAGS: {
+				printf("REGEX_FLAGS (%s)\n", yylval.regexFlags);
+				break;
+			}
+			case REGEX_BODY: {
+				printf("REGEX_BODY (%s)\n", yylval.regexBody);
+				break;
+			}
+			case 0: {
+				printf("EOF\n");
+>>>>>>> 0f6687b226cc5e9dc3b7a2afcec7040b9c813118
 				break;
 			default:
 				printf("'%c'\n", token);
