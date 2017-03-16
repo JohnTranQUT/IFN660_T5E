@@ -1,4 +1,4 @@
-# IFN660-T5E GitHub Repository
+<# IFN660-T5E GitHub Repository
 
 ## Message
 Merging Branches, Please do not modify your scanner code. 
@@ -12,6 +12,6 @@ Merging
 - [ ] Ray
 - [ ] Michael
 - [ ] Gem
-- [ ] Jason
+- [x] Jason
 - [ ] John
 - [x] Jin
