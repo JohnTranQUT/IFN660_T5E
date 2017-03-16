@@ -80,8 +80,22 @@ enum yytokentype {
 	// MICHAEL - START -------------------------------------------------------
 	STRING_L,
 	NULL_L,
-	ERROR
+	ERROR,
 	// MICHAEL - END -------------------------------------------------------
+
+	// JOHN - START
+	DECIMAL,
+	INTEGER,
+	BINARYSTART,
+	BINARY,
+	OCTALSTART,
+	OCTAL,
+	HEXIDECIMALSTART, //This is not required.
+	HEXIDECIMAL,
+	LINE_TERM,
+	COMMENT,
+	TEST,
+	// JOHN - END
 };
 
 union YYSTYPE {
@@ -94,6 +108,8 @@ union YYSTYPE {
 	char *regexBody;
 
 	char* name;
-
+	int integer;
+	float num;
+	
 };
 extern YYSTYPE yylval;

@@ -1,5 +1,4 @@
-
-#define _CRT_SECURE_NO_DEPRECATE 
+#define _CRT_SECURE_NO_DEPRECATE
 #include <cstdio>
 #include <y.tab.h>
 
@@ -15,6 +14,38 @@ void main(int argc, char *argv[]) {
 		token = yylex();
 		printf("Next Token: ");
 		switch (token) {
+
+			// JOHN - START
+
+			case DECIMAL:
+				printf("NUMBER DECIMAL (%f)\n", yylval.num);
+				break;
+			case INTEGER:
+				printf("NUMBER INTEGER (%d)\n", yylval.integer);
+				break;
+			case BINARYSTART:
+				printf("NUMBER BINARY START (%s)\n", yylval.name);
+				break;
+			case BINARY:
+				printf("NUMBER BINARY (%f)\n", yylval.num);
+				break;
+			case OCTAL:
+				printf("NUMBER OCTAL (%f)\n", yylval.num);
+				break;
+			case HEXIDECIMAL:
+				printf("NUMBER HEXIDECIMAL (%f)\n", yylval.num);
+				break;
+			case LINE_TERM:
+				printf("LINE TERMINATOR\n");
+				break;
+			case COMMENT:
+				printf("COMMENT (%s)\n", yylval.name);
+				break;
+			case TEST:
+				printf("TEST (%s)\n", yylval.name);
+				break;
+
+			// JOHN - END
 
 			// MICHAEL - START -------------------------------------------------------
 

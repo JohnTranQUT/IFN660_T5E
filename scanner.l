@@ -28,6 +28,16 @@ UnicodeEscSeq (u([0-9A-Fa-f]{4})|\{[0-9A-Fa-f][0-9A-Fa-f]*\})
 DoubleStrChar ([ 0-9]|[^"\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
 SingleStrChar ([ 0-9]|[^'\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
 
+nonZeroDigit [1-9]
+line_term [\x0A\x0D\xE280AC\xE280A9]
+whitespace [\x09\x0B\x0C\x20\xC2A0\xEFBBBF]
+singleLineCommentStart "/""/"
+sourceCharNotTermLine [^\x0A\x0D\xE280AC\xE280A9]
+multiLineCommentStart "/""*"
+multiLineCommentEnd "*""/"
+astrix ["*"]
+sourceCharNotAstrix [^"*"]
+
 %x template_head
 %x template_start
 %x template_component
@@ -35,7 +45,13 @@ SingleStrChar ([ 0-9]|[^'\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
 %x __REGEX
 %x __REGEX_FLAGS
 
+%x __BINARYSTART __OCTALSTART
+
 %%
+
+{singleLineCommentStart}{sourceCharNotTermLine}*{line_term}		{  yylval.name = _strdup(yytext); return COMMENT;}
+
+{multiLineCommentStart}{sourceCharNotAstrix}*{multiLineCommentEnd}		{ yylval.name = _strdup(yytext); return COMMENT;}
 
 [\/]/{_regex_char}+[\/]			{	// Regex Begins
 									yylval.regexStart = _strdup(yytext);
@@ -63,7 +79,7 @@ SingleStrChar ([ 0-9]|[^'\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
 								}
 
 `										{
-											BEGIN(template_start);								
+											BEGIN(template_start);
 											templateLiteral="";
 											printf("\n");
 										}
@@ -75,8 +91,8 @@ SingleStrChar ([ 0-9]|[^'\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
 										}
 
 <template_component>{sourceChar}+/\}	{
-											printf("\tLiteral component: ${%s} \n",yytext);									
-											BEGIN(template_start);									
+											printf("\tLiteral component: ${%s} \n",yytext);
+											BEGIN(template_start);
 											templateLiteral+=yytext;
 										}
 
@@ -86,14 +102,14 @@ SingleStrChar ([ 0-9]|[^'\\\x0D\x2028\x2029\x0A]|\\{EscSeq}|{LineCont})
 											templateLiteral+=yytext;
 										}
 <template_start>\}{sourceChar}*\`		{
-											//Literal tail								
-											templateLiteral+=yytext;								
+											//Literal tail
+											templateLiteral+=yytext;
 											yylval.templateLiteral=_strdup( templateLiteral.c_str());
 											BEGIN(0);
-											return TEMPLATE_LITERAL; 								
+											return TEMPLATE_LITERAL;
 										}
 <template_start>{sourceChar}*\`         {
-											//No substitution							
+											//No substitution
 											BEGIN(0);
 											templateLiteral+=yytext;
 											yylval.templateLiteral=_strdup( templateLiteral.c_str());
@@ -109,6 +125,22 @@ null						{ return NULL_L; }
 								yylval.name = _strdup(yytext);
 								return STRING_L;
 							}
+
+({nonZeroDigit}{digit}*|0)"."{digit}*([eE](["+"-])?{digit}+)?			{ yylval.num = atof(yytext); return DECIMAL; }
+
+"."{digit}+([eE](["+"-])?{digit}+)?										{ yylval.num = atof(yytext); return DECIMAL; }
+
+(0|({nonZeroDigit}{digit}*))([eE](["+"-])?{digit}+)?					{ yylval.num = atof(yytext); return DECIMAL; }
+
+0[bB]											{ yylval.name = _strdup(yytext); BEGIN(__BINARYSTART); return BINARYSTART; }
+
+<__BINARYSTART>[01]+							{ yylval.num = std::stoi(yytext, nullptr, 2); BEGIN(INITIAL); return BINARY; }
+
+0[oO]											{ yylval.name = _strdup(yytext); BEGIN(__OCTALSTART); return OCTALSTART; }
+
+<__OCTALSTART>[0-7]+							{ yylval.num = std::stoi(yytext, nullptr, 8); BEGIN(INITIAL); return OCTAL; }
+
+0[xX][0-9a-fA-F]+		{ yylval.num = strtof(yytext, NULL); return HEXIDECIMAL; }
 
 break						{ return BREAK; }
 do							{ return DO; }
@@ -190,7 +222,7 @@ enum						{ return ENUM; }
 ">>="						{ return RSHIFTASS; }
 ">>>="						{ return URSHIFTASS; }
 "&="						{ return BWANDASS; }
-"|="						{ return BWORASS; }	
+"|="						{ return BWORASS; }
 "^="						{ return BWXORASS; }
 "=>"						{ return ARROWF; }
 "**"						{ return EXP; }
@@ -198,9 +230,11 @@ enum						{ return ENUM; }
 "/"							{ return '/'; }
 "/="						{ return DIVASS; }
 
+{line_term}		{return LINE_TERM;}
+
 [ \r\n\t]                   /* skip whitespace */
 
-.                           { 
+.                           {
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
                             }
 
