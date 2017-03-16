@@ -1,9 +1,9 @@
-#Regular Expression Literals Scanner (Alfred)
+# Regular Expression Literals Scanner (Alfred)
 Notice: Syntax Error Detection has been removed. 
 
-##Todos
+## Todos
 
-##Completed
+## Completed
 - [x] Initialization
 - [x] Add REGEX_START
 - [x] Add REGEX_END
@@ -13,7 +13,7 @@ Notice: Syntax Error Detection has been removed.
 	- [x] ~~Illegal REGEX_FIRST_CHAR~~
 	- [x] ~~REGEX Not Closing~~
 
-##Test Logs
+## Test Logs
 Literal Type | Test Result | Test Scripts | Remark
 --- | --- | --- | ---
 REGEX_START | Passed | `/` | 
