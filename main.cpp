@@ -17,14 +17,11 @@ void main(int argc, char *argv[]) {
 
 			// RAY - START -------------------------------------------------------
 
-			case TRUE: {
-				printf("true \n");
+			case BooleanLiteral: {
+				printf("Boolean: (%s) \n", yylval.name);
 				break;
 			}
-			case FALSE: {
-				printf("false \n");
-				break;
-			}
+			
 
 			// RAY - END -------------------------------------------------------
 
