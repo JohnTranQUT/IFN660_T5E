@@ -65,9 +65,6 @@ void main(int argc, char *argv[]) {
 			case NULL_L:
 				printf("NULL Literal");
 				break;
-			case ERROR:
-				printf("ERROR, (%s)\n", yylval.name);
-				break;
 
 			// MICHAEL - END -------------------------------------------------------
 
