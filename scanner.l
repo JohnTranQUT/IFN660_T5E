@@ -141,12 +141,9 @@ null						{ return NULL_L; }
 
 0[xX][0-9a-fA-F]+		{ yylval.num = strtof(yytext, NULL); return HEXIDECIMAL; }
 
-true					{
-							return TRUE; 
-						}
-
-false                   {
-							return FALSE;
+true|false						{
+							yylval.name = _strdup(yytext);
+							return BooleanLiteral;
 						}
 
 break						{ return BREAK; }
