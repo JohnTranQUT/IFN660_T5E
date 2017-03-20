@@ -76,20 +76,8 @@ void main(int argc, char *argv[]) {
 
 			// ALFRED - START -------------------------------------------------------
 
-			case REGEX_START: {
-				printf("REGEX_START (%s)\n", yylval.regexStart);
-				break;
-			}
-			case REGEX_END: {
-				printf("REGEX_END (%s)\n", yylval.regexEnd);
-				break;
-			}
-			case REGEX_FLAGS: {
-				printf("REGEX_FLAGS (%s)\n", yylval.regexFlags);
-				break;
-			}
-			case REGEX_BODY: {
-				printf("REGEX_BODY (%s)\n", yylval.regexBody);
+			case REGEX_LITERAL: {
+				printf("REGEX_LITERAL (%s)\n", yylval.regexLiteral);
 				break;
 			}
 

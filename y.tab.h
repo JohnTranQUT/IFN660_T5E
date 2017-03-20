@@ -71,10 +71,7 @@ enum yytokentype {
 	// JASON - END -------------------------------------------------------
 
 	// ALFRED - START -------------------------------------------------------
-	REGEX_START,
-	REGEX_END,
-	REGEX_FLAGS,
-	REGEX_BODY,
+	REGEX_LITERAL,
 	// ALFRED - END -------------------------------------------------------
 
 	// MICHAEL - START -------------------------------------------------------
@@ -107,10 +104,7 @@ union YYSTYPE {
 
 	char* templateLiteral;
 
-	char *regexStart;
-	char *regexEnd;
-	char *regexFlags;
-	char *regexBody;
+	char *regexLiteral;
 
 	char* name;
 	int integer;

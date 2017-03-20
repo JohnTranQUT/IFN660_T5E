@@ -41,41 +41,18 @@ sourceCharNotAstrix [^"*"]
 %x template_start
 %x template_component
 
-%x __REGEX
-%x __REGEX_FLAGS
-
 %x __BINARYSTART __OCTALSTART
 
 %%
 
-{singleLineCommentStart}{sourceCharNotTermLine}*{line_term}		{  yylval.name = _strdup(yytext); return COMMENT;}
+{singleLineCommentStart}{sourceCharNotTermLine}*{LineTerminator}		{  yylval.name = _strdup(yytext); return COMMENT;}
 
 {multiLineCommentStart}{sourceCharNotAstrix}*{multiLineCommentEnd}		{ yylval.name = _strdup(yytext); return COMMENT;}
 
-[\/]/{_regex_char}+[\/]			{	// Regex Begins
-									yylval.regexStart = _strdup(yytext);
-									BEGIN(__REGEX);
-									return REGEX_START;
-								}
-<__REGEX>{_regex_char}*			{	// Regex Body
-									yylval.regexBody = _strdup(yytext);
-									return REGEX_BODY;
-								}
-<__REGEX>[\/]/{_regex_flags}+	{	// Regex Ends with Flags
-									yylval.regexEnd = _strdup(yytext);
-									BEGIN(__REGEX_FLAGS);
-									return REGEX_END;
-								}
-<__REGEX>[\/]					{	// Regex Ends without Flags
-									yylval.regexEnd = _strdup(yytext);
-									BEGIN(INITIAL);
-									return REGEX_END;
-								}
-<__REGEX_FLAGS>{_regex_flags}+	{	// Regex Flags
-									yylval.regexFlags = _strdup(yytext);
-									BEGIN(INITIAL);
-									return REGEX_FLAGS;
-								}
+[\/]{_regex_char}+[\/]{_regex_flags}*	{	// Regex Literal
+											yylval.regexLiteral = _strdup(yytext);
+											return REGEX_LITERAL;
+										}
 
 `										{
 											BEGIN(template_start);
