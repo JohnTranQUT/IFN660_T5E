@@ -1,38 +1,173 @@
-
 %{
 #include <parser.h>
 #include <cstdio>
 
 int lines = 0;
+
+using namespace std;
 %}
 
 digit [0-9]
 letter [a-zA-Z]
 
+sourceChar [a-zA-Z0-9_ \n]
+
+_regex_char [^/]|(\\\/)
+_regex_flags [gimuy]
+
+LineTerminator (\x0D\x0A)
+LineCont (\\{LineTerminatorSeq})
+LineTerminatorSeq (\x0A\x0D|\x0D[^\x0A]|\x0A)
+EscSeq ({CharEscSeq}|0[^0-9]|{HexEscSeq}|{UnicodeEscSeq})
+CharEscSeq ([{SingleEscChar}]|{NonEscChar})
+SingleEscChar ('"\\bfnrtv)
+NonEscChar ([^{EscChar}{LineTerminator}])
+EscChar ({SingleEscChar}0-9xu)
+HexEscSeq (x[0-9A-Fa-f]{2})
+UnicodeEscSeq (u([0-9A-Fa-f]{4})|\{[0-9A-Fa-f][0-9A-Fa-f]*\})
+DoubleStrChar ([^"\\\x0D\x0A]|\\{EscSeq}|{LineCont})
+SingleStrChar ([^'\\\x0D\x0A]|\\{EscSeq}|{LineCont})
+
+nonZeroDigit [1-9]
+whitespace [\x09\x0B\x0C\x20\xC2A0\xEFBBBF]
+singleLineCommentStart "/""/"
+sourceCharNotTermLine [^\x0A\x0D\xE280AC\xE280A9]
+multiLineCommentStart "/""*"
+multiLineCommentEnd "*""/"
+astrix ["*"]
+sourceCharNotAstrix [^"*"]
+
+%x template_head
+%x template_start
+%x template_component
+
+%x __BINARYSTART __OCTALSTART
+
 %%
 
-if                          { return IF; }
-else                        { return ELSE; }
-int                         { return INT; }
-bool                        { return BOOL; }
+{singleLineCommentStart}{sourceCharNotTermLine}*{LineTerminator}		{  return COMMENT;}
 
-{letter}({letter}|{digit})* { return IDENT; }
-{digit}+                    { return NUMBER; }
+{multiLineCommentStart}{sourceCharNotAstrix}*{multiLineCommentEnd}		{ return COMMENT;}
 
-"="                         { return '='; }
-"+"                         { return '+'; }
-"<"                         { return '<'; }
-"("                         { return '('; }
-")"                         { return ')'; }
-"{"                         { return '{'; }
-"}"                         { return '}'; }
-";"                         { return ';'; }
+[\/]{_regex_char}+[\/]{_regex_flags}*	{	// Regex Literal
+											return REGEX_LITERAL;
+										}
+
+null						{ return NULL_L; }
+
+(\"{DoubleStrChar}*\")		{
+								return STRING_L;
+							}
+(\'{SingleStrChar}*\')		{
+								return STRING_L;
+							}
+
+({nonZeroDigit}{digit}*|0)"."{digit}*([eE](["+"-])?{digit}+)?			{ return DECIMAL; }
+
+"."{digit}+([eE](["+"-])?{digit}+)?										{ return DECIMAL; }
+
+(0|({nonZeroDigit}{digit}*))([eE](["+"-])?{digit}+)?					{ return DECIMAL; }
+
+true|false			    {
+							return BooleanLiteral;
+						}
+
+break						{ return BREAK; }
+do							{ return DO; }
+in							{ return IN; }
+typeof						{ return TYPEOF; }
+case						{ return CASE; }
+else						{ return ELSE; }
+instanceof					{ return INSTANCEOF; }
+var							{ return VAR; }
+catch						{ return CATCH; }
+export						{ return EXPORT; }
+new							{ return NEW; }
+void						{ return VOID; }
+class						{ return CLASS; }
+extends						{ return EXTENDS; }
+return						{ return RETURN; }
+while						{ return WHILE; }
+const						{ return CONST; }
+finally						{ return FINALLY; }
+super						{ return SUPER; }
+with						{ return WITH; }
+continue					{ return CONTINUE; }
+for							{ return FOR; }
+switch						{ return SWITCH; }
+yield						{ return YIELD; }
+debugger					{ return DEBUGGER; }
+function					{ return FUNCTION; }
+this						{ return THIS; }
+default						{ return DEFAULT; }
+if							{ return IF; }
+throw						{ return THROW; }
+delete						{ return DELETE; }
+import						{ return IMPORT; }
+try							{ return TRY; }
+await						{ return AWAIT; }
+enum						{ return ENUM; }
+"{"							{ return '{'; }
+"}"							{ return '}'; }
+"("							{ return '('; }
+")"							{ return ')'; }
+"["							{ return '['; }
+"]"							{ return ']'; }
+"."							{ return '.'; }
+"..."						{ return TDOT; }
+";"							{ return ';'; }
+","							{ return ','; }
+"<"							{ return '<'; }
+">"							{ return '>'; }
+"<="						{ return LE; }
+">="						{ return GE; }
+"=="						{ return EQ; }
+"!="						{ return DIFF; }
+"==="						{ return EQTYPE; }
+"!=="						{ return DFTYPE; }
+"+"							{ return '+'; }
+"-"							{ return '-'; }
+"*"							{ return '*'; }
+"%"							{ return '%'; }
+"++"						{ return INCREASE; }
+"--"						{ return DECREASE; }
+"<<"						{ return LSHIFT; }
+">>"						{ return RSHIFT; }
+">>>"						{ return URSHIFT; }
+"&"							{ return '&'; }
+"|"							{ return '|'; }
+"^"							{ return '^'; }
+"!"							{ return '!'; }
+"~"							{ return '~'; }
+"&&"						{ return LOGAND; }
+"||"						{ return LOOR; }
+"?"							{ return '?'; }
+":"							{ return ':'; }
+"="							{ return '='; }
+"+="						{ return ADDASS; }
+"-="						{ return SUBASS; }
+"*="						{ return MULASS; }
+"%="						{ return REMASS; }
+"<<="						{ return LSHIFTASS; }
+">>="						{ return RSHIFTASS; }
+">>>="						{ return URSHIFTASS; }
+"&="						{ return BWANDASS; }
+"|="						{ return BWORASS; }
+"^="						{ return BWXORASS; }
+"=>"						{ return ARROWF; }
+"**"						{ return EXP; }
+"**="						{ return EXPASS; }
+"/"							{ return '/'; }
+"/="						{ return DIVASS; }
+
+([a-zA-Z]|[$_]|(\u[{]?[0-9a-fA-F]{4}[}]?))([0-9]|[a-zA-Z]|[$_]|(\u[{]?[0-9a-fA-F]{4}[}]?))* { return IDENT; }
+
+{LineTerminator}			{ return LINE_TERM; }
 
 [ \r\n\t]                   /* skip whitespace */
 
-.                           { 
+.                           {
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
-                                exit(0);
                             }
 
 %%

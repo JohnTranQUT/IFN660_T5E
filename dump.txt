@@ -1,0 +1,47 @@
+`										{
+											BEGIN(template_start);
+											templateLiteral="";
+											printf("\n");
+										}
+
+<template_start>{sourceChar}*\$\{		{
+											//Template head
+											BEGIN(template_component);
+											templateLiteral+=yytext;
+										}
+
+<template_component>{sourceChar}+/\}	{
+											printf("\tLiteral component: ${%s} \n",yytext);
+											BEGIN(template_start);
+											templateLiteral+=yytext;
+										}
+
+<template_start>\}{sourceChar}*\$\{		{
+											//Template middle
+											BEGIN(template_component);
+											templateLiteral+=yytext;
+										}
+<template_start>\}{sourceChar}*\`		{
+											//Literal tail
+											templateLiteral+=yytext;
+											yylval.templateLiteral=_strdup( templateLiteral.c_str());
+											BEGIN(0);
+											return TEMPLATE_LITERAL;
+										}
+<template_start>{sourceChar}*\`         {
+											//No substitution
+											BEGIN(0);
+											templateLiteral+=yytext;
+											yylval.templateLiteral=_strdup( templateLiteral.c_str());
+											return TEMPLATE_LITERAL;
+										}
+
+0[bB]											{ yylval.name = _strdup(yytext); BEGIN(__BINARYSTART); }
+
+<__BINARYSTART>[01]+							{ yylval.num = std::stoi(yytext, nullptr, 2); BEGIN(INITIAL); return BINARY; }
+
+0[oO]											{ yylval.name = _strdup(yytext); BEGIN(__OCTALSTART); }
+
+<__OCTALSTART>[0-7]+							{ yylval.num = std::stoi(yytext, nullptr, 8); BEGIN(INITIAL); return OCTAL; }
+
+0[xX][0-9a-fA-F]+		{ yylval.num = strtof(yytext, NULL); return HEXIDECIMAL; }
