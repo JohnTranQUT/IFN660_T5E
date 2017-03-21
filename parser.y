@@ -353,6 +353,8 @@ UpdateExpression
 	: LeftHandSideExpression
 	| LeftHandSideExpression INCREASE
 	| LeftHandSideExpression DECREASE
+	| INCREASE UnaryExpression
+	| DECREASE UnaryExpression
 	;
 
 /* END */
