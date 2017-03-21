@@ -10,3 +10,5 @@ The code is already tested without any compile error.
 - [ ] BinaryIntegerLiteral - John
 - [ ] OctalIntegerLiteral - John
 - [ ] HexIntegerLiteral - John
+
+Rules removed from scanner.l are stored in `dump.txt` file. Refer if needed.
