@@ -5,6 +5,18 @@
 - [x] OctalIntegerLiteral - John
 - [x] HexIntegerLiteral - John
 
+# ISSUES
+
+Block Statement with If Statement does not work. Hangs for:
+*__if (x = 42) { x = 42; } else { x = 43; }__*
+works for
+*__if (x = 42) x = 42; else x = 43;
+
+Also when *StatementList_opt* is changed to *StatementList* within *Block*:
+*__if (x = 42) { x = 42; } else { x = 43; }__*
+Test works fine
+
+
 ## **Parser** Grammer Rules
 **BOLD** are required
 Non-bold are not required and have points for expansion. Please mark completed and add where required.

@@ -69,8 +69,8 @@ Statement
 
 Declaration
 	: HoistableDeclaration //in extras
-	: ClassDeclaration // in extras
-	: LexicalDeclaration // in extras
+	| ClassDeclaration // in extras
+	| LexicalDeclaration // in extras
 	;
 
 /* Level 2 */
@@ -93,7 +93,7 @@ ExpressionStatement
 
 IfStatement
 	: IF '(' Expression ')' Statement ELSE Statement
-	: IF '(' Expression ')' Statement 
+	| IF '(' Expression ')' Statement 
 	;
 
 BreakableStatement
@@ -423,7 +423,7 @@ HoistableDeclaration
 
 ClassDeclaration
 	: CLASS BindingIdentifier ClassTail
-	: DEFAULT CLASS ClassTail
+	| DEFAULT CLASS ClassTail
 	;
 LexicalDeclaration
 	:
