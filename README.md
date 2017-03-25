@@ -7,8 +7,8 @@ The code is already tested without any compile error.
 
 **Scanner** rules require manual edit:
 - [ ] TemplateLiteral - Jason
-- [ ] BinaryIntegerLiteral - John
-- [ ] OctalIntegerLiteral - John
-- [ ] HexIntegerLiteral - John
+- [x] BinaryIntegerLiteral - John
+- [x] OctalIntegerLiteral - John
+- [x] HexIntegerLiteral - John
 
 Rules removed from scanner.l are stored in `dump.txt` file. Refer if needed.

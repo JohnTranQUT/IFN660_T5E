@@ -7,7 +7,7 @@
 %union {
 	char* regex;
 	char* str;
-	double decimal;
+	char* numberStr;
 	bool booelan;
 	char* ident;
 }
@@ -15,7 +15,7 @@
 %token COMMENT NULL_L
 %token <regex> REGEX_LITERAL
 %token <str> STRING_L
-%token <decimal> DECIMAL
+%token <numberStr> NUMERIC_L
 %token <bool> BooleanLiteral
 %token <ident> IDENT
 
@@ -284,10 +284,7 @@ BitwiseANDExpression
 	;
 
 NumericLiteral
-	: DecimalLiteral
-	| BinaryIntegerLiteral
-	| OctalIntegerLiteral
-	| HexIntegerLiteral
+	: NUMERIC_L
 	;
 
 /* Level 11 */
@@ -375,22 +372,6 @@ NullLiteral
 	;
 
 StringLiteral
-	:
-	;
-
-DecimalLiteral
-	: DECIMAL
-	;
-
-BinaryIntegerLiteral
-	:
-	;
-
-OctalIntegerLiteral
-	:
-	;
-
-HexIntegerLiteral
 	:
 	;
 

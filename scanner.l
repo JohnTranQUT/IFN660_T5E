@@ -50,14 +50,13 @@ OctalIntegerLiteral 0[oO]{OctalDigits}
 HexDigit [0-9a-fA-F]
 HexDigits {HexDigit}+
 HexIntegerLiteral 0[xX]{HexDigits}
-/* John Tran Commenting code */
+/* Comments Definitions */
 MultiLineNotForwardSlashOrAsteriskChar [^"/"^"*"]
 PostAsteriskCommentChars ({MultiLineNotForwardSlashOrAsteriskChar})
 MultiLineNotAsteriskChar [^"*"]
 MultiLineCommentChars (({MultiLineNotAsteriskChar})*|("*"{PostAsteriskCommentChars})*)+
 MultiLineCommentCharsopt {MultiLineCommentChars}?
 MultiLineComment "/""*"{MultiLineCommentCharsopt}"*""/"
-LineTerminator [\x0A\x0D\xE280AC\xE280A9]
 SingleLineCommentChars [^\x0A^\x0D^\xE280AC^\xE280A9]+
 SingleLineCommentCharsopt {SingleLineCommentChars}?
 SingleLineComment "/""/"{SingleLineCommentCharsopt}
@@ -66,13 +65,10 @@ SingleLineComment "/""/"{SingleLineCommentCharsopt}
 %x template_start
 %x template_component
 
-%x __BINARYSTART __OCTALSTART
-
 %%
 
-{singleLineCommentStart}{sourceCharNotTermLine}*{LineTerminator}		{  return COMMENT;}
 
-{multiLineCommentStart}{sourceCharNotAstrix}*{multiLineCommentEnd}		{ return COMMENT;}
+{MultiLineComment}|{SingleLineComment}		{  return COMMENT;}
 
 [\/]{_regex_char}+[\/]{_regex_flags}*	{	// Regex Literal
 											return REGEX_LITERAL;
@@ -87,11 +83,7 @@ null						{ return NULL_L; }
 								return STRING_L;
 							}
 
-({nonZeroDigit}{digit}*|0)"."{digit}*([eE](["+"-])?{digit}+)?			{ return DECIMAL; }
-
-"."{digit}+([eE](["+"-])?{digit}+)?										{ return DECIMAL; }
-
-(0|({nonZeroDigit}{digit}*))([eE](["+"-])?{digit}+)?					{ return DECIMAL; }
+{DecimalLiteral}|{BinaryIntegerLiteral}|{OctalIntegerLiteral}|{HexIntegerLiteral}		{ return NUMERIC_L;}
 
 true|false			    {
 							return BooleanLiteral;
