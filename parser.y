@@ -20,6 +20,7 @@
 %token <ident> IDENT
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
+%right ELSE
 
 %start Script
 
@@ -68,17 +69,19 @@ Statement
 	;
 
 Declaration
-	:
+	: HoistableDeclaration //in extras
+	: ClassDeclaration // in extras
+	: LexicalDeclaration // in extras
 	;
 
 /* Level 2 */
 
 BlockStatement
-	:
+	: Block //in extras
 	;
 
 VariableStatement
-	:
+	: VAR VariableDeclarationList //in extras
 	;
 
 EmptyStatement
@@ -90,7 +93,8 @@ ExpressionStatement
 	;
 
 IfStatement
-	:
+	: IF '(' Expression ')' Statement ELSE Statement
+	: IF '(' Expression ')' Statement 
 	;
 
 BreakableStatement
@@ -399,6 +403,71 @@ MultiplicativeOperator
 	;
 
 empty
+	:
+	;
+
+/* Extras */
+Block
+	: '{' StatementList_opt '}'
+	;
+
+StatementList_opt
+	: StatementList
+	| empty
+	;
+
+
+HoistableDeclaration
+	:
+	;
+
+ClassDeclaration
+	:
+	;
+LexicalDeclaration
+	:
+	;
+
+VariableDeclarationList
+	: VariableDeclaration
+	| VariableDeclarationList ',' VariableDeclaration
+	;
+
+VariableDeclaration
+	: BindingIdentifier Initializer_opt
+	| BindingPattern Initializer
+	;
+
+Initializer_opt
+	: Initializer
+	| empty
+	;
+
+Initializer
+	: '=' AssignmentExpression
+	;
+
+BindingIdentifier
+	: Identifier
+	| YIELD
+	;
+
+BindingPattern
+	: ObjectBindingPattern
+	| ArrayBindingPattern
+	;
+
+ObjectBindingPattern
+	: '{' '}'
+	| '{' BindingPropertyList '}'
+	| '{' BindingPropertyList ',' '}'
+	;
+
+ArrayBindingPattern
+	:
+	;
+
+BindingPropertyList
 	:
 	;
 

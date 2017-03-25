@@ -11,4 +11,25 @@ The code is already tested without any compile error.
 - [x] OctalIntegerLiteral - John
 - [x] HexIntegerLiteral - John
 
+
+**Parser Grammars added by John**
+- [x] **VariableStatement**
+	- [x] **VariableDeclarationList**
+		- [x] **VariableDeclaration**
+			- [x] **BindingIdentifier**
+				- [x] **Initializer_opt**
+				- [x] **Initializer**
+			- [x] **BindingPattern**
+				- [x] **ObjectBindingPattern**
+					- [ ] BindingPropertyList
+				- [ ] ArrayBindingPattern
+
+- [x] **Declaration**
+		- [ ] HoistableDeclaration
+		- [ ] ClassDeclaration
+		- [ ] LexicalDeclaration
+- [x] **IfStatement**
+- [x] **Block**
+	- [x] **StatementList_opt**
+
 Rules removed from scanner.l are stored in `dump.txt` file. Refer if needed.
