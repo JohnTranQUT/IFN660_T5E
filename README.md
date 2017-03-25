@@ -12,16 +12,15 @@ Block Statement with If Statement does not work.
 ```javascript
 if (x = 42) { x = 42; } else { x = 43; }
 ```
-<br/>works for
+works for
 ```javascript
 if (x = 42) x = 42; else x = 43;
 ```
-
 Also when *StatementList_opt* is changed to *StatementList* within *Block*:
 ```javascript
 if (x = 42) { x = 42; } else { x = 43; }
 ```
-<br/>Test works fine
+Test works fine
 
 
 # **Parser** Grammer Rules
