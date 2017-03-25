@@ -39,12 +39,13 @@ if (x = 42) { x = 42; } else { x = 43; }
 		- [ ] *FunctionDeclaration*
 		- [ ] *GeneratorDeclaration*
 	- [x] *ClassDeclaration* **UNSURE ABOUT DEFAULT**
-		- [x] *BindingIdentifier* ALREADY MADE
+		- [x] *BindingIdentifier* **ALREADY MADE**
 		- [ ] *ClassTail*
 	- [ ] *LexicalDeclaration*
 - [x] BlockStatement
-	- [x] *Block*
+	- [x] *Block* **PROBLEM HERE, HIGHLIGHTED UNDER ISSUES**
 		- [x] *StatementList_opt*
+			- [x] *StatementList* **ALREADY MADE**
 - [x] VariableStatement
 	- [x] *VariableDeclarationList*
 		- [x] *VariableDeclaration*
