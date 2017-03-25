@@ -37,6 +37,30 @@ multiLineCommentEnd "*""/"
 astrix ["*"]
 sourceCharNotAstrix [^"*"]
 
+/* John Tran DecimalLiteral */
+DecimalDigit [0-9]
+NonZeroDigit [1-9]
+DecimalDigits {DecimalDigit}+
+DecimalDigitsopt {DecimalDigits}?
+SignedInteger {DecimalDigits}|("+"{DecimalDigits})|("-"{DecimalDigits})
+ExponentIndicator [eE]
+ExponentPart {ExponentIndicator}{SignedInteger}
+ExponentPartopt {ExponentPart}?
+DecimalIntegerLiteral ([0]|({NonZeroDigit}{DecimalDigitsopt}))
+DecimalLiteral	({DecimalIntegerLiteral}"."{DecimalDigitsopt}{ExponentPartopt})|("."{DecimalDigits}{ExponentPartopt})|({DecimalIntegerLiteral}{ExponentPartopt})
+/* John Tran BinaryIntegerLiteral */
+BinaryDigit [01]
+BinaryDigits {BinaryDigit}+
+BinaryIntegerLiteral 0[bB]{BinaryDigits}
+/* John Tran OctalIntegerLiteral */
+OctalDigit [0-7]
+OctalDigits {OctalDigit}+
+OctalIntegerLiteral 0[oO]{OctalDigits}
+/* John Tran HexIntegerLiteral */
+HexDigit [0-9a-fA-F]
+HexDigits {HexDigit}+
+HexIntegerLiteral 0[xX]{HexDigits}
+
 %x template_head
 %x template_start
 %x template_component
