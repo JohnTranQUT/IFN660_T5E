@@ -21,8 +21,8 @@ Also when *StatementList_opt* is changed to *StatementList* within *Block*:
 
 ## **Parser** Grammer Rules
 **BOLD** are required
-Non-bold are not required and have points for expansion. Please mark completed and add where required.
-Please add when branching
+<br/>Non-bold are not required and have points for expansion.
+<br/>*Italics* Are expansion on a pont of expansion
 - [x] **Script**
 - [x] **ScriptBody_opt**
 - [x] **ScriptBody**
