@@ -16,9 +16,9 @@ Please add when branching
 - [x] **StatementListItem**
 - [x] **Statement**
 - [x] Declaration
-		- [ ] *HoistableDeclaration*
-		- [ ] *ClassDeclaration*
-		- [ ] *LexicalDeclaration*
+	- [ ] *HoistableDeclaration*
+	- [ ] *ClassDeclaration*
+	- [ ] *LexicalDeclaration*
 - [x] BlockStatement
 	- [x] *Block*
 		- [x] *StatementList_opt*
@@ -90,13 +90,5 @@ Please add when branching
 - [x] **MultiplicativeOperator**
 - [x] **empty**
 
-
-
-Parser Grammars added by John
-
-- [x] IfStatement
-- [x] BlockStatement
-	- [x] *Block*
-		- [x] *StatementList_opt*
 
 Rules removed from scanner.l are stored in `dump.txt` file. Refer if needed.
