@@ -468,7 +468,41 @@ ArrayBindingPattern
 	;
 
 BindingPropertyList
+	: BindingProperty
+	| BindingPropertyList ',' BindingProperty
+	;
+
+BindingProperty
+	: SingleNameBinding
+	| PropertyName ':' BindingElement
+	;
+
+SingleNameBinding
+	: BindingIdentifier Initializer_opt
+	;
+
+PropertyName
+	: LiteralPropertyName
+	| ComputedPropertyName
+	;
+
+BindingElement
 	:
+	;
+
+BindingIdentifier
+	: Identifier
+	| YIELD
+	;
+
+LiteralPropertyName
+	: IdentifierName
+	| StringLiteral
+	| NumericLiteral
+	;
+
+ComputedPropertyName
+	: '[' AssignmentExpression ']'
 	;
 
 %%

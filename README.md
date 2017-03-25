@@ -30,7 +30,16 @@ Please add when branching
 				- [x] *Initializer*
 			- [x] *BindingPattern*
 				- [x] *ObjectBindingPattern*
-					- [ ] *BindingPropertyList*
+					- [x] *BindingPropertyList*
+					- [x] *BindingProperty*
+						- [x] *SingleNameBinding*
+							- [x] *Initializer_opt* ALREADY MADE
+							- [x] *BindingIdentifier*
+						- [x] *PropertyName*
+							- [x] *LiteralPropertyName*
+							- [x] *ComputedPropertyName*
+						
+						- [ ] *BindingElement*
 				- [ ] *ArrayBindingPattern*
 - [x] **EmptyStatement**
 - [x] **ExpressionStatement**
