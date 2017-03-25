@@ -7,14 +7,16 @@
 
 # ISSUES
 
-Block Statement with If Statement does not work. Hangs for:
-*__if (x = 42) { x = 42; } else { x = 43; }__*
-works for
-*__if (x = 42) x = 42; else x = 43;
+Block Statement with If Statement does not work.
+<br/>Hangs for:
+<br/>*__if (x = 42) { x = 42; } else { x = 43; }__*
+
+<br/>works for
+<br/>*__if (x = 42) x = 42; else x = 43;__*
 
 Also when *StatementList_opt* is changed to *StatementList* within *Block*:
-*__if (x = 42) { x = 42; } else { x = 43; }__*
-Test works fine
+<br/>*__if (x = 42) { x = 42; } else { x = 43; }__*
+<br/>Test works fine
 
 
 ## **Parser** Grammer Rules
