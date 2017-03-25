@@ -487,7 +487,8 @@ PropertyName
 	;
 
 BindingElement
-	:
+	: SingleNameBinding
+	| BindingPattern Initializer_opt
 	;
 
 BindingIdentifier

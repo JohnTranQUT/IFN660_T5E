@@ -38,8 +38,8 @@ Please add when branching
 						- [x] *PropertyName*
 							- [x] *LiteralPropertyName*
 							- [x] *ComputedPropertyName*
-						
-						- [ ] *BindingElement*
+						- [x] *BindingElement*
+							- [x] *ALREADY MADE*
 				- [ ] *ArrayBindingPattern*
 - [x] **EmptyStatement**
 - [x] **ExpressionStatement**
