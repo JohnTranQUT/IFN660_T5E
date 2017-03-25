@@ -9,17 +9,22 @@
 
 Block Statement with If Statement does not work.
 <br/>Hangs for:
-<br/>*__if (x = 42) { x = 42; } else { x = 43; }__*
-
+```javascript
+if (x = 42) { x = 42; } else { x = 43; }
+```
 <br/>works for
-<br/>*__if (x = 42) x = 42; else x = 43;__*
+```javascript
+if (x = 42) x = 42; else x = 43;
+```
 
 Also when *StatementList_opt* is changed to *StatementList* within *Block*:
-<br/>*__if (x = 42) { x = 42; } else { x = 43; }__*
+```javascript
+if (x = 42) { x = 42; } else { x = 43; }
+```
 <br/>Test works fine
 
 
-## **Parser** Grammer Rules
+# **Parser** Grammer Rules
 **BOLD** are required
 <br/>Non-bold are not required and have points for expansion.
 <br/>*Italics* Are expansion on a pont of expansion
@@ -51,7 +56,7 @@ Also when *StatementList_opt* is changed to *StatementList* within *Block*:
 					- [x] *BindingPropertyList*
 					- [x] *BindingProperty*
 						- [x] *SingleNameBinding*
-							- [x] *Initializer_opt* ALREADY MADE
+							- [x] *Initializer_opt* **ALREADY MADE**
 							- [x] *BindingIdentifier*
 						- [x] *PropertyName*
 							- [x] *LiteralPropertyName*
@@ -63,12 +68,12 @@ Also when *StatementList_opt* is changed to *StatementList* within *Block*:
 						- [x] *Elision*
 					- [x] *BindingRestElement_opt*
 						- [x] *BindingRestElement*
-							- [x] *BindingIdentifier* ALREADY MADE
-							- [x] *BindingPattern* ALREADY MADE
+							- [x] *BindingIdentifier* **ALREADY MADE**
+							- [x] *BindingPattern* **ALREADY MADE**
 					- [x] *BindingElementList*
 						- [x] *BindingElisionElement*
-							- [x] *Elision_opt* ALREADY MADE
-							- [x] *BindingElement* ALREADY MADE
+							- [x] *Elision_opt* **ALREADY MADE**
+							- [x] *BindingElement* **ALREADY MADE**
 					
 - [x] **EmptyStatement**
 - [x] **ExpressionStatement**
