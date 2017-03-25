@@ -20,7 +20,6 @@
 %token <ident> IDENT
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
-%right ELSE
 
 %start Script
 
@@ -418,11 +417,13 @@ StatementList_opt
 
 
 HoistableDeclaration
-	:
+	: FunctionDeclaration
+	| GeneratorDeclaration
 	;
 
 ClassDeclaration
-	:
+	: CLASS BindingIdentifier ClassTail
+	: DEFAULT CLASS ClassTail
 	;
 LexicalDeclaration
 	:
@@ -464,7 +465,9 @@ ObjectBindingPattern
 	;
 
 ArrayBindingPattern
-	:
+	: '[' Elision_opt BindingRestElement_opt ']'
+	| '[' BindingElementList ']'
+	| '[' BindingElementList ',' Elision_opt BindingRestElement_opt ']'
 	;
 
 BindingPropertyList
@@ -505,5 +508,48 @@ LiteralPropertyName
 ComputedPropertyName
 	: '[' AssignmentExpression ']'
 	;
+
+
+FunctionDeclaration
+	: 
+	;
+
+GeneratorDeclaration
+	:
+	;
+
+ClassTail
+	:
+	;
+
+Elision_opt
+	: Elision
+	| empty
+	;
+
+Elision
+	: ','
+	| Elision ','
+	;
+
+BindingRestElement_opt
+	: BindingRestElement
+	| empty
+	;
+
+BindingRestElement
+	: TDOT BindingIdentifier
+	| TDOT BindingPattern
+	;
+
+BindingElementList
+	: BindingElisionElement
+	| BindingElementList ',' BindingElisionElement
+	;
+
+BindingElisionElement
+	: Elision_opt BindingElement
+	;
+
 
 %%

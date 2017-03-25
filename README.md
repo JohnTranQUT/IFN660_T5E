@@ -16,8 +16,12 @@ Please add when branching
 - [x] **StatementListItem**
 - [x] **Statement**
 - [x] Declaration
-	- [ ] *HoistableDeclaration*
-	- [ ] *ClassDeclaration*
+	- [x] *HoistableDeclaration*
+		- [ ] *FunctionDeclaration*
+		- [ ] *GeneratorDeclaration*
+	- [x] *ClassDeclaration* **UNSURE ABOUT DEFAULT**
+		- [x] *BindingIdentifier* ALREADY MADE
+		- [ ] *ClassTail*
 	- [ ] *LexicalDeclaration*
 - [x] BlockStatement
 	- [x] *Block*
@@ -40,7 +44,18 @@ Please add when branching
 							- [x] *ComputedPropertyName*
 						- [x] *BindingElement*
 							- [x] *ALREADY MADE*
-				- [ ] *ArrayBindingPattern*
+				- [x] *ArrayBindingPattern*
+					- [x] *Elision_opt*
+						- [x] *Elision*
+					- [x] *BindingRestElement_opt*
+						- [x] *BindingRestElement*
+							- [x] *BindingIdentifier* ALREADY MADE
+							- [x] *BindingPattern* ALREADY MADE
+					- [x] *BindingElementList*
+						- [x] *BindingElisionElement*
+							- [x] *Elision_opt* ALREADY MADE
+							- [x] *BindingElement* ALREADY MADE
+					
 - [x] **EmptyStatement**
 - [x] **ExpressionStatement**
 - [x] IfStatement
