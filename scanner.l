@@ -28,16 +28,9 @@ UnicodeEscSeq (u([0-9A-Fa-f]{4})|\{[0-9A-Fa-f][0-9A-Fa-f]*\})
 DoubleStrChar ([^"\\\x0D\x0A]|\\{EscSeq}|{LineCont})
 SingleStrChar ([^'\\\x0D\x0A]|\\{EscSeq}|{LineCont})
 
-nonZeroDigit [1-9]
 whitespace [\x09\x0B\x0C\x20\xC2A0\xEFBBBF]
-singleLineCommentStart "/""/"
-sourceCharNotTermLine [^\x0A\x0D\xE280AC\xE280A9]
-multiLineCommentStart "/""*"
-multiLineCommentEnd "*""/"
-astrix ["*"]
-sourceCharNotAstrix [^"*"]
 
-/* John Tran DecimalLiteral */
+/* Numeric Literal Definitions*/
 DecimalDigit [0-9]
 NonZeroDigit [1-9]
 DecimalDigits {DecimalDigit}+
@@ -48,18 +41,26 @@ ExponentPart {ExponentIndicator}{SignedInteger}
 ExponentPartopt {ExponentPart}?
 DecimalIntegerLiteral ([0]|({NonZeroDigit}{DecimalDigitsopt}))
 DecimalLiteral	({DecimalIntegerLiteral}"."{DecimalDigitsopt}{ExponentPartopt})|("."{DecimalDigits}{ExponentPartopt})|({DecimalIntegerLiteral}{ExponentPartopt})
-/* John Tran BinaryIntegerLiteral */
 BinaryDigit [01]
 BinaryDigits {BinaryDigit}+
 BinaryIntegerLiteral 0[bB]{BinaryDigits}
-/* John Tran OctalIntegerLiteral */
 OctalDigit [0-7]
 OctalDigits {OctalDigit}+
 OctalIntegerLiteral 0[oO]{OctalDigits}
-/* John Tran HexIntegerLiteral */
 HexDigit [0-9a-fA-F]
 HexDigits {HexDigit}+
 HexIntegerLiteral 0[xX]{HexDigits}
+/* John Tran Commenting code */
+MultiLineNotForwardSlashOrAsteriskChar [^"/"^"*"]
+PostAsteriskCommentChars ({MultiLineNotForwardSlashOrAsteriskChar})
+MultiLineNotAsteriskChar [^"*"]
+MultiLineCommentChars (({MultiLineNotAsteriskChar})*|("*"{PostAsteriskCommentChars})*)+
+MultiLineCommentCharsopt {MultiLineCommentChars}?
+MultiLineComment "/""*"{MultiLineCommentCharsopt}"*""/"
+LineTerminator [\x0A\x0D\xE280AC\xE280A9]
+SingleLineCommentChars [^\x0A^\x0D^\xE280AC^\xE280A9]+
+SingleLineCommentCharsopt {SingleLineCommentChars}?
+SingleLineComment "/""/"{SingleLineCommentCharsopt}
 
 %x template_head
 %x template_start
