@@ -43,6 +43,11 @@ StatementList
 	| StatementList StatementListItem
 	;
 
+StatementList_opt
+	: StatementList
+	| empty
+	;
+
 StatementListItem
 	: Statement
 	| Declaration
@@ -137,6 +142,10 @@ DebuggerStatement
 Expression
 	: AssignmentExpression
 	| Expression ',' AssignmentExpression
+	;
+
+Block
+	: '{' StatementList_opt '}'
 	;
 
 /* Level 4 */
@@ -406,14 +415,6 @@ empty
 	;
 
 /* Extras */
-Block
-	: '{' StatementList_opt '}'
-	;
-
-StatementList_opt
-	: StatementList
-	| empty
-	;
 
 
 HoistableDeclaration
