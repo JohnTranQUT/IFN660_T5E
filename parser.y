@@ -4,10 +4,15 @@
 	void yyerror(char*);
 %}
 
+%code top {
+	#include <typeinfo>
+	#include <ast.h>
+}
+
 %union {
 	char* regex;
 	char* str;
-	double decimal;
+	int decimal;
 	bool booelan;
 	char* ident;
 }
@@ -54,7 +59,7 @@ Statement
 	: BlockStatement
 	| VariableStatement
 	| EmptyStatement
-	| ExpressionStatement
+	| ExpressionStatement														{ $$ = new Script($1); }
 	| IfStatement
 	| BreakableStatement
 	| ContinueStatement
@@ -132,7 +137,7 @@ DebuggerStatement
 /* Level 3 */
 
 Expression
-	: AssignmentExpression
+	: AssignmentExpression														{ $$ = new ExpressionStatement($1); }
 	| Expression ',' AssignmentExpression
 	;
 
@@ -141,7 +146,7 @@ AssignmentExpression
 	: ConditionalExpression
 	| YieldExpression
 	| ArrowFunction
-	| LeftHandSideExpression '=' AssignmentExpression
+	| LeftHandSideExpression '=' AssignmentExpression							{ $$ = new AssignmentExpression($1, $3) }
 	| LeftHandSideExpression AssignmentOperator AssignmentExpression
 	;
 
@@ -359,7 +364,7 @@ UpdateExpression
 
 /* END */
 IdentifierName
-	: IDENT
+	: IDENT																		{ $$ = new Identifier($1); }
 	;
 
 TemplateLiteral
@@ -379,7 +384,7 @@ StringLiteral
 	;
 
 DecimalLiteral
-	: DECIMAL
+	: DECIMAL																	{ $$ = new DecimalLiteral($1); }
 	;
 
 BinaryIntegerLiteral
