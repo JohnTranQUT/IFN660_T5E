@@ -1,24 +1,53 @@
 #include <cstdio>
 #include <ast.h>
 
-Identifier::Identifier(char* _identifier) {
+using namespace std;
+
+Identifier::Identifier(char *_identifier) {
 	identifier = _identifier;
 }
 
-DecimalLiteral::DecimalLiteral(int _decimalLiteral) {
+void Identifier::dump() {
+	printf("Identifier (%s)\n", identifier);
+}
+
+DecimalLiteral::DecimalLiteral(double _decimalLiteral) {
 	decimalLiteral = _decimalLiteral;
 }
 
-AssignmentExpression::AssignmentExpression(Identifier _identifier, DecimalLiteral _decimalLiteral) {
+void DecimalLiteral::dump() {
+	printf("Decimal Literal (%f)\n", decimalLiteral);
+}
+
+AssignmentExpression::AssignmentExpression(Identifier* _identifier, DecimalLiteral* _decimalLiteral) {
 	identifier = _identifier;
 	decimalLiteral = _decimalLiteral;
 }
 
-ExpressionStatement::ExpressionStatement(AssignmentExpression _assignmentExpression) {
+void AssignmentExpression::dump() {
+	puts("AssignmentExpression: ");
+}
+
+ExpressionStatement::ExpressionStatement(AssignmentExpression *_assignmentExpression) {
 	assignmentExpression = _assignmentExpression;
 }
 
-Script::Script(ExpressionStatement _expressionStatement) {
+void ExpressionStatement::dump() {
+	puts("ExpressionStatement: ");
+}
+
+Statement::Statement(ExpressionStatement *_expressionStatement) {
 	expressionStatement = _expressionStatement;
 }
 
+void Statement::dump() {
+	puts("Statement: ");
+}
+
+Script::Script(Statement *_statement) {
+	statement = _statement;
+}
+
+void Script::dump() {
+	puts("Script: ");
+}

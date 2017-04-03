@@ -1,43 +1,51 @@
 #pragma once
 #include <cstdio>
 
-class Identifier {
-private:
+class Node {
+public:
+	virtual ~Node() = default;
+	virtual void dump() = 0;
+};
+
+class Identifier : public Node {
 	char* identifier;
 public:
-	Identifier(): identifier(nullptr) { } ;
 	explicit Identifier(char*);
+	void dump() override;
 };
 
-class DecimalLiteral {
-private:
-	int decimalLiteral;
+class DecimalLiteral : public Node {
+	double decimalLiteral;
 public:
-	DecimalLiteral(): decimalLiteral(0) { } ;
-	explicit DecimalLiteral(int);
+	explicit DecimalLiteral(double);
+	void dump() override;
 };
 
-class AssignmentExpression {
-private:
-	Identifier identifier;
-	DecimalLiteral decimalLiteral;
+class AssignmentExpression : public Node {
+	Identifier* identifier;
+	DecimalLiteral* decimalLiteral;
 public:
-	AssignmentExpression() { }
-	AssignmentExpression(Identifier, DecimalLiteral);
+	AssignmentExpression(Identifier*, DecimalLiteral*);
+	void dump() override;
 };
 
-class ExpressionStatement {
-private:
-	AssignmentExpression assignmentExpression;
+class ExpressionStatement : public Node {
+	AssignmentExpression* assignmentExpression;
 public:
-	ExpressionStatement() { }
-	explicit ExpressionStatement(AssignmentExpression);
+	explicit ExpressionStatement(AssignmentExpression*);
+	void dump() override;
 };
 
-class Script {
-private:
-	ExpressionStatement expressionStatement;
+class Statement : public Node {
+	ExpressionStatement* expressionStatement;
 public:
-	Script() { }
-	explicit Script(ExpressionStatement);
+	explicit Statement(ExpressionStatement*);
+	void dump() override;
+};
+
+class Script : public Node {
+	Statement* statement;
+public:
+	explicit Script(Statement*);
+	void dump() override;
 };
