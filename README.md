@@ -1,14 +1,16 @@
-# Bison Template
+# Abstract Syntax Tree - Alfred
 
-## Message
-This contains all the scanner and parser rules needed for `x = 42;` exercise. Pull this branch for resetting or Create branch based on this to modify the code if needed.
-The parser rules are ordered in a hierarchical structure while the leaves are placed in the "END" category and operator groups are placed in the "Utility" group.
-The code is already tested without any compile error.
-
-**Scanner** rules require manual edit:
-- [ ] TemplateLiteral - Jason
-- [ ] BinaryIntegerLiteral - John
-- [ ] OctalIntegerLiteral - John
-- [ ] HexIntegerLiteral - John
-
-Rules removed from scanner.l are stored in `dump.txt` file. Refer if needed.
+## Project Logs
+- Initialized main.cpp for AST testing
+- Initialized AST.h and AST.cpp
+- Initialized basic rules in AST.h and AST.cpp
+	- Node
+	- Script
+	- Statement
+	- ExpressionStatement
+	- Expression
+	- AssignmentExpression
+	- Identifier
+	- DecimalLiteral
+- Implemented basic rules
+- Implemented universal dump function
