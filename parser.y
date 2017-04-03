@@ -50,7 +50,7 @@ StatementList
 	;
 
 StatementListItem
-	: Statement																	{ $$ = new Script($1); root = $$; }
+	: Statement
 	| Declaration
 	;
 
@@ -60,7 +60,7 @@ Statement
 	: BlockStatement
 	| VariableStatement
 	| EmptyStatement
-	| ExpressionStatement														{ $$ = new Statement($1); }
+	| ExpressionStatement
 	| IfStatement
 	| BreakableStatement
 	| ContinueStatement
@@ -92,7 +92,7 @@ EmptyStatement
 	;
 
 ExpressionStatement
-	: Expression ';'															{ $$ = new ExpressionStatement($1); }
+	: Expression ';'
 	;
 
 IfStatement
@@ -138,7 +138,7 @@ DebuggerStatement
 /* Level 3 */
 
 Expression
-	: AssignmentExpression														{ $$ = new Expression($1); }
+	: AssignmentExpression
 	| Expression ',' AssignmentExpression
 	;
 
@@ -365,7 +365,7 @@ UpdateExpression
 
 /* END */
 IdentifierName
-	: IDENT																		{ $$ = new Identifier($1); }
+	: IDENT
 	;
 
 TemplateLiteral
@@ -385,7 +385,7 @@ StringLiteral
 	;
 
 DecimalLiteral
-	: DECIMAL																	{ $$ = new DecimalLiteral($1); }
+	: DECIMAL
 	;
 
 BinaryIntegerLiteral
