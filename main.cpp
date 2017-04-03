@@ -1,13 +1,11 @@
 #include <cstdio>
 #include <ast.h>
-//#include <parser.h>
+#include <parser.h>
 
-//extern FILE *yyin;
+extern FILE *yyin;
 
 using namespace std;
 void main(int argc, char *argv[]) {
-//	fopen_s(&yyin, argv[1], "r");	
-//	yyparse();
 	char* IDENT = "x";
 	double DECIMAL = 42;
 
@@ -15,9 +13,13 @@ void main(int argc, char *argv[]) {
 	auto decimalLiteral = new DecimalLiteral(DECIMAL);
 
 	auto assignmentExpression = new AssignmentExpression(identifier, decimalLiteral);
-	auto expressionStatement = new ExpressionStatement(assignmentExpression);
+	auto expression = new Expression(assignmentExpression);
+	auto expressionStatement = new ExpressionStatement(expression);
 	auto statement = new Statement(expressionStatement);
 	auto script = new Script(statement);
 
 	script->dump();
+
+	fopen_s(&yyin, argv[1], "r");
+	yyparse();
 }

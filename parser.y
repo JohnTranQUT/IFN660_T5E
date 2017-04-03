@@ -2,17 +2,18 @@
 	#include <cstdio>
 	int yylex();
 	void yyerror(char*);
+
+	Script* root;
 %}
 
 %code top {
-	#include <typeinfo>
 	#include <ast.h>
 }
 
 %union {
 	char* regex;
 	char* str;
-	int decimal;
+	double decimal;
 	bool booelan;
 	char* ident;
 }
@@ -49,7 +50,7 @@ StatementList
 	;
 
 StatementListItem
-	: Statement
+	: Statement																	{ $$ = new Script($1); root = $$; }
 	| Declaration
 	;
 
@@ -59,7 +60,7 @@ Statement
 	: BlockStatement
 	| VariableStatement
 	| EmptyStatement
-	| ExpressionStatement														{ $$ = new Script($1); }
+	| ExpressionStatement														{ $$ = new Statement($1); }
 	| IfStatement
 	| BreakableStatement
 	| ContinueStatement
@@ -91,7 +92,7 @@ EmptyStatement
 	;
 
 ExpressionStatement
-	: Expression ';'
+	: Expression ';'															{ $$ = new ExpressionStatement($1); }
 	;
 
 IfStatement
@@ -137,7 +138,7 @@ DebuggerStatement
 /* Level 3 */
 
 Expression
-	: AssignmentExpression														{ $$ = new ExpressionStatement($1); }
+	: AssignmentExpression														{ $$ = new Expression($1); }
 	| Expression ',' AssignmentExpression
 	;
 
@@ -146,7 +147,7 @@ AssignmentExpression
 	: ConditionalExpression
 	| YieldExpression
 	| ArrowFunction
-	| LeftHandSideExpression '=' AssignmentExpression							{ $$ = new AssignmentExpression($1, $3) }
+	| LeftHandSideExpression '=' AssignmentExpression
 	| LeftHandSideExpression AssignmentOperator AssignmentExpression
 	;
 

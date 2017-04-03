@@ -73,9 +73,32 @@ void AssignmentExpression::setIndent(int _indent) {
 	indent = _indent;
 }
 
-ExpressionStatement::ExpressionStatement(AssignmentExpression *_assignmentExpression) {
+Expression::Expression(AssignmentExpression *_assignmentExpression) {
 	assignmentExpression = _assignmentExpression;
 	next.push_back(assignmentExpression);
+	history.emplace(history.begin(), this);
+}
+
+void Expression::dump(int currentLevel) {
+	setIndent(currentLevel);
+	indentation(indent);
+	puts("Expression: ");
+	for (auto &i : next) {
+		i->dump(indent + 1);
+	}
+}
+
+int Expression::getIndent() {
+	return indent;
+}
+
+void Expression::setIndent(int _indent) {
+	indent = _indent;
+}
+
+ExpressionStatement::ExpressionStatement(Expression *_expression) {
+	expression = _expression;
+	next.push_back(expression);
 	history.emplace(history.begin(), this);
 }
 

@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdio>
 #include <vector>
 
 using namespace std;
@@ -47,12 +46,23 @@ public:
 	void setIndent(int) override;
 };
 
-class ExpressionStatement : public Node {
+class Expression : public Node {
 	int indent = 0;
 	vector<Node*> next;
 	AssignmentExpression* assignmentExpression;
 public:
-	explicit ExpressionStatement(AssignmentExpression*);
+	explicit Expression(AssignmentExpression*);
+	void dump(int = 0) override;
+	int getIndent() override;
+	void setIndent(int) override;
+};
+
+class ExpressionStatement : public Node {
+	int indent = 0;
+	vector<Node*> next;
+	Expression* expression;
+public:
+	explicit ExpressionStatement(Expression*);
 	void dump(int = 0) override;
 	int getIndent() override;
 	void setIndent(int) override;
