@@ -1,91 +1,70 @@
 #pragma once
+#include <string>
 #include <vector>
 
 using namespace std;
+
 class Node {
 public:
-	static vector<Node*> history;
 	virtual ~Node() = default;
 	virtual void dump(int = 0) = 0;
-	virtual int getIndent() = 0;
-	virtual void setIndent(int) = 0;
+	static void dump(string, int);
 	static void indentation(int);
 };
 
 class Identifier : public Node {
-	int indent = 0;
 	vector<Node*> next;
-	char* identifier;
+	char *identifier;
 public:
-	explicit Identifier(char*);
+	explicit Identifier(char *);
 	void dump(int = 0) override;
-	int getIndent() override;
-	void setIndent(int) override;
 };
 
 class DecimalLiteral : public Node {
-	int indent = 0;
 	vector<Node*> next;
 	double decimalLiteral;
 public:
 	explicit DecimalLiteral(double);
 	void dump(int = 0) override;
-	int getIndent() override;
-	void setIndent(int) override;
 };
 
 class AssignmentExpression : public Node {
-	int indent = 0;
 	vector<Node*> next;
-	Identifier* identifier;
-	DecimalLiteral* decimalLiteral;
+	Identifier *identifier;
+	DecimalLiteral *decimalLiteral;
 public:
-	AssignmentExpression(Identifier*, DecimalLiteral*);
+	AssignmentExpression(Identifier *, DecimalLiteral *);
 	void dump(int = 0) override;
-	int getIndent() override;
-	void setIndent(int) override;
 };
 
 class Expression : public Node {
-	int indent = 0;
 	vector<Node*> next;
-	AssignmentExpression* assignmentExpression;
+	AssignmentExpression *assignmentExpression;
 public:
-	explicit Expression(AssignmentExpression*);
+	explicit Expression(AssignmentExpression *);
 	void dump(int = 0) override;
-	int getIndent() override;
-	void setIndent(int) override;
 };
 
 class ExpressionStatement : public Node {
-	int indent = 0;
 	vector<Node*> next;
-	Expression* expression;
+	Expression *expression;
 public:
-	explicit ExpressionStatement(Expression*);
+	explicit ExpressionStatement(Expression *);
 	void dump(int = 0) override;
-	int getIndent() override;
-	void setIndent(int) override;
 };
 
 class Statement : public Node {
-	int indent = 0;
 	vector<Node*> next;
-	ExpressionStatement* expressionStatement;
+	ExpressionStatement *expressionStatement;
 public:
-	explicit Statement(ExpressionStatement*);
+	explicit Statement(ExpressionStatement *);
 	void dump(int = 0) override;
-	int getIndent() override;
-	void setIndent(int) override;
 };
 
 class Script : public Node {
-	int indent = 0;
 	vector<Node*> next;
-	Statement* statement;
+	Statement *statement;
 public:
-	explicit Script(Statement*);
+	explicit Script(Statement *);
 	void dump(int = 0) override;
-	int getIndent() override;
-	void setIndent(int) override;
 };

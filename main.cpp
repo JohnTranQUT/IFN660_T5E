@@ -5,8 +5,9 @@
 extern FILE *yyin;
 
 using namespace std;
+
 void main(int argc, char *argv[]) {
-	char* IDENT = "x";
+	char *IDENT = "x";
 	double DECIMAL = 42;
 
 	auto identifier = new Identifier(IDENT);
