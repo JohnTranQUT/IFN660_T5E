@@ -42,9 +42,9 @@ public:
 
 class DecimalLiteral : public Expression {
 	vector<Node*> next;
-	double decimalLiteral;
+	char* decimalLiteral;
 public:
-	explicit DecimalLiteral(double);
+	explicit DecimalLiteral(char*);
 	void dump(int = 0) override;
 };
 

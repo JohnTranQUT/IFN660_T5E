@@ -35,10 +35,10 @@ void Identifier::dump(int indent) {
 	Node::dump(message, indent);
 }
 
-DecimalLiteral::DecimalLiteral(double _decimalLiteral) : decimalLiteral(_decimalLiteral) { }
+DecimalLiteral::DecimalLiteral(char* _decimalLiteral) : decimalLiteral(_decimalLiteral) { }
 
 void DecimalLiteral::dump(int indent) {
-	auto message = "DecimalLiteral (" + to_string(decimalLiteral) + ")";
+	auto message = "DecimalLiteral (" + string(decimalLiteral) + ")";
 	Node::dump(message, indent);
 }
 

@@ -1,14 +1,9 @@
 %{
 	#include <cstdio>
+	#include "ast.h"
 	int yylex();
 	void yyerror(char*);
-
-	Script* root;
 %}
-
-%code top {
-	#include <ast.h>
-}
 
 %union {
 	char* regex;
@@ -16,6 +11,10 @@
 	char* numberStr;
 	bool booelan;
 	char* ident;
+	
+	Script* script;
+	Statement* statement;
+	Expression* expression;
 }
 
 %token COMMENT NULL_L
@@ -27,11 +26,11 @@
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
-%start Script
+%start script
 
 %%
 
-Script
+script
 	: ScriptBody_opt
 	;
 
@@ -55,13 +54,13 @@ StatementList_opt
 	;
 
 StatementListItem
-	: Statement
+	: statement														{ $$ = new Script($1); }
 	| Declaration
 	;
 
 /* Level 1 */
 
-Statement
+statement
 	: BlockStatement
 	| VariableStatement
 	| EmptyStatement
@@ -99,12 +98,12 @@ EmptyStatement
 	;
 
 ExpressionStatement
-	: Expression ';'
+	: expression ';'												{ $$ = new ExpressionStatement($1); }
 	;
 
 IfStatement
-	: IF '(' Expression ')' Statement ELSE Statement
-	| IF '(' Expression ')' Statement 
+	: IF '(' expression ')' statement ELSE statement
+	| IF '(' expression ')' statement 
 	;
 
 BreakableStatement
@@ -145,9 +144,9 @@ DebuggerStatement
 
 /* Level 3 */
 
-Expression
+expression
 	: AssignmentExpression
-	| Expression ',' AssignmentExpression
+	| expression ',' AssignmentExpression
 	;
 
 Block
@@ -159,7 +158,7 @@ AssignmentExpression
 	: ConditionalExpression
 	| YieldExpression
 	| ArrowFunction
-	| LeftHandSideExpression '=' AssignmentExpression
+	| LeftHandSideExpression '=' AssignmentExpression							{ $$ = new AssignmentExpression($1, $3); }
 	| LeftHandSideExpression AssignmentOperator AssignmentExpression
 	;
 
@@ -200,7 +199,7 @@ LogicalORExpression
 /* Level 7 */
 MemberExpression
 	: PrimaryExpression
-	| MemberExpression '[' Expression ']'
+	| MemberExpression '[' expression ']'
 	| MemberExpression '.' IdentifierName
 	| MemberExpression TemplateLiteral
 	| SuperProperty
@@ -251,14 +250,14 @@ BitwiseORExpression
 
 /* Level 9 */
 IdentifierReference
-	: Identifier
+	: Identifier											{ $$ = new IdentifierReference($1); }
 	| YIELD
 	;
 
 Literal
 	: NullLiteral
 	| BooleanLiteral
-	| NumericLiteral
+	| NumericLiteral										{ $$ = new Literal($1); }
 	| StringLiteral
 	;
 
@@ -293,7 +292,7 @@ BitwiseXORExpression
 
 /* Level 10 */
 Identifier
-	: IdentifierName
+	: IdentifierName												{ $$ = new Identifier($1); }
 	;
 
 BitwiseANDExpression
@@ -302,7 +301,7 @@ BitwiseANDExpression
 	;
 
 NumericLiteral
-	: NUMERIC_L
+	: NUMERIC_L														{ $$ = new DecimalLiteral($1); }
 	;
 
 /* Level 11 */
