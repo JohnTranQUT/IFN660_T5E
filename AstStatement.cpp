@@ -1,4 +1,4 @@
-#include <iostream>
+#include <typeinfo>
 #include <AstNode.h>
 #include <AstExpression.h>
 #include <AstStatement.h>
@@ -10,11 +10,9 @@ ExpressionStatement::ExpressionStatement(Expression *_expression) : expression(_
 }
 
 void ExpressionStatement::dump(int indent) {
-	auto message = "ExpressionStatement: ";
+	auto message = string(typeid(this).name()) + ": ";
 	Node::dump(message, indent);
-	Node::dump("{", indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
-	Node::dump("}", indent);
 }

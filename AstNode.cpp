@@ -12,7 +12,7 @@ void Node::dump(string message, int indent) {
 
 void Node::indentation(int indent) {
 	for (auto i = 0; i < indent; i++) {
-		printf("\t");
+		printf("  ");
 	}
 }
 
@@ -21,9 +21,7 @@ Container::Container(vector<Node *> _next, string _name) : next(_next), name(_na
 void Container::dump(int indent) {
 	auto message = name + ": ";
 	Node::dump(message, indent);
-	Node::dump("{", indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
-	Node::dump("}", indent);
 }

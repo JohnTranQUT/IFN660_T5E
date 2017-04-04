@@ -8,7 +8,7 @@ using namespace std;
 class Statement : public Node {
 public:
 	virtual ~Statement() = default;
-	virtual void dump(int = 0) = 0;
+	void dump(int = 0) override = 0;
 };
 
 class ExpressionStatement : public Statement {
