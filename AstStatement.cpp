@@ -10,7 +10,7 @@ ExpressionStatement::ExpressionStatement(Expression *_expression) : expression(_
 }
 
 void ExpressionStatement::dump(int indent) {
-	auto message = string(typeid(*this).name()) + ": ";
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);

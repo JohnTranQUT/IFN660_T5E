@@ -10,7 +10,7 @@ StatementListItem::StatementListItem(Statement *_statement) : statement(_stateme
 }
 
 void StatementListItem::dump(int indent) {
-	auto message = string(typeid(*this).name()) + ": ";
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
@@ -29,7 +29,7 @@ StatementList::StatementList(StatementList *_statementlist, Node *_node) : node(
 }
 
 void StatementList::dump(int indent) {
-	auto message = string(typeid(*this).name()) + ": ";
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
 	for (auto &i : nodes) {
 		i->dump(indent + 1);
@@ -41,7 +41,7 @@ ScriptBody::ScriptBody(StatementList *_statementlist) : statementlist(_statement
 }
 
 void ScriptBody::dump(int indent) {
-	auto message = string(typeid(*this).name()) + ": ";
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
@@ -53,7 +53,7 @@ ScriptBody_opt::ScriptBody_opt(Node *_node) : node(_node) {
 }
 
 void ScriptBody_opt::dump(int indent) {
-	auto message = string(typeid(*this).name()) + ": ";
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
@@ -65,7 +65,7 @@ Script::Script(Node *_node) : node(_node) {
 }
 
 void Script::dump(int indent) {
-	auto message = string(typeid(*this).name()) + ": ";
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
