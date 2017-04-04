@@ -12,6 +12,14 @@ public:
 	static void indentation(int);
 };
 
+class Container : public Node {
+	vector<Node*> next;
+	string name;
+public:
+	explicit Container(vector<Node*>, string);
+	void dump(int = 0) override;
+};
+
 class Identifier : public Node {
 	vector<Node*> next;
 	char *identifier;
@@ -28,12 +36,28 @@ public:
 	void dump(int = 0) override;
 };
 
-class AssignmentExpression : public Node {
+class Literal : public Node {
 	vector<Node*> next;
-	Identifier *identifier;
 	DecimalLiteral *decimalLiteral;
 public:
-	AssignmentExpression(Identifier *, DecimalLiteral *);
+	explicit Literal(DecimalLiteral *);
+	void dump(int = 0) override;
+};
+
+class IdentifierReference : public Node {
+	vector<Node*> next;
+	Identifier *identifier;
+public:
+	explicit IdentifierReference(Identifier *);
+	void dump(int = 0) override;
+};
+
+class AssignmentExpression : public Node {
+	vector<Node*> next;
+	IdentifierReference *identifierReference;
+	Literal *literal;
+public:
+	explicit AssignmentExpression(IdentifierReference *, Literal *);
 	void dump(int = 0) override;
 };
 

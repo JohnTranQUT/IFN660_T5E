@@ -13,7 +13,10 @@ void main(int argc, char *argv[]) {
 	auto identifier = new Identifier(IDENT);
 	auto decimalLiteral = new DecimalLiteral(DECIMAL);
 
-	auto assignmentExpression = new AssignmentExpression(identifier, decimalLiteral);
+	auto identifierReference = new IdentifierReference(identifier);
+	auto literal = new Literal(decimalLiteral);
+
+	auto assignmentExpression = new AssignmentExpression(identifierReference, literal);
 	auto expression = new Expression(assignmentExpression);
 	auto expressionStatement = new ExpressionStatement(expression);
 	auto statement = new Statement(expressionStatement);
