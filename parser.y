@@ -5,23 +5,23 @@
 	#include "AstStatement.h"
 	#include "AstScript.h"
 	int yylex();
-	void yyerror(char*);
+	void yyerror(char *);
 }
 
 %union {
-	char* regex;
-	char* str;
+	char *regex;
+	char * str;
 	double decimal;
-	char* binary;
-	char* octal;
-	char* hex;
+	char *binary;
+	char *octal;
+	char *hex;
 	bool booelan;
-	char* ident;
+	char *ident;
 
-	Node* root;
-	StatementList* statementlist;
-	Statement* statement;
-	Expression* expression;
+	Node *root;
+	StatementList *statementlist;
+	Statement *statement;
+	Expression *expression;
 }
 
 %token COMMENT NULL_L

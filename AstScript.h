@@ -18,7 +18,7 @@ class StatementList : public Node {
 public:
 	vector<Node*> nodes;
 	explicit StatementList(Node *);
-	explicit StatementList(StatementList*, Node *);
+	explicit StatementList(StatementList *, Node *);
 	void dump(int = 0) override;
 };
 
