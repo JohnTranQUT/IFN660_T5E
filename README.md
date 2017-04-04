@@ -1,4 +1,4 @@
-# Abstract Syntax Tree - Alfred
+# Abstract Syntax Tree
 
 ## Project Logs
 - Initialized main.cpp for AST testing
@@ -14,3 +14,45 @@
 	- DecimalLiteral
 - Implemented basic rules
 - Implemented universal dump function
+- Seperated AST rules into four sections
+	- AstNode
+	- AstScript
+	- AstStatement
+	- AstExpression
+- Fixed NumericLiteral incompleteness in scanner.l
+- Implemented all formal rules needed for x = 42; to work
+	- Node
+	- Script
+		- ScriptBody_opt
+		- ScriptBody
+		- StatementList
+		- StatementListItem
+	- Statement
+		- ExpressionStatement
+	- Expression
+		- AssignmentExpression
+		- ConditionalExpression
+		- LogicalORExpression
+		- LogicalANDExpression
+		- BitwiseORExpression
+		- BitwiseXORExpression
+		- BitwiseANDExpression
+		- EqualityExpression
+		- RelationalExpression
+		- ShiftExpression
+		- AdditiveExpression
+		- MultiplicativeExpression
+		- ExponentiationExpression
+		- UnaryExpression
+		- UpdateExpression
+		- LeftHandSideExpression
+		- NewExpression
+		- MemberExpression
+		- PrimaryExpression
+		- IdentifierReference
+		- Identifier
+		- IdentifierName
+		- Literal
+		- NumericLiteral
+		- DecimalLiteral
+- Implemented Full StatementList to support multiple StatementListItem
