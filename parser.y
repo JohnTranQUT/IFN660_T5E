@@ -1,9 +1,9 @@
-%{
+%code requires {
 	#include <cstdio>
 	#include "ast.h"
 	int yylex();
 	void yyerror(char*);
-%}
+}
 
 %union {
 	char* regex;
@@ -35,7 +35,7 @@
 %%
 
 Script
-	: Statement														{ $$ = new Script($1); }
+	: Statement														{ $$ = new Script($1); $$->dump(); }
 	;
 
 Statement

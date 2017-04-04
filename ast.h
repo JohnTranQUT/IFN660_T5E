@@ -50,26 +50,26 @@ public:
 
 class Literal : public Expression {
 	vector<Node*> next;
-	DecimalLiteral *decimalLiteral;
+	Expression *decimalLiteral;
 public:
-	explicit Literal(DecimalLiteral *);
+	explicit Literal(Expression *);
 	void dump(int = 0) override;
 };
 
 class IdentifierReference : public Expression {
 	vector<Node*> next;
-	Identifier *identifier;
+	Expression *identifier;
 public:
-	explicit IdentifierReference(Identifier *);
+	explicit IdentifierReference(Expression *);
 	void dump(int = 0) override;
 };
 
 class AssignmentExpression : public Expression {
 	vector<Node*> next;
-	IdentifierReference *identifierReference;
-	Literal *literal;
+	Expression *identifierReference;
+	Expression *literal;
 public:
-	explicit AssignmentExpression(IdentifierReference *, Literal *);
+	explicit AssignmentExpression(Expression *, Expression *);
 	void dump(int = 0) override;
 };
 

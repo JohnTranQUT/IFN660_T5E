@@ -31,18 +31,18 @@ void Container::dump(int indent) {
 Identifier::Identifier(char *_identifier) : identifier(_identifier) { }
 
 void Identifier::dump(int indent) {
-	auto message = "Identifier (" + string(identifier) + ")";
+	auto message = "Identifier";
 	Node::dump(message, indent);
 }
 
 DecimalLiteral::DecimalLiteral(char* _decimalLiteral) : decimalLiteral(_decimalLiteral) { }
 
 void DecimalLiteral::dump(int indent) {
-	auto message = "DecimalLiteral (" + string(decimalLiteral) + ")";
+	auto message = "DecimalLiteral";
 	Node::dump(message, indent);
 }
 
-Literal::Literal(DecimalLiteral *_decimalLiteral) : decimalLiteral(_decimalLiteral) {
+Literal::Literal(Expression *_decimalLiteral) : decimalLiteral(_decimalLiteral) {
 	next.push_back(decimalLiteral);
 }
 
@@ -56,7 +56,7 @@ void Literal::dump(int indent) {
 	Node::dump("}", indent);
 }
 
-IdentifierReference::IdentifierReference(Identifier *_identifier) : identifier(_identifier) {
+IdentifierReference::IdentifierReference(Expression *_identifier) : identifier(_identifier) {
 	next.push_back(identifier);
 }
 
@@ -70,7 +70,7 @@ void IdentifierReference::dump(int indent) {
 	Node::dump("}", indent);
 }
 
-AssignmentExpression::AssignmentExpression(IdentifierReference *_identifierReference, Literal *_literal) : identifierReference(_identifierReference), literal(_literal) {
+AssignmentExpression::AssignmentExpression(Expression *_identifierReference, Expression *_literal) : identifierReference(_identifierReference), literal(_literal) {
 	vector<Node*> children1 = { identifierReference };
 	vector<Node*> children2 = { literal };
 	auto container1 = new Container(children1, "(Dummy) LeftHandSizeExpression");
