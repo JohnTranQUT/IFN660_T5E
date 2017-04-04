@@ -83,7 +83,22 @@ null						{ return NULL_L; }
 								return STRING_L;
 							}
 
-{DecimalLiteral}|{BinaryIntegerLiteral}|{OctalIntegerLiteral}|{HexIntegerLiteral}		{ return NUMERIC_L;}
+{DecimalLiteral}			{
+								yylval.decimal = atof(yytext);
+								return DECIMAL_L;
+							}
+
+{BinaryIntegerLiteral}		{
+								return BINARY_L;
+							}
+
+{OctalIntegerLiteral}		{
+								return OCTAL_L;
+							}
+
+{HexIntegerLiteral}			{
+								return HEX_L;
+							}
 
 true|false			    {
 							return BooleanLiteral;
@@ -177,7 +192,7 @@ enum						{ return ENUM; }
 "/"							{ return '/'; }
 "/="						{ return DIVASS; }
 
-([a-zA-Z]|[$_]|(\u[{]?[0-9a-fA-F]{4}[}]?))([0-9]|[a-zA-Z]|[$_]|(\u[{]?[0-9a-fA-F]{4}[}]?))* { return IDENT; }
+([a-zA-Z]|[$_]|(\u[{]?[0-9a-fA-F]{4}[}]?))([0-9]|[a-zA-Z]|[$_]|(\u[{]?[0-9a-fA-F]{4}[}]?))* { yylval.ident = _strdup(yytext); return IDENT; }
 
 {LineTerminator}			{ return LINE_TERM; }
 

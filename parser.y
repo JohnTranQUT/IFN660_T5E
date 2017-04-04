@@ -1,6 +1,9 @@
 %code requires {
 	#include <cstdio>
-	#include "ast.h"
+	#include "AstNode.h"
+	#include "AstExpression.h"
+	#include "AstStatement.h"
+	#include "AstScript.h"
 	int yylex();
 	void yyerror(char*);
 }
@@ -8,11 +11,14 @@
 %union {
 	char* regex;
 	char* str;
-	char* numberStr;
+	double decimal;
+	char* binary;
+	char* octal;
+	char* hex;
 	bool booelan;
 	char* ident;
 	
-	Script* script;
+	Node* root;
 	Statement* statement;
 	Expression* expression;
 }
@@ -20,13 +26,16 @@
 %token COMMENT NULL_L
 %token <regex> REGEX_LITERAL
 %token <str> STRING_L
-%token <numberStr> NUMERIC_L
+%token <decimal> DECIMAL_L
+%token <binary> BINARY_L
+%token <octal> OCTAL_L
+%token <hex> HEX_L
 %token <bool> BooleanLiteral
 %token <ident> IDENT
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
-%type <script> Script
+%type <root> Script
 %type <statement> Statement ExpressionStatement
 %type <expression> AssignmentExpression IdentifierReference Literal Identifier DecimalLiteral Expression
 
@@ -67,7 +76,7 @@ Identifier
 	;
 
 DecimalLiteral
-	: NUMERIC_L														{ $$ = new DecimalLiteral($1); }
+	: DECIMAL_L														{ $$ = new DecimalLiteral($1); }
 	;
 
 %%

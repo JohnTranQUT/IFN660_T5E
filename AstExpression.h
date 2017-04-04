@@ -1,35 +1,13 @@
 #pragma once
-#include <string>
 #include <vector>
+#include <AstNode.h>
 
 using namespace std;
-
-class Node {
-public:
-	virtual ~Node() = default;
-	virtual void dump(int = 0) = 0;
-	static void dump(string, int);
-	static void indentation(int);
-};
-
-class Statement : public Node {
-public:
-	virtual ~Statement() = default;
-	virtual void dump(int = 0) = 0;
-};
 
 class Expression : public Node {
 public:
 	virtual ~Expression() = default;
 	virtual void dump(int = 0) = 0;
-};
-
-class Container : public Node {
-	vector<Node*> next;
-	string name;
-public:
-	explicit Container(vector<Node*>, string);
-	void dump(int = 0) override;
 };
 
 class Identifier : public Expression {
@@ -42,9 +20,9 @@ public:
 
 class DecimalLiteral : public Expression {
 	vector<Node*> next;
-	char* decimalLiteral;
+	double decimalLiteral;
 public:
-	explicit DecimalLiteral(char*);
+	explicit DecimalLiteral(double);
 	void dump(int = 0) override;
 };
 
@@ -70,22 +48,5 @@ class AssignmentExpression : public Expression {
 	Expression *literal;
 public:
 	explicit AssignmentExpression(Expression *, Expression *);
-	void dump(int = 0) override;
-};
-
-
-class ExpressionStatement : public Statement {
-	vector<Node*> next;
-	Expression *expression;
-public:
-	explicit ExpressionStatement(Expression *);
-	void dump(int = 0) override;
-};
-
-class Script : public Node {
-	vector<Node*> next;
-	Statement *statement;
-public:
-	explicit Script(Statement *);
 	void dump(int = 0) override;
 };
