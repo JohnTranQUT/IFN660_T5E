@@ -2,7 +2,13 @@
 	#include <cstdio>
 	int yylex();
 	void yyerror(char*);
+
+	Script* root;
 %}
+
+%code top {
+	#include <ast.h>
+}
 
 %union {
 	char* regex;
