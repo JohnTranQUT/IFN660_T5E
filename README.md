@@ -56,3 +56,5 @@
 		- NumericLiteral
 		- DecimalLiteral
 - Implemented Full StatementList to support multiple StatementListItem
+- Implemented Full RelationalExpression and EqualityExpression
+- Implemented Full IfStatement, BlockStatement, and Block
