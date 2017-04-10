@@ -187,8 +187,14 @@ void ShiftExpression::dump(int indent) {
 	}
 }
 
-RelationalExpression::RelationalExpression(Expression *_LHS) : LHS(_LHS) {
+RelationalExpression::RelationalExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr), op(nullptr) {
 	next.push_back(LHS);
+}
+
+RelationalExpression::RelationalExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS), RHS(_RHS), op(_op) {
+	vector<Node *> components = { LHS, RHS };
+	auto container = new Container(components, "('" + string(op) + "' OP)");
+	next.push_back(container);
 }
 
 void RelationalExpression::dump(int indent) {
@@ -199,8 +205,14 @@ void RelationalExpression::dump(int indent) {
 	}
 }
 
-EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS) {
+EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr), op(nullptr) {
 	next.push_back(LHS);
+}
+
+EqualityExpression::EqualityExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS), RHS(_RHS), op(_op) {
+	vector<Node *> components = { LHS, RHS };
+	auto container = new Container(components, "('" + string(op) + "' OP)");
+	next.push_back(container);
 }
 
 void EqualityExpression::dump(int indent) {

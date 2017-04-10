@@ -36,9 +36,9 @@
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
-%type <statementlist> StatementList
+%type <statementlist> StatementList StatementList_opt
 %type <root> Script ScriptBody_opt ScriptBody StatementListItem
-%type <statement> Statement ExpressionStatement
+%type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
 %type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName
 
@@ -51,12 +51,17 @@ Script
 	;
 
 ScriptBody_opt
-	: ScriptBody																{ $$ = new ScriptBody_opt($1); }
+	: ScriptBody																{ $$ = $1 }
 	| empty
 	;
 
 ScriptBody
 	: StatementList																{ $$ = new ScriptBody($1); }
+	;
+
+StatementList_opt
+	: StatementList																{ $$ = $1; }
+	| empty
 	;
 
 StatementList
@@ -76,7 +81,7 @@ Statement
 	| VariableStatement
 	| EmptyStatement
 	| ExpressionStatement														{ $$ = $1; }
-	| IfStatement
+	| IfStatement																{ $$ = $1; }
 	| BreakableStatement
 	| ContinueStatement
 	| BreakStatement
@@ -95,7 +100,7 @@ Declaration
 /* Level 2 */
 
 BlockStatement
-	:
+	: Block																		{ $$ = new BlockStatement($1); }
 	;
 
 VariableStatement
@@ -111,7 +116,8 @@ ExpressionStatement
 	;
 
 IfStatement
-	:
+	: IF '(' Expression ')' Statement ELSE Statement							{ $$ = new IfStatement($3, $5, $7); }
+	| IF '(' Expression ')' Statement											{ $$ = new IfStatement($3, $5); }
 	;
 
 BreakableStatement
@@ -151,6 +157,10 @@ DebuggerStatement
 	;
 
 /* Level 3 */
+
+Block
+	: '{' StatementList_opt '}'													{ $$ = new Block($2); }
+	;
 
 Expression
 	: AssignmentExpression														{ $$ = $1; }
@@ -314,21 +324,21 @@ NumericLiteral
 /* Level 11 */
 EqualityExpression
 	: RelationalExpression														{ $$ = new EqualityExpression($1); }
-	| EqualityExpression EQ RelationalExpression
-	| EqualityExpression DIFF RelationalExpression
-	| EqualityExpression EQTYPE RelationalExpression
-	| EqualityExpression DFTYPE RelationalExpression
+	| EqualityExpression EQ RelationalExpression								{ $$ = new EqualityExpression($1, $3, "=="); }
+	| EqualityExpression DIFF RelationalExpression								{ $$ = new EqualityExpression($1, $3, "!="); }
+	| EqualityExpression EQTYPE RelationalExpression							{ $$ = new EqualityExpression($1, $3, "==="); }
+	| EqualityExpression DFTYPE RelationalExpression							{ $$ = new EqualityExpression($1, $3, "!=="); }
 	;
 
 /* Level 12 */
 RelationalExpression
 	: ShiftExpression															{ $$ = new RelationalExpression($1); }
-	| RelationalExpression '<' ShiftExpression
-	| RelationalExpression '>' ShiftExpression
-	| RelationalExpression LE ShiftExpression
-	| RelationalExpression GE ShiftExpression
-	| RelationalExpression INSTANCEOF ShiftExpression
-	| RelationalExpression IN ShiftExpression
+	| RelationalExpression '<' ShiftExpression									{ $$ = new RelationalExpression($1, $3, "<"); }
+	| RelationalExpression '>' ShiftExpression									{ $$ = new RelationalExpression($1, $3, ">"); }
+	| RelationalExpression LE ShiftExpression									{ $$ = new RelationalExpression($1, $3, "<="); }
+	| RelationalExpression GE ShiftExpression									{ $$ = new RelationalExpression($1, $3, ">="); }
+	| RelationalExpression INSTANCEOF ShiftExpression							{ $$ = new RelationalExpression($1, $3, "instanceof"); }
+	| RelationalExpression IN ShiftExpression									{ $$ = new RelationalExpression($1, $3, "in"); }
 	;
 
 /* Level 13 */

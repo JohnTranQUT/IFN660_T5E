@@ -48,18 +48,6 @@ void ScriptBody::dump(int indent) {
 	}
 }
 
-ScriptBody_opt::ScriptBody_opt(Node *_node) : node(_node) {
-	next.push_back(node);
-}
-
-void ScriptBody_opt::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
-	Node::dump(message, indent);
-	for (auto &i : next) {
-		i->dump(indent + 1);
-	}
-}
-
 Script::Script(Node *_node) : node(_node) {
 	next.push_back(node);
 }

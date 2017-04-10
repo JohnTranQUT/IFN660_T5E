@@ -3,6 +3,7 @@
 #include <AstNode.h>
 #include <AstStatement.h>
 
+class Statement;
 using namespace std;
 
 class StatementListItem : public Node {
@@ -22,6 +23,8 @@ public:
 	void dump(int = 0) override;
 };
 
+class StatementList_opt : public Node { };
+
 class ScriptBody : public Node {
 	vector<Node*> next;
 	StatementList *statementlist;
@@ -30,13 +33,7 @@ public:
 	void dump(int = 0) override;
 };
 
-class ScriptBody_opt : public Node {
-	vector<Node*> next;
-	Node *node;
-public:
-	explicit ScriptBody_opt(Node *);
-	void dump(int = 0) override;
-};
+class ScriptBody_opt : public Node { };
 
 class Script : public Node {
 	vector<Node*> next;

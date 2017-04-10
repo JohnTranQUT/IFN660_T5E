@@ -139,16 +139,22 @@ public:
 class RelationalExpression : public Expression {
 	vector<Node*> next;
 	Expression *LHS;
+	Expression *RHS;
+	char *op;
 public:
 	explicit RelationalExpression(Expression *);
+	explicit RelationalExpression(Expression *, Expression *, char *);
 	void dump(int = 0) override;
 };
 
 class EqualityExpression : public Expression {
 	vector<Node*> next;
 	Expression *LHS;
+	Expression *RHS;
+	char *op;
 public:
 	explicit EqualityExpression(Expression *);
+	explicit EqualityExpression(Expression *, Expression *, char *);
 	void dump(int = 0) override;
 };
 
