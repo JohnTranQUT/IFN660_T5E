@@ -1,8 +1,8 @@
+#define _CRT_SECURE_NO_DEPRECATE
 #include <cstdio>
 #include <parser.h>
 
 extern FILE *yyin;
-
 using namespace std;
 
 void main(int argc, char *argv[]) {

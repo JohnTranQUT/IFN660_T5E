@@ -1,4 +1,7 @@
-# Abstract Syntax Tree
+# IFN645-T5E Github Repository
+
+## Current Status
+Abstract Syntax Tree
 
 ## Project Logs
 - Initialized main.cpp for AST testing

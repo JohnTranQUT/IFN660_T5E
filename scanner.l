@@ -201,11 +201,11 @@ enum						{ return ENUM; }
 .                           {
                                 fprintf(stderr, "invalid character '%c'\n", *yytext);
                             }
-
 %%
 
+
 int yywrap() {
-    return 1;
+	return 1;
 }
 
 void yyerror(char* message) {
