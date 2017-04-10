@@ -4,25 +4,10 @@
 Abstract Syntax Tree
 
 ## Project Logs
-- Initialized main.cpp for AST testing
-- Initialized AST.h and AST.cpp
-- Initialized basic rules in AST.h and AST.cpp
-	- Node
-	- Script
-	- Statement
-	- ExpressionStatement
-	- Expression
-	- AssignmentExpression
-	- Identifier
-	- DecimalLiteral
-- Implemented basic rules
-- Implemented universal dump function
-- Seperated AST rules into four sections
-	- AstNode
-	- AstScript
-	- AstStatement
-	- AstExpression
-- Fixed NumericLiteral incompleteness in scanner.l
+This list is inversed, meaning latest log at the top while oldest log at the bottom
+- Implemented Full IfStatement, BlockStatement, and Block
+- Implemented Full RelationalExpression and EqualityExpression
+- Implemented Full StatementList to support multiple StatementListItem
 - Implemented all formal rules needed for x = 42; to work
 	- Node
 	- Script
@@ -58,6 +43,22 @@ Abstract Syntax Tree
 		- Literal
 		- NumericLiteral
 		- DecimalLiteral
-- Implemented Full StatementList to support multiple StatementListItem
-- Implemented Full RelationalExpression and EqualityExpression
-- Implemented Full IfStatement, BlockStatement, and Block
+- Fixed NumericLiteral incompleteness in scanner.l
+- Seperated AST rules into four sections
+	- AstNode
+	- AstScript
+	- AstStatement
+	- AstExpression
+- Implemented universal dump function
+- Implemented basic rules
+- Initialized basic rules in AST.h and AST.cpp
+	- Node
+	- Script
+	- Statement
+	- ExpressionStatement
+	- Expression
+	- AssignmentExpression
+	- Identifier
+	- DecimalLiteral
+- Initialized AST.h and AST.cpp
+- Initialized main.cpp for AST testing
