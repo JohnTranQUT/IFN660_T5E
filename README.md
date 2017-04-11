@@ -4,3 +4,4 @@
 Semantic Analysis (Alfred)
 
 ## Project Logs
+- Implemented Language Type Addition
