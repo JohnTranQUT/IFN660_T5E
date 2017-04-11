@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <cstdio>
-#include <Type.h>
+#include <LanguageTypes.h>
 #include <operator.cpp>
 //#include <parser.h>
 
@@ -10,5 +10,8 @@ using namespace std;
 void main(int argc, char *argv[]) {
 //	fopen_s(&yyin, argv[1], "r");
 //	yyparse();
-	addition();
+	auto lhs = new BooleanType(true);
+	auto rhs = new NumberType(20);
+	auto result = addition(lhs, rhs);
+	printf("%s\n", result->dump().c_str());
 }

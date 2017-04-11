@@ -1,43 +1,57 @@
 #pragma once
-#include <cstdio>
 #include <string>
+#include <Types.h>
 
 using namespace std;
-class LanguageType {
+
+class LanguageType;
+LanguageType *ToPrimitive(LanguageType *, LanguageType * = nullptr);
+double ToNumber(LanguageType *);
+string ToString(LanguageType *);
+
+class LanguageType : public Type {
 public:
 	virtual ~LanguageType() { };
-	LanguageType *ToPrimitive(LanguageType *);
+	static void *getValue() { return nullptr; };
 };
 
-class Undefined : public LanguageType {
+class UndefinedType : public LanguageType {
 public:
-	Undefined() { };
+	UndefinedType() { };
 };
 
-class Boolean : public LanguageType {
+class BooleanType : public LanguageType {
 	bool value;
 public:
-	Boolean() { };
+	explicit BooleanType(bool _value) : value(_value) { };
+	bool getValue() const;
 };
 
-class Number : public LanguageType {
+class NumberType : public LanguageType {
 	double value;
 public:
-	Number() { };
+	explicit NumberType(double _value) : value(_value) { };
+	double getValue() const;
 };
 
-class String : public LanguageType {
+class StringType : public LanguageType {
 	string value;
 public:
-	String() { };
+	explicit StringType(string _value) : value(_value) { };
+	string getValue() const;
 };
 
-//class Function : public Type {
-//public:
-//	Function() { };
-//};
-//
-//class Object : public Type {
-//public:
-//	Object() { };
-//};
+class FunctionType : public Type {
+public:
+	FunctionType() { };
+};
+
+class ObjectType : public Type {
+public:
+	ObjectType() { };
+};
+
+class SymbolType : public Type {
+public:
+	SymbolType() { };
+};
