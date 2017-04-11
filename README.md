@@ -4,4 +4,9 @@
 Semantic Analysis (Alfred)
 
 ## Project Logs
-- Implemented Language Type Addition
+- Created demo in main.cpp
+- Implemented LanguageTypes Subtraction, Multiplication, Division, Modulus
+- Implemented LanguageTypes ToBoolean, ToInteger, ToObject
+- Implemented LanguageTypes Addition
+- Implemented LanguageTypes ToPrimitive, ToNumber, ToString
+- Implemented SpecificationTypes GetValue
