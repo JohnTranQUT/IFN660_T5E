@@ -4,6 +4,7 @@
 Semantic Analysis
 
 ## Project Logs
+- Initialized Type.cpp
 - Initialized operator.cpp with a blank `addition` function
 - Added Type.h with Classes
 	- Type
