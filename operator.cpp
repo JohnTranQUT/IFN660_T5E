@@ -1,5 +1,5 @@
-#include <Type.h>
+#include <LanguageTypes.h>
 
-Type *addition(Type * = nullptr, Type * = nullptr) {
-	return new Type();
+LanguageType *addition(LanguageType *lref = nullptr, LanguageType *rref = nullptr) {
+	return new LanguageType();
 }
