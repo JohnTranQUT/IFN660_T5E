@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <string>
+#include <math.h>
 #include <LanguageTypes.h>
 
 using namespace std;
@@ -21,6 +22,35 @@ LanguageType *ToPrimitive(LanguageType *input, LanguageType *PreferredType) {
 		return nullptr;
 	}
 	return input;
+}
+
+bool ToBoolean(LanguageType *argument) {
+	if (dynamic_cast<UndefinedType*>(argument)) {
+		return false;
+	}
+	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
+		return _argument->getValue();
+	}
+	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
+		auto m = _argument->getValue();
+		if (m == 0 || m == NAN) {
+			return false;
+		}
+		return true;
+	}
+	if (auto _argument = dynamic_cast<StringType*>(argument)) {
+		if (_argument->getValue() == "") {
+			return false;
+		}
+		return true;
+	}
+	if (dynamic_cast<SymbolType*>(argument)) {
+		return true;
+	}
+	if (dynamic_cast<ObjectType*>(argument)) {
+		return true;
+	}
+	exit(0);
 }
 
 double ToNumber(LanguageType *argument) {
@@ -48,6 +78,14 @@ double ToNumber(LanguageType *argument) {
 	exit(0);
 }
 
+int ToInteger(LanguageType *argument) {
+	auto number = ToNumber(argument);
+	if (number == NAN) {
+		return 0;
+	}
+	return static_cast<int>(floor(number));
+}
+
 string ToString(LanguageType *argument) {
 	if (dynamic_cast<UndefinedType*>(argument)) {
 		return "undefined";
@@ -69,6 +107,29 @@ string ToString(LanguageType *argument) {
 	}
 	if (dynamic_cast<ObjectType*>(argument)) {
 		puts("Object");
+	}
+	exit(0);
+}
+
+ObjectType *ToObject(LanguageType *argument) {
+	if (dynamic_cast<UndefinedType*>(argument)) {
+		puts("TypeError");
+		exit(0);
+	}
+	if (dynamic_cast<BooleanType*>(argument)) {
+		puts("Boolean");
+	}
+	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
+		puts("Number");
+	}
+	if (auto _argument = dynamic_cast<StringType*>(argument)) {
+		puts("String");
+	}
+	if (dynamic_cast<SymbolType*>(argument)) {
+		puts("Symbol");
+	}
+	if (auto _argument = dynamic_cast<ObjectType*>(argument)) {
+		return _argument;
 	}
 	exit(0);
 }

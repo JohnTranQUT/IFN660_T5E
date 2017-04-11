@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <cstdio>
 #include <LanguageTypes.h>
-#include <operator.cpp>
+#include <operator.h>
 //#include <parser.h>
 
 //extern FILE *yyin;

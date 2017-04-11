@@ -5,9 +5,13 @@
 using namespace std;
 
 class LanguageType;
+class ObjectType;
 LanguageType *ToPrimitive(LanguageType *, LanguageType * = nullptr);
+bool ToBoolean(LanguageType *);
 double ToNumber(LanguageType *);
+int ToInteger(LanguageType *);
 string ToString(LanguageType *);
+ObjectType *ToObject(LanguageType *);
 
 class LanguageType : public Type {
 public:
