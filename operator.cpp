@@ -1,6 +1,8 @@
+#include <iostream>
 #include <Types.h>
 #include <LanguageTypes.h>
 #include <SpecificationTypes.h>
+#include <operator.h>
 
 ResultContainer *addition(LanguageType *lref, LanguageType *rref) {
 	auto lval = GetValue(lref);

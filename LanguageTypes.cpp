@@ -90,8 +90,8 @@ string ToString(LanguageType *argument) {
 	if (dynamic_cast<UndefinedType*>(argument)) {
 		return "undefined";
 	}
-	if (dynamic_cast<BooleanType*>(argument)) {
-		if (argument->getValue()) {
+	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
+		if (_argument->getValue()) {
 			return "true";
 		}
 		return "false";

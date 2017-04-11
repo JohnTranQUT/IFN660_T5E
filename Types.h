@@ -15,4 +15,5 @@ public:
 	explicit ResultContainer(string _strVal) : strVal(_strVal), dblVal(0), type("String") { };
 	explicit ResultContainer(double _dblVal) : strVal(""), dblVal(_dblVal), type("Number") { };
 	string dump() const;
+	string getType() const;
 };

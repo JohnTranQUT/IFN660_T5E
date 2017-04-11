@@ -6,3 +6,7 @@ string ResultContainer::dump() const {
 	}
 	return to_string(dblVal);
 }
+
+string ResultContainer::getType() const {
+	return type;
+}

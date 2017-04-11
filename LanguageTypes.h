@@ -16,7 +16,6 @@ ObjectType *ToObject(LanguageType *);
 class LanguageType : public Type {
 public:
 	virtual ~LanguageType() { };
-	static void *getValue() { return nullptr; };
 };
 
 class UndefinedType : public LanguageType {
