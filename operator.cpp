@@ -26,3 +26,27 @@ ResultContainer *subtraction(LanguageType *lref, LanguageType *rref) {
 	auto rnum = ToNumber(rval);
 	return new ResultContainer(lnum - rnum);
 }
+
+ResultContainer *multiplication(LanguageType *left, LanguageType *right) {
+	auto leftValue = GetValue(left);
+	auto rightValue = GetValue(right);
+	auto lnum = ToNumber(leftValue);
+	auto rnum = ToNumber(rightValue);
+	return new ResultContainer(lnum * rnum);
+}
+
+ResultContainer *division(LanguageType *left, LanguageType *right) {
+	auto leftValue = GetValue(left);
+	auto rightValue = GetValue(right);
+	auto lnum = ToNumber(leftValue);
+	auto rnum = ToNumber(rightValue);
+	return new ResultContainer(lnum / rnum);
+}
+
+ResultContainer *modulus(LanguageType *left, LanguageType *right) {
+	auto leftValue = GetValue(left);
+	auto rightValue = GetValue(right);
+	auto lnum = ToNumber(leftValue);
+	auto rnum = ToNumber(rightValue);
+	return new ResultContainer(fmod(lnum, rnum));
+}
