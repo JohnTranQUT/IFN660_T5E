@@ -1,7 +1,7 @@
 # IFN645-T5E Github Repository
 
 ## Current Status
-Semantic Analysis (Alfred)
+Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
 - Created demo in main.cpp
