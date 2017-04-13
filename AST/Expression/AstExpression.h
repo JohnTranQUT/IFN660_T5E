@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <AST/AstNode.h>
+#include <AST/Node/AstNode.h>
 
 using namespace std;
 

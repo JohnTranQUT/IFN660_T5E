@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-#include <AST/AstNode.h>
-#include <AST/AstExpression.h>
-#include <AST/AstScript.h>
+#include <AST/Node/AstNode.h>
+#include <AST/Expression/AstExpression.h>
+#include <AST/Script/AstScript.h>
 
 using namespace std;
 

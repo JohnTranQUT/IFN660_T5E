@@ -1,8 +1,8 @@
 #include <typeinfo>
-#include <AST/AstNode.h>
-#include <AST/AstExpression.h>
-#include <AST/AstStatement.h>
-#include <AST/AstScript.h>
+#include <AST/Node/AstNode.h>
+#include <AST/Expression/AstExpression.h>
+#include <AST/Statement/AstStatement.h>
+#include <AST/Script/AstScript.h>
 
 using namespace std;
 
