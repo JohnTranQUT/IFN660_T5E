@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <Types.h>
+#include <Types/Types.h>
 
 using namespace std;
 
@@ -21,6 +21,11 @@ public:
 class UndefinedType : public LanguageType {
 public:
 	UndefinedType() { };
+};
+
+class NullType : public LanguageType {
+public:
+	NullType() { };
 };
 
 class BooleanType : public LanguageType {

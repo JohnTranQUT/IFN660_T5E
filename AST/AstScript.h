@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include <AstNode.h>
-#include <AstStatement.h>
+#include <AST/AstNode.h>
+#include <AST/AstStatement.h>
 
 class Statement;
 using namespace std;

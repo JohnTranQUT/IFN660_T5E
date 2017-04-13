@@ -1,6 +1,6 @@
 #pragma once
-#include <Types.h>
-#include <LanguageTypes.h>
+#include <Types/Types.h>
+#include <Types/LanguageTypes.h>
 
 using namespace std;
 

@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <string>
 #include <math.h>
-#include <LanguageTypes.h>
+#include <Types/LanguageTypes.h>
 
 using namespace std;
 
@@ -26,6 +26,9 @@ LanguageType *ToPrimitive(LanguageType *input, LanguageType *PreferredType) {
 
 bool ToBoolean(LanguageType *argument) {
 	if (dynamic_cast<UndefinedType*>(argument)) {
+		return false;
+	}
+	if (dynamic_cast<NullType*>(argument)) {
 		return false;
 	}
 	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
@@ -56,6 +59,9 @@ bool ToBoolean(LanguageType *argument) {
 double ToNumber(LanguageType *argument) {
 	if (dynamic_cast<UndefinedType*>(argument)) {
 		return NAN;
+	}
+	if (dynamic_cast<NullType*>(argument)) {
+		return 0;
 	}
 	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
 		if (_argument->getValue()) {
@@ -89,6 +95,9 @@ int ToInteger(LanguageType *argument) {
 string ToString(LanguageType *argument) {
 	if (dynamic_cast<UndefinedType*>(argument)) {
 		return "undefined";
+	}
+	if (dynamic_cast<NullType*>(argument)) {
+		return "null";
 	}
 	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
 		if (_argument->getValue()) {

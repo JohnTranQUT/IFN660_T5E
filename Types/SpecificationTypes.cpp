@@ -1,6 +1,6 @@
 #include <cstdio>
-#include <LanguageTypes.h>
-#include <SpecificationTypes.h>
+#include <Types/LanguageTypes.h>
+#include <Types/SpecificationTypes.h>
 #include <string>
 
 using namespace std;
