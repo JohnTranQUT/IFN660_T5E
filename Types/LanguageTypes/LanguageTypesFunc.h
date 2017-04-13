@@ -16,3 +16,4 @@ string ToString(LanguageType *);
 ObjectType *ToObject(LanguageType *);
 
 string _GetType(LanguageType *);
+LanguageType *_ToLanguageType(Type *, bool = true);

@@ -159,3 +159,14 @@ string _GetType(LanguageType *argument) {
 	puts("_GetType");
 	exit(0);
 }
+
+LanguageType *_ToLanguageType(Type *argument, bool strict) {
+	if (auto _argument = dynamic_cast<LanguageType *>(argument)) {
+		return _argument;
+	}
+	if (strict) {
+		puts("Interval TypeError (assert LanguageType)");
+		exit(0);
+	}
+	return nullptr;
+}

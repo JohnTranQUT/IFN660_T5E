@@ -3,4 +3,4 @@
 
 using namespace std;
 
-LanguageType *GetValue(Type *);
+Type *GetValue(Type *);

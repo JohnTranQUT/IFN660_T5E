@@ -1,11 +1,11 @@
 #include <iostream>
 #include <Types/LanguageTypes/LanguageTypesFunc.h>
-#include <Types/SpecificationTypes/SpecificationTypesFunc.h>
+#include <Types/SpecificationTypes/ReferenceType/ReferenceTypeFunc.h>
 #include <Utilities/Operator/Operator.h>
 
 LanguageType *addition(LanguageType *lref, LanguageType *rref) {
-	auto lval = GetValue(lref);
-	auto rval = GetValue(rref);
+	auto lval = _ToLanguageType(GetValue(lref));
+	auto rval = _ToLanguageType(GetValue(rref));
 	auto lprim = ToPrimitive(lval);
 	auto rprim = ToPrimitive(rval);
 	if (dynamic_cast<StringType*>(lprim) || dynamic_cast<StringType *>(rprim)) {
@@ -23,8 +23,8 @@ LanguageType *addition(LanguageType *lref, LanguageType *rref) {
 }
 
 LanguageType *subtraction(LanguageType *lref, LanguageType *rref) {
-	auto lval = GetValue(lref);
-	auto rval = GetValue(rref);
+	auto lval = _ToLanguageType(GetValue(lref));
+	auto rval = _ToLanguageType(GetValue(rref));
 	auto lnum = ToNumber(lval);
 	auto rnum = ToNumber(rval);
 	auto result = new NumberType(lnum - rnum);
@@ -32,8 +32,8 @@ LanguageType *subtraction(LanguageType *lref, LanguageType *rref) {
 }
 
 LanguageType *multiplication(LanguageType *left, LanguageType *right) {
-	auto leftValue = GetValue(left);
-	auto rightValue = GetValue(right);
+	auto leftValue = _ToLanguageType(GetValue(left));
+	auto rightValue = _ToLanguageType(GetValue(right));
 	auto lnum = ToNumber(leftValue);
 	auto rnum = ToNumber(rightValue);
 	auto result = new NumberType(lnum * rnum);
@@ -41,8 +41,8 @@ LanguageType *multiplication(LanguageType *left, LanguageType *right) {
 }
 
 LanguageType *division(LanguageType *left, LanguageType *right) {
-	auto leftValue = GetValue(left);
-	auto rightValue = GetValue(right);
+	auto leftValue = _ToLanguageType(GetValue(left));
+	auto rightValue = _ToLanguageType(GetValue(right));
 	auto lnum = ToNumber(leftValue);
 	auto rnum = ToNumber(rightValue);
 	auto result = new NumberType(lnum / rnum);
@@ -50,8 +50,8 @@ LanguageType *division(LanguageType *left, LanguageType *right) {
 }
 
 LanguageType *modulus(LanguageType *left, LanguageType *right) {
-	auto leftValue = GetValue(left);
-	auto rightValue = GetValue(right);
+	auto leftValue = _ToLanguageType(GetValue(left));
+	auto rightValue = _ToLanguageType(GetValue(right));
 	auto lnum = ToNumber(leftValue);
 	auto rnum = ToNumber(rightValue);
 	auto result = new NumberType(fmod(lnum, rnum));

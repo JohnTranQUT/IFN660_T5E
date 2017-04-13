@@ -1,11 +1,9 @@
 #define _CRT_SECURE_NO_DEPRECATE
-#include <iostream>
-#include <typeinfo>
 #include <Types/LanguageTypes/LanguageTypesFunc.h>
 #include <Utilities/Operator/Operator.h>
 //#include <parser.h>
 
-//extern FILE *yyin;
+extern FILE *yyin;
 using namespace std;
 
 void main(int argc, char *argv[]) {
