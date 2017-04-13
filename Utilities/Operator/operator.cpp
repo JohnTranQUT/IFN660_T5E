@@ -1,5 +1,4 @@
 #include <iostream>
-#include <Types/Types.h>
 #include <Types/LanguageTypes/LanguageTypesFunc.h>
 #include <Types/SpecificationTypes/SpecificationTypesFunc.h>
 #include <Utilities/Operator/Operator.h>
