@@ -1,7 +1,7 @@
 #include <iostream>
 #include <Types/Types.h>
-#include <Types/LanguageTypes/LanguageTypes.h>
-#include <Types/SpecificationTypes/SpecificationTypes.h>
+#include <Types/LanguageTypes/LanguageTypesFunc.h>
+#include <Types/SpecificationTypes/SpecificationTypesFunc.h>
 #include <Utilities/Operator/Operator.h>
 
 LanguageType *addition(LanguageType *lref, LanguageType *rref) {

@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
 #include <typeinfo>
-#include <Types/LanguageTypes/LanguageTypes.h>
+#include <Types/LanguageTypes/LanguageTypesFunc.h>
 #include <Utilities/Operator/Operator.h>
 //#include <parser.h>
 
