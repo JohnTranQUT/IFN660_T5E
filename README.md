@@ -4,6 +4,8 @@
 Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
+- GetValue is now under ReferenceType instead of SpecificationTypes
+- Implemented ReferenceType and CompletionType
 - GetValue now supports CompletionType
 - Initialized Object Keys and Properties
 - Initialized Object Properties: Data Property and Accessor Property
