@@ -15,5 +15,5 @@ public:
 	bool HasPrimitiveBase() const;
 	bool IsPropertyReference() const;
 	bool IsUnresolvableReference() const;
-	bool isSuperReference() const;
+	bool IsSuperReference() const;
 };

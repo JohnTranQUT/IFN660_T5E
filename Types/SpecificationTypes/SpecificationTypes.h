@@ -6,5 +6,5 @@ using namespace std;
 
 class SpecificationType : public Type {
 public:
-	virtual ~SpecificationType() = 0;
+	virtual ~SpecificationType() { };
 };
