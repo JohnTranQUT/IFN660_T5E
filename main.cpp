@@ -1,11 +1,12 @@
-#define _CRT_SECURE_NO_DEPRECATE
-#include <cstdio>
-#include <parser.h>
+#include <iostream>
+#include "RuntimeLib/JSValue.h"
+#include "RuntimeLib/Operator.h"
 
-extern FILE *yyin;
-using namespace std;
+int main() {
+	JSNumber* js_number = new JSNumber(3);
+	JSBoolean* js_bool = new JSBoolean(true);
+	
+	JSValue* result = addition(js_number, js_bool);
+	std::cout << result->ToString()<<"\n";
 
-void main(int argc, char *argv[]) {
-	fopen_s(&yyin, argv[1], "r");
-	yyparse();
 }

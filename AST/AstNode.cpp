@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <string>
 #include <iostream>
-#include <AstNode.h>
+#include "AST/AstNode.h"
 
 using namespace std;
 

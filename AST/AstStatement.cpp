@@ -1,7 +1,8 @@
 #include <typeinfo>
-#include <AstNode.h>
-#include <AstExpression.h>
-#include <AstStatement.h>
+#include "AST/AstNode.h"
+#include "AST/AstExpression.h"
+#include "AST/AstStatement.h"
+#include "AstScript.h"
 
 using namespace std;
 
