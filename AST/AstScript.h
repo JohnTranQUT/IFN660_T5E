@@ -1,13 +1,11 @@
 #pragma once
-#include <vector>
 #include "AST/AstNode.h"
-#include "AST/AstStatement.h"
+
 
 class Statement;
 using namespace std;
 
 class StatementListItem : public Node {
-	vector<Node*> next;
 	Statement *statement;
 public:
 	explicit StatementListItem(Statement *);
@@ -26,7 +24,6 @@ public:
 class StatementList_opt : public Node { };
 
 class ScriptBody : public Node {
-	vector<Node*> next;
 	StatementList *statementlist;
 public:
 	explicit ScriptBody(StatementList *);
@@ -36,7 +33,6 @@ public:
 class ScriptBody_opt : public Node { };
 
 class Script : public Node {
-	vector<Node*> next;
 	Node *node;
 public:
 	explicit Script(Node *);

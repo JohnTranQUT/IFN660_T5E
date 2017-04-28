@@ -9,7 +9,7 @@ JSValue* addition(JSValue *lref, JSValue *rref) {
 	if (Type(lprim) == "string" || Type(rprim) == "string") {
 		JSString* str = new JSString(lprim->ToString() + rprim->ToString());
 		return str;
-	}
+	} 
 	else {
 		return new JSNumber(lprim->ToNumber() + rprim->ToNumber());
 	}
