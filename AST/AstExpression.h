@@ -107,8 +107,11 @@ public:
 
 class AdditiveExpression : public Expression {
 	Expression *LHS;
+	Expression *RHS;
+	char op;
 public:
 	explicit AdditiveExpression(Expression *);
+	explicit AdditiveExpression(Expression *LHS, Expression *RHS, char op);
 	void dump(int = 0) override;
 };
 

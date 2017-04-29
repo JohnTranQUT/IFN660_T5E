@@ -141,10 +141,16 @@ AdditiveExpression::AdditiveExpression(Expression *_LHS) : LHS(_LHS) {
 	
 }
 
+AdditiveExpression::AdditiveExpression(Expression* LHS, Expression* RHS, char op): LHS(LHS),RHS(RHS),op(op)
+{
+}
+
 void AdditiveExpression::dump(int indent) {
-	label(indent, "AdditiveExpression\n");
-	LHS->dump(indent + 1);
-	
+	label(indent, "AdditiveExpression %c\n",op);
+	LHS->dump(indent + 1, "lhs");
+	if (RHS!=nullptr) {
+		RHS->dump(indent + 1, "rhs");
+	}
 }
 
 ShiftExpression::ShiftExpression(Expression *_LHS) : LHS(_LHS) {
