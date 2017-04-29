@@ -14,8 +14,20 @@ void StatementListItem::dump(int indent) {
 	statement->dump(indent + 1);
 }
 
+/*
 StatementList::StatementList(vector<StatementListItem*>* items): items(items)
 {
+}
+*/
+StatementList::StatementList(StatementListItem* item)
+{
+	items = new vector<StatementListItem*>();
+	items->push_back(item);
+}
+
+void StatementList::push_back(StatementListItem* item)
+{
+	items->push_back(item);
 }
 
 void StatementList::dump(int indent)
@@ -43,9 +55,5 @@ Script::Script(ScriptBody *scriptBody): scriptBody(scriptBody)
 
 void Script::dump(int indent) {
 	label(indent, "Script\n");
-	//for test
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
-	printf("Anh Hieu: %s", message.c_str());
-	//end test
 	scriptBody->dump(indent + 1);
 }

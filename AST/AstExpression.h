@@ -15,9 +15,9 @@ public:
 };
 
 class DecimalLiteral : public Expression {
-	double LHS;
+	double value;
 public:
-	explicit DecimalLiteral(double);
+	explicit DecimalLiteral(double value);
 	void dump(int = 0) override;
 };
 

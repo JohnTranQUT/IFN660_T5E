@@ -14,7 +14,7 @@ void Node::dump(int i, char* name)
 void Node::indent(int N)
 {
 	for (int i = 0; i < N; i++)
-		printf("    ");
+		printf("  ");
 }
 
 void Node::label(int i, char* fmt, ...)

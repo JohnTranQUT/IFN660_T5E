@@ -48,5 +48,9 @@ void IfStatement::dump(int indent) {
 	label(indent, "IfStatement\n");
 	cond->dump(indent + 1, "cond");
 	thenStmt->dump(indent + 1, "then");
-	elseStmt->dump(indent + 1, "else");
+	if (elseStmt!=nullptr)
+	{
+		elseStmt->dump(indent + 1, "else");
+	}
+	
 }

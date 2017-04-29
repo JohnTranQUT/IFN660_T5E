@@ -12,7 +12,11 @@ void yyerror(char *);
 
 %union 
 {
-	Node *script;
+	Script *script;
+	ScriptBody *scriptBody;
+	StatementListItem *listItem;
+
+
 	StatementList *statementlist;
 	Statement *statement;
 	Expression *expression;
@@ -41,8 +45,11 @@ Node *root;
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
+%type <script> Script  
+%type <scriptBody> ScriptBody_opt ScriptBody
 %type <statementlist> StatementList StatementList_opt
-%type <script> Script ScriptBody_opt ScriptBody StatementListItem
+%type <listItem> StatementListItem
+
 %type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
 %type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName
@@ -52,16 +59,16 @@ Node *root;
 %%
 
 Script
-	: ScriptBody_opt															{ root = new Script($1);  }
+	: ScriptBody_opt															{ $$ = new Script($1); root=$$; }
 	;
 
 ScriptBody_opt
-	: ScriptBody																{ $$ = $1; printf("scriptBody_opt\n"); }
+	: ScriptBody																{ $$ = $1;  }
 	| empty
 	;
 
 ScriptBody
-	: StatementList																{ $$ = new ScriptBody($1);printf("scriptBody\n"); }
+	: StatementList																{ $$ = new ScriptBody($1); }
 	;
 
 StatementList_opt
@@ -71,7 +78,7 @@ StatementList_opt
 
 StatementList
 	: StatementListItem															{ $$ = new StatementList($1); }
-	| StatementList StatementListItem											{ $$ = new StatementList($1, $2); }
+	| StatementList StatementListItem											{ $$ = $1; $$->push_back($2); }
 	;
 
 StatementListItem
@@ -276,7 +283,7 @@ IdentifierReference
 Literal
 	: NullLiteral
 	| BooleanLiteral
-	| NumericLiteral															{ $$ = new Literal($1); printf("NumericLit "); }
+	| NumericLiteral															{ $$ = new Literal($1);}
 	| StringLiteral
 	;
 

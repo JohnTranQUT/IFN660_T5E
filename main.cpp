@@ -2,6 +2,7 @@
 #include "RuntimeLib/Operator.h"
 #include "RuntimeLib/JSValue.h"
 #include "AST/AstNode.h"
+#include "AST/AstScript.h"
 
 
 //#define testRuntimeLib
@@ -18,7 +19,6 @@ int main(int argc, char* argv[]) {
 #ifdef testParser
 	fopen_s(&yyin, argv[1], "r");
 	yyparse();
-	printf("hhhee");
 	root->dump(0);
 	getchar();
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "AST/AstNode.h"
 
 
@@ -14,15 +15,15 @@ public:
 
 
 class StatementList : public Node {
-private:
 	vector<StatementListItem*> *items;
 public:
-	explicit StatementList(vector<StatementListItem*> *items);
+	explicit StatementList(StatementListItem* item);
+	void push_back(StatementListItem *item);
 	void dump(int indent) override;
 };
 
-//Jason: Can I remove this class?
-//class StatementList_opt : public Node { };
+//Jason: Could I remove this class? We dont use it.
+class StatementList_opt : public Node { };
 
 class ScriptBody : public Node {
 private:
@@ -32,8 +33,8 @@ public:
 	void dump(int indent) override;
 };
 
-//Jason: Can I remove this class? It doenst make sense.
-//class ScriptBody_opt : public Node { };
+//Jason: Could I remove this class? We dont use it.
+class ScriptBody_opt : public Node { };
 
 class Script : public Node {
 	ScriptBody *scriptBody;

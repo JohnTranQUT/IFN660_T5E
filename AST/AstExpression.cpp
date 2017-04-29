@@ -12,10 +12,10 @@ void IdentifierName::dump(int indent) {
 	label(indent, "IdentifierName %s\n",LHS);
 }
 
-DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
+DecimalLiteral::DecimalLiteral(double value) : value(value) { }
 
 void DecimalLiteral::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": " + to_string(LHS) + " (" + string(typeid(LHS).name()) + ")";
+	label(indent, "DecimalLiteral %f\n", value);
 	
 }
 
@@ -24,7 +24,8 @@ Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
 }
 
 void Identifier::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "Identifier\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -33,8 +34,8 @@ NumericLiteral::NumericLiteral(Expression *_LHS) : LHS(_LHS) {
 }
 
 void NumericLiteral::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
-	
+	label(indent, "NumericLiteral\n");
+	LHS->dump(indent + 1);	
 }
 
 Literal::Literal(Expression *_LHS) : LHS(_LHS) {
@@ -42,7 +43,8 @@ Literal::Literal(Expression *_LHS) : LHS(_LHS) {
 }
 
 void Literal::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "Literal\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -51,7 +53,8 @@ IdentifierReference::IdentifierReference(Expression *_LHS) : LHS(_LHS) {
 }
 
 void IdentifierReference::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "IdentifierReference\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -61,8 +64,7 @@ PrimaryExpression::PrimaryExpression(Expression *_LHS) : LHS(_LHS) {
 
 void PrimaryExpression::dump(int indent) {
 	label(indent, "PrimaryExpression\n");
-	LHS->dump(indent = 1);
-	
+	LHS->dump(indent + 1);	
 }
 
 MemberExpression::MemberExpression(Expression *_LHS) : LHS(_LHS) {
@@ -71,7 +73,7 @@ MemberExpression::MemberExpression(Expression *_LHS) : LHS(_LHS) {
 
 void MemberExpression::dump(int indent) {
 	label(indent, "MemberExpression\n");
-	LHS->dump(indent = 1);
+	LHS->dump(indent + 1);
 	
 }
 
@@ -167,7 +169,10 @@ RelationalExpression::RelationalExpression(Expression *_LHS, Expression *_RHS, c
 void RelationalExpression::dump(int indent) {
 	label(indent, "RelationalExpression %s\n", op);
 	LHS->dump(indent + 1, "lhs");
-	RHS->dump(indent + 1, "rhs");
+	if (RHS != nullptr)
+	{
+		RHS->dump(indent + 1, "rhs");
+	} 
 }
 
 EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr), op(nullptr) {
@@ -182,7 +187,11 @@ EqualityExpression::EqualityExpression(Expression *_LHS, Expression *_RHS, char 
 void EqualityExpression::dump(int indent) {
 	label(indent, "EqualityExpression %s\n",op);
 	LHS->dump(indent + 1,"lhs");
-	RHS->dump(indent + 1, "rhs");
+	if (RHS!=nullptr)
+	{
+		RHS->dump(indent + 1, "rhs");
+	}
+	
 	
 }
 
@@ -257,5 +266,8 @@ AssignmentExpression::AssignmentExpression(Expression *_LHS) : LHS(_LHS), RHS(nu
 void AssignmentExpression::dump(int indent) {
 	label(indent, "AssignmentExpression\n");
 	LHS->dump(indent + 1, "lhs");
-	RHS->dump(indent + 1, "rhs");
+	if (RHS != nullptr)
+	{
+		RHS->dump(indent + 1, "rhs");
+	}
 }
