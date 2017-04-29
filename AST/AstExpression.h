@@ -4,8 +4,7 @@
 using namespace std;
 
 class Expression : public Node {
-public:
-	virtual ~Expression() = default;
+
 };
 
 class IdentifierName : public Expression {

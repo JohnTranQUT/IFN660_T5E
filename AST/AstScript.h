@@ -9,32 +9,35 @@ class StatementListItem : public Node {
 	Statement *statement;
 public:
 	explicit StatementListItem(Statement *);
-	void dump(int = 0) override;
+	void dump(int indent) override;
 };
+
 
 class StatementList : public Node {
-	Node *node;
+private:
+	vector<StatementListItem*> *items;
 public:
-	vector<Node*> nodes;
-	explicit StatementList(Node *);
-	explicit StatementList(StatementList *, Node *);
-	void dump(int = 0) override;
+	explicit StatementList(vector<StatementListItem*> *items);
+	void dump(int indent) override;
 };
 
-class StatementList_opt : public Node { };
+//Jason: Can I remove this class?
+//class StatementList_opt : public Node { };
 
 class ScriptBody : public Node {
-	StatementList *statementlist;
+private:
+	StatementList* stmtList;
 public:
-	explicit ScriptBody(StatementList *);
-	void dump(int = 0) override;
+	explicit ScriptBody(StatementList *stmtList);
+	void dump(int indent) override;
 };
 
-class ScriptBody_opt : public Node { };
+//Jason: Can I remove this class? It doenst make sense.
+//class ScriptBody_opt : public Node { };
 
 class Script : public Node {
-	Node *node;
+	ScriptBody *scriptBody;
 public:
-	explicit Script(Node *);
-	void dump(int = 0) override;
+	explicit Script(ScriptBody *scriptBody);
+	void dump(int indent) override;
 };

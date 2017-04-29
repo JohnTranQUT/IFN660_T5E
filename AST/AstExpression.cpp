@@ -8,8 +8,8 @@ using namespace std;
 IdentifierName::IdentifierName(char *_LHS) : LHS(_LHS) { }
 
 void IdentifierName::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": " + string(LHS) + " (" + string(typeid(LHS).name()) + ")";
-	
+	//fix me
+	label(indent, "IdentifierName %s\n",LHS);
 }
 
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
@@ -60,7 +60,8 @@ PrimaryExpression::PrimaryExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void PrimaryExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "PrimaryExpression\n");
+	LHS->dump(indent = 1);
 	
 }
 
@@ -69,7 +70,8 @@ MemberExpression::MemberExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void MemberExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "MemberExpression\n");
+	LHS->dump(indent = 1);
 	
 }
 
@@ -78,7 +80,8 @@ NewExpression::NewExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void NewExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "NewExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -87,7 +90,8 @@ LeftHandSideExpression::LeftHandSideExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void LeftHandSideExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "LeftHandSideExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -96,7 +100,8 @@ UpdateExpression::UpdateExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void UpdateExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "UpdateExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -105,7 +110,8 @@ UnaryExpression::UnaryExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void UnaryExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "UnaryExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -114,7 +120,8 @@ ExponentiationExpression::ExponentiationExpression(Expression *_LHS) : LHS(_LHS)
 }
 
 void ExponentiationExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "ExponentiationExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -123,7 +130,8 @@ MultiplicativeExpression::MultiplicativeExpression(Expression *_LHS) : LHS(_LHS)
 }
 
 void MultiplicativeExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "MultiplicativeExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -132,7 +140,8 @@ AdditiveExpression::AdditiveExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void AdditiveExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "AdditiveExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -141,7 +150,8 @@ ShiftExpression::ShiftExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void ShiftExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "ShiftExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -155,8 +165,9 @@ RelationalExpression::RelationalExpression(Expression *_LHS, Expression *_RHS, c
 }
 
 void RelationalExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
-	
+	label(indent, "RelationalExpression %s\n", op);
+	LHS->dump(indent + 1, "lhs");
+	RHS->dump(indent + 1, "rhs");
 }
 
 EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr), op(nullptr) {
@@ -169,7 +180,9 @@ EqualityExpression::EqualityExpression(Expression *_LHS, Expression *_RHS, char 
 }
 
 void EqualityExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "EqualityExpression %s\n",op);
+	LHS->dump(indent + 1,"lhs");
+	RHS->dump(indent + 1, "rhs");
 	
 }
 
@@ -178,7 +191,8 @@ BitwiseANDExpression::BitwiseANDExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void BitwiseANDExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "BitwiseANDExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -187,7 +201,8 @@ BitwiseXORExpression::BitwiseXORExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void BitwiseXORExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "BitwiseXORExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -196,7 +211,8 @@ BitwiseORExpression::BitwiseORExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void BitwiseORExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "BitwiseORExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -205,7 +221,8 @@ LogicalANDExpression::LogicalANDExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void LogicalANDExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "LogicalANDExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -214,7 +231,8 @@ LogicalORExpression::LogicalORExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void LogicalORExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "LogicalORExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -223,7 +241,8 @@ ConditionalExpression::ConditionalExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 void ConditionalExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "ConditionalExpression\n");
+	LHS->dump(indent + 1);
 	
 }
 
@@ -236,6 +255,7 @@ AssignmentExpression::AssignmentExpression(Expression *_LHS) : LHS(_LHS), RHS(nu
 }
 
 void AssignmentExpression::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
-	
+	label(indent, "AssignmentExpression\n");
+	LHS->dump(indent + 1, "lhs");
+	RHS->dump(indent + 1, "rhs");
 }

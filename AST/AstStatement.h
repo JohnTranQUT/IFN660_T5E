@@ -13,14 +13,14 @@ class BlockStatement : public Statement {
 	Statement *statement;
 public:
 	explicit BlockStatement(Statement *);
-	void dump(int = 0) override;
+	void dump(int indent) override;
 };
 
 class Block : public Statement {
-	StatementList *statementlist;
+	StatementList *stmtList;
 public:
-	explicit Block(StatementList *);
-	void dump(int = 0) override;
+	explicit Block(StatementList *stmtList);
+	void dump(int indent) override;
 };
 
 class ExpressionStatement : public Statement {
@@ -32,10 +32,10 @@ public:
 
 class IfStatement : public Statement {
 	Expression *cond;
-	Statement *ifStatement;
-	Statement *elseStatement;
+	Statement *thenStmt;
+	Statement *elseStmt;
 public:
-	explicit IfStatement(Expression *, Statement *, Statement *);
-	explicit IfStatement(Expression *, Statement *);
+	explicit IfStatement(Expression *cond, Statement *thenStmt, Statement *elseStmt);
+	explicit IfStatement(Expression *cond, Statement *thenStmt);
 	void dump(int indent) override;
 };

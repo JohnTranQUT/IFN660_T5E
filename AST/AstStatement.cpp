@@ -11,17 +11,18 @@ BlockStatement::BlockStatement(Statement *_statement) : statement(_statement) {
 }
 
 void BlockStatement::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	label(indent, "Block\n");
+	statement->dump(indent + 1);
 	
 }
 
-Block::Block(StatementList *_statementlist) : statementlist(_statementlist) {
+Block::Block(StatementList *stmtList) : stmtList(stmtList) {
 	
 }
 
 void Block::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": ";
-	
+	label(indent, "Block\n");
+	stmtList->dump(indent + 1);
 }
 
 ExpressionStatement::ExpressionStatement(Expression *_expression) : expression(_expression) {
@@ -30,28 +31,22 @@ ExpressionStatement::ExpressionStatement(Expression *_expression) : expression(_
 
 void ExpressionStatement::dump(int indent)
 {
-	
-		label(indent, "ExpressionStatement\n");
-		expression->dump(indent + 1);
-
+	label(indent, "ExpressionStatement\n");
+	expression->dump(indent + 1);
 }
 
 
-IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement, Statement *_elseStatement) : cond(_expression), ifStatement(_ifStatement), elseStatement(_elseStatement) {
-	vector<Node*> expComp = {cond};
-	vector<Node*> ifComp = {ifStatement};
-	vector<Node*> elseComp = {elseStatement};
-
-
+IfStatement::IfStatement(Expression* cond, Statement* thenStmt, Statement* elseStmt): cond(cond),thenStmt(thenStmt),elseStmt(elseStmt)
+{
 }
 
-IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement) : cond(_expression), ifStatement(_ifStatement), elseStatement(nullptr) {
-	
+IfStatement::IfStatement(Expression* cond, Statement* thenStmt): cond(cond), thenStmt(thenStmt)
+{
 }
 
 void IfStatement::dump(int indent) {
 	label(indent, "IfStatement\n");
 	cond->dump(indent + 1, "cond");
-	ifStatement->dump(indent + 1, "then");
-	elseStatement->dump(indent + 1, "else");
+	thenStmt->dump(indent + 1, "then");
+	elseStmt->dump(indent + 1, "else");
 }
