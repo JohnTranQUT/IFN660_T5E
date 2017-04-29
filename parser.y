@@ -1,14 +1,22 @@
-%code requires {
-	#include <cstdio>
-	#include "AST/AstNode.h"
-	#include "AST/AstExpression.h"
-	#include "AST/AstStatement.h"
-	#include "AST/AstScript.h"
-	int yylex();
-	void yyerror(char *);
+%code requires{
+#include <cstdio>
+#include "AST/AstNode.h"
+#include "AST/AstExpression.h"
+#include "AST/AstStatement.h"
+#include "AST/AstScript.h"
+int yylex();
+void yyerror(char *);
+
 }
 
-%union {
+
+%union 
+{
+	Node *script;
+	StatementList *statementlist;
+	Statement *statement;
+	Expression *expression;
+
 	char *regex;
 	char * str;
 	double decimal;
@@ -17,13 +25,10 @@
 	char *hex;
 	bool booelan;
 	char *ident;
-
-	Node *root;
-	StatementList *statementlist;
-	Statement *statement;
-	Expression *expression;
 }
-
+%{
+Node *root;
+%}
 %token COMMENT NULL_L
 %token <regex> REGEX_LITERAL
 %token <str> STRING_L
@@ -37,7 +42,7 @@
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
 %type <statementlist> StatementList StatementList_opt
-%type <root> Script ScriptBody_opt ScriptBody StatementListItem
+%type <script> Script ScriptBody_opt ScriptBody StatementListItem
 %type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
 %type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName
@@ -47,16 +52,16 @@
 %%
 
 Script
-	: ScriptBody_opt															{ $$ = new Script($1); $$->dump(); }
+	: ScriptBody_opt															{ root = new Script($1);  }
 	;
 
 ScriptBody_opt
-	: ScriptBody																{ $$ = $1 }
+	: ScriptBody																{ $$ = $1; printf("scriptBody_opt\n"); }
 	| empty
 	;
 
 ScriptBody
-	: StatementList																{ $$ = new ScriptBody($1); }
+	: StatementList																{ $$ = new ScriptBody($1);printf("scriptBody\n"); }
 	;
 
 StatementList_opt
@@ -271,7 +276,7 @@ IdentifierReference
 Literal
 	: NullLiteral
 	| BooleanLiteral
-	| NumericLiteral															{ $$ = new Literal($1); }
+	| NumericLiteral															{ $$ = new Literal($1); printf("NumericLit "); }
 	| StringLiteral
 	;
 

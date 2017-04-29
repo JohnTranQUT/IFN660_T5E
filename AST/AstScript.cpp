@@ -44,6 +44,7 @@ Script::Script(Node *_node) : node(_node) {
 }
 
 void Script::dump(int indent) {
+	label(indent, "Script");
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	
 }

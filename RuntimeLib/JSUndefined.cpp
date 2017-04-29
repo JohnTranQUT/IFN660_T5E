@@ -1,4 +1,5 @@
 #include "JSValue.h"
+#include <iostream>
 
 JSValue::~JSValue()
 {

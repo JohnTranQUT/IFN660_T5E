@@ -2,7 +2,7 @@
 #include "RuntimeLib/Operator.h"
 #include "RuntimeLib/JSValue.h"
 #include "AST/AstNode.h"
-#include "parser.h"
+
 
 //#define testRuntimeLib
 #define testParser
