@@ -36,3 +36,7 @@ bool ReferenceType::IsUnresolvableReference() const {
 bool ReferenceType::IsSuperReference() const {
 	return thisValue != nullptr;
 }
+
+ObjectType *ReferenceType::_getThisValue() const {
+	return thisValue;
+}

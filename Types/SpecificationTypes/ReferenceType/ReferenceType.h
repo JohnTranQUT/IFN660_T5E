@@ -26,4 +26,6 @@ public:
 	bool IsUnresolvableReference() const;
 
 	bool IsSuperReference() const;
+
+	ObjectType *_getThisValue() const;
 };

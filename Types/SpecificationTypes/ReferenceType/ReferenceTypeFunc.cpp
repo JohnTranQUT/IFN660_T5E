@@ -21,13 +21,19 @@ Type *GetValue(Type *V) {
 			if (_V->HasPrimitiveBase()) {
 				base = ToObject(base);
 			}
-			puts("Object");
-			puts("Return ? base.[[Get]](GetReferenceName(), GetThisValue()");
+			puts("Return ? base.[[Get]](_V->GetReferenceName(), GetThisValue(_V)");
 			exit(0);
 		}
-		puts("EnvironmentRecord");
-		puts("Return ? base.GetBindingValue(GetReferenceName(), IsStrictReference())");
+		// EnvironmentRecord
+		puts("Return ? base.GetBindingValue(_V->GetReferenceName(), _V->IsStrictReference())");
 		exit(0);
 	}
 	return V;
+}
+
+LanguageType *GetThisValue(ReferenceType *V) {
+	if (V->IsSuperReference()) {
+		return V->_getThisValue();
+	}
+	return V->GetBase();
 }
