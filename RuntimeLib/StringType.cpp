@@ -18,7 +18,17 @@ std::string StringType::ToString()
 
 double StringType::ToNumber()
 {
-	double result = std::stoi(value);
+	double result = 0;
+	try {
+		//convert a string to double
+		result = std::stod(value);
+	}
+	catch (const std::invalid_argument& ia) {
+		//If the value cannot be interpreted as a string
+		//then the result of ToNumber is NaN.
+		result = NAN;
+	}
+	
 	return result;
 }
 /*
