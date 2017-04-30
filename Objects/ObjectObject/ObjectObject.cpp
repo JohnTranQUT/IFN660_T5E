@@ -43,9 +43,8 @@ StringType *ObjectObject::prototype::toString() const {
 	return new StringType("[object Object]");
 }
 
-ObjectType *ObjectObject::prototype::valueOf() {
-	// ToObject() not working here due to limitation of C++
-	return new ObjectObject(new ObjectType());
+ObjectType *ObjectObject::prototype::valueOf() const {
+	return ToObject(object->value);
 }
 
 LanguageType *ObjectObject::_getValue() const {

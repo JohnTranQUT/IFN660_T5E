@@ -1,9 +1,8 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <Types/LanguageTypes/LanguageTypesFunc.h>
+#include <Objects/ObjectConstructor.h>
 #include <Utilities/Operator/Operator.h>
 #include <parser.h>
-#include <Objects/ObjectObject/ObjectObject.h>
-#include <Objects/BooleanObject/BooleanObject.h>
 
 #define AST
 #define SA
@@ -29,28 +28,11 @@ void main(int argc, char *argv[]) {
 
 	puts("\nObjectType/Objects Demo\n");
 
-	_calculate(new BooleanObject(new BooleanType(true)), "+", new ObjectObject(new ObjectType()));
-	_calculate(new ObjectObject(new NullType()), "-", new NumberObject(new NumberType(20)));
-	_calculate(new ObjectObject(new NumberType(5)), "*", new ObjectObject(new UndefinedType()));
-	_calculate(new StringObject(new StringType("World")), "/", new ObjectObject(new ObjectObject(new ObjectObject(new BooleanObject(new BooleanType(false))))));
-	_calculate(new BooleanObject(new BooleanType(true)), "%", new StringObject(new StringType("3")));
-
-	puts("\nToObject() Demo");
-
-	puts("\nBooleanType to BooleanObject\n");
-	auto boolean = new BooleanType(true);
-	printf("Original Value: %s (BooleanType)\n", ToString(boolean)->_getValue().c_str());
-	printf("Converted Value: %s (BooleanObject)\n", dynamic_cast<BooleanObject*>(ToObject(boolean))->prototype.toString()->_getValue().c_str());
-
-	puts("\nNumberType to NumberObject\n");
-	auto number = new NumberType(20);
-	printf("Original Value: %s (NumberType)\n", ToString(number)->_getValue().c_str());
-	printf("Converted Value: %s (NumberObject)\n", dynamic_cast<NumberObject*>(ToObject(number))->prototype.toString()->_getValue().c_str());
-
-	puts("\nStringType to StringObject\n");
-	auto string = new StringType("Hello");
-	printf("Original Value: %s (StringType)\n", ToString(string)->_getValue().c_str());
-	printf("Converted Value: %s (StringObject)\n", dynamic_cast<StringObject*>(ToObject(string))->prototype.toString()->_getValue().c_str());
+	_calculate(Boolean(new BooleanType(true)), "+", Object());
+	_calculate(Object(new BooleanType(false)), "-", Number(new NumberType(20)));
+	_calculate(Object(new NumberType(5)), "*", Object(new StringType("2")));
+	_calculate(String(new StringType("30")), "/", Object(Object(Object(Boolean(new BooleanType(true))))));
+	_calculate(Boolean(new BooleanType(true)), "%", String(new StringType("3")));
 
 	puts("");
 #endif

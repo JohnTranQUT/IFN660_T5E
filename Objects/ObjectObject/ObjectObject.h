@@ -7,6 +7,7 @@
 #include <Types/LanguageTypes/BooleanType/BooleanType.h>
 #include <Types/LanguageTypes/NullType/NullType.h>
 #include <Types/LanguageTypes/NumberType/NumberType.h>
+#include <Types/LanguageTypes/LanguageTypesFunc.h>
 
 class ObjectObject : public ObjectType {
 	LanguageType *value;
@@ -17,7 +18,7 @@ public:
 	public:
 		explicit prototype(ObjectObject *_object) : object(_object) {}
 		StringType *toString() const;
-		static ObjectType *valueOf();
+		ObjectType *valueOf() const;
 	} prototype;
 	LanguageType *_getValue() const;
 };
