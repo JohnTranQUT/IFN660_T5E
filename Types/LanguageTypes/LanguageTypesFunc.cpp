@@ -203,7 +203,7 @@ StringType *ToString(LanguageType *argument) {
 		if (isnan(_argument->_getValue())) {
 			return new StringType("NaN");
 		}
-		return new StringType(to_string(_argument->_getValue()));
+		return new StringType(_TrimDecimal(to_string(_argument->_getValue())));
 	}
 	if (dynamic_cast<ObjectType *>(argument)) {
 		auto primValue = ToPrimitive(argument);
@@ -283,4 +283,11 @@ bool _CheckIfObject(LanguageType *input) {
 		return true;
 	}
 	return false;
+}
+
+string _TrimDecimal(string value) {
+	while (value.find(".") != string::npos && value.substr(value.length() - 1, 1) == "0" || value.substr(value.length() - 1, 1) == ".") {
+		value.pop_back();
+	}
+	return value;
 }

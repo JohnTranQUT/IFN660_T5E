@@ -32,3 +32,5 @@ string _GetType(LanguageType *);
 LanguageType *_ToLanguageType(Type *, bool = true);
 
 bool _CheckIfObject(LanguageType *);
+
+string _TrimDecimal(string);
