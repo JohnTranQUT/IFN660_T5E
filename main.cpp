@@ -5,8 +5,8 @@
 #include "AST/AstScript.h"
 
 
-//#define testRuntimeLib
-#define testParser
+#define testRuntimeLib
+//#define testParser
 
 int yylex();
 int yyparse();
@@ -33,8 +33,17 @@ int main(int argc, char* argv[]) {
 	Type* result = addition(jsNumber, jsBool);
 	std::cout << result->ToString()<<"\n";
 
-	StringType* js_string = new StringType("3.14");
-	result = addition(js_string, jsNumber);
+	StringType* str1 = new StringType("3.14");
+	result = addition(str1, jsNumber);
+	std::cout << result->ToString() << "\n";
+
+	str1 = new StringType("Hello");
+	StringType* str2 = new StringType("3.14");
+	StringType* str3 = new StringType("2.14");
+	result = substraction(str1, str2);
+	std::cout << result->ToString() << "\n";
+
+	result = substraction(str2, str3);
 	std::cout << result->ToString() << "\n";
 #endif
 

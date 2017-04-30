@@ -11,7 +11,7 @@ BlockStatement::BlockStatement(Statement *_statement) : statement(_statement) {
 }
 
 void BlockStatement::dump(int indent) {
-	label(indent, "Block\n");
+	label(indent, "BlockStatement\n");
 	statement->dump(indent + 1);
 	
 }
