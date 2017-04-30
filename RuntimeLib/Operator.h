@@ -4,5 +4,6 @@
 class Type;
 
 Type* addition(Type *lref, Type *rref);
+Type* substraction(Type* lref, Type *rref);
 Type* GetValue(Type *object);
 std::string GetType(Type *type);

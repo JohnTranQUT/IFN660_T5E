@@ -16,6 +16,21 @@ Type* addition(Type *lref, Type *rref) {
 		return new NumberType(lprim->ToNumber() + rprim->ToNumber());
 	}
 }
+
+Type* substraction(Type* lref, Type* rref)
+{
+	Type* lval = GetValue(lref);
+	Type* rval = GetValue(rref);
+
+	double lnum = lval->ToNumber();
+	double rnum = rval->ToNumber();
+
+	NumberType *result = new NumberType(lnum - rnum);
+	//substraction funtion always returns a NumberType
+	return result;
+}
+
+
 std::string GetType(Type* type)
 {
 	if (dynamic_cast<BooleanType*>(type))
