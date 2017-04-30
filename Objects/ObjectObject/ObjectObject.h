@@ -1,18 +1,12 @@
 #pragma once
 //#include <Types/LanguageTypes/LanguageTypesFunc.h>
-#include <Types/LanguageTypes/LanguageTypes.h>
-#include <Types/LanguageTypes/StringType/StringType.h>
-#include <Types/LanguageTypes/ObjectType/ObjectType.h>
-#include <Types/LanguageTypes/UndefinedType/UndefinedType.h>
-#include <Types/LanguageTypes/BooleanType/BooleanType.h>
-#include <Types/LanguageTypes/NullType/NullType.h>
-#include <Types/LanguageTypes/NumberType/NumberType.h>
 #include <Types/LanguageTypes/LanguageTypesFunc.h>
 
 class ObjectObject : public ObjectType {
 	LanguageType *value;
 public:
 	explicit ObjectObject(LanguageType *_value = new ObjectType()) : value(_value), prototype(this) { }
+
 	class prototype {
 		ObjectObject *object;
 	public:
@@ -20,5 +14,6 @@ public:
 		StringType *toString() const;
 		ObjectType *valueOf() const;
 	} prototype;
+
 	LanguageType *_getValue() const;
 };

@@ -124,7 +124,7 @@ BooleanType *ToBoolean(LanguageType *argument) {
 	}
 	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
 		auto m = _argument->_getValue();
-		if (m == 0 || m == NAN) {
+		if (m == 0 || isnan(m)) {
 			return new BooleanType(false);
 		}
 		return new BooleanType(true);
@@ -153,7 +153,7 @@ NumberType *ToNumber(LanguageType *argument) {
 		try {
 			auto number = stod(_argument->_getValue());
 			return new NumberType(number);
-		} catch (const invalid_argument& ia) {
+		} catch (const invalid_argument &) {
 			return new NumberType(NAN);
 		}
 	}
@@ -173,7 +173,7 @@ NumberType *ToNumber(LanguageType *argument) {
 
 NumberType *ToInteger(LanguageType *argument) {
 	auto number = ToNumber(argument)->_getValue();
-	if (number == NAN) {
+	if (isnan(number)) {
 		return new NumberType(0);
 	}
 	return new NumberType(static_cast<int>(floor(number)));
@@ -200,6 +200,9 @@ StringType *ToString(LanguageType *argument) {
 		exit(0);
 	}
 	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
+		if (isnan(_argument->_getValue())) {
+			return new StringType("NaN");
+		}
 		return new StringType(to_string(_argument->_getValue()));
 	}
 	if (dynamic_cast<ObjectType*>(argument)) {

@@ -50,4 +50,3 @@ ObjectType *ObjectObject::prototype::valueOf() const {
 LanguageType *ObjectObject::_getValue() const {
 	return value;
 }
-

@@ -7,6 +7,7 @@ class BooleanObject : public ObjectType {
 	LanguageType *value;
 public:
 	explicit BooleanObject(LanguageType *_value) : value(_value), prototype(this) {}
+
 	class prototype {
 		BooleanObject *boolean;
 	public:
@@ -14,5 +15,6 @@ public:
 		StringType *toString() const;
 		BooleanType *valueOf() const;
 	} prototype;
+
 	LanguageType *_getValue() const;
 };

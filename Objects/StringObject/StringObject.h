@@ -6,6 +6,7 @@ class StringObject : public ObjectType {
 	LanguageType *value;
 public:
 	explicit StringObject(LanguageType *_value) : value(_value), prototype(this) {}
+
 	class prototype {
 		StringObject *string;
 	public:
@@ -13,5 +14,6 @@ public:
 		StringType *toString() const;
 		StringType *valueOf() const;
 	} prototype;
+
 	LanguageType *_getValue() const;
 };

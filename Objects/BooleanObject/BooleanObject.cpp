@@ -29,4 +29,3 @@ BooleanType *BooleanObject::prototype::valueOf() const {
 LanguageType *BooleanObject::_getValue() const {
 	return value;
 }
-
