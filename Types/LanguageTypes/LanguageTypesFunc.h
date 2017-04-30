@@ -8,6 +8,7 @@
 #include <Types/LanguageTypes/SymbolType/SymbolType.h>
 #include <Types/LanguageTypes/NumberType/NumberType.h>
 #include <Types/LanguageTypes/ObjectType/ObjectType.h>
+#include <Objects/ObjectObject/ObjectObject.h>
 #include <Objects/BooleanObject/BooleanObject.h>
 #include <Objects/NumberObject/NumberObject.h>
 #include <Objects/StringObject/StringObject.h>

@@ -1,9 +1,11 @@
 #pragma once
-#include <Objects/ObjectObject/ObjectObject.h>
+#include <Types/LanguageTypes/ObjectType/ObjectType.h>
+#include <Types/LanguageTypes/StringType/StringType.h>
 
-class StringObject : public ObjectObject {
+class StringObject : public ObjectType {
+	LanguageType *value;
 public:
-	explicit StringObject(LanguageType *_value) : ObjectObject(_value), prototype(this) {}
+	explicit StringObject(LanguageType *_value) : value(_value), prototype(this) {}
 	class prototype {
 		StringObject *string;
 	public:
@@ -11,4 +13,5 @@ public:
 		StringType *toString() const;
 		StringType *valueOf() const;
 	} prototype;
+	LanguageType *_getValue() const;
 };

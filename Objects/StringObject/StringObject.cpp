@@ -21,3 +21,7 @@ StringType *StringObject::prototype::toString() const {
 StringType *StringObject::prototype::valueOf() const {
 	return thisStringValue(string->_getValue());
 }
+
+LanguageType *StringObject::_getValue() const {
+	return value;
+}

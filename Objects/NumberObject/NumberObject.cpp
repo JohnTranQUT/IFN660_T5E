@@ -42,3 +42,7 @@ StringType *NumberObject::prototype::toString(LanguageType *_radix) const {
 NumberType *NumberObject::prototype::valueOf() const {
 	return thisNumberValue(number->_getValue());
 }
+
+LanguageType *NumberObject::_getValue() const {
+	return value;
+}

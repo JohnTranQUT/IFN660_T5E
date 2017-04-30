@@ -40,17 +40,17 @@ void main(int argc, char *argv[]) {
 	puts("\nBooleanType to BooleanObject\n");
 	auto boolean = new BooleanType(true);
 	printf("Original Value: %s (BooleanType)\n", ToString(boolean)->_getValue().c_str());
-	printf("Converted Value: %s / %s (BooleanObject)\n", dynamic_cast<ObjectObject*>(ToObject(boolean))->prototype.toString()->_getValue().c_str(), dynamic_cast<BooleanObject*>(ToObject(boolean))->prototype.toString()->_getValue().c_str());
+	printf("Converted Value: %s (BooleanObject)\n", dynamic_cast<BooleanObject*>(ToObject(boolean))->prototype.toString()->_getValue().c_str());
 
 	puts("\nNumberType to NumberObject\n");
 	auto number = new NumberType(20);
 	printf("Original Value: %s (NumberType)\n", ToString(number)->_getValue().c_str());
-	printf("Converted Value: %s / %s (NumberObject)\n", dynamic_cast<ObjectObject*>(ToObject(number))->prototype.toString()->_getValue().c_str(), dynamic_cast<NumberObject*>(ToObject(number))->prototype.toString()->_getValue().c_str());
+	printf("Converted Value: %s (NumberObject)\n", dynamic_cast<NumberObject*>(ToObject(number))->prototype.toString()->_getValue().c_str());
 
 	puts("\nStringType to StringObject\n");
 	auto string = new StringType("Hello");
 	printf("Original Value: %s (StringType)\n", ToString(string)->_getValue().c_str());
-	printf("Converted Value: %s / %s (StringObject)\n", dynamic_cast<ObjectObject*>(ToObject(string))->prototype.toString()->_getValue().c_str(), dynamic_cast<StringObject*>(ToObject(string))->prototype.toString()->_getValue().c_str());
+	printf("Converted Value: %s (StringObject)\n", dynamic_cast<StringObject*>(ToObject(string))->prototype.toString()->_getValue().c_str());
 
 	puts("");
 #endif

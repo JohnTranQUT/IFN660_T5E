@@ -1,13 +1,14 @@
 #include <Objects/BooleanObject/BooleanObject.h>
+#include "Objects/NumberObject/NumberObject.h"
 
 BooleanType *thisBooleanValue(LanguageType *value) {
 	if (auto _value = dynamic_cast<BooleanType*>(value)) {
 		return _value;
 	}
-	if (dynamic_cast<ObjectType*>(value) && dynamic_cast<ObjectObject*>(value)) {
-		auto _value = dynamic_cast<ObjectObject*>(value);
-		if (auto _boolean = dynamic_cast<BooleanType*>(_value->_getValue())) {
-			return _boolean;
+	if (dynamic_cast<ObjectType*>(value) && dynamic_cast<BooleanObject*>(value)) {
+		auto _value = dynamic_cast<BooleanObject*>(value);
+		if (auto boolean = dynamic_cast<BooleanType*>(_value->_getValue())) {
+			return boolean;
 		}
 	}
 	puts("TypeError");
@@ -24,3 +25,8 @@ StringType *BooleanObject::prototype::toString() const {
 BooleanType *BooleanObject::prototype::valueOf() const {
 	return thisBooleanValue(boolean->_getValue());
 }
+
+LanguageType *BooleanObject::_getValue() const {
+	return value;
+}
+
