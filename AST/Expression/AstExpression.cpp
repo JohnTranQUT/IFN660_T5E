@@ -187,11 +187,15 @@ void ShiftExpression::dump(int indent) {
 	}
 }
 
-RelationalExpression::RelationalExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr), op(nullptr) {
+RelationalExpression::RelationalExpression(Expression *_LHS) : LHS(_LHS),
+                                                               RHS(nullptr),
+                                                               op(nullptr) {
 	next.push_back(LHS);
 }
 
-RelationalExpression::RelationalExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS), RHS(_RHS), op(_op) {
+RelationalExpression::RelationalExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS),
+                                                                                            RHS(_RHS),
+                                                                                            op(_op) {
 	vector<Node *> components = { LHS, RHS };
 	auto container = new Container(components, "('" + string(op) + "' OP)");
 	next.push_back(container);
@@ -205,11 +209,15 @@ void RelationalExpression::dump(int indent) {
 	}
 }
 
-EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr), op(nullptr) {
+EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS),
+                                                           RHS(nullptr),
+                                                           op(nullptr) {
 	next.push_back(LHS);
 }
 
-EqualityExpression::EqualityExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS), RHS(_RHS), op(_op) {
+EqualityExpression::EqualityExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS),
+                                                                                        RHS(_RHS),
+                                                                                        op(_op) {
 	vector<Node *> components = { LHS, RHS };
 	auto container = new Container(components, "('" + string(op) + "' OP)");
 	next.push_back(container);
@@ -295,12 +303,14 @@ void ConditionalExpression::dump(int indent) {
 	}
 }
 
-AssignmentExpression::AssignmentExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS), RHS(_RHS) {
+AssignmentExpression::AssignmentExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS),
+                                                                                 RHS(_RHS) {
 	next.push_back(LHS);
 	next.push_back(RHS);
 }
 
-AssignmentExpression::AssignmentExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr) {
+AssignmentExpression::AssignmentExpression(Expression *_LHS) : LHS(_LHS),
+                                                               RHS(nullptr) {
 	next.push_back(LHS);
 }
 

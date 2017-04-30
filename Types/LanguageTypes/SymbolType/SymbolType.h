@@ -9,6 +9,8 @@ class SymbolType : public LanguageType {
 	string _type = "symbol";
 public:
 	SymbolType() { };
+
 	string _getValue() const;
+
 	string _getType() override;
 };

@@ -14,13 +14,21 @@
 #include <Objects/StringObject/StringObject.h>
 
 LanguageType *ToPrimitive(LanguageType *, LanguageType * = nullptr);
+
 LanguageType *OrdinaryToPrimitive(ObjectType *, string hint);
+
 BooleanType *ToBoolean(LanguageType *);
+
 NumberType *ToNumber(LanguageType *);
+
 NumberType *ToInteger(LanguageType *);
+
 StringType *ToString(LanguageType *);
+
 ObjectType *ToObject(LanguageType *);
 
 string _GetType(LanguageType *);
+
 LanguageType *_ToLanguageType(Type *, bool = true);
+
 bool _CheckIfObject(LanguageType *);

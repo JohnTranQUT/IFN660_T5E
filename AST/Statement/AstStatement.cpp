@@ -42,7 +42,9 @@ void ExpressionStatement::dump(int indent) {
 	}
 }
 
-IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement, Statement *_elseStatement) : expression(_expression), ifStatement(_ifStatement), elseStatement(_elseStatement) {
+IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement, Statement *_elseStatement) : expression(_expression),
+                                                                                                        ifStatement(_ifStatement),
+                                                                                                        elseStatement(_elseStatement) {
 	vector<Node*> expComp = { expression };
 	vector<Node*> ifComp = { ifStatement };
 	vector<Node*> elseComp = { elseStatement };
@@ -54,7 +56,9 @@ IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement, State
 	next.push_back(elseCont);
 }
 
-IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement) : expression(_expression), ifStatement(_ifStatement), elseStatement(nullptr) {
+IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement) : expression(_expression),
+                                                                             ifStatement(_ifStatement),
+                                                                             elseStatement(nullptr) {
 	next.push_back(expression);
 	next.push_back(ifStatement);
 }

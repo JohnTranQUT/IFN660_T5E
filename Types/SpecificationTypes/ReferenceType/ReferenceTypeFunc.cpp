@@ -8,11 +8,10 @@ Type *GetValue(Type *V) {
 		auto isArruptCompletion = ReturnIfAbrupt(_V);
 		if (dynamic_cast<CompletionType *>(isArruptCompletion)) {
 			return isArruptCompletion;
-		} else {
-			V = isArruptCompletion;
 		}
+		V = isArruptCompletion;
 	}
-	if (auto _V = dynamic_cast<ReferenceType*>(V)) {
+	if (auto _V = dynamic_cast<ReferenceType *>(V)) {
 		auto base = _V->GetBase();
 		if (_V->IsUnresolvableReference()) {
 			puts("ReferenceError");
@@ -25,12 +24,10 @@ Type *GetValue(Type *V) {
 			puts("Object");
 			puts("Return ? base.[[Get]](GetReferenceName(), GetThisValue()");
 			exit(0);
-		} else {
-			puts("EnvironmentRecord");
-			puts("Return ? base.GetBindingValue(GetReferenceName(), IsStrictReference())");
-			exit(0);
 		}
-	} else {
-		return V;
+		puts("EnvironmentRecord");
+		puts("Return ? base.GetBindingValue(GetReferenceName(), IsStrictReference())");
+		exit(0);
 	}
+	return V;
 }

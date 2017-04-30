@@ -9,6 +9,7 @@ using namespace std;
 class Statement : public Node {
 public:
 	virtual ~Statement() = default;
+
 	void dump(int = 0) override = 0;
 };
 
@@ -17,6 +18,7 @@ class BlockStatement : public Statement {
 	Statement *statement;
 public:
 	explicit BlockStatement(Statement *);
+
 	void dump(int = 0) override;
 };
 
@@ -25,6 +27,7 @@ class Block : public Statement {
 	StatementList *statementlist;
 public:
 	explicit Block(StatementList *);
+
 	void dump(int = 0) override;
 };
 
@@ -33,6 +36,7 @@ class ExpressionStatement : public Statement {
 	Expression *expression;
 public:
 	explicit ExpressionStatement(Expression *);
+
 	void dump(int = 0) override;
 };
 
@@ -43,6 +47,8 @@ class IfStatement : public Statement {
 	Statement *elseStatement;
 public:
 	explicit IfStatement(Expression *, Statement *, Statement *);
+
 	explicit IfStatement(Expression *, Statement *);
+
 	void dump(int = 0) override;
 };

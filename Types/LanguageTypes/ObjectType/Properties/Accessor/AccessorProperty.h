@@ -9,5 +9,8 @@ class AccessorProperty : public Property {
 	bool Enumerable;
 	bool Configurable;
 public:
-	explicit AccessorProperty(LanguageType *_Get = new UndefinedType(), LanguageType *_Set = new UndefinedType(), bool _Enumerable = false, bool _Configurable = false) : Get(_Get), Set(_Set), Enumerable(_Enumerable), Configurable(_Configurable) { };
+	explicit AccessorProperty(LanguageType *_Get = new UndefinedType(), LanguageType *_Set = new UndefinedType(), bool _Enumerable = false, bool _Configurable = false) : Get(_Get),
+	                                                                                                                                                                      Set(_Set),
+	                                                                                                                                                                      Enumerable(_Enumerable),
+	                                                                                                                                                                      Configurable(_Configurable) { };
 };
