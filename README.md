@@ -5,6 +5,7 @@ Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
 - Added _TrimDecimal() to remove trailing zeros and unnecessary decimal when converting double to string
+- Implemented ReferenceType -> GetThisValue() and improved ReferenceType -> GetValue()
 - Added Object(), Boolean(), Number(), and String() as corresponding object constructor
 - Fixed ObjectObject::prototype::valueOf(). ToPrimitive() and OrdinaryToPrimitive() are now working properly
 - ObjectObject is no longer the base class of BooleanObject, NumberObject, and StringObject
@@ -29,6 +30,3 @@ Semantic Analysis - Function-Oriented (Alfred)
 - Implemented LanguageTypes Addition
 - Implemented LanguageTypes ToPrimitive, ToNumber, ToString
 - Implemented SpecificationTypes GetValue
-
-## Issues
-- ObjectObject::prototype::valueOf cannot be implemented with current structure due to recursive inclusion as it requires ToObject() which requires derived classes of ObjectObject: BooleanObject, NumberObject, and StringObject which requires ObjectObject (ObjectObject.h -> LanguageTypesFunc.h -> BooleanObject.h/NumberObject.h/StringObject.h -> ObjectObject.h). 
