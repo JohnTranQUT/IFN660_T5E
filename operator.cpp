@@ -1,6 +1,6 @@
 #include <operator.h>
 #include <iostream>
-#define CANUOCANLON
+#define DEBUG
 
 GeneralType *addition(GeneralType *lref, GeneralType *rref) {
 
@@ -13,7 +13,7 @@ GeneralType *addition(GeneralType *lref, GeneralType *rref) {
 		auto rstr = rprim->ToString();
 		auto result = new String(lstr + rstr);
 		dynamic_cast<GeneralType *>(result);
-#ifdef CANUOCANLON
+#ifdef DEBUG
 		cout << "(" << lprim->_getType() << ") " << lprim->ToString() << "\t " << "+" << " \t(" << rprim->_getType() << ") " << rprim->ToString() << "\t = \t(" << result->_getType() << ") " << result->ToString() << endl;
 #endif
 		return result;
@@ -23,7 +23,7 @@ GeneralType *addition(GeneralType *lref, GeneralType *rref) {
 		auto rnum = rprim->ToNumber();
 		auto result = new Number(lnum + rnum);
 		dynamic_cast<GeneralType *>(result);
-#ifdef CANUOCANLON
+#ifdef DEBUG
 		cout << "(" << lprim->_getType() << ") " << lprim->ToString() << "\t " << "+" << " \t(" << rprim->_getType() << ") " << rprim->ToString() << "\t = \t(" << result->_getType() << ") " << result->ToString() << endl;
 #endif
 		return result;
@@ -40,7 +40,7 @@ GeneralType *subtraction(GeneralType *lref, GeneralType *rref) {
 	auto rnum = rprim->ToNumber();
 	auto result = new Number(lnum - rnum);
 	dynamic_cast<GeneralType *>(result);
-#ifdef CANUOCANLON
+#ifdef DEBUG
 	cout << "(" << lprim->_getType() << ") " << lprim->ToString() << "\t " << "-" << " \t(" << rprim->_getType() << ") " << rprim->ToString() << "\t = \t(" << result->_getType() << ") " << result->ToString() << endl;
 #endif
 	return result;
