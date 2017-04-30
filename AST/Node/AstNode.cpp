@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 #include <AST/Node/AstNode.h>
-
 using namespace std;
 
 void Node::dump(string message, int indent) {

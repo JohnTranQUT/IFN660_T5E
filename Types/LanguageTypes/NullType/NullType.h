@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 #include <Types/LanguageTypes/LanguageTypes.h>
 
@@ -10,8 +9,6 @@ class NullType : public LanguageType {
 	string _type = "object";
 public:
 	NullType() { };
-
 	string _getValue() const;
-
 	string _getType() override;
 };

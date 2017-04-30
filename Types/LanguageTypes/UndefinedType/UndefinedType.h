@@ -9,8 +9,6 @@ class UndefinedType : public LanguageType {
 	string _type = "undefined";
 public:
 	UndefinedType() { };
-
 	string _getValue() const;
-
 	string _getType() override;
 };

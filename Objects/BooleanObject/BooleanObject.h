@@ -13,9 +13,7 @@ public:
 		BooleanObject *boolean;
 	public:
 		explicit prototype(BooleanObject *_boolean) : boolean(_boolean) { }
-
 		StringType *toString() const;
-
 		BooleanType *valueOf() const;
 	} prototype;
 

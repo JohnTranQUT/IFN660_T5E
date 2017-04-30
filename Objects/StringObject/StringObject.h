@@ -12,9 +12,7 @@ public:
 		StringObject *string;
 	public:
 		explicit prototype(StringObject *_string) : string(_string) { }
-
 		StringType *toString() const;
-
 		StringType *valueOf() const;
 	} prototype;
 

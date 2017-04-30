@@ -2,9 +2,7 @@
 #include <typeinfo>
 #include <AST/Node/AstNode.h>
 #include <AST/Expression/AstExpression.h>
-
 using namespace std;
-
 IdentifierName::IdentifierName(char *_LHS) : LHS(_LHS) { }
 
 void IdentifierName::dump(int indent) {

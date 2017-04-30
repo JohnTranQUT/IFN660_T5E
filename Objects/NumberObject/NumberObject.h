@@ -11,9 +11,7 @@ public:
 		NumberObject *number;
 	public:
 		explicit prototype(NumberObject *_number) : number(_number) { }
-
 		StringType *toString(LanguageType *radix = nullptr) const;
-
 		NumberType *valueOf() const;
 	} prototype;
 

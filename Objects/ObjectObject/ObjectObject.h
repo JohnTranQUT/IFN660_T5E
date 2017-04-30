@@ -12,9 +12,7 @@ public:
 		ObjectObject *object;
 	public:
 		explicit prototype(ObjectObject *_object) : object(_object) {}
-
 		StringType *toString() const;
-
 		ObjectType *valueOf() const;
 	} prototype;
 

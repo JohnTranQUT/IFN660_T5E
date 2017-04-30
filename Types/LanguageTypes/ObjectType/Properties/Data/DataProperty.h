@@ -9,8 +9,13 @@ class DataProperty : public Property {
 	bool Enumerable;
 	bool Configurable;
 public:
-	explicit DataProperty(LanguageType *_Value = new UndefinedType(), bool _Writable = false, bool _Emumerable = false, bool _Configurable = false) : Value(_Value),
-	                                                                                                                                                  Writable(_Writable),
-	                                                                                                                                                  Enumerable(_Emumerable),
-	                                                                                                                                                  Configurable(_Configurable) { };
+	explicit DataProperty(
+		LanguageType *_Value = new UndefinedType(),
+		bool _Writable = false,
+		bool _Emumerable = false,
+		bool _Configurable = false
+	) : Value(_Value),
+	    Writable(_Writable),
+	    Enumerable(_Emumerable),
+	    Configurable(_Configurable) { };
 };

@@ -9,8 +9,6 @@ class NumberType : public LanguageType {
 	string _type = "number";
 public:
 	explicit NumberType(double value) : _value(value) { };
-
 	double _getValue() const;
-
 	string _getType() override;
 };

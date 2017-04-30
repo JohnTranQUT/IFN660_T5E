@@ -11,8 +11,6 @@ class ObjectType : public LanguageType {
 	string _type = "object";
 public:
 	ObjectType() { };
-
 	static string _getValue();
-
 	string _getType() override;
 };

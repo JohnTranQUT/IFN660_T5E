@@ -7,13 +7,14 @@ class CompletionType : public RecordType {
 	LanguageType *Value;
 	string Target;
 public:
-	explicit CompletionType(string _Type, LanguageType *_Value, string _Target) : Type(_Type),
-	                                                                              Value(_Value),
-	                                                                              Target(_Target) { };
-
+	explicit CompletionType(
+		string _Type,
+		LanguageType *_Value,
+		string _Target
+	) : Type(_Type),
+	    Value(_Value),
+	    Target(_Target) { };
 	string _getType() const;
-
 	LanguageType *_getValue() const;
-
 	string _getTarget() const;
 };

@@ -3,7 +3,6 @@
 #include <AST/Expression/AstExpression.h>
 #include <AST/Statement/AstStatement.h>
 #include <AST/Script/AstScript.h>
-
 using namespace std;
 
 BlockStatement::BlockStatement(Statement *_statement) : statement(_statement) {

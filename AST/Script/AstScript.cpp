@@ -2,7 +2,6 @@
 #include <AST/Node/AstNode.h>
 #include <AST/Statement/AstStatement.h>
 #include <AST/Script/AstScript.h>
-
 using namespace std;
 
 StatementListItem::StatementListItem(Statement *_statement) : statement(_statement) {
