@@ -1,10 +1,106 @@
 #include <Types/LanguageTypes/LanguageTypesFunc.h>
 
 LanguageType *ToPrimitive(LanguageType *input, LanguageType *PreferredType) {
-	if (dynamic_cast<ObjectType*>(input)) {
-		return nullptr;
+	if (auto _input = dynamic_cast<ObjectType*>(input)) {
+		string hint;
+		if (PreferredType == nullptr) {
+			hint = "default";
+		} else if (dynamic_cast<StringType*>(PreferredType)) {
+			hint = "string";
+		} else {
+			hint = "number";
+		}
+
+		// exoticToPrim (check Data objects and Symbol objects)
+
+		if (hint == "default") {
+			hint = "number";
+		}
+		return OrdinaryToPrimitive(_input, hint);
 	}
 	return input;
+}
+
+LanguageType *OrdinaryToPrimitive(ObjectType *O, string hint) {
+	if (hint == "string") {
+		if (auto _O = dynamic_cast<BooleanObject*>(O)) {
+			auto _toStringResult = _O->prototype.toString();
+			if (!_CheckIfObject(_toStringResult)) {
+				return _toStringResult;
+			}
+			auto _valueOfResult = _O->prototype.valueOf();
+			if (!_CheckIfObject(_valueOfResult)) {
+				return _valueOfResult;
+			}
+		} else if (auto _O = dynamic_cast<NumberObject*>(O)) {
+			auto _toStringResult = _O->prototype.toString();
+			if (!_CheckIfObject(_toStringResult)) {
+				return _toStringResult;
+			}
+			auto _valueOfResult = _O->prototype.valueOf();
+			if (!_CheckIfObject(_valueOfResult)) {
+				return _valueOfResult;
+			}
+		} else if (auto _O = dynamic_cast<StringObject*>(O)) {
+			auto _toStringResult = _O->prototype.toString();
+			if (!_CheckIfObject(_toStringResult)) {
+				return _toStringResult;
+			}
+			auto _valueOfResult = _O->prototype.valueOf();
+			if (!_CheckIfObject(_valueOfResult)) {
+				return _valueOfResult;
+			}
+		} else if (auto _O = dynamic_cast<ObjectObject*>(O)) {
+			auto _toStringResult = _O->prototype.toString();
+			if (!_CheckIfObject(_toStringResult)) {
+				return _toStringResult;
+			}
+			auto _valueOfResult = _O->prototype.valueOf();
+			if (!_CheckIfObject(_valueOfResult)) {
+				return _valueOfResult;
+			}
+		}
+	} else {
+		if (auto _O = dynamic_cast<BooleanObject*>(O)) {
+			auto _valueOfResult = _O->prototype.valueOf();
+			if (!_CheckIfObject(_valueOfResult)) {
+				return _valueOfResult;
+			}
+			auto _toStringResult = _O->prototype.toString();
+			if (!_CheckIfObject(_toStringResult)) {
+				return _toStringResult;
+			}
+		} else if (auto _O = dynamic_cast<NumberObject*>(O)) {
+			auto _valueOfResult = _O->prototype.valueOf();
+			if (!_CheckIfObject(_valueOfResult)) {
+				return _valueOfResult;
+			}
+			auto _toStringResult = _O->prototype.toString();
+			if (!_CheckIfObject(_toStringResult)) {
+				return _toStringResult;
+			}
+		} else if (auto _O = dynamic_cast<StringObject*>(O)) {
+			auto _valueOfResult = _O->prototype.valueOf();
+			if (!_CheckIfObject(_valueOfResult)) {
+				return _valueOfResult;
+			}
+			auto _toStringResult = _O->prototype.toString();
+			if (!_CheckIfObject(_toStringResult)) {
+				return _toStringResult;
+			}
+		} else if (auto _O = dynamic_cast<ObjectObject*>(O)) {
+			auto _valueOfResult = _O->prototype.valueOf();
+			if (!_CheckIfObject(_valueOfResult)) {
+				return _valueOfResult;
+			}
+			auto _toStringResult = _O->prototype.toString();
+			if (!_CheckIfObject(_toStringResult)) {
+				return _toStringResult;
+			}
+		}
+	}
+	puts("TypeError");
+	exit(0);
 }
 
 BooleanType *ToBoolean(LanguageType *argument) {
@@ -54,7 +150,12 @@ NumberType *ToNumber(LanguageType *argument) {
 		return new NumberType(0);
 	}
 	if (auto _argument = dynamic_cast<StringType*>(argument)) {
-		return new NumberType(stod(_argument->_getValue()));
+		try {
+			auto number = stod(_argument->_getValue());
+			return new NumberType(number);
+		} catch (const invalid_argument& ia) {
+			return new NumberType(NAN);
+		}
 	}
 	if (dynamic_cast<SymbolType*>(argument)) {
 		puts("TypeError");
@@ -63,7 +164,8 @@ NumberType *ToNumber(LanguageType *argument) {
 		return _argument;
 	}
 	if (dynamic_cast<ObjectType*>(argument)) {
-		puts("Object");
+		auto primValue = ToPrimitive(argument, new NumberType(1));
+		return ToNumber(primValue);
 	}
 	puts("ToNumber");
 	exit(0);
@@ -95,12 +197,14 @@ StringType *ToString(LanguageType *argument) {
 	}
 	if (dynamic_cast<SymbolType*>(argument)) {
 		puts("TypeError");
+		exit(0);
 	}
 	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
 		return new StringType(to_string(_argument->_getValue()));
 	}
 	if (dynamic_cast<ObjectType*>(argument)) {
-		puts("Object");
+		auto primValue = ToPrimitive(argument);
+		return ToString(primValue);
 	}
 	puts("ToString");
 	exit(0);
@@ -115,17 +219,17 @@ ObjectType *ToObject(LanguageType *argument) {
 		puts("TypeError");
 		exit(0);
 	}
-	if (dynamic_cast<BooleanType*>(argument)) {
-		puts("Boolean");
+	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
+		return new BooleanObject(_argument);
 	}
 	if (auto _argument = dynamic_cast<StringType*>(argument)) {
-		puts("String");
+		return new StringObject(_argument);
 	}
 	if (dynamic_cast<SymbolType*>(argument)) {
 		puts("Symbol");
 	}
 	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
-		puts("Number");
+		return new NumberObject(_argument);
 	}
 	if (auto _argument = dynamic_cast<ObjectType*>(argument)) {
 		return _argument;
@@ -169,4 +273,11 @@ LanguageType *_ToLanguageType(Type *argument, bool strict) {
 		exit(0);
 	}
 	return nullptr;
+}
+
+bool _CheckIfObject(LanguageType *input) {
+	if (dynamic_cast<ObjectType*>(input)) {
+		return true;
+	}
+	return false;
 }
