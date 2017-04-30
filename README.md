@@ -4,6 +4,7 @@
 Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
+- Type Convertion now returns LanguageTypes instead of Data Types in C++
 - GetValue is now under ReferenceType instead of SpecificationTypes
 - Implemented ReferenceType and CompletionType
 - GetValue now supports CompletionType
