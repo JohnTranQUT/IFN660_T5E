@@ -25,8 +25,7 @@ Type *GetValue(Type *V) {
 			puts("Object");
 			puts("Return ? base.[[Get]](GetReferenceName(), GetThisValue()");
 			exit(0);
-		}
-		else {
+		} else {
 			puts("EnvironmentRecord");
 			puts("Return ? base.GetBindingValue(GetReferenceName(), IsStrictReference())");
 			exit(0);

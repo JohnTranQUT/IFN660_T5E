@@ -9,10 +9,10 @@
 #include <Types/LanguageTypes/ObjectType/ObjectType.h>
 
 LanguageType *ToPrimitive(LanguageType *, LanguageType * = nullptr);
-bool ToBoolean(LanguageType *);
-double ToNumber(LanguageType *);
-int ToInteger(LanguageType *);
-string ToString(LanguageType *);
+BooleanType *ToBoolean(LanguageType *);
+NumberType *ToNumber(LanguageType *);
+NumberType *ToInteger(LanguageType *);
+StringType *ToString(LanguageType *);
 ObjectType *ToObject(LanguageType *);
 
 string _GetType(LanguageType *);

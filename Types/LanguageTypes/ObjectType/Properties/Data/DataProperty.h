@@ -4,7 +4,7 @@
 #include <Types/LanguageTypes/ObjectType/Properties/Properties.h>
 
 class DataProperty : public Property {
-	LanguageType* Value;
+	LanguageType *Value;
 	bool Writable;
 	bool Enumerable;
 	bool Configurable;

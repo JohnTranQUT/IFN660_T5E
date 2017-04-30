@@ -43,9 +43,9 @@ void ExpressionStatement::dump(int indent) {
 }
 
 IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement, Statement *_elseStatement) : expression(_expression), ifStatement(_ifStatement), elseStatement(_elseStatement) {
-	vector<Node*> expComp = {expression};
-	vector<Node*> ifComp = {ifStatement};
-	vector<Node*> elseComp = {elseStatement};
+	vector<Node*> expComp = { expression };
+	vector<Node*> ifComp = { ifStatement };
+	vector<Node*> elseComp = { elseStatement };
 	auto expCont = new Container(expComp, "(CONDITIONS)");
 	auto ifCont = new Container(ifComp, "(IF)");
 	auto elseCont = new Container(elseComp, "(ELSE)");

@@ -7,60 +7,60 @@ LanguageType *ToPrimitive(LanguageType *input, LanguageType *PreferredType) {
 	return input;
 }
 
-bool ToBoolean(LanguageType *argument) {
+BooleanType *ToBoolean(LanguageType *argument) {
 	if (dynamic_cast<UndefinedType*>(argument)) {
-		return false;
+		return new BooleanType(false);
 	}
 	if (dynamic_cast<NullType*>(argument)) {
-		return false;
+		return new BooleanType(false);
 	}
 	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
-		return _argument->_getValue();
+		return _argument;
 	}
 	if (auto _argument = dynamic_cast<StringType*>(argument)) {
 		if (_argument->_getValue() == "") {
-			return false;
+			return new BooleanType(false);
 		}
-		return true;
+		return new BooleanType(true);
 	}
 	if (dynamic_cast<SymbolType*>(argument)) {
-		return true;
+		return new BooleanType(true);
 	}
 	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
 		auto m = _argument->_getValue();
 		if (m == 0 || m == NAN) {
-			return false;
+			return new BooleanType(false);
 		}
-		return true;
+		return new BooleanType(true);
 	}
 	if (dynamic_cast<ObjectType*>(argument)) {
-		return true;
+		return new BooleanType(true);
 	}
 	puts("ToBoolean");
 	exit(0);
 }
 
-double ToNumber(LanguageType *argument) {
+NumberType *ToNumber(LanguageType *argument) {
 	if (dynamic_cast<UndefinedType*>(argument)) {
-		return NAN;
+		return new NumberType(NAN);
 	}
 	if (dynamic_cast<NullType*>(argument)) {
-		return 0;
+		return new NumberType(0);
 	}
 	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
 		if (_argument->_getValue()) {
-			return 1;
+			return new NumberType(1);
 		}
-		return 0;
+		return new NumberType(0);
 	}
 	if (auto _argument = dynamic_cast<StringType*>(argument)) {
-		return stod(_argument->_getValue());
+		return new NumberType(stod(_argument->_getValue()));
 	}
 	if (dynamic_cast<SymbolType*>(argument)) {
 		puts("TypeError");
 	}
 	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
-		return _argument->_getValue();
+		return _argument;
 	}
 	if (dynamic_cast<ObjectType*>(argument)) {
 		puts("Object");
@@ -69,35 +69,35 @@ double ToNumber(LanguageType *argument) {
 	exit(0);
 }
 
-int ToInteger(LanguageType *argument) {
-	auto number = ToNumber(argument);
+NumberType *ToInteger(LanguageType *argument) {
+	auto number = ToNumber(argument)->_getValue();
 	if (number == NAN) {
-		return 0;
+		return new NumberType(0);
 	}
-	return static_cast<int>(floor(number));
+	return new NumberType(static_cast<int>(floor(number)));
 }
 
-string ToString(LanguageType *argument) {
+StringType *ToString(LanguageType *argument) {
 	if (dynamic_cast<UndefinedType*>(argument)) {
-		return "undefined";
+		return new StringType("undefined");
 	}
 	if (dynamic_cast<NullType*>(argument)) {
-		return "null";
+		return new StringType("null");
 	}
 	if (auto _argument = dynamic_cast<BooleanType*>(argument)) {
 		if (_argument->_getValue()) {
-			return "true";
+			return new StringType("true");
 		}
-		return "false";
+		return new StringType("false");
 	}
 	if (auto _argument = dynamic_cast<StringType*>(argument)) {
-		return _argument->_getValue();
+		return _argument;
 	}
 	if (dynamic_cast<SymbolType*>(argument)) {
 		puts("TypeError");
 	}
 	if (auto _argument = dynamic_cast<NumberType*>(argument)) {
-		return to_string(_argument->_getValue());
+		return new StringType(to_string(_argument->_getValue()));
 	}
 	if (dynamic_cast<ObjectType*>(argument)) {
 		puts("Object");

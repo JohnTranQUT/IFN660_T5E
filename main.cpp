@@ -7,8 +7,8 @@ extern FILE *yyin;
 using namespace std;
 
 void main(int argc, char *argv[]) {
-//	fopen_s(&yyin, argv[1], "r");
-//	yyparse();
+	//	fopen_s(&yyin, argv[1], "r");
+	//	yyparse();
 	_calculate(new StringType("Hello"), "+", new NullType());
 	_calculate(new NumberType(50), "-", new BooleanType(false));
 	_calculate(new NullType(), "*", new NumberType(20));
