@@ -28,7 +28,7 @@ void main(int argc, char *argv[]) {
 
 	puts("\nObjectType/Objects Demo\n");
 
-	_calculate(Boolean(new BooleanType(true)), "+", Object());
+	_calculate(String(new StringType("World")), "+", Object());
 	_calculate(Object(new BooleanType(false)), "-", Number(new NumberType(20)));
 	_calculate(Object(new NumberType(5)), "*", Object(new StringType("2")));
 	_calculate(String(new StringType("30")), "/", Object(Object(Object(Boolean(new BooleanType(true))))));
