@@ -5,7 +5,7 @@ Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
 - ObjectObject::prototype::valueOf now returns and instantiates ObjectObject with blank ObjectType ([object Object]) instead of pure ObjectType (unknown)
-- Replaced valueOf in ObjectObject::prototype with dummy (always return blank ObjectType instead of value) due to limitation in C++
+- Replaced valueOf in ObjectObject::prototype with dummy (always return blank ObjectType instead of ToObject(value)) due to limitation in C++
 - Implemented Full OrdinaryToPrimitive
 - ToPrimitive now supports ObjectType
 - ToObject now supports BooleanType, StringType and NumberType
