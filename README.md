@@ -4,6 +4,9 @@
 Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
+- Added Object(), Boolean(), Number(), and String() as corresponding object constructor
+- Fixed ObjectObject::prototype::valueOf(). ToPrimitive() and OrdinaryToPrimitive() are now working properly
+- ObjectObject is no longer the base class of BooleanObject, NumberObject, and StringObject
 - ObjectObject::prototype::valueOf now returns and instantiates ObjectObject with blank ObjectType ([object Object]) instead of pure ObjectType (unknown)
 - Replaced valueOf in ObjectObject::prototype with dummy (always return blank ObjectType instead of ToObject(value)) due to limitation in C++
 - Implemented Full OrdinaryToPrimitive
