@@ -55,7 +55,7 @@ class StringType : public Type {
 private:
 	std::string value;
 public:
-	StringType(std::string _value);
+	StringType(std::string value);
 	bool ToBoolean() override;
 	virtual std::string ToString() override;
 	double ToNumber() override;

@@ -6,27 +6,33 @@ Type::~Type()
 	std::cout << "Type destructor\n";
 }
 
-bool JSUndefined::ToBoolean()
+bool UndefinedType::ToBoolean()
 {
 	return false;
 }
 
-std::string JSUndefined::ToString()
+std::string UndefinedType::ToString()
 {
 	return "undefined";
 }
 
-double JSUndefined::ToNumber()
+double UndefinedType::ToNumber()
 {
 	return NAN;
 }
+/*
+void UndefinedType::dump(int indent)
+{
+	label(indent, "UndefinedType\n");
+}
+*/
 
-JSUndefined::JSUndefined()
+UndefinedType::UndefinedType()
 {
 	
 }
 
-JSUndefined::~JSUndefined()
+UndefinedType::~UndefinedType()
 {
 	
 }

@@ -1,9 +1,9 @@
 #include "Type.h"
 
 
-StringType::StringType(std::string _value)
+StringType::StringType(std::string value): value(value)
 {
-	value = _value;
+	
 }
 
 bool StringType::ToBoolean()
@@ -21,6 +21,12 @@ double StringType::ToNumber()
 	double result = std::stoi(value);
 	return result;
 }
+/*
+void StringType::dump(int indent)
+{
+	label(indent, "StringType\n");
+}
+*/
 
 StringType::~StringType()
 {

@@ -6,23 +6,24 @@ Type* addition(Type *lref, Type *rref) {
 	
 	auto lprim = lval->ToPrimitive();
 	auto rprim = rval->ToPrimitive();
-	if (Type(lprim) == "string" || Type(rprim) == "string") {
-		JSString* str = new JSString(lprim->ToString() + rprim->ToString());
+	if (GetType(lprim) == "string" || GetType(rprim) == "string") {
+		std::string result = lprim->ToString() + rprim->ToString();
+		StringType* str = new StringType(result);
 		return str;
 	} 
 	else {
-		return new JSNumber(lprim->ToNumber() + rprim->ToNumber());
+		return new NumberType(lprim->ToNumber() + rprim->ToNumber());
 	}
 }
-string Type(Type* js_value)
+std::string GetType(Type* type)
 {
-	if (dynamic_cast<JSBoolean*>(js_value))
+	if (dynamic_cast<BooleanType*>(type))
 	{
 		return "string";
-	} else if (dynamic_cast<JSString*>(js_value))
+	} else if (dynamic_cast<StringType*>(type))
 	{
 		return "string";
-	} else if (dynamic_cast<JSNumber*>(js_value))
+	} else if (dynamic_cast<NumberType*>(type))
 	{
 		return "number";
 	} else

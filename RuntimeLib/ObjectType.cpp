@@ -1,11 +1,11 @@
 #include "Type.h"
 
-JSObject::JSObject(map<std::string, std::string> _value): map_value(_value)
+ObjectType::ObjectType(map<std::string, std::string> _value): map_value(_value)
 {
 
 }
 
-Type* JSObject::ToPrimitive() {
+Type* ObjectType::ToPrimitive() {
 	
 	string result = "{";
 	for (map<string, string>::iterator iter = map_value.begin(); iter != map_value.end(); iter++)
@@ -15,27 +15,32 @@ Type* JSObject::ToPrimitive() {
 	}
 	result.pop_back();//Remove the last character
 	result += "}";
-	JSString* jsStr = new JSString(result);
+	StringType* jsStr = new StringType(result);
 	return jsStr;
 }
 
-bool JSObject::ToBoolean()
+bool ObjectType::ToBoolean()
 {
 	return true;
 }
 
-double JSObject::ToNumber()
+double ObjectType::ToNumber()
 {
 	return NAN;
 }
 
-std::string JSObject::ToString()
+std::string ObjectType::ToString()
 {
 	Type* primValue = this->ToPrimitive();
 	return primValue->ToString();
 }
+/*
+void ObjectType::dump(int indent)
+{
+	label(indent, "ObjectType\n");
+}
+*/
 
-
-JSObject::~JSObject()
+ObjectType::~ObjectType()
 {
 }

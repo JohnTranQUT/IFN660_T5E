@@ -2,25 +2,31 @@
 
 
 
-JSBoolean::JSBoolean(bool _value)
+BooleanType::BooleanType(bool _value)
 {
 	value = _value;
 }
-bool JSBoolean::ToBoolean()
+bool BooleanType::ToBoolean()
 {
 	return value;
 }
 
-std::string JSBoolean::ToString()
+std::string BooleanType::ToString()
 {
-	return value ? "true" : false;
+	return value ? "true" : "false";
 }
 
-double JSBoolean::ToNumber()
+double BooleanType::ToNumber()
 {
 	return (value) ? 1 : 0;
 }
+/*
+void BooleanType::dump(int indent)
+{
+	label(indent, "BooleanType\n");
+}
+*/
 
-JSBoolean::~JSBoolean()
+BooleanType::~BooleanType()
 {
 }

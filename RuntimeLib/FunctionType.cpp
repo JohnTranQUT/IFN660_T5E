@@ -1,11 +1,11 @@
 #include "Type.h"
 
-JSFunction::JSFunction()
+FunctionType::FunctionType()
 {
 	
 }
 
 
-JSFunction::~JSFunction()
+FunctionType::~FunctionType()
 {
 }

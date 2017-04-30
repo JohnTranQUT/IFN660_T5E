@@ -1,20 +1,26 @@
 #include "Type.h"
 
-JSNumber::JSNumber(double _value)
+NumberType::NumberType(double _value)
 {
 	value = _value;
 }
 
-std::string JSNumber::ToString()
+std::string NumberType::ToString()
 {
 	return std::to_string(value);
 }
 
-double JSNumber::ToNumber()
+double NumberType::ToNumber()
 {
 	return value;
 }
+/*
+void NumberType::dump(int indent)
+{
+	label(indent, "NumberType\n");
+}
+*/
 
-JSNumber::~JSNumber()
+NumberType::~NumberType()
 {
 }

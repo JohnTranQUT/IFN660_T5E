@@ -2,22 +2,27 @@
 
 
 
-JSNull::JSNull()
+NullType::NullType()
 {
 }
 
-std::string JSNull::ToString()
+std::string NullType::ToString()
 {
 	return "null";
 }
 
 
-double JSNull::ToNumber()
+double NullType::ToNumber()
 {
 	return +0;
 }
+/*
+void NullType::dump(int indent)
+{
+	label(indent, "NullType\n");
+}
+*/
 
-
-JSNull::~JSNull()
+NullType::~NullType()
 {
 }

@@ -1,15 +1,15 @@
 
-#include "JSValue.h"
+#include "Type.h"
 
-JSValue* JSValue::ToPrimitive()
+Type* Type::ToPrimitive()
 {
-	/*Return this for every type except JSObject*/
+	/*Return this for every type except ObjectType*/
 	return this;
 }
 
-bool JSValue::ToBoolean()
+bool Type::ToBoolean()
 {
-	/*Return false for every type except JSObject*/
+	/*Return false for every type except ObjectType*/
 	return false;
 }
 
