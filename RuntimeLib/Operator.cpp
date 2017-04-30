@@ -6,12 +6,13 @@ Type* addition(Type *lref, Type *rref) {
 	
 	auto lprim = lval->ToPrimitive();
 	auto rprim = rval->ToPrimitive();
-	if (GetType(lprim) == "string" || GetType(rprim) == "string") {
-		std::string result = lprim->ToString() + rprim->ToString();
-		StringType* str = new StringType(result);
-		return str;
-	} 
-	else {
+	if (GetType(lprim) == "string" || GetType(rprim) == "string") 
+	{
+		std::string str = lprim->ToString() + rprim->ToString();
+		StringType* result = new StringType(str);
+		return result;
+	} 	else 
+	{
 		return new NumberType(lprim->ToNumber() + rprim->ToNumber());
 	}
 }

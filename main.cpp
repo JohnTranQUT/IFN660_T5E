@@ -1,6 +1,6 @@
 #include <iostream>
 #include "RuntimeLib/Operator.h"
-#include "RuntimeLib/JSValue.h"
+#include "RuntimeLib/Type.h"
 #include "AST/AstNode.h"
 #include "AST/AstScript.h"
 
@@ -14,6 +14,8 @@ int yyparse();
 extern FILE *yyin;
 extern Node *root;
 
+
+
 int main(int argc, char* argv[]) {
 
 #ifdef testParser
@@ -21,19 +23,18 @@ int main(int argc, char* argv[]) {
 	yyparse();
 	root->dump(0);
 	getchar();
-
 #endif
 
 
 #ifdef testRuntimeLib
-	JSNumber* js_number = new JSNumber(3);
-	JSBoolean* js_bool = new JSBoolean(true);
+	NumberType* jsNumber = new NumberType(3);
+	BooleanType* jsBool = new BooleanType(true);
 	
-	JSValue* result = addition(js_number, js_bool);
+	Type* result = addition(jsNumber, jsBool);
 	std::cout << result->ToString()<<"\n";
 
-	JSString* js_string = new JSString("3.14");
-	result = addition(js_string, js_number);
+	StringType* js_string = new StringType("3.14");
+	result = addition(js_string, jsNumber);
 	std::cout << result->ToString() << "\n";
 #endif
 
