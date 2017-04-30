@@ -4,6 +4,7 @@
 Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
+- Added _TrimDecimal() to remove trailing zeros and unnecessary decimal when converting double to string
 - Added Object(), Boolean(), Number(), and String() as corresponding object constructor
 - Fixed ObjectObject::prototype::valueOf(). ToPrimitive() and OrdinaryToPrimitive() are now working properly
 - ObjectObject is no longer the base class of BooleanObject, NumberObject, and StringObject
