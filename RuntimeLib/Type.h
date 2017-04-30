@@ -3,83 +3,83 @@
 #include <map>
 using namespace std;
 
-class JSValue {
+class Type {
 public:
-	virtual JSValue* ToPrimitive();
+	virtual Type* ToPrimitive();
 	virtual bool ToBoolean();
 	virtual double ToNumber()=0;
 	virtual string ToString() = 0;
-	virtual ~JSValue();
+	virtual ~Type();
 };
 
-class JSUndefined : public JSValue {
+class UndefinedType : public Type {
 public:
 	bool ToBoolean() override;
 	std::string ToString() override;
 	double ToNumber() override;
-	JSUndefined();
-	~JSUndefined();
+	UndefinedType();
+	~UndefinedType();
 };
-class JSNull : public JSValue
+class NullType : public Type
 {
 public:
-	JSNull();
+	NullType();
 	std::string ToString() override;
 	double ToNumber() override;
-	~JSNull();
+	~NullType();
 };
 
-class JSBoolean : public JSValue {
+class BooleanType : public Type {
 private:
 	bool value;
 public:
-	JSBoolean(bool);
+	BooleanType(bool);
 	bool ToBoolean() override;
 	std::string ToString() override;
 	double ToNumber() override;
-	~JSBoolean();
+	~BooleanType();
 };
 
 
-class JSNumber : public JSValue {
+class NumberType : public Type {
 private:
 	double value;
 public:
-	JSNumber(double _value);
+	NumberType(double _value);
 	std::string ToString() override;
 	double ToNumber() override;
-	~JSNumber();
+	~NumberType();
 };
 
-class JSString : public JSValue {
+class StringType : public Type {
 private:
 	std::string value;
 public:
-	JSString(std::string _value);
+	StringType(std::string _value);
 	bool ToBoolean() override;
 	virtual std::string ToString() override;
 	double ToNumber() override;
-	~JSString();
+	~StringType();
 };
-class JSObject : public JSValue
+class ObjectType : public Type
 {
 private:
 	std::map<std::string, std::string> map_value;
 public:
-	JSObject(map<std::string, std::string> _value);
-	JSValue* ToPrimitive() override;
+	ObjectType(map<std::string, std::string> _value);
+	Type* ToPrimitive() override;
 	bool ToBoolean() override;
 	double ToNumber() override;
 	std::string ToString() override;
-	~JSObject();
+	~ObjectType();
 };
 
 
-class JSFunction : public JSValue
+class FunctionType : public Type
 {
 public:
-	JSFunction();
-	~JSFunction();
+	FunctionType();
+	~FunctionType();
 };
 
 

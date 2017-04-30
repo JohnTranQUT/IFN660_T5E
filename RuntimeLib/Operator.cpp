@@ -1,8 +1,8 @@
 #include "Operator.h"
 
-JSValue* addition(JSValue *lref, JSValue *rref) {
-	JSValue* lval = GetValue(lref);
-	JSValue* rval = GetValue(rref);
+Type* addition(Type *lref, Type *rref) {
+	Type* lval = GetValue(lref);
+	Type* rval = GetValue(rref);
 	
 	auto lprim = lval->ToPrimitive();
 	auto rprim = rval->ToPrimitive();
@@ -14,7 +14,7 @@ JSValue* addition(JSValue *lref, JSValue *rref) {
 		return new JSNumber(lprim->ToNumber() + rprim->ToNumber());
 	}
 }
-string Type(JSValue* js_value)
+string Type(Type* js_value)
 {
 	if (dynamic_cast<JSBoolean*>(js_value))
 	{
@@ -27,11 +27,11 @@ string Type(JSValue* js_value)
 		return "number";
 	} else
 	{
-		return "JSValue";
+		return "Type";
 	}
 }
 
-JSValue* GetValue(JSValue *object) {
+Type* GetValue(Type *object) {
 	return object;
 }
 

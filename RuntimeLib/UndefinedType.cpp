@@ -1,9 +1,9 @@
-#include "JSValue.h"
+#include "Type.h"
 #include <iostream>
 
-JSValue::~JSValue()
+Type::~Type()
 {
-	std::cout << "JSValue destructor\n";
+	std::cout << "Type destructor\n";
 }
 
 bool JSUndefined::ToBoolean()

@@ -1,11 +1,11 @@
-#include "JSValue.h"
+#include "Type.h"
 
 JSObject::JSObject(map<std::string, std::string> _value): map_value(_value)
 {
 
 }
 
-JSValue* JSObject::ToPrimitive() {
+Type* JSObject::ToPrimitive() {
 	
 	string result = "{";
 	for (map<string, string>::iterator iter = map_value.begin(); iter != map_value.end(); iter++)
@@ -31,7 +31,7 @@ double JSObject::ToNumber()
 
 std::string JSObject::ToString()
 {
-	JSValue* primValue = this->ToPrimitive();
+	Type* primValue = this->ToPrimitive();
 	return primValue->ToString();
 }
 

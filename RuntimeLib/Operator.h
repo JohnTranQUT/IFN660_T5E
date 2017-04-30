@@ -1,6 +1,6 @@
 #pragma once
-#include "JSValue.h"
+#include "Type.h"
 
-JSValue* addition(JSValue *lref, JSValue *rref);
-JSValue* GetValue(JSValue *object);
-string Type(JSValue* js_value);
+Type* addition(Type *lref, Type *rref);
+Type* GetValue(Type *object);
+string Type(Type* js_value);
