@@ -2,19 +2,13 @@
 #include <Types/SpecificationTypes/SpecificationTypes.h>
 #include <Types/SpecificationTypes/RecordType/RecordType.h>
 
+using namespace std;
+
 class CompletionType : public RecordType {
-	string Type;
-	LanguageType *Value;
-	string Target;
 public:
 	explicit CompletionType(
-		string _Type,
+		StringType *_Type,
 		LanguageType *_Value,
-		string _Target
-	) : Type(_Type),
-	    Value(_Value),
-	    Target(_Target) { };
-	string _getType() const;
-	LanguageType *_getValue() const;
-	string _getTarget() const;
+		StringType *_Target
+	);
 };
