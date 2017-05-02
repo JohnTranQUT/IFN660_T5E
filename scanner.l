@@ -20,11 +20,11 @@ LineCont (\\{LineTerminatorSeq})
 LineTerminatorSeq (\x0A\x0D|\x0D[^\x0A]|\x0A)
 EscSeq ({CharEscSeq}|0[^0-9]|{HexEscSeq}|{UnicodeEscSeq})
 CharEscSeq ([{SingleEscChar}]|{NonEscChar})
-SingleEscChar ('"\\bfnrtv)
+SingleEscChar ['"\\bfnrtv]
 NonEscChar ([^{EscChar}{LineTerminator}])
-EscChar ({SingleEscChar}0-9xu)
+EscChar ({SingleEscChar}|[0-9]|x|u)
 HexEscSeq (x[0-9A-Fa-f]{2})
-UnicodeEscSeq (u([0-9A-Fa-f]{4})|\{[0-9A-Fa-f][0-9A-Fa-f]*\})
+UnicodeEscSeq (u([0-9A-Fa-f]{4})|u\{[0-9A-Fa-f][0-9A-Fa-f]*\})
 DoubleStrChar ([^"\\\x0D\x0A]|\\{EscSeq}|{LineCont})
 SingleStrChar ([^'\\\x0D\x0A]|\\{EscSeq}|{LineCont})
 
@@ -34,8 +34,8 @@ whitespace [\x09\x0B\x0C\x20\xC2A0\xEFBBBF]
 DecimalDigit [0-9]
 NonZeroDigit [1-9]
 DecimalDigits {DecimalDigit}+
-DecimalDigitsopt {DecimalDigits}?
-SignedInteger {DecimalDigits}|("+"{DecimalDigits})|("-"{DecimalDigits})
+DecimalDigitsopt {DecimalDigits}?				
+SignedInteger {DecimalDigits}|("+"{DecimalDigits})|("-"{DecimalDigits})		
 ExponentIndicator [eE]
 ExponentPart {ExponentIndicator}{SignedInteger}
 ExponentPartopt {ExponentPart}?

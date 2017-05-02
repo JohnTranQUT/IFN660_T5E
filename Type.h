@@ -1,19 +1,26 @@
 #pragma once
 #include <cstdio>
+#include <iostream>
 
 class Type {
 public:
 	virtual ~Type() { };
+private:
+	char * str;
+	double num;
+	bool boolean;
 };
 
 class Undefined : public Type {
 public:
 	Undefined() { };
+	virtual Type ToPrimitive(Type);
 };
 
 class Boolean : public Type {
 public:
-	Boolean() { };
+	Boolean() { }
+	friend bool ToBoolean(Type);
 };
 
 class Number : public Type {
@@ -23,7 +30,6 @@ public:
 
 class String : public Type {
 public:
-	String() { };
 };
 
 class Function : public Type {
