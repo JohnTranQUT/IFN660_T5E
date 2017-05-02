@@ -1,9 +1,12 @@
 #pragma once
-#include "Type.h"
+#include "JSValue.h"
+#include "AST/AstExpression.h"
+#define DEBUG
 
-class Type;
+class JSValue;
 
-Type* addition(Type *lref, Type *rref);
-Type* substraction(Type* lref, Type *rref);
-Type* GetValue(Type *object);
-std::string GetType(Type *type);
+JSValue* addition(JSValue *lref, JSValue *rref);
+JSValue* substraction(JSValue* lref, JSValue *rref);
+JSValue* assignment(JSValue* lref, JSValue* rref);
+JSValue* GetValue(JSValue *object);
+std::string GetType(JSValue *type);

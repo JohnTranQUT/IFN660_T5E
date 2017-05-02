@@ -1,22 +1,22 @@
-#include "Type.h"
+#include "JSValue.h"
 
 
-StringType::StringType(std::string value): value(value)
+StringValue::StringValue(std::string value): value(value)
 {
 	
 }
 
-bool StringType::ToBoolean()
+bool StringValue::ToBoolean()
 {
 	return (value.length()) ?  false : true;
 }
 
-std::string StringType::ToString()
+std::string StringValue::ToString()
 {
 	return value;
 }
 
-double StringType::ToNumber()
+double StringValue::ToNumber()
 {
 	double result = 0;
 	try {
@@ -32,13 +32,13 @@ double StringType::ToNumber()
 	return result;
 }
 /*
-void StringType::dump(int indent)
+void StringValue::dump(int indent)
 {
-	label(indent, "StringType\n");
+	label(indent, "StringValue\n");
 }
 */
 
-StringType::~StringType()
+StringValue::~StringValue()
 {
 }
 

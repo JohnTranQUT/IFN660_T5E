@@ -3,85 +3,80 @@
 #include <map>
 using namespace std;
 
-class Type {
+class JSValue {
 public:
-	virtual Type* ToPrimitive();
+	virtual JSValue* ToPrimitive();
 	virtual bool ToBoolean();
 	virtual double ToNumber()=0;
 	virtual string ToString() = 0;
-	virtual ~Type();
+	virtual ~JSValue();
 };
 
-class UndefinedType : public Type {
+class UndefinedValue : public JSValue {
 public:
 	bool ToBoolean() override;
 	std::string ToString() override;
 	double ToNumber() override;
-	UndefinedType();
-	~UndefinedType();
+	UndefinedValue();
+	~UndefinedValue();
 };
-class NullType : public Type
+class NullValue : public JSValue
 {
 public:
-	NullType();
+	NullValue();
 	std::string ToString() override;
 	double ToNumber() override;
-	~NullType();
+	~NullValue();
 };
 
-class BooleanType : public Type {
+class BooleanValue : public JSValue {
 private:
 	bool value;
 public:
-	BooleanType(bool);
+	BooleanValue(bool);
 	bool ToBoolean() override;
 	std::string ToString() override;
 	double ToNumber() override;
-	~BooleanType();
+	~BooleanValue();
 };
 
 
-class NumberType : public Type {
+class NumberValue : public JSValue {
 private:
 	double value;
 public:
-	NumberType(double _value);
+	NumberValue(double _value);
 	std::string ToString() override;
 	double ToNumber() override;
-	~NumberType();
+	~NumberValue();
 };
 
-class StringType : public Type {
+class StringValue : public JSValue {
 private:
 	std::string value;
 public:
-	StringType(std::string value);
+	StringValue(std::string value);
 	bool ToBoolean() override;
 	virtual std::string ToString() override;
 	double ToNumber() override;
-	~StringType();
+	~StringValue();
 };
-class ObjectType : public Type
+class ObjectValue : public JSValue
 {
 private:
 	std::map<std::string, std::string> map_value;
 public:
-	ObjectType(map<std::string, std::string> _value);
-	Type* ToPrimitive() override;
+	ObjectValue(map<std::string, std::string> _value);
+	JSValue* ToPrimitive() override;
 	bool ToBoolean() override;
 	double ToNumber() override;
 	std::string ToString() override;
-	~ObjectType();
+	~ObjectValue();
 };
 
-
-class FunctionType : public Type
+class Reference: public JSValue
 {
-public:
-	FunctionType();
-	~FunctionType();
+	
 };
-
-
 
 

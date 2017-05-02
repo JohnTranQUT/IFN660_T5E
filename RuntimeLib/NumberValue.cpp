@@ -1,12 +1,12 @@
 #include <sstream> // stringstream
-#include "Type.h"
+#include "JSValue.h"
 
-NumberType::NumberType(double _value)
+NumberValue::NumberValue(double _value)
 {
 	value = _value;
 }
 
-std::string NumberType::ToString()
+std::string NumberValue::ToString()
 {
 	if (isnan(value))
 	{
@@ -21,17 +21,17 @@ std::string NumberType::ToString()
 	
 }
 
-double NumberType::ToNumber()
+double NumberValue::ToNumber()
 {
 	return value;
 }
 /*
-void NumberType::dump(int indent)
+void NumberValue::dump(int indent)
 {
-	label(indent, "NumberType\n");
+	label(indent, "NumberValue\n");
 }
 */
 
-NumberType::~NumberType()
+NumberValue::~NumberValue()
 {
 }
