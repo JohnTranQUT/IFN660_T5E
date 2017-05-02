@@ -8,7 +8,7 @@ public:
 	BooleanType *HasBinding(StringType *);
 	void CreateMutableBinding(StringType *, BooleanType *);
 	void CreateImmutableBinding(StringType *, BooleanType *);
-	void InitializedBinding(StringType *, LanguageType *);
+	void InitializeBinding(StringType *, LanguageType *);
 	void SetMutableBinding(StringType *, LanguageType *, BooleanType *);
 	LanguageType *GetBindingValue(StringType *, BooleanType *);
 	BooleanType *DeleteBinding(StringType *);

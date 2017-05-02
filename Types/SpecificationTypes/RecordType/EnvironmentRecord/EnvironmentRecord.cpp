@@ -12,7 +12,7 @@ void EnvironmentRecord::CreateImmutableBinding(StringType *N, BooleanType *S) {
 	_insertValue(N, nullptr);
 }
 
-void EnvironmentRecord::InitializedBinding(StringType *N, LanguageType *V) {
+void EnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
 	_setValue(N, V);
 }
 
@@ -31,12 +31,11 @@ LanguageType *EnvironmentRecord::GetBindingValue(StringType *N, BooleanType *S) 
 			exit(0);
 		}
 	}
-	auto _result = _findValue(N);
-	if (_result == nullptr) {
+	if (!_hasInitialized(N)->_getValue()) {
 		puts("ReferenceError");
 		exit(0);
 	}
-	return _result;
+	return _findValue(N);
 }
 
 BooleanType *EnvironmentRecord::DeleteBinding(StringType *N) {
