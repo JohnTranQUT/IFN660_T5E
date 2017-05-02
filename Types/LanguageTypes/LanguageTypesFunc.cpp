@@ -206,7 +206,7 @@ StringType *ToString(LanguageType *argument) {
 		return new StringType(_TrimDecimal(to_string(_argument->_getValue())));
 	}
 	if (dynamic_cast<ObjectType *>(argument)) {
-		auto primValue = ToPrimitive(argument);
+		auto primValue = ToPrimitive(argument, new StringType(""));
 		return ToString(primValue);
 	}
 	puts("ToString");
