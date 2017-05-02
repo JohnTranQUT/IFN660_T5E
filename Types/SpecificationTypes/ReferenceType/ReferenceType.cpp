@@ -4,7 +4,7 @@ LanguageType *ReferenceType::GetBase() const {
 	return Base;
 }
 
-LanguageType *ReferenceType::GetReference() const {
+LanguageType *ReferenceType::GetReferencedName() const {
 	return Referenced;
 }
 

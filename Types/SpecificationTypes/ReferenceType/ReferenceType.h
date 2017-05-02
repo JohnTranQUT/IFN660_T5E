@@ -5,24 +5,24 @@
 class ReferenceType : public SpecificationType {
 	LanguageType *Base;
 	LanguageType *Referenced;
-	bool StrictReference;
+	BooleanType *StrictReference;
 	ObjectType *thisValue;
 public:
 	ReferenceType(
 		LanguageType *_Base,
 		LanguageType *_Referenced,
-		bool _StrictReference,
+		BooleanType *_StrictReference,
 		ObjectType *_thisValue = nullptr
 	) : Base(_Base),
 	    Referenced(_Referenced),
 	    StrictReference(_StrictReference),
 	    thisValue(_thisValue) { };
 	LanguageType *GetBase() const;
-	LanguageType *GetReference() const;
-	bool IsStrictReference() const;
-	bool HasPrimitiveBase() const;
-	bool IsPropertyReference() const;
-	bool IsUnresolvableReference() const;
-	bool IsSuperReference() const;
+	LanguageType *GetReferencedName() const;
+	BooleanType *IsStrictReference() const;
+	BooleanType *HasPrimitiveBase() const;
+	BooleanType *IsPropertyReference() const;
+	BooleanType *IsUnresolvableReference() const;
+	BooleanType *IsSuperReference() const;
 	ObjectType *_getThisValue() const;
 };
