@@ -4,6 +4,8 @@
 Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
+- Utilities are now called _Helpers
+- Destructured `operators` to be under Evaluations/Expression/ as AdditiveOperators and MultiplicativeOperators
 - Implemented `PutValue()` under `ReferenceType` 
 - Changed Data Types of attributes of `ReferenceType` to LanguageTypes
 - Implemented `DeclarativeEnvironmentRecord`
