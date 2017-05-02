@@ -4,7 +4,8 @@
 Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
-- Initialized `EnvironmentRecord` abstract methods
+- Initialized `DeclarativeEnvironmentRecord`, `GlobalEnvironmentRecord`, and `ObjectEnvironmentRecord`
+- Implemented `EnvironmentRecord` abstract methods
 - Initialized `LexicalEnvironment` and `EnvironmentRecord`
 - Reformed `CompletionType` to support `RecordType`
 - Reformed `RecordType`
