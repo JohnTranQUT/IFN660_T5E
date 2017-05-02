@@ -1,4 +1,4 @@
-#include <RuntimeLib/Objects/StringObject/StringObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/StringObject/StringObject.h>
 
 StringType *thisStringValue(LanguageType *value) {
 	if (auto _value = dynamic_cast<StringType*>(value)) {

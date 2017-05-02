@@ -8,10 +8,10 @@
 #include <RuntimeLib/Types/LanguageTypes/SymbolType/SymbolType.h>
 #include <RuntimeLib/Types/LanguageTypes/NumberType/NumberType.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/ObjectType.h>
-#include <RuntimeLib/Objects/ObjectObject/ObjectObject.h>
-#include <RuntimeLib/Objects/BooleanObject/BooleanObject.h>
-#include <RuntimeLib/Objects/NumberObject/NumberObject.h>
-#include <RuntimeLib/Objects/StringObject/StringObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectObject/ObjectObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/BooleanObject/BooleanObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/NumberObject/NumberObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/StringObject/StringObject.h>
 
 LanguageType *ToPrimitive(LanguageType *, LanguageType * = nullptr);
 LanguageType *OrdinaryToPrimitive(ObjectType *, string hint);

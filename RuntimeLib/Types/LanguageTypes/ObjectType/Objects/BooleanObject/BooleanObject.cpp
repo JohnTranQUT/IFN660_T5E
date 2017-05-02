@@ -1,5 +1,5 @@
-#include <RuntimeLib/Objects/BooleanObject/BooleanObject.h>
-#include <RuntimeLib/Objects/NumberObject/NumberObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/BooleanObject/BooleanObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/NumberObject/NumberObject.h>
 
 BooleanType *thisBooleanValue(LanguageType *value) {
 	if (auto _value = dynamic_cast<BooleanType*>(value)) {

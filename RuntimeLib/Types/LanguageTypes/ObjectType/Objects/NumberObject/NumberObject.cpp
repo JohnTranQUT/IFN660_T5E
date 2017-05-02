@@ -1,4 +1,4 @@
-#include <RuntimeLib/Objects/NumberObject/NumberObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/NumberObject/NumberObject.h>
 
 NumberType *thisNumberValue(LanguageType *value) {
 	if (auto _value = dynamic_cast<NumberType*>(value)) {

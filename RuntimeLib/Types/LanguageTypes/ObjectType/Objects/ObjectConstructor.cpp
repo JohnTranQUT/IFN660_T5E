@@ -1,4 +1,4 @@
-#include <RuntimeLib/Objects/ObjectConstructor.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectConstructor.h>
 
 ObjectType *Object(LanguageType *value) {
 	if (value == nullptr || dynamic_cast<NullType*>(value) || dynamic_cast<UndefinedType*>(value)) {

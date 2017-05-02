@@ -1,4 +1,4 @@
-#include <RuntimeLib/Objects/ObjectObject/ObjectObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectObject/ObjectObject.h>
 
 StringType *ObjectObject::prototype::toString() const {
 
