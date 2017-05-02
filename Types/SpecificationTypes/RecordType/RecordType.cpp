@@ -24,6 +24,16 @@ BooleanType *RecordType::_hasValue(StringType *keyValue) {
 	return new BooleanType(false);
 }
 
+BooleanType *RecordType::_hasInitialized(StringType *keyValue) {
+	auto it = value.find(keyValue);
+	if (it != value.end()) {
+		if (it->second != nullptr) {
+			return new BooleanType(true);
+		}
+	}
+	return new BooleanType(false);
+}
+
 void RecordType::_setValue(StringType *keyValue, LanguageType *dataValue) {
 	value[keyValue] = dataValue;
 }
