@@ -4,6 +4,9 @@
 Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
+- Implemented `PutValue()` under `ReferenceType` 
+- Changed Data Types of attributes of `ReferenceType` to LanguageTypes
+- Implemented `DeclarativeEnvironmentRecord`
 - Initialized `DeclarativeEnvironmentRecord`, `GlobalEnvironmentRecord`, and `ObjectEnvironmentRecord`
 - Implemented `EnvironmentRecord` abstract methods
 - Initialized `LexicalEnvironment` and `EnvironmentRecord`
