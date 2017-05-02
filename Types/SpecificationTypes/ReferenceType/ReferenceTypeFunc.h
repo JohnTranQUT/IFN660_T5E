@@ -4,4 +4,5 @@
 using namespace std;
 
 Type *GetValue(Type *);
+Type *PutValue(Type *, Type *);
 LanguageType *GetThisValue(ReferenceType *);
