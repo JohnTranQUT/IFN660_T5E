@@ -15,3 +15,23 @@ LanguageType *RecordType::_findValue(StringType *keyValue) {
 	}
 	return new UndefinedType();
 }
+
+BooleanType *RecordType::_hasValue(StringType *keyValue) {
+	auto it = value.find(keyValue);
+	if (it != value.end()) {
+		return new BooleanType(true);
+	}
+	return new BooleanType(false);
+}
+
+void RecordType::_setValue(StringType *keyValue, LanguageType *dataValue) {
+	value[keyValue] = dataValue;
+}
+
+BooleanType *RecordType::_deleteValue(StringType *keyValue) {
+	if (_hasValue(keyValue)) {
+		value.erase(keyValue);
+		return new BooleanType(true);
+	}
+	return new BooleanType(false);
+}
