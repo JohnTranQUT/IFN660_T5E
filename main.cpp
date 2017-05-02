@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectConstructor.h>
-#include <RuntimeLib/_Helper/_Helper.h>
+#include <RuntimeLib/_Helpers/_Helpers.h>
 #include <parser.h>
 
 #define AST
