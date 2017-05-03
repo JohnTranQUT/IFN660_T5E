@@ -73,7 +73,7 @@ Number Number::operator+(const Number &rhs)
 {
 	Number result;
 	//  If either operand is NaN, the result is NaN.
-	if (this->_isNaN || rhs._isNaN) return Number(true);
+	if (this->_isNaN || rhs._isNaN) return Number(0,true,true);
 	//	The sum of two infinities of opposite sign is NaN.
 	//	The sum of two infinities of the same sign is the infinity of that sign.
 	if (this->_isInfinitive && rhs._isInfinitive)
