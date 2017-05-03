@@ -74,9 +74,6 @@ public:
 	~ObjectValue();
 };
 
-class Reference: public JSValue
-{
-	
-};
+
 
 
