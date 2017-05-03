@@ -2,7 +2,7 @@
 
 std::string ToString(Type _type) { return _type.to_string(); };
 
-Type ToPrimitive(Type _type, string PreferredType) 
+Type* ToPrimitive(Type* _type, string PreferredType) 
 {
 	if (typeid(_type)==typeid(Object))
 	{ 
@@ -20,18 +20,28 @@ Type ToPrimitive(Type _type, string PreferredType)
 	return _type;
 }
 
-Number::Number(double input, bool positive, bool _isNaN) 
+Number::Number(double input, bool positive, bool isNaN) 
 { 
 	value = input; 
-	isPositive = positive; 
-	isNaN = _isNaN;
+	_isPositive = positive; 
+	_isNaN = isNaN;
 }
+
 
 void Number::set(double input, bool positive) 
 { 
 	value = input; 
-	isPositive = positive; 
-	isNaN = false; 
+	_isPositive = positive; 
+	_isNaN = false; 
+}
+
+void Number::set(Number input)
+{
+	value = input.get();
+	_isInfinitive = input.isInfinitive();
+	_isNaN = input.isNaN();
+	_isPositive = input.isPositive();
+
 }
 
 double Number::get() 
@@ -41,21 +51,21 @@ double Number::get()
 
 string Number::to_string() 
 { 
-	if (isNaN) return "NaN";
-	if (isInfinitive) return string(isPositive ? "" : "-") + string("Infinity");
+	if (_isNaN) return "NaN";
+	if (_isInfinitive) return string(_isPositive ? "" : "-") + string("Infinity");
 	return std::to_string(value); 
 }
 
-Type Number::to_number() 
+Type* Number::to_number() 
 { 
-	return *this; 
+	return this; 
 }
 
 void Number::setInfinitive(bool infinitive, bool positive) 
 { 
-	isInfinitive = infinitive; 
-	isPositive = positive;  
-	isNaN = false;  
+	_isInfinitive = infinitive; 
+	_isPositive = positive;  
+	_isNaN = false;  
 }
 
 
@@ -63,21 +73,21 @@ Number Number::operator+(const Number &rhs)
 {
 	Number result;
 	//  If either operand is NaN, the result is NaN.
-	if (this->isNaN || rhs.isNaN) return Number(true);
+	if (this->_isNaN || rhs._isNaN) return Number(true);
 	//	The sum of two infinities of opposite sign is NaN.
 	//	The sum of two infinities of the same sign is the infinity of that sign.
-	if (this->isInfinitive && rhs.isInfinitive)
+	if (this->_isInfinitive && rhs._isInfinitive)
 	{
-		if (this->isPositive != rhs.isPositive) return Number(0,true,true);
+		if (this->_isPositive != rhs._isPositive) return Number(0,true,true);
 		return *this;
 	}
 	//	The sum of an infinity and a finite value is equal to the infinite operand.
-	if (this->isInfinitive) return *this;
-	if (rhs.isInfinitive) return rhs;
+	if (this->_isInfinitive) return *this;
+	if (rhs._isInfinitive) return rhs;
 	//	The sum of two negative zeroes is - 0. The sum of two positive zeroes, or of two zeroes of opposite sign, is + 0.
 	if (this->value == 0 && rhs.value == 0)
 	{
-		if (!this->isPositive && !rhs.isPositive) return *this;
+		if (!this->_isPositive && !rhs._isPositive) return *this;
 		return Number(0.0);
 	}
 	//	The sum of a zero and a nonzero finite value is equal to the nonzero operand.

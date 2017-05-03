@@ -13,22 +13,23 @@ Type * Operators::addition(Type * lref, Type * rref)
 	//6. Let rprim be ? ToPrimitive(rval).
 	auto rprim = ToPrimitive(rval);
 	//7. If Type(lprim) is String or Type(rprim) is String, then
-	if ((typeid(lprim) == typeid(String)) || (typeid(rprim) == typeid(String)))
+	if (dynamic_cast<String*>(lprim) || dynamic_cast<String*>(rprim))
 	{
 		//	a. Let lstr be ? ToString(lprim).
-		string lstr = lprim.to_string();
+		string lstr = lprim->to_string();
 		//	b. Let rstr be ? ToString(rprim).
-		string rstr = rprim.to_string();
+		string rstr = rprim->to_string();
 		//	c. Return the String that is the result of concatenating lstr and rstr.
 		String* result = new String(lstr + rstr);
 		return result;
 	}
 	//8. Let lnum be ? ToNumber(lprim).
-	auto lnum = dynamic_cast<Number*>(&lprim.to_number());
+ 	auto lnum = dynamic_cast<Number*>(lprim->to_number());
 	//9. Let rnum be ? ToNumber(rprim).
-	auto rnum = dynamic_cast<Number*>(&rprim.to_number());
+	auto rnum = dynamic_cast<Number*>(rprim->to_number());
 
 	//10. Return the result of applying the addition operation to lnum and rnum.See the Note below 12.8.5.
-	Number result = *lnum + *rnum;
-	return nullptr;
+	Number* result = new Number();
+	result->set(*lnum + *rnum);
+	return result;
 }
