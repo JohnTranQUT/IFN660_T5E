@@ -1,39 +1,34 @@
 #include "operator.h"
 
-static std::string addition(std::string lval, std::string rval) 
-{ return lval + rval; }
-
-template <class T2>
-static std::string addition(std::string lval, T2 rval)
+Type * Operators::addition(Type * lref, Type * rref)
 {
-	auto temp = rval;
-	if (typeid(temp) == typeid(bool)) {
-		if (temp) return lval + std::string("true");
-		else return lval + std::string("false");
+	//1. Let lref be the result of evaluating AdditiveExpression.
+	//2. Let lval be ? GetValue(lref).
+	auto lval = GetValue(lref);
+	//3. Let rref be the result of evaluating MultiplicativeExpression.
+	//4. Let rval be ? GetValue(rref).
+	auto rval = GetValue(rref);
+	//5. Let lprim be ? ToPrimitive(lval).
+	auto lprim = ToPrimitive(lval);
+	//6. Let rprim be ? ToPrimitive(rval).
+	auto rprim = ToPrimitive(rval);
+	//7. If Type(lprim) is String or Type(rprim) is String, then
+	if ((typeid(lprim) == typeid(String)) || (typeid(rprim) == typeid(String)))
+	{
+		//	a. Let lstr be ? ToString(lprim).
+		string lstr = lprim.to_string();
+		//	b. Let rstr be ? ToString(rprim).
+		string rstr = rprim.to_string();
+		//	c. Return the String that is the result of concatenating lstr and rstr.
+		String* result = new String(lstr + rstr);
+		return result;
 	}
-	return lval + std::to_string(temp);
-}
+	//8. Let lnum be ? ToNumber(lprim).
+	auto lnum = dynamic_cast<Number*>(&lprim.to_number());
+	//9. Let rnum be ? ToNumber(rprim).
+	auto rnum = dynamic_cast<Number*>(&rprim.to_number());
 
-
-template <class T1>
-static std::string addition(T1 lval, std::string rval)
-{
-	auto temp = lval;
-	std::cout << typeid(temp).name() << "\n";
-	if (typeid(temp) == typeid(bool)) {
-		if (temp) return std::string("true") + rval;
-		else return std::string("false") + rval;
-	}
-	return std::to_string(temp) + rval;
-}
-
-static int addition(int lval, int rval)
-{
-	return lval + rval;
-}
-
-template<class T1, class T2>
-static double addition(T1 lval, T2 rval)
-{
-	return lval + rval;
+	//10. Return the result of applying the addition operation to lnum and rnum.See the Note below 12.8.5.
+	Number result = *lnum + *rnum;
+	return nullptr;
 }
