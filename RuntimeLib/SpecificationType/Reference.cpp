@@ -1,12 +1,13 @@
 #include "Reference.h"
+#include "RuntimeLib/Operation.h"
 
 
-Reference::Reference(JSValue* base, std::string name): base(base),name(name)
+Reference::Reference(Type* base, std::string name): base(base),name(name)
 {
 	strictReference = false;
 }
 
-JSValue* Reference::GetBase()
+Type* Reference::GetBase()
 {
 	return base;
 }

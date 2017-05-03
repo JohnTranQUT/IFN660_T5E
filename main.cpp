@@ -1,6 +1,6 @@
 #include <iostream>
-#include "RuntimeLib/Operator.h"
-#include "RuntimeLib/JSValue.h"
+#include "RuntimeLib/Operation.h"
+#include "RuntimeLib/JSValue/JSValue.h"
 #include "AST/AstNode.h"
 #include "AST/AstScript.h"
 

@@ -27,7 +27,7 @@ JSValue* DeclarativeEnvironmentRecord::GetBindingValue(std::string n)
 	else return nullptr;
 }
 
-void DeclarativeEnvironmentRecord::setMutableBinding(std::string n, JSValue* v)
+void DeclarativeEnvironmentRecord::SetMutableBinding(std::string n, JSValue* v)
 {
 	symbol_table.insert(std::pair<std::string, JSValue*>(n, v));
 }

@@ -1,17 +1,18 @@
 #pragma once
-#include "RuntimeLib/JSValue/JSValue.h"
-#include "RuntimeLib/JSValue/Operator.h"
 #include "RuntimeLib/Type.h"
+#include <string>
 
 class Reference: public Type
 {
 private :
-	JSValue* base;
+	//base is either undefined, an Object, a Boolean, a String
+	//a Symbol, a Number, or an Environment Record
+	Type* base;
 	std::string name;
 	bool strictReference;
 public:
-	Reference(JSValue* base, std::string name);
-	JSValue* GetBase();
+	Reference(Type* base, std::string name);
+	Type* GetBase();
 	std::string GetReferenceName();
 	bool isStrictReference();
 	bool isUnresolvableReference();

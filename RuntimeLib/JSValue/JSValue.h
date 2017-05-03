@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include <map>
+#include "RuntimeLib/Type.h"
 using namespace std;
 
-class JSValue {
+class JSValue: public Type {
 public:
 	virtual JSValue* ToPrimitive();
 	virtual bool ToBoolean();
