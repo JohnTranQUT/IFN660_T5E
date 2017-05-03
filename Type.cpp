@@ -1,10 +1,21 @@
 #include <Type.h>
 #include <iostream>
+#include <string>
 using namespace std;
 
 
-bool ToBoolean(Type boo)
+
+double Number::VALUE()
 {
-	if (typeid(boo) == typeid(bool)) { return true; }
-	else if (typeid(boo) == typeid(int)) { return false; }
-};
+	return numbervalue;
+}
+
+string String::VALUE()
+{
+	return stringvalue;
+}
+
+bool Boolean::VALUE()
+{
+	return boolvalue;
+}

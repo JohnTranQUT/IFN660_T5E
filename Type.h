@@ -1,35 +1,43 @@
 #pragma once
-#include <cstdio>
 #include <iostream>
+#include <string>
+
+using namespace std;
 
 class Type {
 public:
-	virtual ~Type() { };
-private:
-	char * str;
-	double num;
-	bool boolean;
+	virtual ~Type() { }; 
+	
 };
 
 class Undefined : public Type {
 public:
 	Undefined() { };
-	virtual Type ToPrimitive(Type);
+
 };
 
 class Boolean : public Type {
 public:
-	Boolean() { }
-	friend bool ToBoolean(Type);
+	Boolean() { };
+	bool VALUE();
+private:
+	bool boolvalue;
 };
 
 class Number : public Type {
 public:
-	Number() { };
+	Number(double val) { numbervalue = val; };
+	double VALUE();
+protected:
+	double numbervalue;
 };
 
 class String : public Type {
 public:
+	String(string val) { stringvalue = val; };
+	string VALUE();
+protected:
+	string stringvalue;
 };
 
 class Function : public Type {
