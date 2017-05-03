@@ -3,8 +3,10 @@
 #include "SpecificationType/Reference.h"
 #include "SpecificationType/Record/EnvironmentRecord.h"
 
+
 JSValue* addition(JSValue *lref, JSValue *rref) {
 	//AdditiveExpression: AdditiveExpression + MultiplicativeExpression
+
 	//Let lref be the result of evaluating AdditiveExpression.
 	//Let rref be the result of evaluating MultiplicativeExpression.
 
@@ -121,7 +123,6 @@ void PutValue(Type* v, JSValue* w)
 		Type* base = reference->GetBase();
 		//base must be an Environment Record
 		EnvironmentRecord *envr = static_cast<EnvironmentRecord*>(base);
-
 		std::string name = reference->GetReferenceName();
 		envr->SetMutableBinding(name, w);
 	}
