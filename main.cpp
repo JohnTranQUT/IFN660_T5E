@@ -12,7 +12,6 @@
 #include <string>
 
 //#include <parser.h>
-
 //extern FILE *yyin;
 using namespace std;
 
