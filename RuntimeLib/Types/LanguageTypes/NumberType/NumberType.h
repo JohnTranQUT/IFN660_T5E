@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <cmath>
+#include <cfenv>
 #include <RuntimeLib/Types/LanguageTypes/LanguageTypes.h>
 
 using namespace std;
@@ -13,4 +14,7 @@ public:
 	double _getValue() const;
 	string _getType() override;
 	NumberType *operator+(NumberType &) const;
+	NumberType *operator*(NumberType &) const;
+	NumberType *operator/(NumberType &) const;
+	NumberType *operator%(NumberType &) const;
 };
