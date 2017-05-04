@@ -3,13 +3,13 @@
 #include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
 
 class ReferenceType : public SpecificationType {
-	LanguageType *Base;
+	Type *Base;
 	LanguageType *Referenced;
 	BooleanType *StrictReference;
 	ObjectType *thisValue;
 public:
 	ReferenceType(
-		LanguageType *_Base,
+		Type *_Base,
 		LanguageType *_Referenced,
 		BooleanType *_StrictReference,
 		ObjectType *_thisValue = nullptr
@@ -17,7 +17,7 @@ public:
 	    Referenced(_Referenced),
 	    StrictReference(_StrictReference),
 	    thisValue(_thisValue) { };
-	LanguageType *GetBase() const;
+	Type *GetBase() const;
 	LanguageType *GetReferencedName() const;
 	BooleanType *IsStrictReference() const;
 	BooleanType *HasPrimitiveBase() const;

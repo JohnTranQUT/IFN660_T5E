@@ -1,6 +1,6 @@
 #include <RuntimeLib/Types/SpecificationTypes/ReferenceType/ReferenceType.h>
 
-LanguageType *ReferenceType::GetBase() const {
+Type *ReferenceType::GetBase() const {
 	return Base;
 }
 

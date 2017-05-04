@@ -21,7 +21,7 @@ Type *GetValue(Type *V) {
 		}
 		if (_V->IsPropertyReference()) {
 			if (_V->HasPrimitiveBase()) {
-				base = ToObject(base);
+				base = ToObject(dynamic_cast<LanguageType *>(base));
 			}
 			puts("Return ? base.[[Get]](_V->GetReferenceName(), GetThisValue(_V)");
 			exit(0);
@@ -61,7 +61,7 @@ Type *PutValue(Type *V, Type *W) {
 		}
 		else if (_V->IsPropertyReference()) {
 			if (_V->HasPrimitiveBase()) {
-				base = ToObject(base);
+				base = ToObject(dynamic_cast<LanguageType *>(base));
 			}
 //			auto succeeded = base.[[Set]](_V->GetReferencedName(), W, GetThisValue(_V));
 //			if (!succeeded->_getValue() && _V->IsStrictReference()->_getValue()) {
@@ -82,7 +82,7 @@ Type *PutValue(Type *V, Type *W) {
 	return nullptr;
 }
 
-LanguageType *GetThisValue(ReferenceType *V) {
+Type *GetThisValue(ReferenceType *V) {
 	if (V->IsSuperReference()) {
 		return V->_getThisValue();
 	}
