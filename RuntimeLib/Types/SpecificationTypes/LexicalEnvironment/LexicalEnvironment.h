@@ -1,16 +1,16 @@
 #pragma once
 #include <RuntimeLib/Types/SpecificationTypes/SpecificationTypes.h>
 #include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/EnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/ReferenceType/ReferenceType.h>
 
-class LexicalEnrivonment : public SpecificationType {
+class LexicalEnvironment : public SpecificationType {
 	EnvironmentRecord *environmentRecord;
-	LexicalEnrivonment *outer;
+	LexicalEnvironment *outer;
 public:
-	explicit LexicalEnrivonment(
+	explicit LexicalEnvironment(
 		EnvironmentRecord *_environmentRecord,
-		LexicalEnrivonment *_outer = nullptr
+		LexicalEnvironment *_outer = nullptr
 	) : environmentRecord(_environmentRecord),
 	    outer(_outer) { }
-	ReferenceType *GetIdentifierReference(LexicalEnrivonment *, StringType *, BooleanType *) const;
+	EnvironmentRecord *_getEnvRec() const;
+	LexicalEnvironment *_getOuter() const;
 };
