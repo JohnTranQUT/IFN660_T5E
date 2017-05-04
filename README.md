@@ -6,7 +6,7 @@ Semantic Analysis - Function-Oriented (Alfred)
 ## Project Logs
 - Implemented all `ObjectEnvironmentRecord` and `GlobalEnvironmentRecord` methods
 - Implemented Full `ListType`
-- Implemented Full `LexicalEnvironment`
+- Implemented `LexicalEnvironment`
 - Implemented JS Defined `AdditiveOperators`, `MultiplicativeOperators` instead of using C++ native operators **(hint from Michael)**
 - Utilities are now called _Helpers
 - Destructured `operators` to be under Evaluations/Expression/ as AdditiveOperators and MultiplicativeOperators
