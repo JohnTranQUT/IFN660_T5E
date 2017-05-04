@@ -1,6 +1,8 @@
-#define _CRT_SECURE_NO_DEPRECATE
+
 #include <cstdio>
 #include <y.tab.h>
+
+
 
 int yylex();
 YYSTYPE yylval;
@@ -9,7 +11,7 @@ using namespace std;
 
 void main(int argc, char *argv[]) {
 	int token;
-	yyin = fopen(argv[1], "r");
+	fopen_s(&yyin, "test.js", "r");
 	do {
 		token = yylex();
 		printf("Next Token: ");
