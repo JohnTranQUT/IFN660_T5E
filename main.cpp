@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_DEPRECATE
 #include <cstdio>
 #include <RuntimeLib\Type\BooleanType\BooleanType.h>
 #include <RuntimeLib\Type\NullType\NullType.h>
