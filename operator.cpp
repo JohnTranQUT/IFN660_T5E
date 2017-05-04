@@ -1,5 +1,6 @@
-#include <operator.h>
 #include <iostream>
+#include "operator.h"
+#include "AstExpression.h"
 #define DEBUG
 
 GeneralType *addition(GeneralType *lref, GeneralType *rref) {
@@ -44,4 +45,29 @@ GeneralType *subtraction(GeneralType *lref, GeneralType *rref) {
 	cout << "(" << lprim->_getType() << ") " << lprim->ToString() << "\t " << "-" << " \t(" << rprim->_getType() << ") " << rprim->ToString() << "\t = \t(" << result->_getType() << ") " << result->ToString() << endl;
 #endif
 	return result;
+}
+
+GeneralType *assignment(GeneralType *lref, GeneralType *rref) {
+//AssignmentExpression:LeftHandSideExpression = AssignmentExpression
+//	If LeftHandSideExpression is neither an ObjectLiteral nor an ArrayLiteral, then
+//	Let lref be the result of evaluating LeftHandSideExpression.
+//	ReturnIfAbrupt(lref).
+	
+//	Let rref be the result of evaluating AssignmentExpression.
+//	Let rval be ? GetValue(rref).
+//	If IsAnonymousFunctionDefinition(AssignmentExpression) and IsIdentifierRef of LeftHandSideExpression are both true, then
+//	Let hasNameProperty be ? HasOwnProperty(rval, "name").
+	GeneralType *rval = GetValue(rref);
+//	If hasNameProperty is false, perform SetFunctionName(rval, GetReferencedName(lref)).
+//	Perform ? PutValue(lref, rval).
+//	Return rval.
+	PutValue(lref, rval);
+//	Let assignmentPattern be the parse of the source text corresponding to LeftHandSideExpression using AssignmentPattern[? Yield] as the goal symbol.
+//	Let rref be the result of evaluating AssignmentExpression.
+//	Let rval be ? GetValue(rref).
+
+//	Let status be the result of performing DestructuringAssignmentEvaluation of assignmentPattern using rval as the argument.
+//	ReturnIfAbrupt(status).
+//	Return rval.
+	return rval;
 }

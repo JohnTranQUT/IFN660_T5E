@@ -1,23 +1,47 @@
 #pragma once 
 #include <string>
 #include <iostream>
+#include <map>
 using namespace std;
 
 
 class Type {
 public:
 	virtual ~Type() {}
+	virtual string _getType() = 0;
+};
+
+class SpecificationType :public  Type {
+};
+
+class Reference : public Type
+{
+private:
+	//base is either undefined, an Object, a Boolean, a String
+	//a Symbol, a Number, or an Environment Record
+	Type* base;
+	string name;
+	bool strictReference;
+public:
+	Reference(Type* _base, std::string _name) : base(_base), name(_name) {
+		strictReference = false;
+	}
+	Type* GetBase() { return base; }
+	string GetReferenceName() {	return name; }
+	bool isStrictReference() { return strictReference; }
+	bool isUnresolvableReference() { return (base->_getType() == "undefined") ? true : false; }
+	string _getType() override { return "reference"; }
+	~Reference() {}
 };
 
 class GeneralType : public Type {
 public:
 	virtual ~GeneralType() { }
-	virtual string _getType() = 0;
-	virtual GeneralType* ToPrimitive(GeneralType* = nullptr) { return this; }
+	virtual GeneralType* ToPrimitive(string PreferredType = nullptr) { return this; }
 	virtual bool ToBoolean() = 0;
 	virtual double ToNumber() = 0;
 	virtual string ToString() = 0;
-	//virtual GeneralType* ToObject(GeneralType* arg) = 0;
+
 };
 
 class Undefined : public GeneralType {
@@ -27,7 +51,6 @@ public:
 	bool ToBoolean() override { return false; }
 	double ToNumber() override { return NAN; }
 	string ToString() override { return "undefined"; }
-	//GeneralType* ToObject(GeneralType* arg) override { cout << "Type Error!"; }
 };
 
 class NullType : public GeneralType {
@@ -37,7 +60,6 @@ public:
 	bool ToBoolean() override { return false; }
 	double ToNumber() override { return +0; }
 	string ToString() override { return "null"; }
-	//GeneralType* ToObject(GeneralType* arg) override { cout << "Type Error!"; }
 };
 
 class Boolean : public GeneralType {
@@ -51,10 +73,6 @@ public:
 		else { return +0; }
 		}
 	string ToString() override { return (value ? "true" : "false"); }
-	//GeneralType* ToObject(GeneralType* arg) override { 
-	//	cout << "Boolean::ToObject";
-	//	exit(0);
-	//}
 };
 
 class Number : public GeneralType {
@@ -67,7 +85,6 @@ public:
 	string ToString() override {
 		return to_string(value);
 	}
-	//GeneralType* ToObject(GeneralType* arg) override { cout << "Type Error!"; }
 };
 
 class String : public GeneralType {
@@ -90,24 +107,42 @@ public:
 		return d; 
 	}
 	string ToString() override { return value; }
-	//GeneralType* ToObject(GeneralType* arg) override {}
 };
 
 class Object : public GeneralType {
-	GeneralType *value;
+	map<string, string> map_value;
 public:
-	Object(GeneralType *val) : value(val){ }
-	GeneralType* ToPrimitive(GeneralType* = nullptr) override { return this; }
+	Object(map<string, string> _val) : map_value(_val){ }
+	GeneralType* ToPrimitive(string PreferredType= nullptr) override {
+		//If PreferredType was not passed, let hint be "default".
+		//Else if PreferredType is hint String, let hint be "string".
+		//Else PreferredType is hint Number, let hint be "number".
+		string hint;
+		if (PreferredType == "string" || PreferredType == "number")
+		{
+			hint = PreferredType;
+		}
+		else { hint = "default"; }
+			//Let exoticToPrim be ? GetMethod(input, @@toPrimitive).
+			//	If exoticToPrim is not undefined, then
+			//	Let result be ? Call(exoticToPrim, input, « hint »).
+			//	If Type(result) is not Object, return result.
+			//	Throw a TypeError exception.
+			//	If hint is "default", let hint be "number".
+			//	Return ? OrdinaryToPrimitive(input, hint).
+		//temp
+		return this;
+	}
 	bool ToBoolean() override { return true; }
 	double ToNumber() override {
-		GeneralType * primVal = ToPrimitive((GeneralType*)"Number");
+		GeneralType * primVal = this->ToPrimitive("number");
 		return primVal->ToNumber();
 	}
 	string ToString() override { 
-		GeneralType * primVal = ToPrimitive((GeneralType*)"String");
+		GeneralType * primVal = this->ToPrimitive("string");
 		return primVal->ToString();
 	}
-	//GeneralType* ToObject(GeneralType* arg) override { return value; }
 };
 
-GeneralType *GetValue(GeneralType *V);
+GeneralType* GetValue(Type *V);
+void PutValue(Type* v, GeneralType* w);
