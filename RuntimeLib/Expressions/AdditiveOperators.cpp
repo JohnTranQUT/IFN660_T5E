@@ -38,6 +38,8 @@ Type* GetValue(Type* V) {
 }
 
 Type* ToPrimative(Type* input, Type* preferredType) {
+	if (dynamic_cast<UndefinedType *>(input))
+		return input;
 	if (dynamic_cast<NullType *>(input))
 		return input;
 	if (dynamic_cast<BooleanType *>(input))
@@ -60,6 +62,8 @@ void ReturnIfAbrupt(Type* V) {
 
 //=================Type Functions===================================
 StringType* ToString(Type* V) {
+	if (auto _V = dynamic_cast<UndefinedType *>(V))
+		return new StringType("Nan");
 	if (auto _V = dynamic_cast<NullType *>(V))
 		return new StringType("null");
 	if (auto _V = dynamic_cast<BooleanType *>(V))
@@ -85,6 +89,8 @@ StringType* ToString(Type* V) {
 }
 
 NumberType* ToNumber(Type* V) {
+	if (auto _V = dynamic_cast<UndefinedType *>(V))
+		return new NumberType(NAN);
 	if (auto _V = dynamic_cast<NullType *>(V))
 		return new NumberType(0);
 	if (auto _V = dynamic_cast<BooleanType *>(V))
@@ -94,10 +100,12 @@ NumberType* ToNumber(Type* V) {
 			return new NumberType(0);
 	if (auto _V = dynamic_cast<NumberType *>(V))
 		return _V;
-	/* STRING
 	if (auto _V = dynamic_cast<StringType *>(V))
-		return _V->_getValue();
-	*/
+		try{
+			return new NumberType(stod(_V->_getValue()));
+		} catch (const invalid_argument) {
+			return new NumberType(NAN);
+		}
 	/*if (auto _V = dynamic_cast<SymbolType *>(V))
 	std::puts("TypeError");
 	exit(0);
