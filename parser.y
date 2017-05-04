@@ -1,26 +1,14 @@
-%code requires{
-#include <cstdio>
-#include "AST/AstNode.h"
-#include "AST/AstExpression.h"
-#include "AST/AstStatement.h"
-#include "AST/AstScript.h"
-int yylex();
-void yyerror(char *);
-
+%code requires {
+	#include <cstdio>
+	#include <AST/Node/AstNode.h>
+	#include <AST/Expression/AstExpression.h>
+	#include <AST/Statement/AstStatement.h>
+	#include <AST/Script/AstScript.h>
+	int yylex();
+	void yyerror(char *);
 }
 
-
-%union 
-{
-	Script *script;
-	ScriptBody *scriptBody;
-	StatementListItem *listItem;
-
-
-	StatementList *statementlist;
-	Statement *statement;
-	Expression *expression;
-
+%union {
 	char *regex;
 	char * str;
 	double decimal;
@@ -29,10 +17,13 @@ void yyerror(char *);
 	char *hex;
 	bool booelan;
 	char *ident;
+
+	Node *root;
+	StatementList *statementlist;
+	Statement *statement;
+	Expression *expression;
 }
-%{
-Node *root;
-%}
+
 %token COMMENT NULL_L
 %token <regex> REGEX_LITERAL
 %token <str> STRING_L
@@ -45,11 +36,8 @@ Node *root;
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
-%type <script> Script  
-%type <scriptBody> ScriptBody_opt ScriptBody
 %type <statementlist> StatementList StatementList_opt
-%type <listItem> StatementListItem
-
+%type <root> Script ScriptBody_opt ScriptBody StatementListItem
 %type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
 %type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName
@@ -59,11 +47,11 @@ Node *root;
 %%
 
 Script
-	: ScriptBody_opt															{ $$ = new Script($1); root=$$; }
+	: ScriptBody_opt															{ $$ = new Script($1); $$->dump(); }
 	;
 
 ScriptBody_opt
-	: ScriptBody																{ $$ = $1;  }
+	: ScriptBody																{ $$ = $1 }
 	| empty
 	;
 
@@ -78,7 +66,7 @@ StatementList_opt
 
 StatementList
 	: StatementListItem															{ $$ = new StatementList($1); }
-	| StatementList StatementListItem											{ $$ = $1; $$->push_back($2); }
+	| StatementList StatementListItem											{ $$ = new StatementList($1, $2); }
 	;
 
 StatementListItem
@@ -283,7 +271,7 @@ IdentifierReference
 Literal
 	: NullLiteral
 	| BooleanLiteral
-	| NumericLiteral															{ $$ = new Literal($1);}
+	| NumericLiteral															{ $$ = new Literal($1); }
 	| StringLiteral
 	;
 
@@ -364,8 +352,8 @@ ShiftExpression
 /* Level 14 */
 AdditiveExpression
 	: MultiplicativeExpression													{ $$ = new AdditiveExpression($1); }
-	| AdditiveExpression '+' MultiplicativeExpression							{ $$ =new AdditiveExpression($1,$3,'+');}
-	| AdditiveExpression '-' MultiplicativeExpression							{ $$ =new AdditiveExpression($1,$3,'-');}
+	| AdditiveExpression '+' MultiplicativeExpression
+	| AdditiveExpression '-' MultiplicativeExpression
 	;
 
 /* Level 15 */
