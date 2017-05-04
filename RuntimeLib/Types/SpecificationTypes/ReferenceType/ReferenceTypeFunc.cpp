@@ -1,6 +1,6 @@
 ﻿#include <RuntimeLib/Types/SpecificationTypes/ReferenceType/ReferenceType.h>
 #include <RuntimeLib/Types/SpecificationTypes/RecordType/CompletionType/CompletionTypeFunc.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/EnvironmentRecord.h>
+//#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/EnvironmentRecord.h>
 #include "ReferenceTypeFunc.h"
 
 using namespace std;
@@ -26,8 +26,8 @@ Type *GetValue(Type *V) {
 			puts("Return ? base.[[Get]](_V->GetReferenceName(), GetThisValue(_V)");
 			exit(0);
 		}
-		auto _base = dynamic_cast<EnvironmentRecord *>(base);
-		return _base->GetBindingValue(dynamic_cast<StringType *>(_V->GetReferencedName()), _V->IsStrictReference());
+//		auto _base = dynamic_cast<EnvironmentRecord *>(base);
+//		return _base->GetBindingValue(dynamic_cast<StringType *>(_V->GetReferencedName()), _V->IsStrictReference());
 	}
 	return V;
 }
@@ -70,8 +70,8 @@ Type *PutValue(Type *V, Type *W) {
 			puts("base.[[Set]](_V->GetReferencedName(), W, GetThisValue(_V))");
 			exit(0);
 		} else {
-			auto _base = dynamic_cast<EnvironmentRecord *>(base);
-			_base->SetMutableBinding(ToString(_V->GetReferencedName()), dynamic_cast<LanguageType *>(W), _V->IsStrictReference());
+//			auto _base = dynamic_cast<EnvironmentRecord *>(base);
+//			_base->SetMutableBinding(ToString(_V->GetReferencedName()), dynamic_cast<LanguageType *>(W), _V->IsStrictReference());
 		}
 	} else {
 		puts("ReferenceError");
