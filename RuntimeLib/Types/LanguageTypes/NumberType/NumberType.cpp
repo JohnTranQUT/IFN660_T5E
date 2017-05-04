@@ -23,10 +23,10 @@ NumberType *NumberType::operator+(NumberType &rhs) const {
 		return new NumberType(-INFINITY);
 	}
 	if (isinf(lhs._getValue())) {
-		return &lhs;
+		return new NumberType(lhs._getValue());
 	}
 	if (isinf(rhs._getValue())) {
-		return &rhs;
+		return new NumberType(rhs._getValue());
 	}
 
 	feclearexcept(FE_OVERFLOW);
@@ -142,10 +142,10 @@ NumberType *NumberType::operator%(NumberType &rhs) const {
 		return new NumberType(NAN);
 	}
 	if (isinf(rhs._getValue())) {
-		return &lhs;
+		return new NumberType(rhs._getValue());
 	}
 	if (lhs._getValue() == 0) {
-		return &lhs;
+		return new NumberType(lhs._getValue());
 	}
 
 	auto _result = fmod(lhs._getValue(), rhs._getValue());
