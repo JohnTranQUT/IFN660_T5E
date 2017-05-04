@@ -39,7 +39,7 @@ Semantic Analysis - Function-Oriented (Alfred)
 - Initialized Object Properties: Data Property and Accessor Property
 - Recode `GetValue()` to support `ReferenceType`
 - Restructure Codes
-- Created demo in main.cpp
+- Created tests in main.cpp
 - Implemented LanguageTypes `subtraction()`, `multiplication()`, `division()`, `modulus()`
 - Implemented LanguageTypes `ToBoolean()`, `ToInteger()`, `ToObject()`
 - Implemented LanguageTypes `addition()`
