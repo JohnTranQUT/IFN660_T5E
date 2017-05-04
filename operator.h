@@ -5,8 +5,7 @@
 
 
 using namespace std;
-
-void addition(Type *, Type *);
+Type * addition(Type *, Type *);
 Type * get_value(Type * );
 Type * ToPrimitive(Type *);
 double  ToNumber(Type * argu);

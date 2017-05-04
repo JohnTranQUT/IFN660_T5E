@@ -4,10 +4,11 @@
 #include <iostream>
 #include <string>
 #include <math.h>
+#include <stdio.h>
 
 using namespace std;
 
-void  addition(Type * lref, Type * rref)
+Type *  addition(Type * lref, Type * rref)
 {
 	Type * lval = get_value(lref);
 	Type * rval = get_value(rref);
@@ -18,7 +19,9 @@ void  addition(Type * lref, Type * rref)
 		string lstr = ToString(lprim);
 		string rstr = ToString(rprim);
 		cout << "(" << "string:" << lstr << ")" << "+" << "(" << "string:" << rstr << ")" << "=" << "(" << "string:" << lstr << rstr << ")" << endl;
-		
+		string newstring = lstr + rstr;
+		Type * value = new String(newstring);
+		return value;
 	}
 	else
 	{
@@ -26,7 +29,10 @@ void  addition(Type * lref, Type * rref)
 		double rstr = ToNumber(rprim);
 		double sum = lstr + rstr;
 		cout << "(" << "number:" << lstr << ")" << "+" << "(" << "number:" << rstr << ")" << "=" << "(" << "number:" << sum << ")" << endl;
-	}
+		double newnumber = lstr + rstr;
+		Type * value = new Number(newnumber);
+		return value;
+	}	
 }
 
 
@@ -76,8 +82,6 @@ double  ToNumber(Type * argu)
 
 bool  ToBoolean(Type * argu)
 {
-	string a = typeid(*argu).name();
-	cout << a << endl;
 	if (typeid(*argu) == typeid(Undefined))
 	{
 		return false;
@@ -121,7 +125,7 @@ bool  ToBoolean(Type * argu)
 	}
 	else if (typeid(*argu) == typeid(Symbol))
 	{
-		cout << true << endl;
+		cout << "true" << endl;
 		return true;
 	}
 }

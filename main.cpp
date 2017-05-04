@@ -1,8 +1,9 @@
 #define _CRT_SECURE_NO_DEPRECATE
-#include <cstdio>
 #include <Type.h>
 #include <operator.h>
 #include <math.h>
+#include <string>
+#include <iostream>
 //#include <parser.h>
 
 #define AST 
@@ -31,7 +32,6 @@ void main(int argc, char *argv[]) {
 	addition(a, b);
 	addition(x, a);
 	addition(b, y);
-	ToString(c);
 	ToBoolean(c);
 	ToBoolean(d);
 
