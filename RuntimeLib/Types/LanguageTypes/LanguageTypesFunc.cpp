@@ -203,6 +203,12 @@ StringType *ToString(LanguageType *argument) {
 		if (isnan(_argument->_getValue())) {
 			return new StringType("NaN");
 		}
+		if (isinf(_argument->_getValue())) {
+			if (0 < _argument->_getValue()) {
+				return new StringType("Infinity");
+			}
+			return new StringType("-Infinity");
+		}
 		return new StringType(_TrimDecimal(to_string(_argument->_getValue())));
 	}
 	if (dynamic_cast<ObjectType *>(argument)) {
