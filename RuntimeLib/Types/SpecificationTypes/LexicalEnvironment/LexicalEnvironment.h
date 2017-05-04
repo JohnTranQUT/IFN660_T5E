@@ -11,6 +11,7 @@ public:
 		LexicalEnvironment *_outer = nullptr
 	) : environmentRecord(_environmentRecord),
 	    outer(_outer) { }
+
 	EnvironmentRecord *_getEnvRec() const;
 	LexicalEnvironment *_getOuter() const;
 };

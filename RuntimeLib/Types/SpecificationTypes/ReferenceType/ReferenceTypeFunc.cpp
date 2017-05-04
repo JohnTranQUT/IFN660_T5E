@@ -54,24 +54,22 @@ Type *PutValue(Type *V, Type *W) {
 				puts("ReferenceError");
 				exit(0);
 			}
-//			auto globalObj = GetGlobalObject();
-//			return Set(globalObject, V->GetReferencedName(), W, new BooleanType(false));
+			//			auto globalObj = GetGlobalObject();
+			//			return Set(globalObject, V->GetReferencedName(), W, new BooleanType(false));
 			puts("Set(globalObject, V->GetReferencedName(), W, new BooleanType(false))");
 			exit(0);
-		}
-		else if (_V->IsPropertyReference()) {
+		} else if (_V->IsPropertyReference()) {
 			if (_V->HasPrimitiveBase()) {
 				base = ToObject(dynamic_cast<LanguageType *>(base));
 			}
-//			auto succeeded = base.[[Set]](_V->GetReferencedName(), W, GetThisValue(_V));
-//			if (!succeeded->_getValue() && _V->IsStrictReference()->_getValue()) {
-//				puts("TypeError");
-//				exit(0);
-//			}
+			//			auto succeeded = base.[[Set]](_V->GetReferencedName(), W, GetThisValue(_V));
+			//			if (!succeeded->_getValue() && _V->IsStrictReference()->_getValue()) {
+			//				puts("TypeError");
+			//				exit(0);
+			//			}
 			puts("base.[[Set]](_V->GetReferencedName(), W, GetThisValue(_V))");
 			exit(0);
-		}
-		else {
+		} else {
 			auto _base = dynamic_cast<EnvironmentRecord *>(base);
 			_base->SetMutableBinding(ToString(_V->GetReferencedName()), dynamic_cast<LanguageType *>(W), _V->IsStrictReference());
 		}
