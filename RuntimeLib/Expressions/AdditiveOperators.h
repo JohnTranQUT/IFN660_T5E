@@ -9,3 +9,11 @@
 
 Type* additiveOperator(Type* lref, Type* rref);
 Type* subtractiveOperator(Type* lref, Type* rref);
+
+Type* GetValue(Type* V);
+Type* ToPrimative(Type* input, Type* preferredType = nullptr);
+
+StringType* ToString(Type* V);
+NumberType* ToNumber(Type* V);
+
+void ReturnIfAbrupt(Type* V);

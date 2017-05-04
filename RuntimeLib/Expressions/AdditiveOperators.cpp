@@ -1,4 +1,5 @@
 #include <RuntimeLib\Expressions\AdditiveOperators.h>
+#include <string>
 
 //Evaluation Functions
 
@@ -8,8 +9,8 @@ Type* additiveOperator(Type* lref, Type* rref) {
 	auto lprim = ToPrimative(lval);
 	auto rprim = ToPrimative(rval);
 	if (dynamic_cast<StringType *>(lprim) || dynamic_cast<StringType *>(rprim)) {
-		string lstr = ToString(lprim)->_getValue();
-		string rstr = ToString(rprim)->_getValue();
+		string lstr = (ToString(lprim))->_getValue();
+		string rstr = (ToString(rprim))->_getValue();
 		return new StringType(lstr + rstr);
 	}
 	auto lnum = ToNumber(lprim)->_getValue();
@@ -24,7 +25,7 @@ Type* subtractiveOperator(Type* lref, Type* rref) {
 //==================================ReferenceType functions==========================
 Type* GetValue(Type* V) {
 	ReturnIfAbrupt(V);
-	if (V->_getType != "Reference") {//not reference
+	if (V->_getType() != "Reference") {//not reference
 		return V;
 	}
 	//auto base = GetBase(V);
@@ -32,7 +33,7 @@ Type* GetValue(Type* V) {
 
 }
 
-Type* ToPrimative(Type* input, Type* preferredType = nullptr) {
+Type* ToPrimative(Type* input, Type* preferredType) {
 	if (dynamic_cast<NullType *>(input))
 		return input;
 	if (dynamic_cast<BooleanType *>(input))
