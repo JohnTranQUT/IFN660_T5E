@@ -18,7 +18,7 @@ public:
 
 class Boolean : public Type {
 public:
-	Boolean() { };
+	Boolean(bool val) { boolvalue = val; };
 	bool VALUE();
 private:
 	bool boolvalue;
@@ -40,11 +40,15 @@ protected:
 	string stringvalue;
 };
 
-class Function : public Type {
+class Null : public Type {
 public:
-	Function() { };
+	Null() { };
 };
 
+class Symbol : public Type {
+public:
+	Symbol() { };
+};
 class Object : public Type {
 public:
 	Object() { };

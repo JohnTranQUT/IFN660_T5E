@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <Type.h>
 #include <operator.h>
+#include <math.h>
 //#include <parser.h>
 
 #define AST 
@@ -9,6 +10,7 @@
 
 //extern FILE *yyin;
 //using namespace std;
+
 
 void main(int argc, char *argv[]) {
 /*
@@ -18,15 +20,20 @@ void main(int argc, char *argv[]) {
 #endif
 */
 #ifdef SA
-	Number x(23), y(32);
-	Number * xx = &x;
-	Number * yy = &y;
-	String a ("little"), b = ("progress");
-	String * aa = &a;
-	String * bb = &b;
-	addition(xx,yy);
-	cout << endl;
-	addition(aa, bb);
+	
+	Number * x = new Number(+0);
+	Number * y = new Number(-32);
+	String * a = new String("little");
+	String * b = new String("progress"); 
+	Symbol * c = new Symbol();
+	String * d = new String("");
+	addition(x, y);
+	addition(a, b);
+	addition(x, a);
+	addition(b, y);
+	ToString(c);
+	ToBoolean(c);
+	ToBoolean(d);
 
 #endif
 }
