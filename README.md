@@ -4,6 +4,10 @@
 Semantic Analysis - Function-Oriented (Alfred)
 
 ## Project Logs
+- Implemented all `ObjectEnvironmentRecord` and `GlobalEnvironmentRecord` methods
+- Implemented Full `ListType`
+- Implemented Full `LexicalEnvironment`
+- Implemented JS Defined `AdditiveOperators`, `MultiplicativeOperators` instead of using C++ native operators **(hint from Michael)**
 - Utilities are now called _Helpers
 - Destructured `operators` to be under Evaluations/Expression/ as AdditiveOperators and MultiplicativeOperators
 - Implemented `PutValue()` under `ReferenceType` 
@@ -14,6 +18,7 @@ Semantic Analysis - Function-Oriented (Alfred)
 - Initialized `LexicalEnvironment` and `EnvironmentRecord`
 - Reformed `CompletionType` to support `RecordType`
 - Reformed `RecordType`
+- Replaced comments with C++ `#define` Directive to switch between AST and SA **(hint from Jason)**
 - Added `_TrimDecimal()` to remove trailing zeros and unnecessary decimal when converting double to string
 - Implemented `ReferenceType` -> `GetThisValue()` and improved `ReferenceType` -> `GetValue()`
 - Added `Object()`, `Boolean()`, `Number()`, and `String()` as corresponding object constructor
