@@ -110,12 +110,12 @@ NumberType *NumberType::operator/(NumberType &rhs) const {
 		}
 		return new NumberType(-INFINITY);
 	}
-
+	
 	feclearexcept(FE_OVERFLOW);
 	feclearexcept(FE_UNDERFLOW);
 
 	auto _result = lhs._getValue() / rhs._getValue();
-
+	
 	if (static_cast<bool>(fetestexcept(FE_OVERFLOW))) {
 		if (_hasSameSign) {
 			return new NumberType(INFINITY);
@@ -128,7 +128,7 @@ NumberType *NumberType::operator/(NumberType &rhs) const {
 		}
 		return new NumberType(-0);
 	}
-
+	
 	return new NumberType(_result);
 }
 
