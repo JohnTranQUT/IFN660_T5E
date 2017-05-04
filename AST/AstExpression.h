@@ -1,13 +1,10 @@
 #pragma once
-#include <vector>
-#include <AstNode.h>
+#include "AST/AstNode.h"
 
 using namespace std;
 
 class Expression : public Node {
-public:
-	virtual ~Expression() = default;
-	virtual void dump(int = 0) = 0;
+
 };
 
 class IdentifierName : public Expression {
@@ -18,14 +15,13 @@ public:
 };
 
 class DecimalLiteral : public Expression {
-	double LHS;
+	double value;
 public:
-	explicit DecimalLiteral(double);
+	explicit DecimalLiteral(double value);
 	void dump(int = 0) override;
 };
 
 class Identifier : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit Identifier(Expression *);
@@ -33,7 +29,6 @@ public:
 };
 
 class NumericLiteral : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit NumericLiteral(Expression *);
@@ -41,7 +36,6 @@ public:
 };
 
 class Literal : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit Literal(Expression *);
@@ -49,7 +43,6 @@ public:
 };
 
 class IdentifierReference : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit IdentifierReference(Expression *);
@@ -57,7 +50,6 @@ public:
 };
 
 class PrimaryExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit PrimaryExpression(Expression *);
@@ -65,7 +57,6 @@ public:
 };
 
 class MemberExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit MemberExpression(Expression *);
@@ -73,7 +64,6 @@ public:
 };
 
 class NewExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit NewExpression(Expression *);
@@ -81,7 +71,6 @@ public:
 };
 
 class LeftHandSideExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit LeftHandSideExpression(Expression *);
@@ -89,7 +78,6 @@ public:
 };
 
 class UpdateExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit UpdateExpression(Expression *);
@@ -97,7 +85,6 @@ public:
 };
 
 class UnaryExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit UnaryExpression(Expression *);
@@ -105,7 +92,6 @@ public:
 };
 
 class ExponentiationExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit ExponentiationExpression(Expression *);
@@ -113,7 +99,6 @@ public:
 };
 
 class MultiplicativeExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit MultiplicativeExpression(Expression *);
@@ -121,15 +106,16 @@ public:
 };
 
 class AdditiveExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
+	Expression *RHS;
+	char op;
 public:
 	explicit AdditiveExpression(Expression *);
+	explicit AdditiveExpression(Expression *LHS, Expression *RHS, char op);
 	void dump(int = 0) override;
 };
 
 class ShiftExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit ShiftExpression(Expression *);
@@ -137,7 +123,6 @@ public:
 };
 
 class RelationalExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 	Expression *RHS;
 	char *op;
@@ -148,7 +133,6 @@ public:
 };
 
 class EqualityExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 	Expression *RHS;
 	char *op;
@@ -159,7 +143,6 @@ public:
 };
 
 class BitwiseANDExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit BitwiseANDExpression(Expression *);
@@ -167,7 +150,6 @@ public:
 };
 
 class BitwiseXORExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit BitwiseXORExpression(Expression *);
@@ -175,7 +157,6 @@ public:
 };
 
 class BitwiseORExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit BitwiseORExpression(Expression *);
@@ -183,7 +164,6 @@ public:
 };
 
 class LogicalANDExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit LogicalANDExpression(Expression *);
@@ -191,7 +171,6 @@ public:
 };
 
 class LogicalORExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit LogicalORExpression(Expression *);
@@ -199,7 +178,6 @@ public:
 };
 
 class ConditionalExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 public:
 	explicit ConditionalExpression(Expression *);
@@ -207,7 +185,6 @@ public:
 };
 
 class AssignmentExpression : public Expression {
-	vector<Node*> next;
 	Expression *LHS;
 	Expression *RHS;
 public:
