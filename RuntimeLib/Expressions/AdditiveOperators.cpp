@@ -19,7 +19,11 @@ Type* additiveOperator(Type* lref, Type* rref) {
 }
 
 Type* subtractiveOperator(Type* lref, Type* rref) {
-	return lref; //WIP
+	auto lval = GetValue(lref);
+	auto rval = GetValue(rref);
+	auto lnum = ToNumber(lval)->_getValue();
+	auto rnum = ToNumber(rval)->_getValue();
+	return new NumberType(lnum - rnum);
 }
 
 //==================================ReferenceType functions==========================
