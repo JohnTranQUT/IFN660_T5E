@@ -1,12 +1,12 @@
 #include <iostream>
 #include "RuntimeLib/Operator.h"
-#include "RuntimeLib/JSValue.h"
+#include "RuntimeLib/Type.h"
 #include "AST/AstNode.h"
 #include "AST/AstScript.h"
 
 
-
-//#define testParser
+//#define testRuntimeLib
+#define testParser
 
 int yylex();
 int yyparse();
@@ -26,13 +26,16 @@ int main(int argc, char* argv[]) {
 #endif
 
 
-#ifdef DEBUG
-	addition(new BooleanValue(true), new StringValue("Hello World"));
-	addition(new NumberValue(3.14), new NumberValue(2));
-	addition(new UndefinedValue(), new NumberValue(2));
-	addition(new UndefinedValue(), new StringValue("QUT"));
-	addition(new NullValue(), new NumberValue(2));
-	addition(new NumberValue(NAN), new BooleanValue(false));
+#ifdef testRuntimeLib
+	NumberType* jsNumber = new NumberType(3);
+	BooleanType* jsBool = new BooleanType(true);
+	
+	Type* result = addition(jsNumber, jsBool);
+	std::cout << result->ToString()<<"\n";
+
+	StringType* js_string = new StringType("3.14");
+	result = addition(js_string, jsNumber);
+	std::cout << result->ToString() << "\n";
 #endif
 
 }
