@@ -36,6 +36,11 @@ Type* GetValue(Type* V) {
 	//if UnresolvableReference(V)
 
 }
+void ReturnIfAbrupt(Type* V) {
+	//Will fill
+}
+
+//=================Language Type Functions===================================
 
 Type* ToPrimative(Type* input, Type* preferredType) {
 	if (dynamic_cast<UndefinedType *>(input))
@@ -49,18 +54,13 @@ Type* ToPrimative(Type* input, Type* preferredType) {
 	if (dynamic_cast<StringType *>(input))
 		return input;
 	/*if (dynamic_cast<SymbolType *>(input))
-		return input;
+	return input;
 	*/
 	/*if (auto _input = dynamic_cast<ObjectType *>(input))
-		???
+	???
 	*/
 }
 
-void ReturnIfAbrupt(Type* V) {
-	//Will fill
-}
-
-//=================Type Functions===================================
 StringType* ToString(Type* V) {
 	if (auto _V = dynamic_cast<UndefinedType *>(V))
 		return new StringType("Nan");
