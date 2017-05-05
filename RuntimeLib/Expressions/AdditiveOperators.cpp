@@ -53,9 +53,8 @@ Type* ToPrimative(Type* input, Type* preferredType) {
 		return input;
 	if (dynamic_cast<StringType *>(input))
 		return input;
-	/*if (dynamic_cast<SymbolType *>(input))
-	return input;
-	*/
+	if (dynamic_cast<SymbolType *>(input))
+		return input;
 	/*if (auto _input = dynamic_cast<ObjectType *>(input))
 	???
 	*/
@@ -78,11 +77,10 @@ StringType* ToString(Type* V) {
 			return new StringType(to_string(_V->_getValue()));
 	if (auto _V = dynamic_cast<StringType *>(V)) 
 		return _V;
-	
-	/*if (auto _V = dynamic_cast<SymbolType *>(V))
+	if (auto _V = dynamic_cast<SymbolType *>(V)) {
 		std::puts("TypeError");
 		exit(0);
-	*/
+	}
 	/*if (auto _V = dynamic_cast<ObjectType *>(V))
 		return _V->_getValue();
 	*/
@@ -106,10 +104,38 @@ NumberType* ToNumber(Type* V) {
 		} catch (const invalid_argument) {
 			return new NumberType(NAN);
 		}
-	/*if (auto _V = dynamic_cast<SymbolType *>(V))
-	std::puts("TypeError");
-	exit(0);
+	if (auto _V = dynamic_cast<SymbolType *>(V)) {
+		std::puts("TypeError");
+		exit(0);
+	}
+	/*if (auto _V = dynamic_cast<ObjectType *>(V))
+	return _V->_getValue();
 	*/
+}
+
+
+
+BooleanType* ToBoolean(Type* V) {
+	if (auto _V = dynamic_cast<UndefinedType *>(V))
+		return new BooleanType(false);
+	if (auto _V = dynamic_cast<NullType *>(V))
+		return new BooleanType(false);
+	if (auto _V = dynamic_cast<BooleanType *>(V))
+		return _V;
+	if (auto _V = dynamic_cast<NumberType *>(V))
+		if (_V->_getValue() == 0 || _V->_getValue() == NAN)
+			return new BooleanType(false);
+		else
+			return new BooleanType(true);
+	if (auto _V = dynamic_cast<StringType *>(V))
+		if(empty(_V->_getValue()))
+			return new BooleanType(false);
+		else
+			return new BooleanType(true);
+	if (auto _V = dynamic_cast<SymbolType *>(V)) {
+		std::puts("TypeError");
+		exit(0);
+	}
 	/*if (auto _V = dynamic_cast<ObjectType *>(V))
 	return _V->_getValue();
 	*/
