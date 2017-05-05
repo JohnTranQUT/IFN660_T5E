@@ -14,12 +14,12 @@ Type *GetValue(Type *V) {
 	}
 	if (auto _V = dynamic_cast<ReferenceType *>(V)) {
 		auto base = _V->GetBase();
-		if (_V->IsUnresolvableReference()) {
+		if (_V->IsUnresolvableReference()->_getValue()) {
 			puts("ReferenceError");
 			exit(0);
 		}
-		if (_V->IsPropertyReference()) {
-			if (_V->HasPrimitiveBase()) {
+		if (_V->IsPropertyReference()->_getValue()) {
+			if (_V->HasPrimitiveBase()->_getValue()) {
 				base = ToObject(dynamic_cast<LanguageType *>(base));
 			}
 			puts("Return ? base.[[Get]](_V->GetReferenceName(), GetThisValue(_V)");
@@ -48,8 +48,8 @@ Type *PutValue(Type *V, Type *W) {
 	}
 	if (auto _V = dynamic_cast<ReferenceType *>(V)) {
 		auto base = _V->GetBase();
-		if (_V->IsUnresolvableReference()) {
-			if (_V->IsStrictReference()) {
+		if (_V->IsUnresolvableReference()->_getValue()) {
+			if (_V->IsStrictReference()->_getValue()) {
 				puts("ReferenceError");
 				exit(0);
 			}
@@ -57,8 +57,8 @@ Type *PutValue(Type *V, Type *W) {
 //						return Set(globalObject, V->GetReferencedName(), W, new BooleanType(false));
 			puts("Set(globalObject, V->GetReferencedName(), W, new BooleanType(false))");
 			exit(0);
-		} else if (_V->IsPropertyReference()) {
-			if (_V->HasPrimitiveBase()) {
+		} else if (_V->IsPropertyReference()->_getValue()) {
+			if (_V->HasPrimitiveBase()->_getValue()) {
 				base = ToObject(dynamic_cast<LanguageType *>(base));
 			}
 			//			auto succeeded = base.[[Set]](_V->GetReferencedName(), W, GetThisValue(_V));
