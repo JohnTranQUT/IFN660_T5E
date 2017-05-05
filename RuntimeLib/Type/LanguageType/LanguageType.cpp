@@ -2,7 +2,3 @@
 #include <string>
 
 using namespace std;
-
-string LanguageType::_getType() {
-	return "Language";
-}

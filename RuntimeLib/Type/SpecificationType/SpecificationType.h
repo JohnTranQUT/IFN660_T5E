@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class LanguageType : public Type {
+class SpecificationType : public Type {
 public:
-	virtual ~LanguageType() {};
+	virtual ~SpecificationType() {};
 };

@@ -25,17 +25,3 @@ LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref) {
 	auto rnum = ToNumber(rval)->_getValue();
 	return new NumberType(lnum - rnum);
 }
-
-//==================================ReferenceType functions==========================
-LanguageType* GetValue(LanguageType* V) {
-	ReturnIfAbrupt(V);
-	if (V->_getType() != "Reference") {//not reference
-		return V;
-	}
-	//auto base = GetBase(V);
-	//if UnresolvableReference(V)
-
-}
-void ReturnIfAbrupt(LanguageType* V) {
-	//Will fill
-}

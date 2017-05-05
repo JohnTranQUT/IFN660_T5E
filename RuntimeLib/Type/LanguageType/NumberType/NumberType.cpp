@@ -6,7 +6,3 @@ using namespace std;
  double NumberType::_getValue() const {
 	return _value;
 }
-
-string NumberType::_getType() {
-	return _type;
-}

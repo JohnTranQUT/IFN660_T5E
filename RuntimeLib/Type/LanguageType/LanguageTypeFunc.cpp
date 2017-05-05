@@ -40,9 +40,10 @@ StringType* ToString(LanguageType* V) {
 		std::puts("TypeError");
 		exit(0);
 	}
-	/*if (auto _V = dynamic_cast<ObjectType *>(V))
-	return _V->_getValue();
-	*/
+	if (auto _V = dynamic_cast<ObjectType *>(V)){
+		auto primValue = ToPrimative(_V, new StringType(""));
+		return ToString(primValue);
+	}
 }
 
 NumberType* ToNumber(LanguageType* V) {
@@ -68,9 +69,10 @@ NumberType* ToNumber(LanguageType* V) {
 		std::puts("TypeError");
 		exit(0);
 	}
-	/*if (auto _V = dynamic_cast<ObjectType *>(V))
-	return _V->_getValue();
-	*/
+	if (auto _V = dynamic_cast<ObjectType *>(V)) {
+		auto primValue = ToPrimative(_V, new NumberType(0));
+		return ToNumber(primValue);
+	}
 }
 
 
@@ -95,7 +97,6 @@ BooleanType* ToBoolean(LanguageType* V) {
 		std::puts("TypeError");
 		exit(0);
 	}
-	/*if (auto _V = dynamic_cast<ObjectType *>(V))
-	return _V->_getValue();
-	*/
+	if (auto _V = dynamic_cast<ObjectType *>(V))
+		return new BooleanType(true);
 }

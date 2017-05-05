@@ -1,5 +1,4 @@
 #include <cstdio>
-
 #include <RuntimeLib\Expressions\AdditiveOperators.h>
 #include <string>
 
@@ -13,7 +12,6 @@ void outputToScreenType(LanguageType* temp) {
 		puts(to_string(_temp->_getValue()).c_str());
 	if (auto _temp = dynamic_cast<StringType *>(temp))
 		puts(_temp->_getValue().c_str());
-	puts(temp->_getType().c_str());
 }
 
 void main(int argc, char *argv[]) {
