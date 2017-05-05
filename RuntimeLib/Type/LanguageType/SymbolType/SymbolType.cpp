@@ -1,4 +1,4 @@
-#include <RuntimeLib\Type\SymbolType\SymbolType.h>
+#include <RuntimeLib\Type\LanguageType\SymbolType\SymbolType.h>
 #include <string>
 //Not Complete, needs work
 

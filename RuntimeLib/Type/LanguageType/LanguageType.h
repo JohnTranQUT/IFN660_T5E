@@ -4,9 +4,9 @@
 
 using namespace std;
 
-class Type {
+class LanguageType {
 public:
-	virtual ~Type() {};
+	virtual ~LanguageType() {};
 	virtual string _getType() = 0;
 };
 

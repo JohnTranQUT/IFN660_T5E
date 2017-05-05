@@ -1,10 +1,10 @@
 #pragma once
-#include <RuntimeLib\Type\Type.h>
+#include <RuntimeLib\Type\LanguageType\LanguageType.h>
 #include <string>
 
 using namespace std;
 
-class UndefinedType : public Type {
+class UndefinedType : public LanguageType {
 	string _value;
 	string _type = "Undefined";
 public:

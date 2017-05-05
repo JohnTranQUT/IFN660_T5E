@@ -3,7 +3,7 @@
 
 //Evaluation Functions
 
-Type* additiveOperator(Type* lref, Type* rref) {
+LanguageType* additiveOperator(LanguageType* lref, LanguageType* rref) {
 	auto lval = GetValue(lref);
 	auto rval = GetValue(rref);
 	auto lprim = ToPrimative(lval);
@@ -18,7 +18,7 @@ Type* additiveOperator(Type* lref, Type* rref) {
 	return new NumberType(lnum + rnum);
 }
 
-Type* subtractiveOperator(Type* lref, Type* rref) {
+LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref) {
 	auto lval = GetValue(lref);
 	auto rval = GetValue(rref);
 	auto lnum = ToNumber(lval)->_getValue();
@@ -27,7 +27,7 @@ Type* subtractiveOperator(Type* lref, Type* rref) {
 }
 
 //==================================ReferenceType functions==========================
-Type* GetValue(Type* V) {
+LanguageType* GetValue(LanguageType* V) {
 	ReturnIfAbrupt(V);
 	if (V->_getType() != "Reference") {//not reference
 		return V;
@@ -36,13 +36,13 @@ Type* GetValue(Type* V) {
 	//if UnresolvableReference(V)
 
 }
-void ReturnIfAbrupt(Type* V) {
+void ReturnIfAbrupt(LanguageType* V) {
 	//Will fill
 }
 
 //=================Language Type Functions===================================
 
-Type* ToPrimative(Type* input, Type* preferredType) {
+LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType) {
 	if (dynamic_cast<UndefinedType *>(input))
 		return input;
 	if (dynamic_cast<NullType *>(input))
@@ -60,7 +60,7 @@ Type* ToPrimative(Type* input, Type* preferredType) {
 	*/
 }
 
-StringType* ToString(Type* V) {
+StringType* ToString(LanguageType* V) {
 	if (auto _V = dynamic_cast<UndefinedType *>(V))
 		return new StringType("Nan");
 	if (auto _V = dynamic_cast<NullType *>(V))
@@ -86,7 +86,7 @@ StringType* ToString(Type* V) {
 	*/
 }
 
-NumberType* ToNumber(Type* V) {
+NumberType* ToNumber(LanguageType* V) {
 	if (auto _V = dynamic_cast<UndefinedType *>(V))
 		return new NumberType(NAN);
 	if (auto _V = dynamic_cast<NullType *>(V))
@@ -114,8 +114,7 @@ NumberType* ToNumber(Type* V) {
 }
 
 
-
-BooleanType* ToBoolean(Type* V) {
+BooleanType* ToBoolean(LanguageType* V) {
 	if (auto _V = dynamic_cast<UndefinedType *>(V))
 		return new BooleanType(false);
 	if (auto _V = dynamic_cast<NullType *>(V))

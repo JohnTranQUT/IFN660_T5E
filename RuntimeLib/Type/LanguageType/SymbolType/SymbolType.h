@@ -1,10 +1,10 @@
 #pragma once
-#include <RuntimeLib\Type\Type.h>
+#include <RuntimeLib\Type\LanguageType\LanguageType.h>
 //Not Complete Needs work
 
 using namespace std;
 
-class SymbolType : public Type {
+class SymbolType : public LanguageType {
 	string _value;
 	string _type = "Symbol";
 public:
