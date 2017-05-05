@@ -3,7 +3,7 @@
 #include <RuntimeLib\Expressions\AdditiveOperators.h>
 #include <string>
 
-#include <parser.h>
+//#include <parser.h>
 //extern FILE *yyin;
 //using namespace std;
 
@@ -29,7 +29,6 @@ void main(int argc, char *argv[]) {
 	outputToScreenType(temp);
 	temp = subtractiveOperator(new StringType("g"), new StringType("o"));
 	outputToScreenType(temp);
-	ToPrimative(new StringType("g"));
 	//fopen_s(&yyin, argv[1], "r");
 	//yyparse();
 }

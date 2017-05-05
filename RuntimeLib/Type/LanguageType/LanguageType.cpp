@@ -4,5 +4,5 @@
 using namespace std;
 
 string LanguageType::_getType() {
-	return "undefined";
+	return "Language";
 }
