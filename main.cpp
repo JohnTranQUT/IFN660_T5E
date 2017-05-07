@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <RuntimeLib\Expressions\AdditiveOperators.h>
+#include <RuntimeLib\Expressions\MultiplicativeOperators.h>
 #include <string>
 
 
