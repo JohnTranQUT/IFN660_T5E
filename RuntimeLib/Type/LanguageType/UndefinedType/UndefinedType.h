@@ -7,6 +7,6 @@ using namespace std;
 class UndefinedType : public LanguageType {
 	string _value;
 public:
-	explicit UndefinedType(string value) : _value(value) { };
+	explicit UndefinedType(){ };
 	string _getValue() const;
 };

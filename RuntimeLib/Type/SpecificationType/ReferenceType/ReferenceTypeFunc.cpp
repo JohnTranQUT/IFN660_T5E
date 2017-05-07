@@ -63,6 +63,6 @@ void ReturnIfAbrupt(Type* V) {
 }
 
 Type* GetGlobalObject() {
-	return new ObjectType("Dummie");
+	return new ObjectType();
 }
 
