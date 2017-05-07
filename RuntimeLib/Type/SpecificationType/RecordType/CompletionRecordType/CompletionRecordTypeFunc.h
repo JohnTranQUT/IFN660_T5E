@@ -1,5 +1,5 @@
 #pragma once
-#include <RuntimeLib\Type\SpecificationType\CompletionRecordType\CompletionRecordType.h>
+#include <RuntimeLib\Type\SpecificationType\RecordType\CompletionRecordType\CompletionRecordType.h>
 #include <RuntimeLib\Type\LanguageType\UndefinedType\UndefinedType.h>
 
 CompletionRecordType* NormalCompletion(LanguageType* arguement);

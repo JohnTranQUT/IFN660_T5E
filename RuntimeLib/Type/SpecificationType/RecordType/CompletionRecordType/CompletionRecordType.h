@@ -1,8 +1,8 @@
 #pragma once
-#include <RuntimeLib\Type\SpecificationType\SpecificationType.h>
+#include <RuntimeLib\Type\SpecificationType\RecordType\RecordType.h>
 #include <RuntimeLib\Type\LanguageType\LanguageType.h>
 
-class CompletionRecordType : SpecificationType {
+class CompletionRecordType : RecordType {
 	string _type = "normal";//Type of completion normal, break, return or throw
 	LanguageType* Value;//Value to produce
 	LanguageType* Target;//target label for direct control transfers

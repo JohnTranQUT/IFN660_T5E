@@ -1,4 +1,4 @@
-#include <RuntimeLib\Type\SpecificationType\CompletionRecordType\CompletionRecordTypeFunc.h>
+#include <RuntimeLib\Type\SpecificationType\RecordType\CompletionRecordType\CompletionRecordTypeFunc.h>
 
 CompletionRecordType* NormalCompletion(LanguageType* arguement) {
 	return new CompletionRecordType("normal", arguement);
