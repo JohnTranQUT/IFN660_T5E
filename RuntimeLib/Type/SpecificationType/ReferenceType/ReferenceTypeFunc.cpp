@@ -58,9 +58,6 @@ LanguageType* PutValue(Type* V, Type* W) {
 
 
 //Specification Type methods?
-void ReturnIfAbrupt(Type* V) {
-	//Will fill
-}
 
 Type* GetGlobalObject() {
 	return new ObjectType();
