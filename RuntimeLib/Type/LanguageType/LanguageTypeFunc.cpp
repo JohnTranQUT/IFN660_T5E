@@ -1,7 +1,7 @@
 #include <RuntimeLib\Type\LanguageType\LanguageTypeFunc.h>
 
 //=================Language Type Functions===================================
-LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType) {
+LanguageType* ToPrimitive(LanguageType* input, LanguageType* preferredType) {
 	if (dynamic_cast<UndefinedType *>(input))
 		return input;
 	if (dynamic_cast<NullType *>(input))
@@ -14,9 +14,23 @@ LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType) {
 		return input;
 	if (dynamic_cast<SymbolType *>(input))
 		return input;
-	/*if (auto _input = dynamic_cast<ObjectType *>(input))
-	???
-	*/
+	string hint;
+	if (auto _input = dynamic_cast<ObjectType *>(input)) {
+		if (preferredType == nullptr) {
+			hint = "default";
+		}
+		if (dynamic_cast<StringType*>(preferredType)) {
+			hint = "string";
+		}
+		if (dynamic_cast<NumberType*>(preferredType)) {
+			hint = "number";
+		}
+		//auto exoticToPrim = GetMethod(input, @@toPrimitive());
+		//if (dynamic_cast<UndefinedType*>(exoticToPrim)) {
+		//UNSURE OF THE REST
+		//}
+	}
+	
 }
 
 StringType* ToString(LanguageType* V) {
@@ -41,7 +55,7 @@ StringType* ToString(LanguageType* V) {
 		exit(0);
 	}
 	if (auto _V = dynamic_cast<ObjectType *>(V)){
-		auto primValue = ToPrimative(_V, new StringType(""));
+		auto primValue = ToPrimitive(_V, new StringType(""));
 		return ToString(primValue);
 	}
 }
@@ -70,7 +84,7 @@ NumberType* ToNumber(LanguageType* V) {
 		exit(0);
 	}
 	if (auto _V = dynamic_cast<ObjectType *>(V)) {
-		auto primValue = ToPrimative(_V, new NumberType(0));
+		auto primValue = ToPrimitive(_V, new NumberType(0));
 		return ToNumber(primValue);
 	}
 }

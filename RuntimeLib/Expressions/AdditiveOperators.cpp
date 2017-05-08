@@ -6,8 +6,8 @@
 LanguageType* additiveOperator(LanguageType* lref, LanguageType* rref) {
 	auto lval = GetValue(lref);
 	auto rval = GetValue(rref);
-	auto lprim = ToPrimative(lval);
-	auto rprim = ToPrimative(rval);
+	auto lprim = ToPrimitive(lval);
+	auto rprim = ToPrimitive(rval);
 	if (dynamic_cast<StringType *>(lprim) || dynamic_cast<StringType *>(rprim)) {
 		string lstr = (ToString(lprim))->_getValue();
 		string rstr = (ToString(rprim))->_getValue();

@@ -8,7 +8,7 @@
 #include <RuntimeLib\Type\LanguageType\ObjectType\ObjectType.h>
 
 //Functions for Language typed Types(or values)
-LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType = nullptr);
+LanguageType* ToPrimitive(LanguageType* input, LanguageType* preferredType = nullptr);
 StringType* ToString(LanguageType* V);
 NumberType* ToNumber(LanguageType* V);
 BooleanType* ToBoolean(LanguageType* V);

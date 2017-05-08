@@ -6,8 +6,8 @@
 LanguageType * MultiplicativeOperator(LanguageType * left, LanguageType * right, string _operator){
 	auto leftValue = GetValue(left);
 	auto rightValue = GetValue(right);
-	auto lnum = ToNumber(leftValue)->_getValue;
-	auto rnum = ToNumber(rightValue)->_getValue;
+	auto lnum = ToNumber(leftValue)->_getValue();
+	auto rnum = ToNumber(rightValue)->_getValue();
 	if (_operator == "*") {
 		if (lnum == NAN || rnum == NAN)
 			return new NumberType(NAN);
