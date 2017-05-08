@@ -1,7 +1,7 @@
 #pragma once
 #include <RuntimeLib\Type\SpecificationType\SpecificationType.h>
 
-class RecordType :public SpecificationType {
+class Record :public SpecificationType {
 public:
-	virtual ~RecordType() {};
+	virtual ~Record() {};
 };
