@@ -1,4 +1,4 @@
-#include <RuntimeLib\LanguageType\StringType\StringType.h>
+#include <RuntimeLib\Type\LanguageType\StringType\StringType.h>
 #include <string>
 
 using namespace std;

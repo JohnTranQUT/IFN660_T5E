@@ -1,4 +1,4 @@
-#include <RuntimeLib\LanguageType\NullType\NullType.h>
+#include <RuntimeLib\Type\LanguageType\NullType\NullType.h>
 
 using namespace std;
 

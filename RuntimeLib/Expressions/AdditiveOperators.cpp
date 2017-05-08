@@ -1,11 +1,12 @@
+#include <RuntimeLib\Type\SpecificationType\ReferenceType\ReferenceType.h>
 #include <RuntimeLib\Expressions\AdditiveOperators.h>
 #include <string>
 
 //Evaluation Functions
 
 LanguageType* additiveOperator(LanguageType* lref, LanguageType* rref) {
-	auto lval = GetValue(lref);
-	auto rval = GetValue(rref);
+	auto lval = lref->GetValue;
+	auto rval = rref->GetValue;
 	auto lprim = ToPrimative(lval);
 	auto rprim = ToPrimative(rval);
 	if (dynamic_cast<StringType *>(lprim) || dynamic_cast<StringType *>(rprim)) {
@@ -26,19 +27,7 @@ LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref) {
 	return new NumberType(lnum - rnum);
 }
 
-//==================================ReferenceType functions==========================
-LanguageType* GetValue(LanguageType* V) {
-	ReturnIfAbrupt(V);
-	if (V->_getType() != "Reference") {//not reference
-		return V;
-	}
-	//auto base = GetBase(V);
-	//if UnresolvableReference(V)
 
-}
-void ReturnIfAbrupt(LanguageType* V) {
-	//Will fill
-}
 
 //=================Language Type Functions===================================
 
@@ -53,9 +42,9 @@ LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType) {
 		return input;
 	if (dynamic_cast<StringType *>(input))
 		return input;
-	/*if (dynamic_cast<SymbolType *>(input))
+	if (dynamic_cast<SymbolType *>(input))
 	return input;
-	*/
+	
 	/*if (auto _input = dynamic_cast<ObjectType *>(input))
 	???
 	*/
@@ -113,4 +102,9 @@ NumberType* ToNumber(LanguageType* V) {
 	/*if (auto _V = dynamic_cast<ObjectType *>(V))
 	return _V->_getValue();
 	*/
+}
+
+ObjectType * ToObject(Type * V)
+{
+	return nullptr;
 }

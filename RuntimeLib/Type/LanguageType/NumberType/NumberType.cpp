@@ -1,4 +1,4 @@
-#include <RuntimeLib\LanguageType\NumberType\NumberType.h>
+#include <RuntimeLib\Type\LanguageType\NumberType\NumberType.h>
 #include <string>
 
 using namespace std;

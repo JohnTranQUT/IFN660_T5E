@@ -1,13 +1,14 @@
 #pragma once
+#include <RuntimeLib\Type\Type.h>
 #include <cstdio>
 #include <string>
 
 using namespace std;
 
-class LanguageType {
+class LanguageType : public Type{
 public:
 	virtual ~LanguageType() {};
-	virtual string _getType() = 0;
+	string _getType() override;
 };
 
 //Functions for Language LanguageTyped LanguageTypes(or values)
