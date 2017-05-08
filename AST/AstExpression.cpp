@@ -1,7 +1,8 @@
+#pragma once
 #include <string>
 #include <typeinfo>
-#include <AstNode.h>
-#include <AstExpression.h>
+#include "AstNode.h"
+#include "AstExpression.h"
 
 using namespace std;
 

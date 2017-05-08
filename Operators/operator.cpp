@@ -1,3 +1,4 @@
+#pragma once
 #include "operator.h"
 
 Type * Operators::addition(Type * lref, Type * rref)

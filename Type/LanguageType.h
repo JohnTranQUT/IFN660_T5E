@@ -1,22 +1,18 @@
 #pragma once
 #include <cstdio>
 #include <string>
-
+#include <map>
+#include "Type.h"
 using namespace std;
 
-class Type {
+class LanguageType:public Type {
 public:
-	virtual ~Type() { };
-	virtual string to_string() {return "";};
-	virtual Type* to_number() { return nullptr; };
-	friend string ToString(Type);
-	friend Type* ToPrimitive(Type*, string = "default");
-	friend Type* GetValue(Type* obj) { return obj; };
+	virtual ~LanguageType() { };
 	//friend double ToNumber(Type);
 };
 
 
-class Number : public Type {
+class Number : public LanguageType {
 private:
 	double value;
 	bool _isInfinitive = false; //only for negative zero and infinity, NOT for finite numbers
@@ -38,14 +34,14 @@ public:
 	Number operator+(const Number&);
 };
 
-class Undefined : public Type {
+class Undefined : public LanguageType {
 public:
 	Undefined() {};
 	string to_string() { return "undefined"; };
 	Type* to_number() { return new Number(0, true, true); };
 };
 
-class Boolean : public Type {
+class Boolean : public LanguageType {
 private:
 	bool value;
 public:
@@ -58,7 +54,7 @@ public:
 };
 
 
-class String : public Type {
+class String : public LanguageType {
 private:
 	string value;
 public:
@@ -69,12 +65,19 @@ public:
 	string to_string() { return value; };
 };
 
-class Function : public Type {
+class Function : public LanguageType {
 public:
 	Function() { };
 };
 
-class Object : public Type {
+class ObjectTypeProperty {
+public:
+	virtual ~ObjectTypeProperty() {};
+};
+
+class Object : public LanguageType {
+private:
+	map<LanguageType*, ObjectTypeProperty*> properties;
 public:
 	Object() { };
 };

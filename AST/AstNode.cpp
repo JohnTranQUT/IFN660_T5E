@@ -1,7 +1,8 @@
+#pragma once
 #include <cstdio>
 #include <string>
 #include <iostream>
-#include <AstNode.h>
+#include "AstNode.h"
 
 using namespace std;
 

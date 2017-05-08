@@ -1,7 +1,8 @@
+#pragma once
 #include <typeinfo>
-#include <AstNode.h>
-#include <AstStatement.h>
-#include <AstScript.h>
+#include "AstNode.h"
+#include "AstStatement.h"
+#include "AstScript.h"
 
 using namespace std;
 
