@@ -4,10 +4,10 @@
 
 using namespace std;
 
-class Type {
+class LanguageType {
 public:
-	virtual ~Type() {};
+	virtual ~LanguageType() {};
 	virtual string _getType() = 0;
 };
 
-//Functions for Language typed Types(or values)
+//Functions for Language LanguageTyped LanguageTypes(or values)

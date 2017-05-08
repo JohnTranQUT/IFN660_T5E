@@ -1,9 +1,9 @@
 #pragma once
-#include <RuntimeLib\Type\Type.h>
+#include <RuntimeLib\LanguageType\LanguageType.h>
 
 using namespace std;
 
-class NumberType : public Type {
+class NumberType : public LanguageType {
 	double _value;
 	string _type = "Number";
 public:

@@ -1,10 +1,10 @@
 #pragma once
-#include <RuntimeLib\Type\Type.h>
+#include <RuntimeLib\LanguageType\LanguageType.h>
 #include <string>
 
 using namespace std;
 
-class BooleanType : public Type {
+class BooleanType : public LanguageType {
 	bool _value;
 	string _type = "Boolean";
 public:

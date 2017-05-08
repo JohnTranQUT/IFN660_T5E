@@ -1,19 +1,19 @@
 #pragma once
-#include <RuntimeLib\Type\UndefinedType\UndefinedType.h>
-#include <RuntimeLib\Type\NullType\NullType.h>
-#include <RuntimeLib\Type\BooleanType\BooleanType.h>
-#include <RuntimeLib\Type\NumberType\NumberType.h>
-#include <RuntimeLib\Type\StringType\StringType.h>
-#include <RuntimeLib\Type\SymbolType\SymbolType.h>
-#include <RuntimeLib\Type\ObjectType\ObjectType.h>
+#include <RuntimeLib\LanguageType\UndefinedType\UndefinedType.h>
+#include <RuntimeLib\LanguageType\NullType\NullType.h>
+#include <RuntimeLib\LanguageType\BooleanType\BooleanType.h>
+#include <RuntimeLib\LanguageType\NumberType\NumberType.h>
+#include <RuntimeLib\LanguageType\StringType\StringType.h>
+#include <RuntimeLib\LanguageType\SymbolType\SymbolType.h>
+#include <RuntimeLib\LanguageType\ObjectType\ObjectType.h>
 
-Type* additiveOperator(Type* lref, Type* rref);
-Type* subtractiveOperator(Type* lref, Type* rref);
+LanguageType* additiveOperator(LanguageType* lref, LanguageType* rref);
+LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref);
 
-Type* GetValue(Type* V);
-Type* ToPrimative(Type* input, Type* preferredType = nullptr);
+LanguageType* GetValue(LanguageType* V);
+LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType = nullptr);
 
-StringType* ToString(Type* V);
-NumberType* ToNumber(Type* V);
+StringType* ToString(LanguageType* V);
+NumberType* ToNumber(LanguageType* V);
 
-void ReturnIfAbrupt(Type* V);
+void ReturnIfAbrupt(LanguageType* V);
