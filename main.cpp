@@ -27,7 +27,7 @@ void main(int argc, char *argv[]) {
 	outputToScreenType(temp);
 	temp = subtractiveOperator(new NumberType(1), new NumberType(2));
 	outputToScreenType(temp);
-	temp = subtractiveOperator(new StringType("g"), new StringType("o"));
+	temp = subtractiveOperator(new StringType("g0"), new StringType("ao"));
 	outputToScreenType(temp);
 	//fopen_s(&yyin, argv[1], "r");
 	//yyparse();

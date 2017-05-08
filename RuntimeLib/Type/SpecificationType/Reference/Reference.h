@@ -11,13 +11,13 @@
 
 using namespace std;
 
-class ReferenceType : public SpecificationType {
+class Reference : public SpecificationType {
 	LanguageType* _base; //Works with all except Null Type
 	LanguageType* _reference_name;//Only works with StringType and SymbolType
 	BooleanType* _strict_reference;
-	ReferenceType* _thisValue;
+	Reference* _thisValue;
 public:
-	explicit ReferenceType(LanguageType* base, LanguageType* reference_name, BooleanType* strict_reference, ReferenceType* thisValue)
+	explicit Reference(LanguageType* base, LanguageType* reference_name, BooleanType* strict_reference, Reference* thisValue)
 		: _base(base), _reference_name(reference_name), _strict_reference(strict_reference), _thisValue(thisValue) { };
 	LanguageType* GetBase() const;
 	LanguageType* GetReferenceName() const;

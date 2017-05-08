@@ -1,10 +1,10 @@
-#include <RuntimeLib\Type\SpecificationType\ReferenceType\ReferenceTypeFunc.h>
+#include <RuntimeLib\Type\SpecificationType\Reference\ReferenceFunc.h>
 
 LanguageType* GetValue(LanguageType* V) {
 	ReturnIfAbrupt(V);
-	if (!dynamic_cast<ReferenceType *>(V))
+	if (!dynamic_cast<Reference *>(V))
 		return V;
-	auto _V = dynamic_cast<ReferenceType *>(V);
+	auto _V = dynamic_cast<Reference *>(V);
 	auto base = _V->GetBase();
 	if (_V->IsUnresolvableReference()->_getValue()) {
 		puts("ReferenceError");
@@ -23,11 +23,11 @@ LanguageType* GetValue(LanguageType* V) {
 LanguageType* PutValue(Type* V, Type* W) {
 	ReturnIfAbrupt(V);
 	ReturnIfAbrupt(W);
-	if (!dynamic_cast<ReferenceType *>(V)) {
+	if (!dynamic_cast<Reference *>(V)) {
 		puts("ReferenceError");
 		exit(0);
 	}
-	auto _V = dynamic_cast<ReferenceType *>(V);
+	auto _V = dynamic_cast<Reference *>(V);
 	auto base = _V->GetBase();
 	if (_V->IsUnresolvableReference()->_getValue()) {
 		if (_V->IsStrictReference()->_getValue()) {
