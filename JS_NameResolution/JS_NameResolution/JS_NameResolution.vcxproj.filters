@@ -32,5 +32,13 @@
     <ClCompile Include="JSValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mainAll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Readme.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

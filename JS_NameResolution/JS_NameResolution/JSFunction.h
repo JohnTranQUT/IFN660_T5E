@@ -57,3 +57,90 @@ JSValue* Addition(JSValue* lref, JSValue* rref) {
 		return new JSNumber(lprim->ToNumber()->value + rprim->ToNumber()->value);
 }
 
+bool PutValue(JSValue* V, JSValue* W)
+{
+	//if Type(V) is not Reference, throw a ReferenceError exception.
+	JSReference *ref = dynamic_cast<JSReference*>(V);
+	if (ref == NULL)
+		throw new std::exception("Reference error");
+	//let succeeded be base.[[Set]](GetReferencedName(V), W, GetThisValue(V)).
+	ref->base->set(ref->name, W);
+	return true;
+}
+
+JSValue* Multiplication(JSValue* lref, JSValue* rref) {
+	/*
+	//Let left be the result of evaluating MultiplicativeExpression.
+	//Let leftValue be GetValue(left).
+	jsValue* lval = GetValue(lref);
+	//ReturnIfAbrupt(leftValue).
+	//Let right be the result of evaluating UnaryExpression.
+	//Let rightValue be GetValue(right).
+	jsValue* rval = GetValue(rref);
+	//Let lnum be ToNumber(leftValue).
+
+	//ReturnIfAbrupt(lnum).
+	//Let rnum be ToNumber(rightValue).
+	//ReturnIfAbrupt(rnum).
+	//Return the result of applying the MultiplicativeOperator(*, / , or %) to lnum and rnum
+	return new jsNumber(lval->ToNumber()->value * rval->ToNumber()->value);
+	*/
+
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+	JSValue* lprim = ToPrimitive(lval);
+	JSValue* rprim = ToPrimitive(rval);
+
+
+	if (lprim->Type() == String || rprim->Type() == String) {
+		JSValue* lprimValue = new JSBoolean(lprim->ToNumber()->value);
+		JSValue* rprimValue = new JSBoolean(rprim->ToNumber()->value);
+
+		if (lprimValue == NULL) {
+			throw new std::exception("Reference error");
+		}
+		else if (rprimValue == NULL) {
+			throw new std::exception("Reference error");
+		}
+		else
+			return new JSNumber(lprim->ToNumber()->value * rprim->ToNumber()->value);
+
+	}
+
+	else if (lprim->Type() == Number || rprim->Type() == String) {
+		JSValue* rprimValue = new JSBoolean(rprim->ToNumber()->value);
+		if (rprimValue == NULL) {
+			throw new std::exception("Reference error");
+		}
+		else
+			return new JSNumber(lprim->ToNumber()->value * rprim->ToNumber()->value);
+
+	}
+
+
+	else if (lprim->Type() == String || rprim->Type() == Number) {
+		JSValue* lprimValue = new JSBoolean(lprim->ToNumber()->value);
+		if (lprimValue == NULL) {
+			throw new std::exception("Reference error");
+		}
+		else
+			return new JSNumber(lprim->ToNumber()->value * rprim->ToNumber()->value);
+
+	}
+	else if (lprim->Type() == Number || rprim->Type() == Number) {
+		return new JSNumber(lprim->ToNumber()->value * rprim->ToNumber()->value);
+	}
+
+}
+
+JSValue* Assign(JSValue* lref, JSValue* rref)
+{
+	//1.D Let rval be GetValue(rref)
+	JSValue* rval = GetValue(rref);
+	//1.F Let status be PutValue(lref, rval)
+	bool status = PutValue(lref, rval);
+	//1.G return rval
+	return rval;
+}
+
+
