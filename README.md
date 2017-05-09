@@ -6,7 +6,7 @@ Semantic Analysis - Function-Oriented (Alfred)
 ## Project Logs
 - Tests for `LexicalEnvironment` and `EnvironmentRecord` are now available
 - Implemented `_listItemsInRecord()` under _Helpers/
-- Implemented `InitializeBoundName()` under Expression/Identifiers/ and `ResolveBinding()` under ExecutionContexts/ 
+- Implemented `InitializeBoundName()` under Evaluations/Expression/Identifiers/ and `ResolveBinding()` under ExecutionContexts/ 
 - Data Type of `Record::value` is now `map<string, Type *>` instead of `map<StringType *, Type *>`
 - `GetIdentifierReference()`, `GetValue()`, and `PutValue()` now find the exact `EnvironmentRecord`
 - Operators now accept Types instead of LanguageTypes
