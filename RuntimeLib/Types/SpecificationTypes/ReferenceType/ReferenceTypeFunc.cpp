@@ -65,8 +65,8 @@ Type *PutValue(Type *V, Type *W) {
 				puts("ReferenceError");
 				exit(0);
 			}
-//						auto globalObj = GetGlobalObject();
-//						return Set(globalObject, V->GetReferencedName(), W, new BooleanType(false));
+			//						auto globalObj = GetGlobalObject();
+			//						return Set(globalObject, V->GetReferencedName(), W, new BooleanType(false));
 			puts("Set(globalObject, V->GetReferencedName(), W, new BooleanType(false))");
 			exit(0);
 		} else if (_V->IsPropertyReference()->_getValue()) {
