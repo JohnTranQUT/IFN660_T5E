@@ -2,6 +2,6 @@
 #include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
 #include <RuntimeLib/Types/SpecificationTypes/ReferenceType/ReferenceTypeFunc.h>
 
-LanguageType *MultiplicationOperator(LanguageType *, LanguageType *);
-LanguageType *DivisionOperator(LanguageType *, LanguageType *);
-LanguageType *ModulusOperator(LanguageType *, LanguageType *);
+LanguageType *MultiplicationOperator(Type *, Type *);
+LanguageType *DivisionOperator(Type *, Type *);
+LanguageType *ModulusOperator(Type *, Type *);

@@ -1,6 +1,6 @@
 #include <RuntimeLib/Evaluations/Expression/MultiplicativeOperators/MultiplicativeOperators.h>
 
-LanguageType *MultiplicationOperator(LanguageType *left, LanguageType *right) {
+LanguageType *MultiplicationOperator(Type *left, Type *right) {
 	auto leftValue = _ToLanguageType(GetValue(left));
 	auto rightValue = _ToLanguageType(GetValue(right));
 	auto lnum = ToNumber(leftValue);
@@ -8,7 +8,7 @@ LanguageType *MultiplicationOperator(LanguageType *left, LanguageType *right) {
 	return *lnum * *rnum;
 }
 
-LanguageType *DivisionOperator(LanguageType *left, LanguageType *right) {
+LanguageType *DivisionOperator(Type *left, Type *right) {
 	auto leftValue = _ToLanguageType(GetValue(left));
 	auto rightValue = _ToLanguageType(GetValue(right));
 	auto lnum = ToNumber(leftValue);
@@ -16,7 +16,7 @@ LanguageType *DivisionOperator(LanguageType *left, LanguageType *right) {
 	return *lnum / *rnum;
 }
 
-LanguageType *ModulusOperator(LanguageType *left, LanguageType *right) {
+LanguageType *ModulusOperator(Type *left, Type *right) {
 	auto leftValue = _ToLanguageType(GetValue(left));
 	auto rightValue = _ToLanguageType(GetValue(right));
 	auto lnum = ToNumber(leftValue);
