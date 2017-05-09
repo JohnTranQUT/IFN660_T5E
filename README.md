@@ -7,7 +7,7 @@ Semantic Analysis - Function-Oriented (Alfred)
 - Tests for `LexicalEnvironment` and `EnvironmentRecord` are now available
 - Implemented `_listItemsInRecord()` under _Helpers/
 - Implemented `InitializeBoundName()` under Expression/Identifiers/ and `ResolveBinding()` under ExecutionContexts/ 
-- Data Type of Record::value is now `map<string, Type *>` instead of `map<StringType *, Type *>`
+- Data Type of `Record::value` is now `map<string, Type *>` instead of `map<StringType *, Type *>`
 - `GetIdentifierReference()`, `GetValue()`, and `PutValue()` now find the exact `EnvironmentRecord`
 - Operators now accept Types instead of LanguageTypes
 - Implemented JS Defined `AdditiveOperators`, `MultiplicativeOperators` instead of using C++ native operators **(hint from Michael)**
