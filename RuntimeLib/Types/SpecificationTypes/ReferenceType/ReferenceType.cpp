@@ -20,7 +20,7 @@ BooleanType *ReferenceType::HasPrimitiveBase() const {
 }
 
 BooleanType *ReferenceType::IsPropertyReference() const {
-	if (dynamic_cast<ObjectType *>(Base) || HasPrimitiveBase()) {
+	if (dynamic_cast<ObjectType *>(Base) || HasPrimitiveBase()->_getValue()) {
 		return new BooleanType(true);
 	}
 	return new BooleanType(false);
