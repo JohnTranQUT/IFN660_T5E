@@ -5,7 +5,14 @@ ReferenceType *GetIdentifierReference(LexicalEnvironment *lex, StringType *name,
 		return new ReferenceType(new UndefinedType(), name, strict);
 	}
 	auto envRec = lex->_getEnvRec();
-	auto exists = envRec->HasBinding(name);
+	auto exists = new BooleanType(false);
+	if (auto _envRec = dynamic_cast<DeclarativeEnvironmentRecord *>(envRec)) {
+		exists = _envRec->HasBinding(name);
+	} else if (auto _envRec = dynamic_cast<ObjectEnvironmentRecord *>(envRec)) {
+		exists = _envRec->HasBinding(name);
+	} else if (auto _envRec = dynamic_cast<GlobalEnvironmentRecord *>(envRec)) {
+		exists = _envRec->HasBinding(name);
+	}
 	if (exists->_getValue()) {
 		return new ReferenceType(envRec, name, strict);
 	}
