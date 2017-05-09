@@ -89,9 +89,8 @@ void main(int argc, char *argv[]) {
 	puts("JS;");
 	puts("");
 	
-	auto xrefrawER_B = new StringType("x");
 	auto DeclarEnvER_B = new DeclarativeEnvironmentRecord();
-	InitializeBoundName(xrefrawER_B, new UndefinedType(), DeclarEnvER_B); // BindingIdentifier : Identifier
+	InitializeBoundName(new StringType("x"), new UndefinedType(), DeclarEnvER_B); // BindingIdentifier : Identifier
 
 	auto LexEnvER_B = new LexicalEnvironment(DeclarEnvER_B);
 	
@@ -115,12 +114,9 @@ void main(int argc, char *argv[]) {
 	puts("JS;");
 	puts("");
 
-	auto xrefrawER = new StringType("x");
-	auto yrefrawER = new StringType("y");
-
 	auto DeclarEnvER = new DeclarativeEnvironmentRecord();
-	InitializeBoundName(xrefrawER, new UndefinedType(), DeclarEnvER); // BindingIdentifier : Identifier
-	InitializeBoundName(yrefrawER, new UndefinedType(), DeclarEnvER); // BindingIdentifier : Identifier
+	InitializeBoundName(new StringType("x"), new UndefinedType(), DeclarEnvER); // BindingIdentifier : Identifier
+	InitializeBoundName(new StringType("y"), new UndefinedType(), DeclarEnvER); // BindingIdentifier : Identifier
 
 	auto LexEnvER = new LexicalEnvironment(DeclarEnvER);
 	
