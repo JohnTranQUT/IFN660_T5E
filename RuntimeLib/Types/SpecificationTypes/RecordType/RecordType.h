@@ -9,11 +9,11 @@
 using namespace std;
 
 class RecordType : public SpecificationType {
-	map<StringType *, Type *> value;
+	map<string, Type *> value;
 public:
 	RecordType() { };
 	void _insertValue(StringType *, Type *);
-	map<StringType *, Type *> _getValue() const;
+	map<string, Type *> _getValue() const;
 	Type *_findValue(StringType *);
 	BooleanType *_hasValue(StringType *);
 	BooleanType *_hasInitialized(StringType *);
