@@ -2,11 +2,18 @@
 #include <limits>
 #include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectConstructor.h>
+#include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironment.h>
 #include <RuntimeLib/_Helpers/_Helpers.h>
 #include <parser.h>
+#include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironmentFunc.h>
+#include <RuntimeLib/Evaluations/Expression/AssignmentOperators/AssignmentOperators.h>
+#include <RuntimeLib/Evaluations/Expression/Identifiers/Identifiers.h>
+#include <RuntimeLib/ExecutionContexts/ExecutionContexts.h>
 
 #define AST
 #define SA
+#define ER_BASIC
+#define ER
 
 extern FILE *yyin;
 using namespace std;
@@ -72,6 +79,66 @@ void main(int argc, char *argv[]) {
 	_calculate(new BooleanType(false), "%", new BooleanType(true));
 
 	puts("");
+#endif
+
+#ifdef ER_BASIC
+
+	puts("<<<JS");
+	puts("\tlet x;");
+	puts("\tx = 42;");
+	puts("JS;");
+	puts("");
+	
+	auto xrefrawER_B = new StringType("x");
+	auto DeclarEnvER_B = new DeclarativeEnvironmentRecord();
+	InitializeBoundName(xrefrawER_B, new UndefinedType(), DeclarEnvER_B); // BindingIdentifier : Identifier
+
+	auto LexEnvER_B = new LexicalEnvironment(DeclarEnvER_B);
+	
+	auto xrefER_B = ResolveBinding(new StringType("x"), LexEnvER_B); // IdentifierReference : Identifier
+	auto xvalueER_B = new NumberType(42); // NumericLiteral
+	
+	SimpleAssignmentOperator(xrefER_B, xvalueER_B); // AssignmentExpression : IdentifierReference = NumericLiteral
+
+	_listItemsInRecord(LexEnvER_B->_getEnvRec());
+	puts("");
+
+#endif
+
+#ifdef ER
+
+	puts("<<<JS");
+	puts("\tlet x;");
+	puts("\tlet y;");
+	puts("\tx = 660;");
+	puts("\ty = \"IFN\" + x;");
+	puts("JS;");
+	puts("");
+
+	auto xrefrawER = new StringType("x");
+	auto yrefrawER = new StringType("y");
+
+	auto DeclarEnvER = new DeclarativeEnvironmentRecord();
+	InitializeBoundName(xrefrawER, new UndefinedType(), DeclarEnvER); // BindingIdentifier : Identifier
+	InitializeBoundName(yrefrawER, new UndefinedType(), DeclarEnvER); // BindingIdentifier : Identifier
+
+	auto LexEnvER = new LexicalEnvironment(DeclarEnvER);
+	
+	auto xrefER = ResolveBinding(new StringType("x"), LexEnvER); // IdentifierReference : Identifier
+	auto xvalueER = new NumberType(660); // NumericLiteral
+
+	SimpleAssignmentOperator(xrefER, xvalueER);
+	
+	auto yref = ResolveBinding(new StringType("y"), LexEnvER); // IdentifierReference : Identifier
+	auto yconcatleft = new StringType("IFN"); // StringLiteral
+	auto yconcatright = ResolveBinding(new StringType("x"), LexEnvER); // IdentifierReference : Identifier
+	auto yvalue = AdditionOperator(yconcatleft, yconcatright); // AdditiveExpression : StringLiteral + IdentifierReference
+
+	SimpleAssignmentOperator(yref, yvalue); // AssignmentExpression : IdentifierReference = AdditiveExpression
+	
+	_listItemsInRecord(LexEnvER->_getEnvRec());
+	puts("");
+
 #endif
 
 }
