@@ -11,17 +11,20 @@ LanguageType* GetValue(Type* V) {
 		puts("ReferenceError");
 		exit(0);
 	}
-	if (_V->IsPropertyReference()->_getValue())
+	if (_V->IsPropertyReference()->_getValue()) {
 		if (_V->HasPrimitiveBase()->_getValue()) {
 			if (!dynamic_cast<UndefinedType *>(base) && !!dynamic_cast<NullType *>(base))
 				true;//WIP base ToObject(base);
 			return base;//[[Get]](GetReferenceName(V),GetThisValue(V))
 		}
-	else //base must be an Environment Records
-		return base;//GetBindingValue(GetRefencedName(V),IsStrictReference(V))
+	}else{
+		auto _base = dynamic_cast<EnvironmentRecord *>(base);
+		auto _GetReferenceName = dynamic_cast<StringType *>(_V->GetReferenceName());
+		return _base->GetBindingValue(_GetReferenceName, _V->IsStrictReference());
+	}
 }
 
-LanguageType* PutValue(Type* V, Type* W) {
+CompletionRecord* PutValue(Type* V, Type* W) {
 	ReturnIfAbrupt(V);
 	ReturnIfAbrupt(W);
 	if (!dynamic_cast<Reference *>(V)) {
@@ -68,6 +71,6 @@ Type* GetGlobalObject() {
 	return nullptr;
 }
 
-LanguageType* Set(Type* O, LanguageType* P, Type* V, BooleanType* Throw) {
+CompletionRecord* Set(Type* O, LanguageType* P, Type* V, BooleanType* Throw) {
 	return nullptr;
 }
