@@ -3,7 +3,7 @@
 
 //Evaluation Functions
 
-LanguageType * MultiplicativeOperator(LanguageType * left, LanguageType * right, string _operator){
+LanguageType * MultiplicativeOperator(Type * left, Type * right, string _operator){
 	auto leftValue = GetValue(left);
 	auto rightValue = GetValue(right);
 	auto lnum = ToNumber(leftValue)->_getValue();

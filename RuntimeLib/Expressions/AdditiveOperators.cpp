@@ -3,7 +3,7 @@
 
 //Evaluation Functions
 
-LanguageType* additiveOperator(LanguageType* lref, LanguageType* rref) {
+LanguageType* AdditiveOperator(Type* lref, Type* rref) {
 	auto lval = GetValue(lref);
 	auto rval = GetValue(rref);
 	auto lprim = ToPrimitive(lval);
@@ -18,7 +18,7 @@ LanguageType* additiveOperator(LanguageType* lref, LanguageType* rref) {
 	return new NumberType(lnum + rnum);
 }
 
-LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref) {
+LanguageType* SubtractiveOperator(Type* lref, Type* rref) {
 	auto lval = GetValue(lref);
 	auto rval = GetValue(rref);
 	auto lnum = ToNumber(lval)->_getValue();

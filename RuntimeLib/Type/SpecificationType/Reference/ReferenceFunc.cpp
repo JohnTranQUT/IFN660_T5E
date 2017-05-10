@@ -1,9 +1,10 @@
 #include <RuntimeLib\Type\SpecificationType\Reference\ReferenceFunc.h>
 
-LanguageType* GetValue(LanguageType* V) {
+
+LanguageType* GetValue(Type* V) {
 	ReturnIfAbrupt(V);
 	if (!dynamic_cast<Reference *>(V))
-		return V;
+		return dynamic_cast<LanguageType *>(V);
 	auto _V = dynamic_cast<Reference *>(V);
 	auto base = _V->GetBase();
 	if (_V->IsUnresolvableReference()->_getValue()) {
@@ -35,31 +36,38 @@ LanguageType* PutValue(Type* V, Type* W) {
 			exit(0);
 		}
 		auto globalObj = GetGlobalObject();
-		
-		//Set(globalObj, _V->GetReferenceName(),W,false)
-		return nullptr;
+		return Set(globalObj, _V->GetReferenceName(), W, new BooleanType(false));
 
 	}
 	else if (_V->IsPropertyReference()->_getValue()) {
 		if (_V->HasPrimitiveBase()->_getValue()) {
 			if (!dynamic_cast<UndefinedType *>(base) && !!dynamic_cast<NullType *>(base))
 				true;//WIP base ToObject(base);
-			// auto succeeded base.Set(globalObj, _V->GetReferenceName(),W,false)
-			// if succeeded = false and _V->isstrictreference()->_getValue() throw TypeError
+			//auto succeeded = base.Set(globalObj, _V->GetReferenceName(),W,new BooleanType(false));
+			auto suceeded = new BooleanType(false); // Temp
+			if(!suceeded->_getValue() && _V->IsStrictReference()->_getValue()){
+				puts("TypeError");
+				exit(0);
+			}
 		}
 		return nullptr;
 	}
-	else { //Environment Record
-		//base.SetMutableBinding(_V->GetReferenceName(), W, _V->IsStrictReference());
+	else {
+		auto _base = dynamic_cast<EnvironmentRecord *>(base);
+		auto _GetReferenceName = dynamic_cast<StringType *>(_V->GetReferenceName());
+		auto _W = dynamic_cast<LanguageType *>(W);
+		return _base->SetMutableBinding(_GetReferenceName, _W, _V->IsStrictReference());
 		return nullptr;
 	}
 	
 }
 
-
 //Specification Type methods?
 
 Type* GetGlobalObject() {
-	return new ObjectType();
+	return nullptr;
 }
 
+LanguageType* Set(Type* O, LanguageType* P, Type* V, BooleanType* Throw) {
+	return nullptr;
+}

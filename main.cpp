@@ -1,6 +1,5 @@
 #include <cstdio>
-#include <RuntimeLib\Expressions\AdditiveOperators.h>
-#include <RuntimeLib\Expressions\MultiplicativeOperators.h>
+#include <RuntimeLib\RuntimeLib.h>
 #include <string>
 
 
@@ -17,18 +16,27 @@ void outputToScreenType(LanguageType* temp) {
 }
 
 void main(int argc, char *argv[]) {
-	auto temp = additiveOperator(new NumberType(1), new NumberType(2));
+	auto temp = AdditiveOperator(new NumberType(1), new NumberType(2));
 	outputToScreenType(temp);
-	temp = additiveOperator(new StringType("hi"), new NumberType(2));
+	temp = AdditiveOperator(new StringType("hi"), new NumberType(2));
 	outputToScreenType(temp);
-	temp = additiveOperator(new NumberType(3), new StringType("hi"));
+	temp = AdditiveOperator(new NumberType(3), new StringType("hi"));
 	outputToScreenType(temp);
-	temp = additiveOperator(new StringType("hi"), new StringType("john"));
+	temp = AdditiveOperator(new StringType("hi"), new StringType("john"));
 	outputToScreenType(temp);
-	temp = subtractiveOperator(new NumberType(1), new NumberType(2));
+	temp = SubtractiveOperator(new NumberType(1), new NumberType(2));
 	outputToScreenType(temp);
-	temp = subtractiveOperator(new StringType("g0"), new StringType("ao"));
+	temp = SubtractiveOperator(new StringType("g0"), new StringType("ao"));
 	outputToScreenType(temp);
+	Type* evn = new EnvironmentRecord();
+	//Type* e1 = ResolveName("x", env);
+	auto e1 = new Reference(new UndefinedType(), new StringType("x"), new BooleanType(false), nullptr);
+	auto e2 = new NumberType(42);
+	auto e3 = Evaluation(e1, e2);
+	auto e4 = new Reference(new UndefinedType(), new StringType("y"), new BooleanType(false), nullptr);
+	auto e5 = AdditiveOperator(e4, e2);
+	auto e6 = Evaluation(e4, e2);
+	outputToScreenType(e6);
 	//fopen_s(&yyin, argv[1], "r");
 	//yyparse();
 }
