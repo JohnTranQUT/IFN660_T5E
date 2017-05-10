@@ -11,5 +11,5 @@ CompletionRecord* EnvironmentRecord::SetMutableBinding(StringType * N, LanguageT
 LanguageType* EnvironmentRecord::GetBindingValue(StringType* N, BooleanType* S) {
 
 	//Perform Binding
-	return new BooleanType(false);
+	return nullptr;
 }
