@@ -15,7 +15,7 @@ LanguageType* GetValue(Type* V) {
 		if (_V->HasPrimitiveBase()->_getValue()) {
 			if (!dynamic_cast<UndefinedType *>(base) && !!dynamic_cast<NullType *>(base))
 				true;//WIP base ToObject(base);
-			return base;//[[Get]](GetReferenceName(V),GetThisValue(V))
+			return base;//->.Get(GetReferenceName(V),GetThisValue(V)) //UNSURE OF THE THIS METHOD.
 		}
 	}else{
 		auto _base = dynamic_cast<EnvironmentRecord *>(base);
