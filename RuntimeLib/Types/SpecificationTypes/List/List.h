@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <RuntimeLib/Types/SpecificationTypes/SpecificationTypes.h>
+#include <RuntimeLib/Types/SpecificationTypes/SpecificationType.h>
 #include <RuntimeLib/Types/LanguageTypes/BooleanType/BooleanType.h>
 
 class List : public SpecificationType {

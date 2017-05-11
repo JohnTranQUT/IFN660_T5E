@@ -1,5 +1,5 @@
 #pragma once
-#include <RuntimeLib/Types/SpecificationTypes/SpecificationTypes.h>
+#include <RuntimeLib/Types/SpecificationTypes/SpecificationType.h>
 #include <RuntimeLib/Types/SpecificationTypes/Record/Record.h>
 
 using namespace std;

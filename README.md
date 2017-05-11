@@ -8,12 +8,12 @@ Semantic Analysis - Function-Oriented (Alfred)
 - Implemented `_listItemsInRecord()` under _Helpers/
 - Implemented `InitializeBoundName()` under Evaluations/Expression/Identifiers/ and `ResolveBinding()` under ExecutionContexts/ 
 - `GetIdentifierReference()`, `GetValue()`, and `PutValue()` now find the exact `EnvironmentRecord`
-- Operators now accept Types instead of LanguageTypes
+- Operators now accept Types instead of LanguageType
 - Implemented JS Defined `AdditiveOperators`, `MultiplicativeOperators` instead of using C++ native operators **(hint from Michael)**
 - Utilities are now called _Helpers
 - Destructured `operators` to be under Evaluations/Expression/ as AdditiveOperators and MultiplicativeOperators
 - Implemented `PutValue()` under `Reference` 
-- Changed Data Types of attributes of `Reference` to LanguageTypes
+- Changed Data Types of attributes of `Reference` to LanguageType
 - Reformed `CompletionRecord` to support `Record`
 - Reformed `Record`
 - Replaced comments with C++ `#define` Directive to switch between AST and SA **(hint from Jason)**
@@ -29,8 +29,8 @@ Semantic Analysis - Function-Oriented (Alfred)
 - `ToObject()` now supports `BooleanType`, `StringType` and `NumberType`
 - Implemented corresponding `toString()` and `valueOf()` in every `ObjectType` prototype
 - Initialized `ObjectObject`, `BooleanObject`, `NumberObject`, `StringObject`
-- Type Convertion now returns LanguageTypes instead of Data Types in C++
-- `GetValue()` is now under `Reference` instead of SpecificationTypes
+- Type Convertion now returns LanguageType instead of Data Types in C++
+- `GetValue()` is now under `Reference` instead of SpecificationType
 - Implemented `Reference` and `CompletionRecord`
 - `GetValue()` now supports `CompletionRecord`
 - Initialized Object Keys and Properties
@@ -38,8 +38,8 @@ Semantic Analysis - Function-Oriented (Alfred)
 - Recode `GetValue()` to support `Reference`
 - Restructure Codes
 - Created tests in main.cpp
-- Implemented LanguageTypes `subtraction()`, `multiplication()`, `division()`, `modulus()`
-- Implemented LanguageTypes `ToBoolean()`, `ToInteger()`, `ToObject()`
-- Implemented LanguageTypes `addition()`
-- Implemented LanguageTypes `ToPrimitive()`, `ToNumber()`, `ToString()`
-- Implemented SpecificationTypes `GetValue()`
+- Implemented LanguageType `subtraction()`, `multiplication()`, `division()`, `modulus()`
+- Implemented LanguageType `ToBoolean()`, `ToInteger()`, `ToObject()`
+- Implemented LanguageType `addition()`
+- Implemented LanguageType `ToPrimitive()`, `ToNumber()`, `ToString()`
+- Implemented SpecificationType `GetValue()`

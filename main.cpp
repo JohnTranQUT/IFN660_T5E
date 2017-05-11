@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <limits>
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectConstructor.h>
 #include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironment.h>
 #include <RuntimeLib/_Helpers/_Helpers.h>
@@ -26,7 +26,7 @@ void main(int argc, char *argv[]) {
 #endif
 
 #ifdef SA
-	puts("\nBasic LanguageTypes Test\n");
+	puts("\nBasic LanguageType Test\n");
 
 	_calculate(new StringType("Hello"), "+", new NullType());
 	_calculate(new NumberType(50), "-", new BooleanType(false));

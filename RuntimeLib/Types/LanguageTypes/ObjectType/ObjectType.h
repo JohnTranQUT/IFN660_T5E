@@ -1,6 +1,6 @@
 #pragma once
 #include <map>
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypes.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageType.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Properties/Properties.h>
 
 using namespace std;

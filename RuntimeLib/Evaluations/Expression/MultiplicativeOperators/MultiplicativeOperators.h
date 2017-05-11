@@ -1,5 +1,5 @@
 #pragma once
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
 #include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
 
 LanguageType *MultiplicationOperator(Type *, Type *);

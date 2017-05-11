@@ -1,5 +1,5 @@
 #pragma once
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
 
 class NumberObject : public ObjectType {
 	LanguageType *value;

@@ -1,5 +1,5 @@
 #pragma once
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypes.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageType.h>
 #include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Properties/Properties.h>
 

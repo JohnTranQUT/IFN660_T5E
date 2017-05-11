@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypes.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageType.h>
 
 using namespace std;
 

@@ -2,7 +2,7 @@
 #include <string>
 #include <cmath>
 #include <cfenv>
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypes.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageType.h>
 
 using namespace std;
 

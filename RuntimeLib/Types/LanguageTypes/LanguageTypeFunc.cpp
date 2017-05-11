@@ -1,4 +1,4 @@
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
 
 LanguageType *ToPrimitive(LanguageType *input, LanguageType *PreferredType) {
 	if (auto _input = dynamic_cast<ObjectType *>(input)) {
