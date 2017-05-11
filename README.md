@@ -4,6 +4,7 @@
 Semantic Analysis
 
 ## Project Logs
+- Implemented `Reference` -> `InitializeReferencedBinding()`
 - Tests for `LexicalEnvironment` and `EnvironmentRecord` are now available
 - Implemented `_listItemsInRecord()` under _Helpers/
 - Implemented `InitializeBoundName()` under Evaluations/Expression/Identifiers/ and `ResolveBinding()` under ExecutionContexts/ 
