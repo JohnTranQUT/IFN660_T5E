@@ -4,17 +4,17 @@
 #include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
 #include <RuntimeLib/Types/LanguageTypes/NullType/NullType.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectConstructor.h>
-#include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironment.h>
-#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
 #include <RuntimeLib/Evaluations/Expression/AssignmentOperators/AssignmentOperators.h>
 #include <RuntimeLib/Evaluations/Expression/AdditiveOperators/AdditiveOperators.h>
-#include <RuntimeLib/Evaluations/Expression/Identifiers/Identifiers.h>
 #include <RuntimeLib/ExecutionContexts/ExecutionContexts.h>
+#include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironmentFunc.h>
+#include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
 #include <RuntimeLib/_Helpers/_Helpers.h>
 
 #define AST
 #define ARITH
-#define ER_BASIC
+#define ER_B1
+#define ER_B2
 #define ER
 
 extern FILE *yyin;
@@ -83,7 +83,9 @@ void main(int argc, char *argv[]) {
 	puts("");
 #endif
 
-#ifdef ER_BASIC
+#ifdef ER_B1
+
+	puts("ER_B1\n");
 
 	puts("<<<JS");
 	puts("\tlet x;");
@@ -91,41 +93,62 @@ void main(int argc, char *argv[]) {
 	puts("JS;");
 	puts("");
 
-	auto DeclarEnvER_B = new DeclarativeEnvironmentRecord();
-	InitializeBoundName(new StringType("x"), new UndefinedType(), DeclarEnvER_B); // BindingIdentifier : Identifier
+	auto LexEnvER_B1 = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
 
-	auto LexEnvER_B = new LexicalEnvironment(DeclarEnvER_B);
+	LexEnvER_B1->_getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false)); // Block : BlockDeclarationInstantiation
 
-	auto xrefER_B = ResolveBinding(new StringType("x"), LexEnvER_B); // IdentifierReference : Identifier
-	auto xvalueER_B = new NumberType(42); // NumericLiteral
+	InitializeReferencedBinding(ResolveBinding(new StringType("x"), LexEnvER_B1), new UndefinedType()); // LexicalBinding : BindingIdentifier
 
-	SimpleAssignmentOperator(xrefER_B, xvalueER_B); // AssignmentExpression : IdentifierReference = NumericLiteral
+	auto xrefER_B1 = ResolveBinding(new StringType("x"), LexEnvER_B1); // IdentifierReference : Identifier
+	auto xvalueER_B1 = new NumberType(42); // NumericLiteral
+	
+	SimpleAssignmentOperator(xrefER_B1, xvalueER_B1); // AssignmentExpression : IdentifierReference = NumericLiteral
 
-	_listItemsInRecord(LexEnvER_B->_getEnvRec());
+	_listItemsInRecord(LexEnvER_B1->_getEnvRec());
+	puts("");
+
+#endif
+
+#ifdef ER_B2
+
+	puts("ER_B2\n");
+
+	puts("<<<JS");
+	puts("\tlet x = 42;");
+	puts("JS;");
+	puts("");
+
+	auto LexEnvER_B2 = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
+
+	LexEnvER_B1->_getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false)); // Block : BlockDeclarationInstantiation
+
+	InitializeReferencedBinding(ResolveBinding(new StringType("x"), LexEnvER_B1), new NumberType(42)); // LexicalBinding : BindingIdentifier Initializer
+	
+	_listItemsInRecord(LexEnvER_B1->_getEnvRec());
 	puts("");
 
 #endif
 
 #ifdef ER
 
+	puts("ER\n");
+
 	puts("<<<JS");
-	puts("\tlet x;");
+	puts("\tlet x = 660;");
 	puts("\tlet y;");
-	puts("\tx = 660;");
 	puts("\ty = \"IFN\" + x;");
 	puts("JS;");
 	puts("");
 
-	auto DeclarEnvER = new DeclarativeEnvironmentRecord();
-	InitializeBoundName(new StringType("x"), new UndefinedType(), DeclarEnvER); // BindingIdentifier : Identifier
-	InitializeBoundName(new StringType("y"), new UndefinedType(), DeclarEnvER); // BindingIdentifier : Identifier
+	auto LexEnvER = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
 
-	auto LexEnvER = new LexicalEnvironment(DeclarEnvER);
+	// Block : BlockDeclarationInstantiation
+	LexEnvER->_getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false));
+	LexEnvER->_getEnvRec()->CreateMutableBinding(new StringType("y"), new BooleanType(false));
 
-	auto xrefER = ResolveBinding(new StringType("x"), LexEnvER); // IdentifierReference : Identifier
-	auto xvalueER = new NumberType(660); // NumericLiteral
-
-	SimpleAssignmentOperator(xrefER, xvalueER);
+	
+	InitializeReferencedBinding(ResolveBinding(new StringType("x"), LexEnvER), new NumberType(660)); // LexicalBinding : BindingIdentifier Initializer
+	InitializeReferencedBinding(ResolveBinding(new StringType("y"), LexEnvER), new UndefinedType()); // LexicalBinding : BindingIdentifier
 
 	auto yref = ResolveBinding(new StringType("y"), LexEnvER); // IdentifierReference : Identifier
 	auto yconcatleft = new StringType("IFN"); // StringLiteral
