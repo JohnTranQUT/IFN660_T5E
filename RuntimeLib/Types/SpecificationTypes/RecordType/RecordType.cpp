@@ -1,15 +1,19 @@
 #include <RuntimeLib/Types/SpecificationTypes/RecordType/RecordType.h>
 
-void RecordType::_insertValue(StringType *keyValue, Type *dataValue) {
-	value.insert(pair<string, Type *>(keyValue->_getValue(), dataValue));
+bool RECORD_VALUE_COMP::operator()(StringType *lhs, StringType *rhs) const {
+	return lhs->_getValue() < rhs->_getValue();
 }
 
-map<string, Type *> RecordType::_getValue() const {
+void RecordType::_insertValue(StringType *keyValue, Type *dataValue) {
+	value.insert(pair<StringType *, Type *>(keyValue, dataValue));
+}
+
+map<StringType *, Type *, RECORD_VALUE_COMP> RecordType::_getValue() const {
 	return value;
 }
 
 Type *RecordType::_findValue(StringType *keyValue) {
-	auto it = value.find(keyValue->_getValue());
+	auto it = value.find(keyValue);
 	if (it != value.end()) {
 		return it->second;
 	}
@@ -17,7 +21,7 @@ Type *RecordType::_findValue(StringType *keyValue) {
 }
 
 BooleanType *RecordType::_hasValue(StringType *keyValue) {
-	auto it = value.find(keyValue->_getValue());
+	auto it = value.find(keyValue);
 	if (it != value.end()) {
 		return new BooleanType(true);
 	}
@@ -25,7 +29,7 @@ BooleanType *RecordType::_hasValue(StringType *keyValue) {
 }
 
 BooleanType *RecordType::_hasInitialized(StringType *keyValue) {
-	auto it = value.find(keyValue->_getValue());
+	auto it = value.find(keyValue);
 	if (it != value.end()) {
 		if (it->second != nullptr) {
 			return new BooleanType(true);
@@ -35,12 +39,12 @@ BooleanType *RecordType::_hasInitialized(StringType *keyValue) {
 }
 
 void RecordType::_setValue(StringType *keyValue, Type *dataValue) {
-	value[keyValue->_getValue()] = dataValue;
+	value[keyValue] = dataValue;
 }
 
 BooleanType *RecordType::_deleteValue(StringType *keyValue) {
 	if (_hasValue(keyValue)) {
-		value.erase(keyValue->_getValue());
+		value.erase(keyValue);
 		return new BooleanType(true);
 	}
 	return new BooleanType(false);

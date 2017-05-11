@@ -8,12 +8,16 @@
 
 using namespace std;
 
+struct RECORD_VALUE_COMP {
+	bool operator()(StringType *, StringType *) const;
+};
+
 class RecordType : public SpecificationType {
-	map<string, Type *> value;
+	map<StringType *, Type *, RECORD_VALUE_COMP> value;
 public:
 	RecordType() { };
 	void _insertValue(StringType *, Type *);
-	map<string, Type *> _getValue() const;
+	map<StringType *, Type *, RECORD_VALUE_COMP> _getValue() const;
 	Type *_findValue(StringType *);
 	BooleanType *_hasValue(StringType *);
 	BooleanType *_hasInitialized(StringType *);

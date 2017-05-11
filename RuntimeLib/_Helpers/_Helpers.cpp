@@ -33,33 +33,33 @@ void _listItemsInRecord(RecordType *record) {
 	if (auto _record = dynamic_cast<CompletionType *>(record)) {
 		auto items = _record->_getValue();
 		for (auto it = items.begin(); it != items.end(); ++it) {
-			cout << it->first << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
+			cout << it->first->_getValue() << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
 		}
 	} else if (auto _record = dynamic_cast<DeclarativeEnvironmentRecord *>(record)) {
 		auto items = _record->_getValue();
 		for (auto it = items.begin(); it != items.end(); ++it) {
-			cout << it->first << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
+			cout << it->first->_getValue() << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
 		}
 	} else if (auto _record = dynamic_cast<ObjectEnvironmentRecord *>(record)) {
 		auto items = _record->_getValue();
 		for (auto it = items.begin(); it != items.end(); ++it) {
-			cout << it->first << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
+			cout << it->first->_getValue() << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
 		}
 	} else if (auto _record = dynamic_cast<GlobalEnvironmentRecord *>(record)) {
 		auto items = _record->_getValue();
 		for (auto it = items.begin(); it != items.end(); ++it) {
-			cout << it->first << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
+			cout << it->first->_getValue() << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
 		}
 	} else if (auto _record = dynamic_cast<EnvironmentRecord *>(record)) {
 		auto items = _record->_getValue();
 		for (auto it = items.begin(); it != items.end(); ++it) {
-			cout << it->first << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
+			cout << it->first->_getValue() << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
 		}
 	} else {
 		auto items = record->_getValue();
 		for (auto it = items.begin(); it != items.end(); ++it) {
 			auto items = _record->_getValue();
-			cout << it->first << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
+			cout << it->first->_getValue() << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;
 		}
 	}
 }
