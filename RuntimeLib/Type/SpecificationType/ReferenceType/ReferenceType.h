@@ -17,5 +17,11 @@ class ReferenceType : public SpecificationType {
 	string _valueUndefined;
 public:
 	string _getType() ;
-	Type * GetValue(Type *);
+	void ReturnIfAbrupt(Type*);
+	bool IsUnresolvableReference(Type * V);
+	bool IsPropertyReference(Type *V);
+	bool HasPrimitiveBase(Type * V);
+	Type * GetBase(Type * V);
 };
+
+Type * GetValue(Type * V);

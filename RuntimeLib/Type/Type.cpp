@@ -6,3 +6,5 @@ using namespace std;
 string Type::_getType() {
 	return "undefined";
 }
+
+

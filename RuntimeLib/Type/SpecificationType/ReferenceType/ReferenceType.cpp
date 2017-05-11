@@ -1,3 +1,4 @@
+
 #include <RuntimeLib\Type\SpecificationType\ReferenceType\ReferenceType.h>
 #include <RuntimeLib\Expressions\AdditiveOperators.h>
 #include <string>
@@ -9,22 +10,23 @@ string ReferenceType::_getType()
 	return _type;
 }
 
-Type * ReferenceType::GetValue(Type * V)
+Type * GetValue(Type * V)
 {
-	ReturnIfAbrupt(V);
+	//ReturnIfAbrupt(V);
 	if (V->_getType() != "Reference") {
 		return V;
 	}
-	auto base = GetBase(V);
-	if (IsUnresolvableReference(V) == true)
+	auto _V = dynamic_cast<ReferenceType *>(V);
+	auto base = _V->GetBase(_V);
+	if (_V->IsUnresolvableReference(_V) == true)
 	{
 		cout << "ReferenceError" << endl;
 	}
-	if (IsPropertyReference(V) == true)
+	if (_V->IsPropertyReference(_V) == true)
 	{
-		if (HasPrimitiveBase(V) == true)
+		if (_V->HasPrimitiveBase(_V) == true)
 		{
-			auto base = ToObject(GetBase(V));
+			auto base = ToObject(_V->GetBase(_V));
 		}
 		/*else
 		{
@@ -39,11 +41,11 @@ Type * ReferenceType::GetValue(Type * V)
 	}
 }
 
-void ReturnIfAbrupt(Type* V) {
+void ReferenceType :: ReturnIfAbrupt(Type* V) {
 	//Will fill
 }
 
-Type * GetBase(Type * V){
+Type * ReferenceType :: GetBase(Type * V){
 	if (V->_getType() != "Undefined")
 	{
 		auto _V = dynamic_cast<UndefinedType *>(V);
@@ -73,7 +75,7 @@ Type * GetBase(Type * V){
 	
 }
 
-bool IsUnresolvableReference(Type * V) 
+bool ReferenceType::IsUnresolvableReference(Type * V)
 {
 	if (V->_getType() == "Undefined")
 	{
@@ -82,14 +84,14 @@ bool IsUnresolvableReference(Type * V)
 	else { return false; }
 }
 
-bool IsPropertyReference(Type *V)
+bool ReferenceType :: IsPropertyReference(Type *V)
 {
-	if ((V->_getType() == "Object") | HasPrimitiveBase(V) == true)
+	if ((V->_getType() == "Object") | (HasPrimitiveBase(V) == true))
 		return true;
 	else { return false; }
 }
 
-bool HasPrimitiveBase(Type * V)
+bool ReferenceType :: HasPrimitiveBase(Type * V)
 {
 	if ((V->_getType() == "Number") | (V->_getType() == "String") | (V->_getType() == "Boolean") | (V->_getType() == "symbol"))
 		return true;

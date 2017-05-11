@@ -1,12 +1,13 @@
 #include <RuntimeLib\Type\SpecificationType\ReferenceType\ReferenceType.h>
 #include <RuntimeLib\Expressions\AdditiveOperators.h>
+#include <RuntimeLib\Type\LanguageType\LanguageType.h>
 #include <string>
 
 //Evaluation Functions
 
-LanguageType* additiveOperator(LanguageType* lref, LanguageType* rref) {
-	auto lval = lref->GetValue;
-	auto rval = rref->GetValue;
+LanguageType* additiveOperator(Type* lref, Type* rref) {
+	auto lval = ToLanguageType(GetValue(lref));
+	auto rval = ToLanguageType(GetValue(rref));
 	auto lprim = ToPrimative(lval);
 	auto rprim = ToPrimative(rval);
 	if (dynamic_cast<StringType *>(lprim) || dynamic_cast<StringType *>(rprim)) {
@@ -20,8 +21,8 @@ LanguageType* additiveOperator(LanguageType* lref, LanguageType* rref) {
 }
 
 LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref) {
-	auto lval = GetValue(lref);
-	auto rval = GetValue(rref);
+	auto lval = ToLanguageType(GetValue(lref));;
+	auto rval = ToLanguageType(GetValue(rref));
 	auto lnum = ToNumber(lval)->_getValue();
 	auto rnum = ToNumber(rval)->_getValue();
 	return new NumberType(lnum - rnum);

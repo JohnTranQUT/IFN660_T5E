@@ -7,12 +7,6 @@
 #include <RuntimeLib\Type\LanguageType\SymbolType\SymbolType.h>
 #include <RuntimeLib\Type\LanguageType\ObjectType\ObjectType.h>
 
-LanguageType* additiveOperator(Type* lref, Type* rref);
-LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref);
 
 
-LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType = nullptr);
-
-StringType* ToString(LanguageType* V);
-NumberType* ToNumber(LanguageType* V);
-ObjectType* ToObject(Type* V);
+Type* AssignmentOperator(Type* , Type* );
