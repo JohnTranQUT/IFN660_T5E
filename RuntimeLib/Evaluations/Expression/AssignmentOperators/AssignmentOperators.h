@@ -1,5 +1,4 @@
 #pragma once
-#include <RuntimeLib/Types/SpecificationTypes/Record/CompletionRecord/CompletionRecordFunc.h>
-#include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
+#include <RuntimeLib/Types/Type.h>
 
 Type *SimpleAssignmentOperator(Type *, Type *);

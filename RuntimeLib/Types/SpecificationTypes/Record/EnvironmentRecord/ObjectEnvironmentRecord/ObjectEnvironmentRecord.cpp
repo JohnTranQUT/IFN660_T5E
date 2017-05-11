@@ -1,11 +1,12 @@
 #include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
 
 BooleanType *ObjectEnvironmentRecord::HasBinding(StringType *N) {
 	puts("ObjectEnvironmentRecord::HasBinding()");
 	exit(0);
 }
 
-void ObjectEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *D) {
+CompletionRecord *ObjectEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *D) {
 	BooleanType *configValue;
 	if (D->_getValue()) {
 		configValue = new BooleanType(true);
@@ -16,13 +17,16 @@ void ObjectEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *D
 	exit(0);
 }
 
-void ObjectEnvironmentRecord::CreateImmutableBinding(StringType *, BooleanType *) { }
-
-void ObjectEnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
-	SetMutableBinding(N, V, new BooleanType(false));
+CompletionRecord *ObjectEnvironmentRecord::CreateImmutableBinding(StringType *, BooleanType *) {
+	return nullptr;
 }
 
-void ObjectEnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
+CompletionRecord *ObjectEnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
+	SetMutableBinding(N, V, new BooleanType(false));
+	return nullptr;
+}
+
+CompletionRecord *ObjectEnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
 	puts("Return ? Set(bindings, N, V, S)");
 	exit(0);
 }
@@ -45,7 +49,7 @@ BooleanType *ObjectEnvironmentRecord::HasSuperBinding() {
 	return new BooleanType(false);
 }
 
-Type *ObjectEnvironmentRecord::WithBaseObject() const {
+Type *ObjectEnvironmentRecord::WithBaseObject() {
 	if (WithEnvironment->_getValue()) {
 		return bindingObject;
 	}

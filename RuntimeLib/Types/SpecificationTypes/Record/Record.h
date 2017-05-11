@@ -1,8 +1,6 @@
 #pragma once
 #include <map>
 #include <RuntimeLib/Types/SpecificationTypes/SpecificationType.h>
-#include <RuntimeLib/Types/LanguageTypes/LanguageType.h>
-#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
 #include <RuntimeLib/Types/LanguageTypes/StringType/StringType.h>
 #include <RuntimeLib/Types/LanguageTypes/BooleanType/BooleanType.h>
 

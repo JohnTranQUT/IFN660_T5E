@@ -1,4 +1,6 @@
 #include <RuntimeLib/Evaluations/Expression/AdditiveOperators/AdditiveOperators.h>
+#include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
 
 LanguageType *AdditionOperator(Type *lref, Type *rref) {
 	auto lval = _ToLanguageType(GetValue(lref));

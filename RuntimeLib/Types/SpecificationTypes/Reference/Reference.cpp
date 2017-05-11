@@ -1,4 +1,8 @@
 #include <RuntimeLib/Types/SpecificationTypes/Reference/Reference.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
+#include <RuntimeLib/Types/LanguageTypes/StringType/StringType.h>
+#include <RuntimeLib/Types/LanguageTypes/SymbolType/SymbolType.h>
+#include <RuntimeLib/Types/LanguageTypes/NumberType/NumberType.h>
 
 Type *Reference::GetBase() const {
 	return Base;

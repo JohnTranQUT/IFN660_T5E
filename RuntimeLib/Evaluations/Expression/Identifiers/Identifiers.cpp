@@ -1,24 +1,12 @@
 #include <RuntimeLib/Evaluations/Expression/Identifiers/Identifiers.h>
-#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
 #include <RuntimeLib/ExecutionContexts/ExecutionContexts.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/CompletionRecord/CompletionRecordFunc.h>
 #include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
 
 CompletionRecord *InitializeBoundName(StringType *name, LanguageType *value, EnvironmentRecord *environment) {
 	if (environment != nullptr) {
-		if (auto _env = dynamic_cast<DeclarativeEnvironmentRecord *>(environment)) {
-			_env->InitializeBinding(name, value);
-			return NormalCompletion(new UndefinedType());
-		} else if (auto _env = dynamic_cast<ObjectEnvironmentRecord *>(environment)) {
-			_env->InitializeBinding(name, value);
-			return NormalCompletion(new UndefinedType());
-		} else if (auto _env = dynamic_cast<GlobalEnvironmentRecord *>(environment)) {
-			_env->InitializeBinding(name, value);
-			return NormalCompletion(new UndefinedType());
-		}
-		puts("EnvironmentRecord");
-		exit(0);
+		environment->InitializeBinding(name, value);
+		return NormalCompletion(new UndefinedType());
 	}
 	auto lhs = ResolveBinding(name);
 	PutValue(lhs, value);

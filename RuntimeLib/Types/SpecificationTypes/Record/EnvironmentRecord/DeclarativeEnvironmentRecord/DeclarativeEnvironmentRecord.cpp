@@ -1,4 +1,6 @@
 #include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/CompletionRecord/CompletionRecordFunc.h>
 
 BooleanType *DeclarativeEnvironmentRecord::HasBinding(StringType *N) {
 	return EnvironmentRecord::HasBinding(N);

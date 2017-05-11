@@ -1,6 +1,7 @@
 #pragma once
 #include <RuntimeLib/Types/SpecificationTypes/SpecificationType.h>
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/BooleanType/BooleanType.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/ObjectType.h>
 
 class Reference : public SpecificationType {
 	Type *Base;

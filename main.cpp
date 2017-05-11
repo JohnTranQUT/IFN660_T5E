@@ -1,17 +1,19 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <limits>
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
+#include <parser.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
+#include <RuntimeLib/Types/LanguageTypes/NullType/NullType.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectConstructor.h>
 #include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironment.h>
-#include <RuntimeLib/_Helpers/_Helpers.h>
-#include <parser.h>
-#include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironmentFunc.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
 #include <RuntimeLib/Evaluations/Expression/AssignmentOperators/AssignmentOperators.h>
+#include <RuntimeLib/Evaluations/Expression/AdditiveOperators/AdditiveOperators.h>
 #include <RuntimeLib/Evaluations/Expression/Identifiers/Identifiers.h>
 #include <RuntimeLib/ExecutionContexts/ExecutionContexts.h>
+#include <RuntimeLib/_Helpers/_Helpers.h>
 
 #define AST
-#define SA
+#define ARITH
 #define ER_BASIC
 #define ER
 
@@ -25,7 +27,7 @@ void main(int argc, char *argv[]) {
 	yyparse();
 #endif
 
-#ifdef SA
+#ifdef ARITH
 	puts("\nBasic LanguageType Test\n");
 
 	_calculate(new StringType("Hello"), "+", new NullType());

@@ -1,4 +1,9 @@
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectConstructor.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
+#include <RuntimeLib/Types/LanguageTypes/NullType/NullType.h>
+#include <RuntimeLib/Types/LanguageTypes/SymbolType/SymbolType.h>
+#include "ObjectObject/ObjectObject.h"
+#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
 
 ObjectType *Object(LanguageType *value) {
 	if (value == nullptr || dynamic_cast<NullType*>(value) || dynamic_cast<UndefinedType*>(value)) {

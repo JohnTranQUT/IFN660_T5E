@@ -1,6 +1,6 @@
 #pragma once
-//#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
-#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/ObjectType.h>
+#include <RuntimeLib/Types/LanguageTypes/StringType/StringType.h>
 
 class ObjectObject : public ObjectType {
 	LanguageType *value;

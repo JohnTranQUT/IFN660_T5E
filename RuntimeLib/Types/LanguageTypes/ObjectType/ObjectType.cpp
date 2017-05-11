@@ -1,7 +1,7 @@
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/ObjectType.h>
 
 string ObjectType::_getValue() {
-	return "{ }";
+	return "[object Object]";
 }
 
 string ObjectType::_getType() {

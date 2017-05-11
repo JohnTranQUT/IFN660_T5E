@@ -4,24 +4,28 @@ BooleanType *EnvironmentRecord::HasBinding(StringType *N) {
 	return _hasValue(N);
 }
 
-void EnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *S) {
+CompletionRecord *EnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *S) {
 	_insertValue(N, nullptr);
+	return nullptr;
 }
 
-void EnvironmentRecord::CreateImmutableBinding(StringType *N, BooleanType *S) {
+CompletionRecord *EnvironmentRecord::CreateImmutableBinding(StringType *N, BooleanType *S) {
 	_insertValue(N, nullptr);
+	return nullptr;
 }
 
-void EnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
+CompletionRecord *EnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
 	_setValue(N, V);
+	return nullptr;
 }
 
-void EnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
+CompletionRecord *EnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
 	if (S->_getValue()) {
 		puts("TypeError");
 		exit(0);
 	}
 	_setValue(N, V);
+	return nullptr;
 }
 
 Type *EnvironmentRecord::GetBindingValue(StringType *N, BooleanType *S) {

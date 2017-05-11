@@ -1,4 +1,5 @@
 #include <RuntimeLib/Types/SpecificationTypes/Record/Record.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
 
 bool RECORD_VALUE_COMP::operator()(StringType *lhs, StringType *rhs) const {
 	return lhs->_getValue() < rhs->_getValue();

@@ -1,5 +1,4 @@
 #pragma once
-#include <RuntimeLib/Types/SpecificationTypes/SpecificationType.h>
 #include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/EnvironmentRecord.h>
 
 class LexicalEnvironment : public SpecificationType {

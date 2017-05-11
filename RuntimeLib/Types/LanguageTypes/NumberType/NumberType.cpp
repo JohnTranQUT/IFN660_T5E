@@ -1,4 +1,6 @@
 #include <RuntimeLib/Types/LanguageTypes/NumberType/NumberType.h>
+#include <cmath>
+#include <cfenv>
 
 double NumberType::_getValue() const {
 	return _value;

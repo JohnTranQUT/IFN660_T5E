@@ -12,14 +12,14 @@ public:
 	) : bindingObject(_bindingObject),
 	    WithEnvironment(_WithEnvironment) { }
 
-	static BooleanType *HasBinding(StringType *);
-	static void CreateMutableBinding(StringType *, BooleanType *);
-	static void CreateImmutableBinding(StringType *, BooleanType *);
-	static void InitializeBinding(StringType *, LanguageType *);
-	static void SetMutableBinding(StringType *, LanguageType *, BooleanType *);
-	static Type *GetBindingValue(StringType *, BooleanType *);
-	static BooleanType *DeleteBinding(StringType *);
-	static BooleanType *HasThisBinding();
-	static BooleanType *HasSuperBinding();
-	Type *WithBaseObject() const;
+	BooleanType *HasBinding(StringType *) override;
+	CompletionRecord *CreateMutableBinding(StringType *, BooleanType *) override;
+	CompletionRecord *CreateImmutableBinding(StringType *, BooleanType *) override;
+	CompletionRecord *InitializeBinding(StringType *, LanguageType *) override;
+	CompletionRecord *SetMutableBinding(StringType *, LanguageType *, BooleanType *) override;
+	Type *GetBindingValue(StringType *, BooleanType *) override;
+	BooleanType *DeleteBinding(StringType *) override;
+	BooleanType *HasThisBinding() override;
+	BooleanType *HasSuperBinding() override;
+	Type *WithBaseObject() override;
 };

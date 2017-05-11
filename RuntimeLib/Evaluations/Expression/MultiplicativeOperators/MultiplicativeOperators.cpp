@@ -1,4 +1,6 @@
 #include <RuntimeLib/Evaluations/Expression/MultiplicativeOperators/MultiplicativeOperators.h>
+#include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
 
 LanguageType *MultiplicationOperator(Type *left, Type *right) {
 	auto leftValue = _ToLanguageType(GetValue(left));

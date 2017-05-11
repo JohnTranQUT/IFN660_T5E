@@ -1,4 +1,10 @@
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectObject/ObjectObject.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
+#include <RuntimeLib/Types/LanguageTypes/NullType/NullType.h>
+#include <RuntimeLib/Types/LanguageTypes/BooleanType/BooleanType.h>
+#include <RuntimeLib/Types/LanguageTypes/NumberType/NumberType.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/NumberObject/NumberObject.h>
+#include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
 
 StringType *ObjectObject::prototype::toString() const {
 

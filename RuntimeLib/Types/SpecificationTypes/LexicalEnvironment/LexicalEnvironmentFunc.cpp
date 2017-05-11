@@ -1,18 +1,15 @@
 #include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironmentFunc.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
 
 Reference *GetIdentifierReference(LexicalEnvironment *lex, StringType *name, BooleanType *strict) {
 	if (lex == nullptr) {
 		return new Reference(new UndefinedType(), name, strict);
 	}
 	auto envRec = lex->_getEnvRec();
-	auto exists = new BooleanType(false);
-	if (auto _envRec = dynamic_cast<DeclarativeEnvironmentRecord *>(envRec)) {
-		exists = _envRec->HasBinding(name);
-	} else if (auto _envRec = dynamic_cast<ObjectEnvironmentRecord *>(envRec)) {
-		exists = _envRec->HasBinding(name);
-	} else if (auto _envRec = dynamic_cast<GlobalEnvironmentRecord *>(envRec)) {
-		exists = _envRec->HasBinding(name);
-	}
+	auto _envRec = dynamic_cast<EnvironmentRecord *>(envRec);
+	auto exists = _envRec->HasBinding(name);
 	if (exists->_getValue()) {
 		return new Reference(envRec, name, strict);
 	}
@@ -30,7 +27,7 @@ LexicalEnvironment *NewObjectEnvironment(ObjectType *O, LexicalEnvironment *E) {
 	return env;
 }
 
-LexicalEnvironment *NewGlobalEnvironment(ObjectType *G, ObjectType *thisValue) {
+LexicalEnvironment *NewGlobalEnvironment(ObjectType *G, ObjectType *) {
 	auto objRec = new ObjectEnvironmentRecord(G);
 	auto dclRec = new DeclarativeEnvironmentRecord();
 	auto globalRec = new GlobalEnvironmentRecord(objRec, G, dclRec);

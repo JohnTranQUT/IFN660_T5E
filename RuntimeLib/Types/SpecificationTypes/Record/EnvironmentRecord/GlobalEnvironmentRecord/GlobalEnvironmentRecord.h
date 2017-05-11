@@ -1,7 +1,5 @@
 #pragma once
-#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/EnvironmentRecord.h>
 #include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
-#include <RuntimeLib/Types/LanguageTypes/ObjectType/ObjectType.h>
 #include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
 #include <RuntimeLib/Types/SpecificationTypes/List/List.h>
 
@@ -13,16 +11,16 @@ public:
 		DeclarativeEnvironmentRecord *,
 		List * = new List()
 	);
-	BooleanType *HasBinding(StringType *);
-	void CreateMutableBinding(StringType *, BooleanType *);
-	void CreateImmutableBinding(StringType *, BooleanType *);
-	void InitializeBinding(StringType *, LanguageType *);
-	void SetMutableBinding(StringType *, LanguageType *, BooleanType *);
-	Type *GetBindingValue(StringType *, BooleanType *);
-	BooleanType *DeleteBinding(StringType *);
-	static BooleanType *HasThisBinding();
-	static BooleanType *HasSuperBinding();
-	static Type *WithBaseObject();
+	BooleanType *HasBinding(StringType *) override;
+	CompletionRecord *CreateMutableBinding(StringType *, BooleanType *) override;
+	CompletionRecord *CreateImmutableBinding(StringType *, BooleanType *) override;
+	CompletionRecord *InitializeBinding(StringType *, LanguageType *) override;
+	CompletionRecord *SetMutableBinding(StringType *, LanguageType *, BooleanType *) override;
+	Type *GetBindingValue(StringType *, BooleanType *) override;
+	BooleanType *DeleteBinding(StringType *) override;
+	BooleanType *HasThisBinding() override;
+	BooleanType *HasSuperBinding() override;
+	Type *WithBaseObject() override;
 
 	ObjectType *GetThisBinding();
 	BooleanType *HasVarDeclaration(StringType *);

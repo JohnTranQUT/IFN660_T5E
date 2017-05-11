@@ -1,4 +1,5 @@
 #include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
 
 GlobalEnvironmentRecord::GlobalEnvironmentRecord(ObjectEnvironmentRecord *ObjectRecord, ObjectType *GlobalThisValue, DeclarativeEnvironmentRecord *DeclarativeRecord, List *VarNames) {
 	_insertValue(new StringType("ObjectRecord"), ObjectRecord);
@@ -16,42 +17,46 @@ BooleanType *GlobalEnvironmentRecord::HasBinding(StringType *N) {
 	return ObjRec->HasBinding(N);
 }
 
-void GlobalEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *D) {
+CompletionRecord *GlobalEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *D) {
 	auto DclRec = dynamic_cast<DeclarativeEnvironmentRecord *>(_findValue(new StringType("DeclarativeRecord")));
 	if (DclRec->HasBinding(N)->_getValue()) {
 		puts("TypeError");
 		exit(0);
 	}
 	DclRec->CreateMutableBinding(N, D);
+	return nullptr;
 }
 
-void GlobalEnvironmentRecord::CreateImmutableBinding(StringType *N, BooleanType *S) {
+CompletionRecord *GlobalEnvironmentRecord::CreateImmutableBinding(StringType *N, BooleanType *S) {
 	auto DclRec = dynamic_cast<DeclarativeEnvironmentRecord *>(_findValue(new StringType("DeclarativeRecord")));
 	if (DclRec->HasBinding(N)->_getValue()) {
 		puts("TypeError");
 		exit(0);
 	}
 	DclRec->CreateImmutableBinding(N, S);
+	return nullptr;
 }
 
-void GlobalEnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
+CompletionRecord *GlobalEnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
 	auto DclRec = dynamic_cast<DeclarativeEnvironmentRecord *>(_findValue(new StringType("DeclarativeRecord")));
 	if (DclRec->HasBinding(N)->_getValue()) {
 		DclRec->InitializeBinding(N, V);
-	} else {
-		auto ObjRec = dynamic_cast<ObjectEnvironmentRecord *>(_findValue(new StringType("ObjectRecord")));
-		ObjRec->InitializeBinding(N, V);
+		return nullptr;
 	}
+	auto ObjRec = dynamic_cast<ObjectEnvironmentRecord *>(_findValue(new StringType("ObjectRecord")));
+	ObjRec->InitializeBinding(N, V);
+	return nullptr;
 }
 
-void GlobalEnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
+CompletionRecord *GlobalEnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
 	auto DclRec = dynamic_cast<DeclarativeEnvironmentRecord *>(_findValue(new StringType("DeclarativeRecord")));
 	if (DclRec->HasBinding(N)->_getValue()) {
 		DclRec->SetMutableBinding(N, V, S);
-	} else {
-		auto ObjRec = dynamic_cast<ObjectEnvironmentRecord *>(_findValue(new StringType("ObjectRecord")));
-		ObjRec->SetMutableBinding(N, V, S);
+		return nullptr;
 	}
+	auto ObjRec = dynamic_cast<ObjectEnvironmentRecord *>(_findValue(new StringType("ObjectRecord")));
+	ObjRec->SetMutableBinding(N, V, S);
+	return nullptr;
 }
 
 Type *GlobalEnvironmentRecord::GetBindingValue(StringType *N, BooleanType *S) {

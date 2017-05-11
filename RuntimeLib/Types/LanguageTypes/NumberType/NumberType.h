@@ -1,7 +1,5 @@
 #pragma once
 #include <string>
-#include <cmath>
-#include <cfenv>
 #include <RuntimeLib/Types/LanguageTypes/LanguageType.h>
 
 using namespace std;

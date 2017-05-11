@@ -1,4 +1,11 @@
 #include <RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h>
+#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
+#include <RuntimeLib/Types/LanguageTypes/NullType/NullType.h>
+#include <RuntimeLib/Types/LanguageTypes/SymbolType/SymbolType.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectObject/ObjectObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/BooleanObject/BooleanObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/NumberObject/NumberObject.h>
+#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/StringObject/StringObject.h>
 
 LanguageType *ToPrimitive(LanguageType *input, LanguageType *PreferredType) {
 	if (auto _input = dynamic_cast<ObjectType *>(input)) {
@@ -244,32 +251,6 @@ ObjectType *ToObject(LanguageType *argument) {
 		return _argument;
 	}
 	puts("ToObject");
-	exit(0);
-}
-
-string _GetType(LanguageType *argument) {
-	if (auto _argument = dynamic_cast<UndefinedType *>(argument)) {
-		return _argument->_getType();
-	}
-	if (auto _argument = dynamic_cast<NullType *>(argument)) {
-		return _argument->_getType();
-	}
-	if (auto _argument = dynamic_cast<BooleanType *>(argument)) {
-		return _argument->_getType();
-	}
-	if (auto _argument = dynamic_cast<StringType *>(argument)) {
-		return _argument->_getType();
-	}
-	if (auto _argument = dynamic_cast<SymbolType *>(argument)) {
-		return _argument->_getType();
-	}
-	if (auto _argument = dynamic_cast<NumberType *>(argument)) {
-		return _argument->_getType();
-	}
-	if (auto _argument = dynamic_cast<ObjectType *>(argument)) {
-		return _argument->_getType();
-	}
-	puts("_GetType");
 	exit(0);
 }
 
