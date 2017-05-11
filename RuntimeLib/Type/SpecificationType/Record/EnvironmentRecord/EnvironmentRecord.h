@@ -10,7 +10,7 @@ public:
 	explicit EnvironmentRecord() {};
 	CompletionRecord* SetMutableBinding(StringType* N, LanguageType* V,BooleanType* S);
 	LanguageType* GetBindingValue(StringType* N, BooleanType* S);
+	CompletionRecord* InitializeBinding(StringType* N, Type* V);
 	//BooleanType* HasBinding(StringType* N);
 	//BooleanType* CreateMutableBinding(StringType* N, BooleanType* D);
-	//BooleanType* InitializeBinding();
 };
