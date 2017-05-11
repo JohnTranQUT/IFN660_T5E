@@ -1,5 +1,5 @@
 #pragma once
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/CompletionType/CompletionType.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/EnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/CompletionRecord/CompletionRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/EnvironmentRecord.h>
 
-CompletionType *InitializeBoundName(StringType *, LanguageType * = new UndefinedType(), EnvironmentRecord * = nullptr);
+CompletionRecord *InitializeBoundName(StringType *, LanguageType * = new UndefinedType(), EnvironmentRecord * = nullptr);

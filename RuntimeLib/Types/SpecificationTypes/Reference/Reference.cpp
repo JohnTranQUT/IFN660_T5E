@@ -1,42 +1,42 @@
-#include <RuntimeLib/Types/SpecificationTypes/ReferenceType/ReferenceType.h>
+#include <RuntimeLib/Types/SpecificationTypes/Reference/Reference.h>
 
-Type *ReferenceType::GetBase() const {
+Type *Reference::GetBase() const {
 	return Base;
 }
 
-LanguageType *ReferenceType::GetReferencedName() const {
+LanguageType *Reference::GetReferencedName() const {
 	return Referenced;
 }
 
-BooleanType *ReferenceType::IsStrictReference() const {
+BooleanType *Reference::IsStrictReference() const {
 	return StrictReference;
 }
 
-BooleanType *ReferenceType::HasPrimitiveBase() const {
+BooleanType *Reference::HasPrimitiveBase() const {
 	if (dynamic_cast<BooleanType *>(Base) || dynamic_cast<StringType *>(Base) || dynamic_cast<SymbolType *>(Base) || dynamic_cast<NumberType *>(Base)) {
 		return new BooleanType(true);
 	}
 	return new BooleanType(false);
 }
 
-BooleanType *ReferenceType::IsPropertyReference() const {
+BooleanType *Reference::IsPropertyReference() const {
 	if (dynamic_cast<ObjectType *>(Base) || HasPrimitiveBase()->_getValue()) {
 		return new BooleanType(true);
 	}
 	return new BooleanType(false);
 }
 
-BooleanType *ReferenceType::IsUnresolvableReference() const {
+BooleanType *Reference::IsUnresolvableReference() const {
 	if (dynamic_cast<UndefinedType *>(Base)) {
 		return new BooleanType(true);
 	}
 	return new BooleanType(false);
 }
 
-BooleanType *ReferenceType::IsSuperReference() const {
+BooleanType *Reference::IsSuperReference() const {
 	return new BooleanType(thisValue != nullptr);
 }
 
-ObjectType *ReferenceType::_getThisValue() const {
+ObjectType *Reference::_getThisValue() const {
 	return thisValue;
 }

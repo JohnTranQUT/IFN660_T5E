@@ -1,4 +1,4 @@
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
 
 BooleanType *ObjectEnvironmentRecord::HasBinding(StringType *N) {
 	puts("ObjectEnvironmentRecord::HasBinding()");

@@ -2,13 +2,13 @@
 #include <RuntimeLib/Types/SpecificationTypes/SpecificationTypes.h>
 #include <RuntimeLib/Types/LanguageTypes/LanguageTypesFunc.h>
 
-class ReferenceType : public SpecificationType {
+class Reference : public SpecificationType {
 	Type *Base;
 	LanguageType *Referenced;
 	BooleanType *StrictReference;
 	ObjectType *thisValue;
 public:
-	ReferenceType(
+	Reference(
 		Type *_Base,
 		LanguageType *_Referenced,
 		BooleanType *_StrictReference,

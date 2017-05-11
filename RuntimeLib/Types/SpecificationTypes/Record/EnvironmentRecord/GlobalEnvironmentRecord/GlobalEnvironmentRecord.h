@@ -1,9 +1,9 @@
 #pragma once
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/EnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/EnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/ObjectType.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/ListType/ListType.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/List/List.h>
 
 class GlobalEnvironmentRecord : public EnvironmentRecord {
 public:
@@ -11,7 +11,7 @@ public:
 		ObjectEnvironmentRecord *,
 		ObjectType *,
 		DeclarativeEnvironmentRecord *,
-		ListType * = new ListType()
+		List * = new List()
 	);
 	BooleanType *HasBinding(StringType *);
 	void CreateMutableBinding(StringType *, BooleanType *);
@@ -30,6 +30,6 @@ public:
 	BooleanType *HasRestrictedGlobalProperty(StringType *);
 	BooleanType *CanDeclareGlobalVar(StringType *);
 	BooleanType *CanDeclareGlobalFunction(StringType *);
-	CompletionType *CreateGlobalVarBinding(StringType *, BooleanType *);
-	CompletionType *CreateGlobalFunctionBinding(StringType *, LanguageType *, BooleanType *);
+	CompletionRecord *CreateGlobalVarBinding(StringType *, BooleanType *);
+	CompletionRecord *CreateGlobalFunctionBinding(StringType *, LanguageType *, BooleanType *);
 };

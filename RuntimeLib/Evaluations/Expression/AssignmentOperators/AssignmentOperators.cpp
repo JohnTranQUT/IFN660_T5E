@@ -4,16 +4,16 @@ Type *SimpleAssignmentOperator(Type *lref, Type *rref) {
 
 	// Assume lref !== ObjectLiteral && lref !== ArrayLiteral
 
-	if (auto _lref = dynamic_cast<CompletionType *>(lref)) {
+	if (auto _lref = dynamic_cast<CompletionRecord *>(lref)) {
 		auto isArruptCompletion = ReturnIfAbrupt(_lref);
-		if (dynamic_cast<CompletionType *>(isArruptCompletion)) {
+		if (dynamic_cast<CompletionRecord *>(isArruptCompletion)) {
 			return isArruptCompletion;
 		}
 		lref = isArruptCompletion;
 	}
-	if (auto _rref = dynamic_cast<CompletionType *>(rref)) {
+	if (auto _rref = dynamic_cast<CompletionRecord *>(rref)) {
 		auto isArruptCompletion = ReturnIfAbrupt(_rref);
-		if (dynamic_cast<CompletionType *>(isArruptCompletion)) {
+		if (dynamic_cast<CompletionRecord *>(isArruptCompletion)) {
 			return isArruptCompletion;
 		}
 		rref = isArruptCompletion;

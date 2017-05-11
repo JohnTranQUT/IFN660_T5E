@@ -1,11 +1,11 @@
 #include <RuntimeLib/Evaluations/Expression/Identifiers/Identifiers.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
 #include <RuntimeLib/ExecutionContexts/ExecutionContexts.h>
-#include <RuntimeLib/Types/SpecificationTypes/ReferenceType/ReferenceTypeFunc.h>
+#include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
 
-CompletionType *InitializeBoundName(StringType *name, LanguageType *value, EnvironmentRecord *environment) {
+CompletionRecord *InitializeBoundName(StringType *name, LanguageType *value, EnvironmentRecord *environment) {
 	if (environment != nullptr) {
 		if (auto _env = dynamic_cast<DeclarativeEnvironmentRecord *>(environment)) {
 			_env->InitializeBinding(name, value);

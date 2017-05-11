@@ -1,6 +1,6 @@
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
 
-GlobalEnvironmentRecord::GlobalEnvironmentRecord(ObjectEnvironmentRecord *ObjectRecord, ObjectType *GlobalThisValue, DeclarativeEnvironmentRecord *DeclarativeRecord, ListType *VarNames) {
+GlobalEnvironmentRecord::GlobalEnvironmentRecord(ObjectEnvironmentRecord *ObjectRecord, ObjectType *GlobalThisValue, DeclarativeEnvironmentRecord *DeclarativeRecord, List *VarNames) {
 	_insertValue(new StringType("ObjectRecord"), ObjectRecord);
 	_insertValue(new StringType("GlobalThisValue"), GlobalThisValue);
 	_insertValue(new StringType("DeclarativeRecord"), DeclarativeRecord);
@@ -90,7 +90,7 @@ ObjectType *GlobalEnvironmentRecord::GetThisBinding() {
 }
 
 BooleanType *GlobalEnvironmentRecord::HasVarDeclaration(StringType *N) {
-	auto varDeclaredNames = dynamic_cast<ListType *>(_findValue(new StringType("VarNames")));
+	auto varDeclaredNames = dynamic_cast<List *>(_findValue(new StringType("VarNames")));
 	return varDeclaredNames->_contain(N);
 }
 
@@ -117,13 +117,13 @@ BooleanType *GlobalEnvironmentRecord::CanDeclareGlobalFunction(StringType *N) {
 	exit(0);
 }
 
-CompletionType *GlobalEnvironmentRecord::CreateGlobalVarBinding(StringType *N, BooleanType *D) {
+CompletionRecord *GlobalEnvironmentRecord::CreateGlobalVarBinding(StringType *N, BooleanType *D) {
 	auto ObjRec = dynamic_cast<ObjectEnvironmentRecord *>(_findValue(new StringType("ObjectRecord")));
 	puts("GlobalEnvironmentRecord::CreateGlobalVarBinding()");
 	exit(0);
 }
 
-CompletionType *GlobalEnvironmentRecord::CreateGlobalFunctionBinding(StringType *N, LanguageType *V, BooleanType *D) {
+CompletionRecord *GlobalEnvironmentRecord::CreateGlobalFunctionBinding(StringType *N, LanguageType *V, BooleanType *D) {
 	auto ObjRec = dynamic_cast<ObjectEnvironmentRecord *>(_findValue(new StringType("ObjectRecord")));
 	puts("GlobalEnvironmentRecord::CreateGlobalFunctionBinding()");
 	exit(0);

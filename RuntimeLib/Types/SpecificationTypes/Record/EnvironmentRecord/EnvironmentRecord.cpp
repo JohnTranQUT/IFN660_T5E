@@ -1,4 +1,4 @@
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/EnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/EnvironmentRecord.h>
 
 BooleanType *EnvironmentRecord::HasBinding(StringType *N) {
 	return _hasValue(N);

@@ -1,8 +1,8 @@
 #pragma once
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/RecordType.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/Record.h>
 #include <RuntimeLib/Types/LanguageTypes/BooleanType/BooleanType.h>
 
-class EnvironmentRecord : public RecordType {
+class EnvironmentRecord : public Record {
 public:
 	EnvironmentRecord() { }
 	BooleanType *HasBinding(StringType *);

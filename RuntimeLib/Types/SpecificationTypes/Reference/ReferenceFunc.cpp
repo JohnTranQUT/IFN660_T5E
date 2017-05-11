@@ -1,21 +1,21 @@
-﻿#include <RuntimeLib/Types/SpecificationTypes/ReferenceType/ReferenceType.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/CompletionType/CompletionTypeFunc.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/EnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
+﻿#include <RuntimeLib/Types/SpecificationTypes/Reference/Reference.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/CompletionRecord/CompletionRecordFunc.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/EnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
 
 using namespace std;
 
 Type *GetValue(Type *V) {
-	if (auto _V = dynamic_cast<CompletionType *>(V)) {
+	if (auto _V = dynamic_cast<CompletionRecord *>(V)) {
 		auto isArruptCompletion = ReturnIfAbrupt(_V);
-		if (dynamic_cast<CompletionType *>(isArruptCompletion)) {
+		if (dynamic_cast<CompletionRecord *>(isArruptCompletion)) {
 			return isArruptCompletion;
 		}
 		V = isArruptCompletion;
 	}
-	if (auto _V = dynamic_cast<ReferenceType *>(V)) {
+	if (auto _V = dynamic_cast<Reference *>(V)) {
 		auto base = _V->GetBase();
 		if (_V->IsUnresolvableReference()->_getValue()) {
 			puts("ReferenceError");
@@ -44,21 +44,21 @@ Type *GetValue(Type *V) {
 }
 
 Type *PutValue(Type *V, Type *W) {
-	if (auto _V = dynamic_cast<CompletionType *>(V)) {
+	if (auto _V = dynamic_cast<CompletionRecord *>(V)) {
 		auto isArruptCompletion = ReturnIfAbrupt(_V);
-		if (dynamic_cast<CompletionType *>(isArruptCompletion)) {
+		if (dynamic_cast<CompletionRecord *>(isArruptCompletion)) {
 			return isArruptCompletion;
 		}
 		V = isArruptCompletion;
 	}
-	if (auto _W = dynamic_cast<CompletionType *>(W)) {
+	if (auto _W = dynamic_cast<CompletionRecord *>(W)) {
 		auto isArruptCompletion = ReturnIfAbrupt(_W);
-		if (dynamic_cast<CompletionType *>(isArruptCompletion)) {
+		if (dynamic_cast<CompletionRecord *>(isArruptCompletion)) {
 			return isArruptCompletion;
 		}
 		W = isArruptCompletion;
 	}
-	if (auto _V = dynamic_cast<ReferenceType *>(V)) {
+	if (auto _V = dynamic_cast<Reference *>(V)) {
 		auto base = _V->GetBase();
 		if (_V->IsUnresolvableReference()->_getValue()) {
 			if (_V->IsStrictReference()->_getValue()) {
@@ -98,7 +98,7 @@ Type *PutValue(Type *V, Type *W) {
 	return nullptr;
 }
 
-Type *GetThisValue(ReferenceType *V) {
+Type *GetThisValue(Reference *V) {
 	if (V->IsSuperReference()) {
 		return V->_getThisValue();
 	}

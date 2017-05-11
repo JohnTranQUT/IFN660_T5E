@@ -1,25 +1,25 @@
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
 
 BooleanType *DeclarativeEnvironmentRecord::HasBinding(StringType *N) {
 	return EnvironmentRecord::HasBinding(N);
 }
 
-CompletionType *DeclarativeEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *D) {
+CompletionRecord *DeclarativeEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *D) {
 	EnvironmentRecord::CreateMutableBinding(N, D);
 	return NormalCompletion(nullptr);
 }
 
-CompletionType *DeclarativeEnvironmentRecord::CreateImmutableBinding(StringType *N, BooleanType *S) {
+CompletionRecord *DeclarativeEnvironmentRecord::CreateImmutableBinding(StringType *N, BooleanType *S) {
 	EnvironmentRecord::CreateMutableBinding(N, S);
 	return NormalCompletion(nullptr);
 }
 
-CompletionType *DeclarativeEnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
+CompletionRecord *DeclarativeEnvironmentRecord::InitializeBinding(StringType *N, LanguageType *V) {
 	EnvironmentRecord::InitializeBinding(N, V);
 	return NormalCompletion(nullptr);
 }
 
-CompletionType *DeclarativeEnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
+CompletionRecord *DeclarativeEnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
 	if (!_hasValue(N)->_getValue()) {
 		if (S->_getValue()) {
 			puts("ReferenceError");

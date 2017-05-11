@@ -1,5 +1,5 @@
 #pragma once
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/EnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/EnvironmentRecord.h>
 #include <RuntimeLib/Types/LanguageTypes/ObjectType/ObjectType.h>
 
 class ObjectEnvironmentRecord : public EnvironmentRecord {

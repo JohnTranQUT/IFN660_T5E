@@ -12,10 +12,10 @@ struct RECORD_VALUE_COMP {
 	bool operator()(StringType *, StringType *) const;
 };
 
-class RecordType : public SpecificationType {
+class Record : public SpecificationType {
 	map<StringType *, Type *, RECORD_VALUE_COMP> value;
 public:
-	RecordType() { };
+	Record() { };
 	void _insertValue(StringType *, Type *);
 	map<StringType *, Type *, RECORD_VALUE_COMP> _getValue() const;
 	Type *_findValue(StringType *);

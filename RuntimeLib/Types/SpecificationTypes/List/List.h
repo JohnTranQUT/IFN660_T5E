@@ -3,9 +3,9 @@
 #include <RuntimeLib/Types/SpecificationTypes/SpecificationTypes.h>
 #include <RuntimeLib/Types/LanguageTypes/BooleanType/BooleanType.h>
 
-class ListType : public SpecificationType {
+class List : public SpecificationType {
 	vector<Type *> list;
 public:
-	ListType() { }
+	List() { }
 	BooleanType *_contain(Type *);
 };

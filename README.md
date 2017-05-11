@@ -13,13 +13,13 @@ Semantic Analysis - Function-Oriented (Alfred)
 - Implemented JS Defined `AdditiveOperators`, `MultiplicativeOperators` instead of using C++ native operators **(hint from Michael)**
 - Utilities are now called _Helpers
 - Destructured `operators` to be under Evaluations/Expression/ as AdditiveOperators and MultiplicativeOperators
-- Implemented `PutValue()` under `ReferenceType` 
-- Changed Data Types of attributes of `ReferenceType` to LanguageTypes
-- Reformed `CompletionType` to support `RecordType`
-- Reformed `RecordType`
+- Implemented `PutValue()` under `Reference` 
+- Changed Data Types of attributes of `Reference` to LanguageTypes
+- Reformed `CompletionRecord` to support `Record`
+- Reformed `Record`
 - Replaced comments with C++ `#define` Directive to switch between AST and SA **(hint from Jason)**
 - Added `_TrimDecimal()` to remove trailing zeros and unnecessary decimal when converting double to string
-- Implemented `ReferenceType` -> `GetThisValue()` and improved `ReferenceType` -> `GetValue()`
+- Implemented `Reference` -> `GetThisValue()` and improved `Reference` -> `GetValue()`
 - Added `Object()`, `Boolean()`, `Number()`, and `String()` as corresponding object constructor
 - Fixed `ObjectObject::prototype::valueOf()`. `ToPrimitive()` and `OrdinaryToPrimitive()` are now working properly
 - `ObjectObject` is no longer the base class of `BooleanObject`, `NumberObject`, and `StringObject`
@@ -31,12 +31,12 @@ Semantic Analysis - Function-Oriented (Alfred)
 - Implemented corresponding `toString()` and `valueOf()` in every `ObjectType` prototype
 - Initialized `ObjectObject`, `BooleanObject`, `NumberObject`, `StringObject`
 - Type Convertion now returns LanguageTypes instead of Data Types in C++
-- `GetValue()` is now under `ReferenceType` instead of SpecificationTypes
-- Implemented `ReferenceType` and `CompletionType`
-- `GetValue()` now supports `CompletionType`
+- `GetValue()` is now under `Reference` instead of SpecificationTypes
+- Implemented `Reference` and `CompletionRecord`
+- `GetValue()` now supports `CompletionRecord`
 - Initialized Object Keys and Properties
 - Initialized Object Properties: Data Property and Accessor Property
-- Recode `GetValue()` to support `ReferenceType`
+- Recode `GetValue()` to support `Reference`
 - Restructure Codes
 - Created tests in main.cpp
 - Implemented LanguageTypes `subtraction()`, `multiplication()`, `division()`, `modulus()`

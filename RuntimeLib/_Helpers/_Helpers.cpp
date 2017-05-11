@@ -1,8 +1,8 @@
 #include <RuntimeLib/_Helpers/_Helpers.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/CompletionType/CompletionType.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/CompletionRecord/CompletionRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/DeclarativeEnvironmentRecord/DeclarativeEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/ObjectEnvironmentRecord/ObjectEnvironmentRecord.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h>
 
 void _calculate(LanguageType *lhs, string op, LanguageType *rhs) {
 	LanguageType *result = nullptr;
@@ -29,8 +29,8 @@ void _calculate(LanguageType *lhs, string op, LanguageType *rhs) {
 	}
 }
 
-void _listItemsInRecord(RecordType *record) {
-	if (auto _record = dynamic_cast<CompletionType *>(record)) {
+void _listItemsInRecord(Record *record) {
+	if (auto _record = dynamic_cast<CompletionRecord *>(record)) {
 		auto items = _record->_getValue();
 		for (auto it = items.begin(); it != items.end(); ++it) {
 			cout << it->first->_getValue() << " -> " << ToString(dynamic_cast<LanguageType *>(it->second))->_getValue() << endl;

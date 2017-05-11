@@ -1,8 +1,8 @@
 #include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironmentFunc.h>
 
-ReferenceType *GetIdentifierReference(LexicalEnvironment *lex, StringType *name, BooleanType *strict) {
+Reference *GetIdentifierReference(LexicalEnvironment *lex, StringType *name, BooleanType *strict) {
 	if (lex == nullptr) {
-		return new ReferenceType(new UndefinedType(), name, strict);
+		return new Reference(new UndefinedType(), name, strict);
 	}
 	auto envRec = lex->_getEnvRec();
 	auto exists = new BooleanType(false);
@@ -14,7 +14,7 @@ ReferenceType *GetIdentifierReference(LexicalEnvironment *lex, StringType *name,
 		exists = _envRec->HasBinding(name);
 	}
 	if (exists->_getValue()) {
-		return new ReferenceType(envRec, name, strict);
+		return new Reference(envRec, name, strict);
 	}
 	auto outer = lex->_getOuter();
 	return GetIdentifierReference(outer, name, strict);

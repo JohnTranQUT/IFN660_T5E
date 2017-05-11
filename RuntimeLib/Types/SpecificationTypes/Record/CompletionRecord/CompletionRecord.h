@@ -1,12 +1,12 @@
 #pragma once
 #include <RuntimeLib/Types/SpecificationTypes/SpecificationTypes.h>
-#include <RuntimeLib/Types/SpecificationTypes/RecordType/RecordType.h>
+#include <RuntimeLib/Types/SpecificationTypes/Record/Record.h>
 
 using namespace std;
 
-class CompletionType : public RecordType {
+class CompletionRecord : public Record {
 public:
-	explicit CompletionType(
+	explicit CompletionRecord(
 		StringType *_Type,
 		LanguageType *_Value,
 		StringType *_Target
