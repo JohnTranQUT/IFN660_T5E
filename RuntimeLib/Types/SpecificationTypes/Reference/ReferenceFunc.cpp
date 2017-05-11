@@ -85,3 +85,24 @@ Type *GetThisValue(Reference *V) {
 	}
 	return V->GetBase();
 }
+
+Type *InitializeReferencedBinding(Type *V, Type *W) {
+	if (auto _V = dynamic_cast<CompletionRecord *>(V)) {
+		auto isArruptCompletion = ReturnIfAbrupt(_V);
+		if (dynamic_cast<CompletionRecord *>(isArruptCompletion)) {
+			return isArruptCompletion;
+		}
+		V = isArruptCompletion;
+	}
+	if (auto _W = dynamic_cast<CompletionRecord *>(W)) {
+		auto isArruptCompletion = ReturnIfAbrupt(_W);
+		if (dynamic_cast<CompletionRecord *>(isArruptCompletion)) {
+			return isArruptCompletion;
+		}
+		W = isArruptCompletion;
+	}
+	auto _V = dynamic_cast<Reference *>(V);
+	auto base = _V->GetBase();
+	auto _base = dynamic_cast<EnvironmentRecord *>(base);
+	return _base->InitializeBinding(ToString(_V->GetReferencedName()), _ToLanguageType(W));
+}

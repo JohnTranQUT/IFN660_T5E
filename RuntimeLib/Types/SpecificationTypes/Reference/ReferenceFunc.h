@@ -6,3 +6,4 @@ using namespace std;
 Type *GetValue(Type *);
 Type *PutValue(Type *, Type *);
 Type *GetThisValue(Reference *);
+Type *InitializeReferencedBinding(Type *, Type *);
