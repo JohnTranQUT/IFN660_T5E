@@ -32,7 +32,7 @@
     <ClCompile Include="JSValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mainAll.cpp">
+    <ClCompile Include="FinalMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

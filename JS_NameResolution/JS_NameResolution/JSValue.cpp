@@ -1,13 +1,13 @@
 #include "JSValue.h"
 
-	JSString::JSString(string value) {
+	JSString::JSString(string value) { // JSString of String for each type in runtime
 		this->value = value;
 	}
 	JSNumber* JSString::ToNumber() {
 		//Refer to specs 9.3.1
 		try { double double_s = stof(value); return new JSNumber(double_s); }
 		catch (exception e) {
-			//return new jsNumber(NAN);
+			//return new JSNumber(NAN);
 			return NULL;
 		}
 	}
@@ -23,7 +23,7 @@
 	}
 
 
-	JSBoolean::JSBoolean(bool value) {
+	JSBoolean::JSBoolean(bool value) { //JSboolean for each type
 		this->value = value;
 	}
 
@@ -44,7 +44,7 @@
 		return this;
 	}
 
-	JSNumber::JSNumber(double value) {
+	JSNumber::JSNumber(double value) { //JSNumber for each Type
 		this->value = value;
 	}
 	JSType JSNumber::Type() {

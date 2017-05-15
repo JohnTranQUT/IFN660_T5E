@@ -143,4 +143,86 @@ JSValue* Assign(JSValue* lref, JSValue* rref)
 	return rval;
 }
 
+//Runtime Addition 
+JSValue* Increment(JSValue* lref) { //12.4.4 on ECMA 6.0 ++
+	JSValue* lval = GetValue(lref);
+	JSValue* lprim = ToPrimitive(lval);
+	//Let expr be the result of evaluating UnaryExpression.
+	//Let oldValue be ToNumber(GetValue(expr)).
+	JSValue* oldValue = GetValue(lprim)->ToNumber();
+	//ReturnIfAbrupt(oldValue).
+	//Let newValue be the result of adding the value 1 to oldValue, using the same rules as for the + operator (see 12.7.5).
+	JSValue* newValue = Addition(oldValue, new JSNumber(1));
+	//Let status be PutValue(expr, newValue).
+	//ReturnIfAbrupt(status).
+	//Return newValue.
+	return newValue;
+}
 
+//Substraction 
+JSValue* Substraction(JSValue* lref, JSValue* rref) {
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+	JSValue* lprim = ToPrimitive(lval);
+	JSValue* rprim = ToPrimitive(rval);
+	return new JSNumber(lprim->ToNumber()->value - rprim->ToNumber()->value);
+}
+
+//Decrement Operator Runtime Decrease 
+JSValue* Decrement(JSValue* lref) { //12.5.8 on ECMA 6.0 --
+	JSValue* lval = GetValue(lref);
+	JSValue* lprim = ToPrimitive(lval);
+	lprim = lprim->ToNumber();
+	lprim = Substraction(lprim, new JSNumber(1));
+	return lprim;
+}
+
+JSValue* AbstractEqual(JSValue* lprim, JSValue* rprim) { //7.2.12 
+
+
+     if ((lprim->Type() == Number) && (rprim->Type() == String)) 
+
+	{ return new JSBoolean(lprim->ToNumber()->value == rprim->ToNumber()->value); }
+
+	else if ((lprim->Type() == String) && (rprim->Type() == Number)) 
+
+	{ return new JSBoolean(lprim->ToNumber()->value == rprim->ToNumber()->value); }
+	
+	else if (lprim->Type() == Bool) 
+
+	{ return new JSBoolean(lprim->ToNumber()->value == rprim->ToNumber()->value); }
+
+	else if (rprim->Type() == Bool) 
+
+	{ return new JSBoolean(lprim->ToNumber()->value == rprim->ToNumber()->value); }
+
+	else if (lprim->Type() == String || lprim->Type() == Number) 
+
+	{ return new JSBoolean(ToPrimitive(lprim) == ToPrimitive(rprim)); }
+
+	else return new JSBoolean(false);
+}
+
+JSValue* Equal(JSValue* lref, JSValue* rref) { //12.10.03 Runtime EqualityExpression ==
+	//Let lref be the result of evaluating EqualityExpression.
+	//Let lval be GetValue(lref). -- Use lprim instead to work with the previously written codes.
+	JSValue*  lval = GetValue(lref);
+	//ReturnIfAbrupt(lval).
+	//Let rref be the result of evaluating RelationalExpression.
+	//Let rval be GetValue(rref). -- Use rprim instead to work with the previously written codes.
+	JSValue* rval = GetValue(rref);
+	//ReturnIfAbrupt(rval).
+	//Return the result of performing Abstract Equality Comparison rval == lval.
+	//	1.	ReturnIfAbrupt(x).
+	//		2.	ReturnIfAbrupt(y).
+	//		3.	If Type(x) is the same as Type(y), then
+	//		a.Return the result of performing Strict Equality Comparison    x == = y.
+	return AbstractEqual(rval, lval);
+}
+
+JSValue* NotEqual(JSValue* lref, JSValue* rref) { // 12.10.3 Runtime NotEqual !=
+
+	JSValue* r = Equal(lref, rref);
+	if (r->ToBool()->value) { return new JSBoolean(false); }
+	else { return new JSBoolean(true); }
+}
