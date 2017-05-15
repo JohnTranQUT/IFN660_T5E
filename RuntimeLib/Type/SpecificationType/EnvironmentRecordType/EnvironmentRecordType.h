@@ -11,7 +11,6 @@ using namespace std;
 
 class EnviRecordType : public SpecificationType {
 public:
-	virtual ~EnviRecordType() = 0;
 	map<string, Type * > ER;
 	Type * value = nullptr;
 	bool HasBinding(string);
@@ -20,3 +19,7 @@ public:
 	string GetBindingValue(string, bool);
 };
 
+class DeclEnviRecordType : public EnviRecordType {
+public:
+	DeclEnviRecordType() {};
+};

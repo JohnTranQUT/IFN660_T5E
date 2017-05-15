@@ -13,6 +13,6 @@ LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref);
 
 LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType = nullptr);
 
-StringType* ToString(LanguageType* V);
+string ToString(LanguageType* V);
 NumberType* ToNumber(LanguageType* V);
 ObjectType* ToObject(Type* V);

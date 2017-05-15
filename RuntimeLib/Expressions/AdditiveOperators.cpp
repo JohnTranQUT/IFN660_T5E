@@ -11,8 +11,8 @@ LanguageType* additiveOperator(Type* lref, Type* rref) {
 	auto lprim = ToPrimative(lval);
 	auto rprim = ToPrimative(rval);
 	if (dynamic_cast<StringType *>(lprim) || dynamic_cast<StringType *>(rprim)) {
-		string lstr = (ToString(lprim))->_getValue();
-		string rstr = (ToString(rprim))->_getValue();
+		string lstr = ToString(lprim);
+		string rstr = ToString(rprim);
 		return new StringType(lstr + rstr);
 	}
 	auto lnum = ToNumber(lprim)->_getValue();
@@ -44,38 +44,36 @@ LanguageType* ToPrimative(LanguageType* input, LanguageType* preferredType) {
 	if (dynamic_cast<StringType *>(input))
 		return input;
 	if (dynamic_cast<SymbolType *>(input))
-	return input;
-	
-	/*if (auto _input = dynamic_cast<ObjectType *>(input))
-	???
-	*/
+		return input;
+//	if (auto _input = dynamic_cast<ObjectType *>(input))
+		
+
 }
 
-StringType* ToString(LanguageType* V) {
+string ToString(LanguageType* V) {
 	if (auto _V = dynamic_cast<UndefinedType *>(V))
-		return new StringType("Nan");
+		return "Nan";
 	if (auto _V = dynamic_cast<NullType *>(V))
-		return new StringType("null");
+		return "null";
 	if (auto _V = dynamic_cast<BooleanType *>(V))
 		if (_V->_getValue() == true)
-			return new StringType("true");
+			return "true";
 		else
-			return new StringType("false");
+			return "false";
 	if (auto _V = dynamic_cast<NumberType *>(V))
 		if (isnan(_V->_getValue()))
-			return  new StringType("Nan");
+			return  "Nan";
 		else
-			return new StringType(to_string(_V->_getValue()));
+			return to_string(_V->_getValue());
 	if (auto _V = dynamic_cast<StringType *>(V)) 
-		return _V;
+		return _V->_getValue();
 	
-	/*if (auto _V = dynamic_cast<SymbolType *>(V))
+	if (auto _V = dynamic_cast<SymbolType *>(V))
+	{
 		std::puts("TypeError");
 		exit(0);
-	*/
-	/*if (auto _V = dynamic_cast<ObjectType *>(V))
-		return _V->_getValue();
-	*/
+	}
+
 }
 
 NumberType* ToNumber(LanguageType* V) {
@@ -96,13 +94,10 @@ NumberType* ToNumber(LanguageType* V) {
 		} catch (const invalid_argument) {
 			return new NumberType(NAN);
 		}
-	/*if (auto _V = dynamic_cast<SymbolType *>(V))
+	if (auto _V = dynamic_cast<SymbolType *>(V))
 	std::puts("TypeError");
 	exit(0);
-	*/
-	/*if (auto _V = dynamic_cast<ObjectType *>(V))
-	return _V->_getValue();
-	*/
+	
 }
 
 ObjectType * ToObject(Type * V)

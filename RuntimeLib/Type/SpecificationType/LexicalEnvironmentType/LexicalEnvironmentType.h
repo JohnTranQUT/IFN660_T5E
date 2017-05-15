@@ -13,7 +13,10 @@
 			 ER = _ER;
 			 OUT = _OUT;
 		 }
-};
+		 EnviRecordType *getER() { return ER; }
+		 LexiEnviType * getOUT() { return OUT; }
+}
+;
 
- ReferenceType * GetIdentifierReference(LexiEnviType *, string, bool);
- LexiEnviType * NewDeclarativeEnvironment(LexiEnviType *);
+Type * GetIdentRefe(LexiEnviType *, string, bool);
+LexiEnviType * NewDeclEnvi(LexiEnviType *);

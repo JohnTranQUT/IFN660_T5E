@@ -4,24 +4,33 @@
 #include <RuntimeLib\Type\LanguageType\StringType\StringType.h>
 #include <RuntimeLib\Type\LanguageType\NumberType\NumberType.h>
 #include <RuntimeLib\Type\LanguageType\UndefinedType\UndefinedType.h>
+#include <RuntimeLib\Type\SpecificationType\LexicalEnvironmentType\LexicalEnvironmentType.h>
 #include <string>
 
 using namespace std;
 
 class ReferenceType : public SpecificationType {
+private:
 	string _type = "Reference";
-	string _valuestring;
-	bool  _valueboolean;
-	double _valuenumber;
-	string _valueNull = "null";
-	string _valueUndefined;
+	Type * base;
+	string name;
+	bool strict;
+	LanguageType * RF;
+
 public:
 	string _getType() ;
-	void ReturnIfAbrupt(Type*);
-	bool IsUnresolvableReference(Type * V);
-	bool IsPropertyReference(Type *V);
-	bool HasPrimitiveBase(Type * V);
-	Type * GetBase(Type * V);
+	ReferenceType(Type * _base, string _name, bool _strict)
+	{
+		base = _base;	name = _name;	strict = _strict;
+	}
+	bool IsUnresolvableReference(Type *);
+	bool IsPropertyReference(Type *);
+	bool HasPrimitiveBase(Type *);
+	Type * GetBase();
+	LanguageType * GetReferenceName(Type *);
 };
 
-Type * GetValue(Type * V);
+Type * GetValue(Type * );
+Type * PutValue(Type *, Type *);
+Type * InitializeReferencedBinding(Type *, Type *);
+void ReturnIfAbrupt(Type*);

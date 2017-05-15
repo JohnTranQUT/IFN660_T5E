@@ -16,9 +16,8 @@ bool EnviRecordType::HasBinding(string N)
 Type * EnviRecordType::CreateMutableBinding(string N, bool D)
 {
 	auto envRec = ER.find(N);
-	cout << "does not already have a binding for " << N << endl;
 	ER.insert(pair<string, Type *>(N, value));
-	return value;
+	return nullptr;
 }
 
 Type * EnviRecordType::InitializeBinding(string N, LanguageType * V)
