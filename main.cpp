@@ -11,20 +11,34 @@
 #include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
 #include <RuntimeLib/_Helpers/_Helpers.h>
 
-#define AST
-#define ARITH
-#define ER_B1
-#define ER_B2
-#define ER
+#define INC_AST
+//#define AST
+//#define ARITH
+//#define ER_B1
+//#define ER_B2
+//#define ER
+#define CG
 
 extern FILE *yyin;
+extern Node *root;
+
+int Node::numRef = 1;
+vector<string> Node::refs;
+vector<string> Node::lexs;
+
 using namespace std;
 
 void main(int argc, char *argv[]) {
 
-#ifdef AST
+#ifdef INC_AST
+
 	fopen_s(&yyin, argv[1], "r");
 	yyparse();
+
+#endif
+
+#ifdef AST
+	root->dump();
 #endif
 
 #ifdef ARITH
@@ -214,6 +228,13 @@ void main(int argc, char *argv[]) {
 	// ----- EXECUTION - END -----
 
 	_listItemsInRecord(ER_1->_getEnvRec());
+	puts("");
+
+#endif
+
+#ifdef CG
+
+	root->genCode();
 	puts("");
 
 #endif

@@ -2,6 +2,7 @@
 	#include <cstdio>
 	#include <AST/Node/AstNode.h>
 	#include <AST/Expression/AstExpression.h>
+	#include <AST/Declaration/AstDeclaration.h>
 	#include <AST/Statement/AstStatement.h>
 	#include <AST/Script/AstScript.h>
 	int yylex();
@@ -21,6 +22,8 @@
 	Node *root;
 	StatementList *statementlist;
 	Statement *statement;
+	Declaration *declaration;
+	BindingList *bindinglist;
 	Expression *expression;
 }
 
@@ -34,24 +37,29 @@
 %token <bool> BooleanLiteral
 %token <ident> IDENT
 
-%token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
+%token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR LET CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
+%{
+Node *root;
+%}
 %type <statementlist> StatementList StatementList_opt
+%type <bindinglist> BindingList
 %type <root> Script ScriptBody_opt ScriptBody StatementListItem
 %type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
+%type <declaration> Declaration LexicalDeclaration LexicalBinding
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
-%type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName
+%type <expression> IdentifierReference BindingIdentifier Initializer_opt Initializer Literal NumericLiteral Identifier DecimalLiteral IdentifierName
 
 %start Script
 
 %%
 
 Script
-	: ScriptBody_opt															{ $$ = new Script($1); $$->dump(); }
+	: ScriptBody_opt															{ $$ = new Script($1); root = $$; }
 	;
 
 ScriptBody_opt
-	: ScriptBody																{ $$ = $1 }
+	: ScriptBody																{ $$ = $1; }
 	| empty
 	;
 
@@ -71,7 +79,7 @@ StatementList
 
 StatementListItem
 	: Statement																	{ $$ = new StatementListItem($1); }
-	| Declaration
+	| Declaration																{ $$ = new StatementListItem($1); }
 	;
 
 /* Level 1 */
@@ -94,7 +102,7 @@ Statement
 	;
 
 Declaration
-	:
+	: LexicalDeclaration														{ $$ = $1; }
 	;
 
 /* Level 2 */
@@ -156,6 +164,10 @@ DebuggerStatement
 	:
 	;
 
+LexicalDeclaration
+	: LET BindingList ';'														{ $$ = new LexicalDeclaration($2); }
+	;
+
 /* Level 3 */
 
 Block
@@ -167,6 +179,11 @@ Expression
 	| Expression ',' AssignmentExpression
 	;
 
+BindingList
+	: LexicalBinding															{ $$ = new BindingList($1); }
+	| BindingList ',' LexicalBinding											{ $$ = new BindingList($1, $3); }
+	;
+
 /* Level 4 */
 AssignmentExpression
 	: ConditionalExpression														{ $$ = new AssignmentExpression($1); }
@@ -174,6 +191,11 @@ AssignmentExpression
 	| ArrowFunction
 	| LeftHandSideExpression '=' AssignmentExpression							{ $$ = new AssignmentExpression($1, $3); }
 	| LeftHandSideExpression AssignmentOperator AssignmentExpression
+	;
+
+LexicalBinding
+	: BindingIdentifier															{ $$ = new LexicalBinding($1); }
+	| BindingIdentifier Initializer												{ $$ = new LexicalBinding($1, $2); }
 	;
 
 /* Level 5 */
@@ -195,6 +217,15 @@ LeftHandSideExpression
 	| CallExpression
 	;
 
+BindingIdentifier
+	: Identifier																{ $$ = new BindingIdentifier($1); }
+	;
+
+Initializer_opt
+	: Initializer																{ $$ = $1; }
+	| empty																		{ $$ = new Initializer(); }
+	;
+
 /* Level 6 */
 NewExpression
 	: MemberExpression															{ $$ = new NewExpression($1); }
@@ -208,6 +239,10 @@ CallExpression
 LogicalORExpression
 	: LogicalANDExpression														{ $$ = new LogicalORExpression($1); }
 	| LogicalORExpression LOOR LogicalANDExpression
+	;
+
+Initializer
+	: '=' AssignmentExpression													{ $$ = new Initializer($2); }
 	;
 
 /* Level 7 */

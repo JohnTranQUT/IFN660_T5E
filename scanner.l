@@ -112,6 +112,7 @@ case						{ return CASE; }
 else						{ return ELSE; }
 instanceof					{ return INSTANCEOF; }
 var							{ return VAR; }
+let							{ return LET; }
 catch						{ return CATCH; }
 export						{ return EXPORT; }
 new							{ return NEW; }

@@ -2,6 +2,7 @@
 #include <AST/Node/AstNode.h>
 #include <AST/Statement/AstStatement.h>
 #include <AST/Script/AstScript.h>
+#include <iostream>
 
 using namespace std;
 
@@ -14,6 +15,12 @@ void StatementListItem::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void StatementListItem::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -36,6 +43,14 @@ void StatementList::dump(int indent) {
 	}
 }
 
+void StatementList::genCode() {
+	Node::genCode("NewDeclarativeEnvironment(nullptr)", true);
+	for (auto &i : nodes) {
+		i->genCode();
+	}
+	lexs.pop_back();
+}
+
 ScriptBody::ScriptBody(StatementList *_statementlist) : statementlist(_statementlist) {
 	next.push_back(statementlist);
 }
@@ -48,6 +63,12 @@ void ScriptBody::dump(int indent) {
 	}
 }
 
+void ScriptBody::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 Script::Script(Node *_node) : node(_node) {
 	next.push_back(node);
 }
@@ -57,5 +78,11 @@ void Script::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void Script::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }

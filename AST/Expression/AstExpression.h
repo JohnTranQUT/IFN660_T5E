@@ -7,6 +7,7 @@ class Expression : public Node {
 public:
 	virtual ~Expression() = default;
 	void dump(int = 0) override = 0;
+	void genCode() override = 0;
 };
 
 class IdentifierName : public Expression {
@@ -14,6 +15,7 @@ class IdentifierName : public Expression {
 public:
 	explicit IdentifierName(char *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class DecimalLiteral : public Expression {
@@ -21,6 +23,7 @@ class DecimalLiteral : public Expression {
 public:
 	explicit DecimalLiteral(double);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class Identifier : public Expression {
@@ -29,6 +32,7 @@ class Identifier : public Expression {
 public:
 	explicit Identifier(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class NumericLiteral : public Expression {
@@ -37,6 +41,7 @@ class NumericLiteral : public Expression {
 public:
 	explicit NumericLiteral(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class Literal : public Expression {
@@ -45,6 +50,7 @@ class Literal : public Expression {
 public:
 	explicit Literal(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class IdentifierReference : public Expression {
@@ -53,6 +59,16 @@ class IdentifierReference : public Expression {
 public:
 	explicit IdentifierReference(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
+};
+
+class BindingIdentifier : public Expression {
+	vector<Node*> next;
+	Expression *LHS;
+public:
+	explicit BindingIdentifier(Expression *);
+	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class PrimaryExpression : public Expression {
@@ -61,6 +77,7 @@ class PrimaryExpression : public Expression {
 public:
 	explicit PrimaryExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class MemberExpression : public Expression {
@@ -69,6 +86,7 @@ class MemberExpression : public Expression {
 public:
 	explicit MemberExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class NewExpression : public Expression {
@@ -77,6 +95,7 @@ class NewExpression : public Expression {
 public:
 	explicit NewExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class LeftHandSideExpression : public Expression {
@@ -85,6 +104,7 @@ class LeftHandSideExpression : public Expression {
 public:
 	explicit LeftHandSideExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class UpdateExpression : public Expression {
@@ -93,6 +113,7 @@ class UpdateExpression : public Expression {
 public:
 	explicit UpdateExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class UnaryExpression : public Expression {
@@ -101,6 +122,7 @@ class UnaryExpression : public Expression {
 public:
 	explicit UnaryExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class ExponentiationExpression : public Expression {
@@ -109,6 +131,7 @@ class ExponentiationExpression : public Expression {
 public:
 	explicit ExponentiationExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class MultiplicativeExpression : public Expression {
@@ -117,6 +140,7 @@ class MultiplicativeExpression : public Expression {
 public:
 	explicit MultiplicativeExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class AdditiveExpression : public Expression {
@@ -125,6 +149,7 @@ class AdditiveExpression : public Expression {
 public:
 	explicit AdditiveExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class ShiftExpression : public Expression {
@@ -133,6 +158,7 @@ class ShiftExpression : public Expression {
 public:
 	explicit ShiftExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class RelationalExpression : public Expression {
@@ -144,6 +170,7 @@ public:
 	explicit RelationalExpression(Expression *);
 	explicit RelationalExpression(Expression *, Expression *, char *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class EqualityExpression : public Expression {
@@ -155,6 +182,7 @@ public:
 	explicit EqualityExpression(Expression *);
 	explicit EqualityExpression(Expression *, Expression *, char *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class BitwiseANDExpression : public Expression {
@@ -163,6 +191,7 @@ class BitwiseANDExpression : public Expression {
 public:
 	explicit BitwiseANDExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class BitwiseXORExpression : public Expression {
@@ -171,6 +200,7 @@ class BitwiseXORExpression : public Expression {
 public:
 	explicit BitwiseXORExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class BitwiseORExpression : public Expression {
@@ -179,6 +209,7 @@ class BitwiseORExpression : public Expression {
 public:
 	explicit BitwiseORExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class LogicalANDExpression : public Expression {
@@ -187,6 +218,7 @@ class LogicalANDExpression : public Expression {
 public:
 	explicit LogicalANDExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class LogicalORExpression : public Expression {
@@ -195,6 +227,7 @@ class LogicalORExpression : public Expression {
 public:
 	explicit LogicalORExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class ConditionalExpression : public Expression {
@@ -203,6 +236,7 @@ class ConditionalExpression : public Expression {
 public:
 	explicit ConditionalExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
 
 class AssignmentExpression : public Expression {
@@ -213,4 +247,17 @@ public:
 	explicit AssignmentExpression(Expression *, Expression *);
 	explicit AssignmentExpression(Expression *);
 	void dump(int = 0) override;
+	void genCode() override;
 };
+
+class Initializer : public Expression {
+	vector<Node*> next;
+	Expression *LHS;
+public:
+	explicit Initializer(): LHS(nullptr) { } ;
+	explicit Initializer(Expression *);
+	void dump(int = 0) override;
+	void genCode() override;
+};
+
+class Initializer_opt : public Expression { };

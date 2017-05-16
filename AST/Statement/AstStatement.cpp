@@ -17,6 +17,12 @@ void BlockStatement::dump(int indent) {
 	}
 }
 
+void BlockStatement::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 Block::Block(StatementList *_statementlist) : statementlist(_statementlist) {
 	next.push_back(statementlist);
 }
@@ -29,6 +35,12 @@ void Block::dump(int indent) {
 	}
 }
 
+void Block::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 ExpressionStatement::ExpressionStatement(Expression *_expression) : expression(_expression) {
 	next.push_back(expression);
 }
@@ -38,6 +50,12 @@ void ExpressionStatement::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void ExpressionStatement::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -67,5 +85,11 @@ void IfStatement::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void IfStatement::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }

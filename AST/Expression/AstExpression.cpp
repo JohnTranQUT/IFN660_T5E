@@ -10,11 +10,21 @@ void IdentifierName::dump(int indent) {
 	Node::dump(message, indent);
 }
 
+void IdentifierName::genCode() {
+	Node::genCode(string("new StringType(") + LHS + string(");"));
+	;
+}
+
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
 
 void DecimalLiteral::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": " + to_string(LHS) + " (" + string(typeid(LHS).name()) + ")";
 	Node::dump(message, indent);
+}
+
+void DecimalLiteral::genCode() {
+	Node::genCode(string("new NumberType(") + to_string(LHS) + string(");"));
+	;
 }
 
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
@@ -29,6 +39,16 @@ void Identifier::dump(int indent) {
 	}
 }
 
+void Identifier::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+	auto ident = refs.back();
+	refs.pop_back();
+
+	Node::genCode(string("ResolveBinding(") + ident + ", " + lexs.back() + string(")"));
+}
+
 NumericLiteral::NumericLiteral(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -38,6 +58,12 @@ void NumericLiteral::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void NumericLiteral::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -53,6 +79,12 @@ void Literal::dump(int indent) {
 	}
 }
 
+void Literal::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 IdentifierReference::IdentifierReference(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -62,6 +94,30 @@ void IdentifierReference::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void IdentifierReference::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
+BindingIdentifier::BindingIdentifier(Expression *_LHS) : LHS(_LHS) {
+	next.push_back(LHS);
+}
+
+void BindingIdentifier::dump(int indent) {
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	Node::dump(message, indent);
+	for (auto &i : next) {
+		i->dump(indent + 1);
+	}
+}
+
+void BindingIdentifier::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -77,6 +133,12 @@ void PrimaryExpression::dump(int indent) {
 	}
 }
 
+void PrimaryExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 MemberExpression::MemberExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -86,6 +148,12 @@ void MemberExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void MemberExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -101,6 +169,12 @@ void NewExpression::dump(int indent) {
 	}
 }
 
+void NewExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 LeftHandSideExpression::LeftHandSideExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -110,6 +184,12 @@ void LeftHandSideExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void LeftHandSideExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -125,6 +205,12 @@ void UpdateExpression::dump(int indent) {
 	}
 }
 
+void UpdateExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 UnaryExpression::UnaryExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -134,6 +220,12 @@ void UnaryExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void UnaryExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -149,6 +241,12 @@ void ExponentiationExpression::dump(int indent) {
 	}
 }
 
+void ExponentiationExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 MultiplicativeExpression::MultiplicativeExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -158,6 +256,12 @@ void MultiplicativeExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void MultiplicativeExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -173,6 +277,12 @@ void AdditiveExpression::dump(int indent) {
 	}
 }
 
+void AdditiveExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 ShiftExpression::ShiftExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -182,6 +292,12 @@ void ShiftExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void ShiftExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -207,6 +323,12 @@ void RelationalExpression::dump(int indent) {
 	}
 }
 
+void RelationalExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS),
                                                            RHS(nullptr),
                                                            op(nullptr) {
@@ -229,6 +351,12 @@ void EqualityExpression::dump(int indent) {
 	}
 }
 
+void EqualityExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 BitwiseANDExpression::BitwiseANDExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -238,6 +366,12 @@ void BitwiseANDExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void BitwiseANDExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -253,6 +387,12 @@ void BitwiseXORExpression::dump(int indent) {
 	}
 }
 
+void BitwiseXORExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 BitwiseORExpression::BitwiseORExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -262,6 +402,12 @@ void BitwiseORExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void BitwiseORExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -277,6 +423,12 @@ void LogicalANDExpression::dump(int indent) {
 	}
 }
 
+void LogicalANDExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 LogicalORExpression::LogicalORExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -286,6 +438,12 @@ void LogicalORExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void LogicalORExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
 
@@ -301,10 +459,16 @@ void ConditionalExpression::dump(int indent) {
 	}
 }
 
+void ConditionalExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+}
+
 AssignmentExpression::AssignmentExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS),
                                                                                  RHS(_RHS) {
-	next.push_back(LHS);
 	next.push_back(RHS);
+	next.push_back(LHS);
 }
 
 AssignmentExpression::AssignmentExpression(Expression *_LHS) : LHS(_LHS),
@@ -317,5 +481,38 @@ void AssignmentExpression::dump(int indent) {
 	Node::dump(message, indent);
 	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void AssignmentExpression::genCode() {
+	for (auto &i : next) {
+		i->genCode();
+	}
+	if (next.size() > 1) {
+		auto lhs = refs.back();
+		refs.pop_back();
+		auto rhs = refs.back();
+		refs.pop_back();
+		Node::genCode(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(")"));
+	}
+}
+
+Initializer::Initializer(Expression *_LHS) : LHS(_LHS) {
+	next.push_back(LHS);
+}
+
+void Initializer::dump(int indent) {
+	if (LHS != nullptr) {
+		auto message = string(typeid(*this).name()).substr(6) + ": ";
+		Node::dump(message, indent);
+		for (auto &i : next) {
+			i->dump(indent + 1);
+		}
+	}
+}
+
+void Initializer::genCode() {
+	for (auto &i : next) {
+		i->genCode();
 	}
 }
