@@ -7,9 +7,9 @@ using namespace std;
 
 class StatementListItem : public Node {
 	vector<Node*> next;
-	Statement *statement;
+	Node *node;
 public:
-	explicit StatementListItem(Statement *);
+	explicit StatementListItem(Node *);
 	void dump(int = 0) override;
 };
 

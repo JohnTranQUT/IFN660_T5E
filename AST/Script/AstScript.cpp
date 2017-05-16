@@ -5,8 +5,8 @@
 
 using namespace std;
 
-StatementListItem::StatementListItem(Statement *_statement) : statement(_statement) {
-	next.push_back(statement);
+StatementListItem::StatementListItem(Node *_node) : node(_node) {
+	next.push_back(node);
 }
 
 void StatementListItem::dump(int indent) {
