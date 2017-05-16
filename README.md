@@ -1,9 +1,10 @@
 # IFN645-T5E Github Repository
 
 ## Current Status
-Semantic Analysis
+Code Generation
 
 ## Project Logs
+- Implemented virtual method `AstNode::genCode()` for code generation
 - Implemented `Reference` -> `InitializeReferencedBinding()`
 - Tests for `LexicalEnvironment` and `EnvironmentRecord` are now available
 - Implemented `_listItemsInRecord()` under _Helpers/
