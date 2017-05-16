@@ -93,18 +93,34 @@ void main(int argc, char *argv[]) {
 	puts("JS;");
 	puts("");
 
-	auto LexEnvER_B1 = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
+	auto ER_B1_1 = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
 
-	LexEnvER_B1->_getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false)); // Block : BlockDeclarationInstantiation
+	// ----- DECLARATION SCAN - START -----
 
-	InitializeReferencedBinding(ResolveBinding(new StringType("x"), LexEnvER_B1), new UndefinedType()); // LexicalBinding : BindingIdentifier
-
-	auto xrefER_B1 = ResolveBinding(new StringType("x"), LexEnvER_B1); // IdentifierReference : Identifier
-	auto xvalueER_B1 = new NumberType(42); // NumericLiteral
+	// let BindingIdentifier
+	auto ER_B1_2 = new StringType("x");
+	auto ER_B1_3 = ER_B1_1->_getEnvRec()->CreateMutableBinding(ER_B1_2, new BooleanType(false)); // Block : BlockDeclarationInstantiation
 	
-	SimpleAssignmentOperator(xrefER_B1, xvalueER_B1); // AssignmentExpression : IdentifierReference = NumericLiteral
+	// ----- DECLARATION SCAN - END -----
 
-	_listItemsInRecord(LexEnvER_B1->_getEnvRec());
+	// ----- EXECUTION - START -----
+
+	// let BindingIdentifier
+	auto ER_B1_4 = new StringType("x");
+	auto ER_B1_5 = ResolveBinding(ER_B1_4, ER_B1_1);
+
+	auto ER_B1_6 = InitializeReferencedBinding(ER_B1_5, new UndefinedType()); // LexicalBinding : BindingIdentifier
+
+	auto ER_B1_7 = new NumberType(42); // NumericLiteral
+
+	auto ER_B1_8 = new StringType("x"); // Identifier : IdentifierName
+	auto ER_B1_9 = ResolveBinding(ER_B1_8, ER_B1_1); // IdentifierReference : Identifier
+	
+	auto ER_B1_10 = SimpleAssignmentOperator(ER_B1_9, ER_B1_7); // AssignmentExpression : IdentifierReference = NumericLiteral
+
+	// ----- EXECUTION - END -----
+
+	_listItemsInRecord(ER_B1_1->_getEnvRec());
 	puts("");
 
 #endif
@@ -118,13 +134,28 @@ void main(int argc, char *argv[]) {
 	puts("JS;");
 	puts("");
 
-	auto LexEnvER_B2 = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
+	auto ER_B2_1 = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
 
-	LexEnvER_B1->_getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false)); // Block : BlockDeclarationInstantiation
+	// ----- DECLARATION SCAN - START -----
 
-	InitializeReferencedBinding(ResolveBinding(new StringType("x"), LexEnvER_B1), new NumberType(42)); // LexicalBinding : BindingIdentifier Initializer
+	auto ER_B2_2 = new StringType("x"); // let BindingIdentifier
+	auto ER_B2_3 = ER_B2_1->_getEnvRec()->CreateMutableBinding(ER_B2_2, new BooleanType(false)); // Block : BlockDeclarationInstantiation
+
+	// ----- DECLARATION SCAN - END -----
+
+	// ----- EXECUTION - START -----
+
+	auto ER_B2_4 = new NumberType(42); // Initializer : = NumericLiteral
 	
-	_listItemsInRecord(LexEnvER_B1->_getEnvRec());
+	// let BindingIdentifier
+	auto ER_B2_5 = new StringType("x");
+	auto ER_B2_6 = ResolveBinding(ER_B2_5, ER_B2_1);
+
+	auto ER_B2_7 = InitializeReferencedBinding(ER_B2_6, ER_B2_4); // LexicalBinding : BindingIdentifier Initializer
+	
+	// ----- EXECUTION - END -----
+
+	_listItemsInRecord(ER_B2_1->_getEnvRec());
 	puts("");
 
 #endif
@@ -140,24 +171,49 @@ void main(int argc, char *argv[]) {
 	puts("JS;");
 	puts("");
 
-	auto LexEnvER = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
+	auto ER_1 = NewDeclarativeEnvironment(nullptr); // Block : Evaluation
 
-	// Block : BlockDeclarationInstantiation
-	LexEnvER->_getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false));
-	LexEnvER->_getEnvRec()->CreateMutableBinding(new StringType("y"), new BooleanType(false));
+	// ----- DECLARATION SCAN - START -----
 
+	// let BindingIdentifier
+	auto ER_2 = new StringType("x");
+	auto ER_3 = ER_1->_getEnvRec()->CreateMutableBinding(ER_2, new BooleanType(false));
+
+	// let BindingIdentifier
+	auto ER_4 = new StringType("y");
+	auto ER_5 = ER_1->_getEnvRec()->CreateMutableBinding(ER_4, new BooleanType(false));
+
+	// ----- DECLARATION SCAN - END -----
+
+	// ----- EXECUTION - START -----
 	
-	InitializeReferencedBinding(ResolveBinding(new StringType("x"), LexEnvER), new NumberType(660)); // LexicalBinding : BindingIdentifier Initializer
-	InitializeReferencedBinding(ResolveBinding(new StringType("y"), LexEnvER), new UndefinedType()); // LexicalBinding : BindingIdentifier
+	auto ER_6 = new NumberType(660); // Initializer : = NumericLiteral
 
-	auto yref = ResolveBinding(new StringType("y"), LexEnvER); // IdentifierReference : Identifier
-	auto yconcatleft = new StringType("IFN"); // StringLiteral
-	auto yconcatright = ResolveBinding(new StringType("x"), LexEnvER); // IdentifierReference : Identifier
-	auto yvalue = AdditionOperator(yconcatleft, yconcatright); // AdditiveExpression : StringLiteral + IdentifierReference
+	// let BindingIdentifier
+	auto ER_7 = new StringType("x");
+	auto ER_8 = ResolveBinding(ER_7, ER_1);
 
-	SimpleAssignmentOperator(yref, yvalue); // AssignmentExpression : IdentifierReference = AdditiveExpression
+	auto ER_9 = InitializeReferencedBinding(ER_8, ER_6); // LexicalBinding : BindingIdentifier Initializer
 
-	_listItemsInRecord(LexEnvER->_getEnvRec());
+	// let BindingIdentifier
+	auto ER_10 = new StringType("y");
+	auto ER_11 = ResolveBinding(ER_10, ER_1);
+
+	auto ER_12 = InitializeReferencedBinding(ER_11, new UndefinedType()); // LexicalBinding : BindingIdentifier
+
+	auto ER_13 = new StringType("IFN"); // StringLiteral
+
+	auto ER_14 = new StringType("x"); // Identifier : IdentifierName
+	auto ER_15 = ResolveBinding(ER_14, ER_1); // IdentifierReference : Identifier
+	auto ER_16 = AdditionOperator(ER_13, ER_15); // AdditiveExpression : StringLiteral + IdentifierReference
+
+	auto ER_17 = new StringType("y"); // Identifier : IdentifierName
+	auto ER_18 = ResolveBinding(ER_17, ER_1); // IdentifierReference : Identifier
+	auto ER_19 = SimpleAssignmentOperator(ER_18, ER_16); // AssignmentExpression : IdentifierReference = AdditiveExpression
+
+	// ----- EXECUTION - END -----
+
+	_listItemsInRecord(ER_1->_getEnvRec());
 	puts("");
 
 #endif
