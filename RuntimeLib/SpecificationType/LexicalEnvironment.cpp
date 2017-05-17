@@ -1,11 +1,8 @@
 #include "LexicalEnvironment.h"
 
 
-LexicalEnvironment::LexicalEnvironment(EnvironmentRecord* environmentRecord):environmentRecord(environmentRecord)
+LexicalEnvironment::LexicalEnvironment(EnvironmentRecord* environmentRecord):envRec(environmentRecord)
 {
 	outer = nullptr;
 }
 
-LexicalEnvironment::~LexicalEnvironment()
-{
-}

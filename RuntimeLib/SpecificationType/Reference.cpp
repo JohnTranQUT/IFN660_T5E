@@ -27,6 +27,16 @@ bool Reference::isUnresolvableReference()
 	return (GetType(base) == "undefined") ? true : false;
 }
 
+bool Reference::HasPrimitiveBase()
+{
+	std::string type = GetType(base);
+	if ((type=="BooleanValue") ||(type=="StringValue")||(type=="NumberValue"))
+	{
+		return true;
+	}
+	else return false;
+}
+
 Reference::~Reference()
 {
 }

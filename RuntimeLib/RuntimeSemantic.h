@@ -1,4 +1,5 @@
 #pragma once
 #include "JSValue/JSValue.h"
+#include "SpecificationType/Reference.h"
 
-JSValue* assignment(JSValue* lref, JSValue* rref);
+JSValue* assignment(Type* lref, Type* rval);

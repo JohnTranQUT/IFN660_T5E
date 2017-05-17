@@ -2,12 +2,11 @@
 #include "Operation.h"
 
 
-JSValue* assignment(JSValue* lref, JSValue* rref)
+
+JSValue* assignment(Type* lref, Type* rref)
 {
 	//Assignment Expression: LeftHandSideExpression = AssignmentExpression
-	JSValue* rval = GetValue(rref);
+	JSValue *rval = GetValue(rref);
 	PutValue(lref, rval);
 	return rval;
 }
-
-
