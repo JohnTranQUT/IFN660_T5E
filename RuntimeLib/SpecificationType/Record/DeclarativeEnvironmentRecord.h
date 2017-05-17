@@ -8,8 +8,8 @@ public:
 	DeclarativeEnvironmentRecord();
 	bool HasBinding(std::string n) override;
 	JSValue* GetBindingValue(std::string n) override;
-	void InitializeBinding(std::string n, JSValue *v) override;
+	virtual void CreateMutableBinding(std::string n) override;
 	void SetMutableBinding(std::string n, JSValue* v) override;
-	~DeclarativeEnvironmentRecord();
+	virtual ~DeclarativeEnvironmentRecord();
 };
 

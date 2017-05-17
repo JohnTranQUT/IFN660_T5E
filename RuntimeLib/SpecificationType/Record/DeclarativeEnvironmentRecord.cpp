@@ -29,15 +29,26 @@ JSValue* DeclarativeEnvironmentRecord::GetBindingValue(std::string n)
 
 void DeclarativeEnvironmentRecord::SetMutableBinding(std::string n, JSValue* v)
 {
-	symbol_table.insert(std::pair<std::string, JSValue*>(n, v));
+	//Assert: envRec must have a binding for N.
+	if (this->HasBinding(n))
+	{
+		symbol_table[n] = v;
+	}
 }
 
-void DeclarativeEnvironmentRecord::InitializeBinding(std::string n, JSValue* v)
-{
-	symbol_table.insert(std::pair<std::string, JSValue*>(n, v));
-}
 
 
 DeclarativeEnvironmentRecord::~DeclarativeEnvironmentRecord()
 {
+}
+
+void DeclarativeEnvironmentRecord::CreateMutableBinding(std::string n)
+{
+	//Assert: envRec does not already have a binding for N.
+	if (!this->HasBinding(n))
+	{
+		//Create a mutable binding in envRec for N and set its bound value to undefined.
+		UndefinedValue *undefined = new UndefinedValue();
+		symbol_table.insert(std::pair<std::string, JSValue*>(n, undefined));
+	}
 }
