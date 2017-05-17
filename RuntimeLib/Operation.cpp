@@ -25,20 +25,11 @@ JSValue* addition(Type *lref, Type *rref) {
 		std::string str = lprim->ToString() + rprim->ToString();
 		//Return the String that is the result of concatenating lstr and rstr.
 		StringValue* result = new StringValue(str);
-#ifdef DEBUG
-		cout << "(" << GetType(lprim) << ")" << lprim->ToString() << " + (" << GetType(rprim) << ")" << rprim->ToString()<<" = ";
-		cout << "(" << GetType(result) << ") \"" << result->ToString()<<"\"\n";
-#endif 
 		return result;
 	} 	else 
 	{
 		//Return the result of applying the addition operation to lnum and rnum
-		NumberValue *result = new NumberValue(lprim->ToNumber() + rprim->ToNumber());
-		
-#ifdef DEBUG
-		cout << "(" << GetType(lprim) << ")" << lprim->ToString() << " + (" << GetType(rprim) << ")" << rprim->ToString() << " = ";
-		cout << "(" << GetType(result) << ")" << result->ToString() <<"\n";
-#endif 
+		NumberValue *result = new NumberValue(lprim->ToNumber() + rprim->ToNumber());	
 		return result;
 	}
 }
@@ -85,6 +76,7 @@ std::string GetType(Type* type)
 	}
 }
 
+
 JSValue* GetValue(Type *v) {
 	if (GetType(v)!="reference")
 	{
@@ -122,4 +114,12 @@ void PutValue(Type* v, JSValue* w)
 	}
 }
 
+JSValue* assignment(Type* lref, Type* rref)
+{
 
+	//Assignment Expression: LeftHandSideExpression = AssignmentExpression
+	JSValue *rval = GetValue(rref);
+	PutValue(lref, rval);
+	return rval;
+
+}

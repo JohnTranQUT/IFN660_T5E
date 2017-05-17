@@ -29,11 +29,8 @@ JSValue* DeclarativeEnvironmentRecord::GetBindingValue(std::string n)
 
 void DeclarativeEnvironmentRecord::SetMutableBinding(std::string n, JSValue* v)
 {
-	//Assert: envRec must have a binding for N.
-	if (this->HasBinding(n))
-	{
+	
 		symbol_table[n] = v;
-	}
 }
 
 
