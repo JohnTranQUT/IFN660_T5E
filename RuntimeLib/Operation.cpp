@@ -4,7 +4,7 @@
 #include "SpecificationType/Record/EnvironmentRecord.h"
 
 
-JSValue* addition(JSValue *lref, JSValue *rref) {
+JSValue* addition(Type *lref, Type *rref) {
 	//AdditiveExpression: AdditiveExpression + MultiplicativeExpression
 
 	//Let lref be the result of evaluating AdditiveExpression.
@@ -55,38 +55,28 @@ JSValue* substraction(JSValue* lref, JSValue* rref)
 	//substraction funtion always returns a NumberValue
 	return result;
 }
-/*
-JSValue* assignment(JSValue* lref, JSValue* rref)
-{
-	JSValue* rval = GetValue(rref);
-	PutValue(lref, rval);
-	return rval;
 
-}
-
-
-*/
 std::string GetType(Type* type)
 {
-	if (static_cast<BooleanValue*>(type))
+	if (dynamic_cast<BooleanValue*>(type))
 	{
 		return "boolean";
-	} else if (static_cast<StringValue*>(type))
+	} else if (dynamic_cast<StringValue*>(type))
 	{
 		return "string";
-	} else if (static_cast<NumberValue*>(type))
+	} else if (dynamic_cast<NumberValue*>(type))
 	{
 		return "number";
-	} else if (static_cast<NullValue*>(type))
+	} else if (dynamic_cast<NullValue*>(type))
 	{
 		return "null";
-	} else if (static_cast<UndefinedValue*>(type))
+	} else if (dynamic_cast<UndefinedValue*>(type))
 	{
 		return "undefined";
-	} else if (static_cast<ObjectValue*>(type))
+	} else if (dynamic_cast<ObjectValue*>(type))
 	{
 		return "object";
-	} else if (static_cast<Reference*>(type))
+	} else if (dynamic_cast<Reference*>(type))
 	{
 		return "reference";
 	} else
@@ -98,13 +88,13 @@ std::string GetType(Type* type)
 JSValue* GetValue(Type *v) {
 	if (GetType(v)!="reference")
 	{
-		return static_cast<JSValue*>(v);
+		return dynamic_cast<JSValue*>(v);
 	} else
 	{	//Type(V) is Reference
-		Reference* reference = static_cast<Reference*>(v);
+		Reference* reference = dynamic_cast<Reference*>(v);
 		//let base be GetBase(v)
 		//base must be an Environment Record
-		EnvironmentRecord *base = static_cast<EnvironmentRecord*>(reference->GetBase());
+		EnvironmentRecord *base = dynamic_cast<EnvironmentRecord*>(reference->GetBase());
 		std::string refName = reference->GetReferenceName();
 		JSValue* value = base->GetBindingValue(refName);
 		return value;
@@ -116,14 +106,20 @@ void PutValue(Type* v, JSValue* w)
 {
 	//if Type(v) is not Reference, throw a ReferenceError exception
 	if (GetType(v) != "reference") {
-		throw new std::exception("ReferenceError");
+		fprintf(stderr, "ReferenceError\n");
 	} else
 	{
-		Reference* reference = static_cast<Reference*>(v);
+		Reference* reference = dynamic_cast<Reference*>(v);
 		Type* base = reference->GetBase();
+		if (reference->isUnresolvableReference())
+		{
+			
+		}
 		//base must be an Environment Record
-		EnvironmentRecord *envr = static_cast<EnvironmentRecord*>(base);
+		EnvironmentRecord *envr = dynamic_cast<EnvironmentRecord*>(base);
 		std::string name = reference->GetReferenceName();
 		envr->SetMutableBinding(name, w);
 	}
 }
+
+

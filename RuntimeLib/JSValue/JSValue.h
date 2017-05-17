@@ -58,7 +58,7 @@ private:
 public:
 	StringValue(std::string value);
 	bool ToBoolean() override;
-	virtual std::string ToString() override;
+	std::string ToString() override;
 	double ToNumber() override;
 	~StringValue();
 };

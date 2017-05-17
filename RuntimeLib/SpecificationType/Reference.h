@@ -16,6 +16,7 @@ public:
 	std::string GetReferenceName();
 	bool isStrictReference();
 	bool isUnresolvableReference();
-	~Reference();
+	bool HasPrimitiveBase();
+	virtual ~Reference();
 };
 
