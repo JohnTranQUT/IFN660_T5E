@@ -146,8 +146,11 @@ public:
 class AdditiveExpression : public Expression {
 	vector<Node*> next;
 	Expression *LHS;
+	string OP;
+	Expression *RHS;
 public:
 	explicit AdditiveExpression(Expression *);
+	explicit AdditiveExpression(Expression *, string, Expression *);
 	void dump(int = 0) override;
 	void genCode(bool = false) override;
 };

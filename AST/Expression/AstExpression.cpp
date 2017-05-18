@@ -11,7 +11,7 @@ void IdentifierName::dump(int indent) {
 }
 
 void IdentifierName::genCode(bool OnlyPrimitive) {
-	Node::genCode(string("new StringType(\"") + LHS + string("\");"));
+	Node::genCode(string("new StringType(\"") + LHS + string("\")"));
 }
 
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
@@ -22,7 +22,7 @@ void DecimalLiteral::dump(int indent) {
 }
 
 void DecimalLiteral::genCode(bool OnlyPrimitive) {
-	Node::genCode(string("new NumberType(") + to_string(LHS) + string(");"));
+	Node::genCode(string("new NumberType(") + to_string(LHS) + string(")"));
 }
 
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
@@ -265,7 +265,18 @@ void MultiplicativeExpression::genCode(bool OnlyPrimitive) {
 	}
 }
 
-AdditiveExpression::AdditiveExpression(Expression *_LHS) : LHS(_LHS) {
+AdditiveExpression::AdditiveExpression(Expression *_LHS) : LHS(_LHS),
+                                                           RHS(nullptr) {
+	next.push_back(LHS);
+}
+
+AdditiveExpression::AdditiveExpression(Expression *_LHS,
+                                       string _OP,
+                                       Expression *_RHS) :
+	LHS(_LHS),
+	OP(_OP),
+	RHS(_RHS) {
+	next.push_back(RHS);
 	next.push_back(LHS);
 }
 
@@ -280,6 +291,15 @@ void AdditiveExpression::dump(int indent) {
 void AdditiveExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
 		i->genCode(OnlyPrimitive);
+	}
+	if (next.size() > 1) {
+		if (OP == "+") {
+			auto lhs = refs.back();
+			refs.pop_back();
+			auto rhs = refs.back();
+			refs.pop_back();
+			Node::genCode(string("AdditionOperator(" + lhs + ", " + rhs + ")"));
+		}
 	}
 }
 

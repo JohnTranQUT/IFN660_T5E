@@ -194,8 +194,8 @@ AssignmentExpression
 	;
 
 LexicalBinding
-	: BindingIdentifier															{ $$ = new LexicalBinding($1); }
-	| BindingIdentifier Initializer												{ $$ = new LexicalBinding($1, $2); }
+	: BindingIdentifier Initializer												{ $$ = new LexicalBinding($1, $2); }
+	| BindingIdentifier															{ $$ = new LexicalBinding($1); }
 	;
 
 /* Level 5 */
@@ -387,7 +387,7 @@ ShiftExpression
 /* Level 14 */
 AdditiveExpression
 	: MultiplicativeExpression													{ $$ = new AdditiveExpression($1); }
-	| AdditiveExpression '+' MultiplicativeExpression
+	| AdditiveExpression '+' MultiplicativeExpression							{ $$ = new AdditiveExpression($1, "+", $3); }
 	| AdditiveExpression '-' MultiplicativeExpression
 	;
 

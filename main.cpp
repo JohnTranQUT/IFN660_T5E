@@ -4,11 +4,11 @@
 #include "RuntimeLib.h"
 
 #define INC_AST
-#define AST
-#define ARITH
-#define ER_B1
-#define ER_B2
-#define ER
+//#define AST
+//#define ARITH
+//#define ER_B1
+//#define ER_B2
+//#define ER
 #define CG
 
 extern FILE *yyin;
