@@ -23,9 +23,9 @@ void StatementListItem::dump(int indent) {
 	}
 }
 
-void StatementListItem::genCode(bool OnlyPrimitive) {
+void StatementListItem::genCode(bool Exec) {
 	for (auto &i : next) {
-		i->genCode(OnlyPrimitive);
+		i->genCode(Exec);
 	}
 }
 
@@ -48,8 +48,8 @@ void StatementList::dump(int indent) {
 	}
 }
 
-void StatementList::genCode(bool OnlyPrimitive) {
-	if (!OnlyPrimitive) {
+void StatementList::genCode(bool Exec) {
+	if (Exec) {
 		if (lexs.size() == 0) {
 			Node::genCode("NewDeclarativeEnvironment(nullptr)", false, true);
 		}
@@ -57,10 +57,11 @@ void StatementList::genCode(bool OnlyPrimitive) {
 			auto lex = lexs.back();
 			Node::genCode(string("NewDeclarativeEnvironment(") + lex + string(")"), false, true);
 		}
+		Node::genCode("/* ---- Declaration Instantiation ---- */", false, false, false, true);
 		for (auto &i : nodes) {
 			if (auto _i = dynamic_cast<StatementListItem *>(i)) {
 				if (!_i->isStatement) {
-					_i->genCode(true);
+					_i->genCode(false);
 					auto lex = lexs.back();
 					auto ident = refs.back();
 					refs.pop_back();
@@ -68,11 +69,12 @@ void StatementList::genCode(bool OnlyPrimitive) {
 				}
 			}
 		}
+		Node::genCode("/* ---- Execution/Evaluation ---- */", false, false, false, true);
 	}
 	for (auto &i : nodes) {
-		i->genCode(OnlyPrimitive);
+		i->genCode(Exec);
 	}
-	if (!OnlyPrimitive) {
+	if (Exec) {
 		lexs.pop_back();
 	}
 }
@@ -89,9 +91,9 @@ void ScriptBody::dump(int indent) {
 	}
 }
 
-void ScriptBody::genCode(bool OnlyPrimitive) {
+void ScriptBody::genCode(bool Exec) {
 	for (auto &i : next) {
-		i->genCode(OnlyPrimitive);
+		i->genCode(Exec);
 	}
 }
 
@@ -107,11 +109,11 @@ void Script::dump(int indent) {
 	}
 }
 
-void Script::genCode(bool OnlyPrimitive) {
+void Script::genCode(bool Exec) {
 	Node::genCode("#include \"RuntimeLib.h\"", false ,false, false, true);
 	Node::genCode("void main() {", false, false, false, true);
 	for (auto &i : next) {
-		i->genCode(OnlyPrimitive);
+		i->genCode(Exec);
 	}
 	Node::genCode("}", false, false, false, true);
 }

@@ -11,7 +11,9 @@ void Node::dump(string message, int indent) {
 
 void Node::genCode(string code, bool saveRef, bool isLex, bool semicolon, bool pure) {
 	if (pure) {
+		puts("");
 		cout << code << (semicolon ? ";" : "") << endl;
+		puts("");
 	} else {
 		if (isLex) {
 			auto newLex = string("LE") + to_string(numLex++);
@@ -46,8 +48,8 @@ void Container::dump(int indent) {
 	}
 }
 
-void Container::genCode(bool OnlyPrimitive) {
+void Container::genCode(bool Exec) {
 	for (auto &i : next) {
-		i->genCode(OnlyPrimitive);
+		i->genCode(Exec);
 	}
 }

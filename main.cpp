@@ -110,7 +110,7 @@ void main(int argc, char *argv[]) {
 	
 	// ----- DECLARATION SCAN - END -----
 
-	// ----- EXECUTION - START -----
+	// ----- ExecUTION - START -----
 
 	// let BindingIdentifier
 	auto ER_B1_4 = new StringType("x");
@@ -125,7 +125,7 @@ void main(int argc, char *argv[]) {
 	
 	auto ER_B1_10 = SimpleAssignmentOperator(ER_B1_9, ER_B1_7); // AssignmentExpression : IdentifierReference = NumericLiteral
 
-	// ----- EXECUTION - END -----
+	// ----- ExecUTION - END -----
 
 	_listItemsInRecord(ER_B1_1->_getEnvRec());
 	puts("");
@@ -150,7 +150,7 @@ void main(int argc, char *argv[]) {
 
 	// ----- DECLARATION SCAN - END -----
 
-	// ----- EXECUTION - START -----
+	// ----- ExecUTION - START -----
 
 	auto ER_B2_4 = new NumberType(42); // Initializer : = NumericLiteral
 	
@@ -160,7 +160,7 @@ void main(int argc, char *argv[]) {
 
 	auto ER_B2_7 = InitializeReferencedBinding(ER_B2_6, ER_B2_4); // LexicalBinding : BindingIdentifier Initializer
 	
-	// ----- EXECUTION - END -----
+	// ----- ExecUTION - END -----
 
 	_listItemsInRecord(ER_B2_1->_getEnvRec());
 	puts("");
@@ -192,7 +192,7 @@ void main(int argc, char *argv[]) {
 
 	// ----- DECLARATION SCAN - END -----
 
-	// ----- EXECUTION - START -----
+	// ----- ExecUTION - START -----
 	
 	auto ER_6 = new NumberType(660); // Initializer : = NumericLiteral
 
@@ -218,7 +218,7 @@ void main(int argc, char *argv[]) {
 	auto ER_18 = ResolveBinding(ER_17, ER_1); // IdentifierReference : Identifier
 	auto ER_19 = SimpleAssignmentOperator(ER_18, ER_16); // AssignmentExpression : IdentifierReference = AdditiveExpression
 
-	// ----- EXECUTION - END -----
+	// ----- ExecUTION - END -----
 
 	_listItemsInRecord(ER_1->_getEnvRec());
 	puts("");

@@ -19,11 +19,11 @@ void LexicalBinding::dump(int indent) {
 	}
 }
 
-void LexicalBinding::genCode(bool OnlyPrimitive) {
+void LexicalBinding::genCode(bool Exec) {
 	for (auto &i : next) {
-		i->genCode(OnlyPrimitive);
+		i->genCode(Exec);
 	}
-	if (!OnlyPrimitive) {
+	if (Exec) {
 		if (next.size() > 1) {
 			auto ident = refs.back();
 			refs.pop_back();
@@ -58,9 +58,9 @@ void BindingList::dump(int indent) {
 	}
 }
 
-void BindingList::genCode(bool OnlyPrimitive) {
+void BindingList::genCode(bool Exec) {
 	for (auto &i : declarations) {
-		i->genCode(OnlyPrimitive);
+		i->genCode(Exec);
 	}
 }
 
@@ -76,8 +76,8 @@ void LexicalDeclaration::dump(int indent) {
 	}
 }
 
-void LexicalDeclaration::genCode(bool OnlyPrimitive) {
+void LexicalDeclaration::genCode(bool Exec) {
 	for (auto &i : next) {
-		i->genCode(OnlyPrimitive);
+		i->genCode(Exec);
 	}
 }
