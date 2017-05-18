@@ -9,5 +9,5 @@ public:
 	virtual Type* to_number() { return nullptr; };
 	friend string ToString(Type);
 	friend Type* ToPrimitive(Type*, string = "default");
-	friend Type* GetValue(Type* obj) { return obj; };
+	friend Type* GetValue(Type* obj);
 };

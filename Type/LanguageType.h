@@ -75,6 +75,11 @@ public:
 	virtual ~ObjectTypeProperty() {};
 };
 
+class Symbol : public LanguageType {
+public:
+	virtual ~Symbol();
+};
+
 class Object : public LanguageType {
 private:
 	map<LanguageType*, ObjectTypeProperty*> properties;
