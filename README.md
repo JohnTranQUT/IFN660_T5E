@@ -4,6 +4,7 @@
 Code Generation
 
 ## Project Logs
+- Implemented AST -> Addition, AST -> Subtraction
 - Implemented Register(`R`) and LexicalEnvironment(`LE`) routing
 - Implemented virtual method `AstNode::genCode(bool)` for code generation
 - Implemented `Reference` -> `InitializeReferencedBinding()`
