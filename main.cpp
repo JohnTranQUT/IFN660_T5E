@@ -107,7 +107,7 @@ void main(int argc, char *argv[]) {
 	// let BindingIdentifier
 	auto ER_B1_2 = new StringType("x");
 	auto ER_B1_3 = ER_B1_1->_getEnvRec()->CreateMutableBinding(ER_B1_2, new BooleanType(false)); // Block : BlockDeclarationInstantiation
-	
+
 	// ----- DECLARATION SCAN - END -----
 
 	// ----- ExecUTION - START -----
@@ -153,13 +153,13 @@ void main(int argc, char *argv[]) {
 	// ----- ExecUTION - START -----
 
 	auto ER_B2_4 = new NumberType(42); // Initializer : = NumericLiteral
-	
+
 	// let BindingIdentifier
 	auto ER_B2_5 = new StringType("x");
 	auto ER_B2_6 = ResolveBinding(ER_B2_5, ER_B2_1);
 
 	auto ER_B2_7 = InitializeReferencedBinding(ER_B2_6, ER_B2_4); // LexicalBinding : BindingIdentifier Initializer
-	
+
 	// ----- ExecUTION - END -----
 
 	_listItemsInRecord(ER_B2_1->_getEnvRec());

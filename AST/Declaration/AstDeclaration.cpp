@@ -2,11 +2,13 @@
 #include <AST/Declaration/AstDeclaration.h>
 using namespace std;
 
-LexicalBinding::LexicalBinding(Expression *_LHS) : LHS(_LHS), RHS(nullptr) {
+LexicalBinding::LexicalBinding(Expression *_LHS) : LHS(_LHS),
+                                                   RHS(nullptr) {
 	next.push_back(LHS);
 }
 
-LexicalBinding::LexicalBinding(Expression *_LHS, Expression *_RHS) : LHS(_LHS), RHS(_RHS) {
+LexicalBinding::LexicalBinding(Expression *_LHS, Expression *_RHS) : LHS(_LHS),
+                                                                     RHS(_RHS) {
 	next.push_back(RHS);
 	next.push_back(LHS);
 }
@@ -30,8 +32,7 @@ void LexicalBinding::genCode(bool Exec) {
 			auto initializer = refs.back();
 			refs.pop_back();
 			Node::genCode(string("InitializeReferencedBinding(") + ident + ", " + initializer + string(")"), false);
-		}
-		else {
+		} else {
 			auto ident = refs.back();
 			refs.pop_back();
 			Node::genCode(string("InitializeReferencedBinding(") + ident + ", " + "new UndefinedType()" + string(")"), false);

@@ -52,12 +52,10 @@ void StatementList::genCode(bool Exec) {
 	if (Exec) {
 		if (lexs.size() == 0) {
 			Node::genCode("NewDeclarativeEnvironment(nullptr)", false, true);
-		}
-		else {
+		} else {
 			auto lex = lexs.back();
 			Node::genCode(string("NewDeclarativeEnvironment(") + lex + string(")"), false, true);
 		}
-		Node::genCode("/* ---- Declaration Instantiation ---- */", false, false, false, true);
 		for (auto &i : nodes) {
 			if (auto _i = dynamic_cast<StatementListItem *>(i)) {
 				if (!_i->isStatement) {
@@ -69,7 +67,6 @@ void StatementList::genCode(bool Exec) {
 				}
 			}
 		}
-		Node::genCode("/* ---- Execution/Evaluation ---- */", false, false, false, true);
 	}
 	for (auto &i : nodes) {
 		i->genCode(Exec);
@@ -110,7 +107,7 @@ void Script::dump(int indent) {
 }
 
 void Script::genCode(bool Exec) {
-	Node::genCode("#include \"RuntimeLib.h\"", false ,false, false, true);
+	Node::genCode("#include \"RuntimeLib.h\"", false, false, false, true);
 	Node::genCode("void main() {", false, false, false, true);
 	for (auto &i : next) {
 		i->genCode(Exec);

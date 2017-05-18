@@ -19,8 +19,7 @@ void Node::genCode(string code, bool saveRef, bool isLex, bool semicolon, bool p
 			auto newLex = string("LE") + to_string(numLex++);
 			lexs.push_back(newLex);
 			cout << "\t" << "auto " << newLex << " = " << code << (semicolon ? ";" : "") << endl;
-		}
-		else {
+		} else {
 			auto newRef = string("R") + to_string(numRef++);
 			if (saveRef) {
 				refs.push_back(newRef);
@@ -29,7 +28,6 @@ void Node::genCode(string code, bool saveRef, bool isLex, bool semicolon, bool p
 		}
 	}
 }
-
 
 void Node::indentation(int indent) {
 	for (auto i = 0; i < indent; i++) {

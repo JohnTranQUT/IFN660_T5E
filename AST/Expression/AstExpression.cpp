@@ -304,8 +304,7 @@ void AdditiveExpression::genCode(bool Exec) {
 				auto rhs = refs.back();
 				refs.pop_back();
 				Node::genCode(string("AdditionOperator(" + lhs + ", " + rhs + ")"));
-			}
-			else if (OP == "-") {
+			} else if (OP == "-") {
 				auto lhs = refs.back();
 				refs.pop_back();
 				auto rhs = refs.back();
