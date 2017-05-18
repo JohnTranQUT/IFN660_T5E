@@ -1,26 +1,41 @@
-#define _CRT_SECURE_NO_DEPRECATE
-#include <cstdio>
-#include <js_type.h>
-#include <operator.h>
-//#include <parser.h>
+#include "RuntimeLib\RTlib.h"
+//#define TESTNUM 12
 
-//extern FILE *yyin;
-using namespace std;
+//using namespace std;
+
 
 void main(int argc, char *argv[]) {
-//	fopen_s(&yyin, argv[1], "r");
-//	yyparse();
-	addition(new String("Hello"), new NullType());
-	addition(new Number(50), new Boolean(false));
-	addition(new NullType(), new Number(20));
-	addition(new Boolean(true), new String("1000"));
-	addition(new String("20"), new Number(5));
-	addition(new Number(3.14), new String(""));
+	//double test[TESTNUM] = { 1, 10, -9, INFINITY, INFINITY, -INFINITY, -INFINITY, NAN, 1000, -2156, 0, -0 };
+	//for (int i = 0; i < TESTNUM-1; i++) {
+	//		auto temp = additiveOperator(new NumberType(test[i]), new NumberType(test[i+1]));
+	//		auto _temp = dynamic_cast<NumberType *>(temp);
+	//		puts(to_string(_temp->_getValue()).c_str());
+	//		puts(_temp->_getType().c_str());
+	//}
 
-	subtraction(new Number(50), new Boolean(false));
-	subtraction(new NullType(), new Number(20));
-	subtraction(new Boolean(true), new String("1000"));
-	subtraction(new String("20"), new Number(5));
-	subtraction(new Number(3.14), new String(""));
-	subtraction(new String("Hello"), new NullType());
+	/*
+	LexicalEnv = NewDeclarativeEnvironment(nullptr);
+	LexicalEnv->getEnvironmentRecord()->CreateMutableBinding(new Stringtype("x"), new BooleanType(False));
+	InitializeReferencedBinding(ResolveBinding(string("x"), LexicalEnv), new UndefinedType());
+	auto xref = ResolveBinding(new StringType("x"), LexicalEnv);
+	auto xvalue = new NumberType(42);
+	SimpleAssignmentOperator(xref, xvalue);
+	*/
+	LexicalEnvironment* globalenv = NewDeclarativeEnvironment(nullptr);
+	//let x;
+
+	//x = 42;
+	Type* e1 = ResolveBinding("x", globalenv);
+	Type* e2 = new NumberType(42);
+	Type* e3 = assignment(e1, e2);
+	//y = x + 2;
+	Type* e4 = ResolveBinding("x", globalenv);
+	Type* e5 = new NumberType(2);
+	Type* e6 = additiveOperator(e4, e5);
+	Type* e7 = ResolveBinding("y", globalenv);
+	Type* e8 = assignment(e7, e6);
+	// z=y
+	Type* e9 = ResolveBinding("y", globalenv);
+	Type* e10 = ResolveBinding("z", globalenv);
+	Type* e11 = assignment(e10, e9);
 }
