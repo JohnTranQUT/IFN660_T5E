@@ -4,7 +4,8 @@
 Code Generation
 
 ## Project Logs
-- Implemented virtual method `AstNode::genCode()` for code generation
+- Implemented Register(`R`) and LexicalEnvironment(`LE`) routing
+- Implemented virtual method `AstNode::genCode(bool)` for code generation
 - Implemented `Reference` -> `InitializeReferencedBinding()`
 - Tests for `LexicalEnvironment` and `EnvironmentRecord` are now available
 - Implemented `_listItemsInRecord()` under _Helpers/
