@@ -15,7 +15,6 @@ private:
 	Type * base;
 	string name;
 	bool strict;
-	LanguageType * RF;
 
 public:
 	string _getType() ;
@@ -27,7 +26,8 @@ public:
 	bool IsPropertyReference(Type *);
 	bool HasPrimitiveBase(Type *);
 	Type * GetBase();
-	LanguageType * GetReferenceName(Type *);
+	string GetReferenceName(Type *);
+	bool IsStrictReference(Type *);
 };
 
 Type * GetValue(Type * );

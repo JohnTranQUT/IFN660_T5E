@@ -9,10 +9,15 @@ Semantic Analysis
 - finish ToBoolean ToString ToNumber
 - text string+number, worked
 - simply finish assignmentoperator
-- finish resolvebinding()
-- finish parts of environmentrecordtype 
-- finish parts of lexicalenvironmenttype 
-- finish parts of referencetype
+- finish Resolvebinding()
+- finish environmentrecordtype 
+- finish lexicalenvironmenttype 
+- finish referencetype
 - testing main function
+- finish Getvalue
+- finish Putvalue
 
-program did not work well, still fixing.
+
+whole porgram worked
+
+	

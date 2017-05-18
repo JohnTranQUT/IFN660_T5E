@@ -33,12 +33,13 @@ Type * GetValue(Type * V)
 			cout << "base.[[Get]](GetReferencedName(V), GetThisValue(V))" << endl;
 		}
 	}
-	/*else
+	else
 	{
 		auto base = dynamic_cast<EnviRecordType *>(V);
-		return base->GetBindingValue(GetReferencedName(V), IsStrictReference(V));
-	}	*/
-	return V;
+		auto RFname = _V->GetReferenceName(_V);
+		auto flag = _V->IsStrictReference(_V);
+		return base->GetBindingValue(RFname, flag);
+	}	
 }
 
 Type * PutValue(Type * V, Type * W)
@@ -49,33 +50,39 @@ Type * PutValue(Type * V, Type * W)
 		cout << "ReferenceError" << endl;
 	}
 	auto _V = dynamic_cast<ReferenceType *>(V);
-	auto base = _V->GetBase();
+	auto _base = _V->GetBase();
 	if (_V->IsUnresolvableReference(_V) == true)
 	{
-		/*a.If IsStrictReference(V) is true, theni.Throw a ReferenceError exception.
-		b.Let globalObj be GetGlobalObject().
-		c.Return ? Set(globalObj, GetReferencedName(V), W, false).*/
-		exit(0);
+		if (_V->IsStrictReference(_V) == true)
+		{
+			cout << "ReferenceError" << endl;
+		}
+		/*	else
+		{
+			b.Let globalObj be GetGlobalObject().
+			c.Return ? Set(globalObj, GetReferencedName(V), W, false).* /
+			exit(0);
+		}	*/
 	}
 	else if (_V->IsPropertyReference(_V) == true)
 	{
 		if (_V->HasPrimitiveBase(_V) == true)
 		{
-			cout << "In this case, base will never be null or undefined." << endl;
-			exit(0);
+			auto base = ToObject(_base);
 		}
 		else
 		{
 			/*b.Let succeeded be ? base.[[Set]](GetReferencedName(V), W, GetThisValue(V)).
 			c.If succeeded is false and IsStrictReference(V) is true, throw a TypeError exception.
 			d.Return.	*/
-			exit(0);
 		}
 	}
 	else
 	{
-		auto newbase = dynamic_cast<EnviRecordType *>(_V->GetBase());
-		cout << "Return ? base.SetMutableBinding(GetReferencedName(V), W, IsStrictReference(V))" << endl;
+		auto base = dynamic_cast<EnviRecordType *>(_base);
+		auto RFname = _V->GetReferenceName(_V);
+		auto flag = _V->IsStrictReference(_V);
+		return base->SetMutableBinding(RFname, W, flag);
 	}
 }
 
@@ -85,13 +92,10 @@ Type * InitializeReferencedBinding(Type * V, Type * W)
 	ReturnIfAbrupt(V);
 	ReturnIfAbrupt(W);
 	auto _V = dynamic_cast<ReferenceType *>(V);
-	auto newbase = _V->GetBase();
-	auto _base = dynamic_cast<EnviRecordType *>(newbase);
-	auto newV = _V->GetReferenceName(_V);
-	cout << "1" << endl;
-	string newstringV = ToString(newV);
-	cout << newstringV << endl;
-	return _base->InitializeBinding(newstringV, ToLanguageType(W));
+	auto _base = _V->GetBase();
+	auto newbase = dynamic_cast<EnviRecordType *>(_base);
+	auto RFname = _V->GetReferenceName(_V);
+	return newbase->InitializeBinding(RFname, ToLanguage(W));
 	
 }
 
@@ -105,9 +109,14 @@ Type * ReferenceType :: GetBase()
 	return base;
 }
 
-LanguageType * ReferenceType::GetReferenceName(Type *)
+string ReferenceType::GetReferenceName(Type *)
 {
-	return RF;
+	return name;
+}
+
+bool ReferenceType::IsStrictReference(Type *)
+{
+	return strict;
 }
 
 bool ReferenceType::IsUnresolvableReference(Type * V)

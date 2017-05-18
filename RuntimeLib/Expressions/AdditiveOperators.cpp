@@ -5,9 +5,9 @@
 
 //Evaluation Functions
 
-LanguageType* additiveOperator(Type* lref, Type* rref) {
-	auto lval = ToLanguageType(GetValue(lref));
-	auto rval = ToLanguageType(GetValue(rref));
+LanguageType* AdditiveOperator(Type* lref, Type* rref) {
+	auto lval = ToLanguage(GetValue(lref));
+	auto rval = ToLanguage(GetValue(rref));
 	auto lprim = ToPrimative(lval);
 	auto rprim = ToPrimative(rval);
 	if (dynamic_cast<StringType *>(lprim) || dynamic_cast<StringType *>(rprim)) {
@@ -15,16 +15,16 @@ LanguageType* additiveOperator(Type* lref, Type* rref) {
 		string rstr = ToString(rprim);
 		return new StringType(lstr + rstr);
 	}
-	auto lnum = ToNumber(lprim)->_getValue();
-	auto rnum = ToNumber(rprim)->_getValue();
+	auto lnum = ToNumber(lprim);
+	auto rnum = ToNumber(rprim);
 	return new NumberType(lnum + rnum);
 }
 
 LanguageType* subtractiveOperator(LanguageType* lref, LanguageType* rref) {
-	auto lval = ToLanguageType(GetValue(lref));;
-	auto rval = ToLanguageType(GetValue(rref));
-	auto lnum = ToNumber(lval)->_getValue();
-	auto rnum = ToNumber(rval)->_getValue();
+	auto lval = ToLanguage(GetValue(lref));;
+	auto rval = ToLanguage(GetValue(rref));
+	auto lnum = ToNumber(lval);
+	auto rnum = ToNumber(rval);
 	return new NumberType(lnum - rnum);
 }
 
@@ -76,23 +76,23 @@ string ToString(LanguageType* V) {
 
 }
 
-NumberType* ToNumber(LanguageType* V) {
+double ToNumber(LanguageType* V) {
 	if (auto _V = dynamic_cast<UndefinedType *>(V))
-		return new NumberType(NAN);
+		return NAN;
 	if (auto _V = dynamic_cast<NullType *>(V))
-		return new NumberType(0);
+		return 0;
 	if (auto _V = dynamic_cast<BooleanType *>(V))
 		if (_V->_getValue() == true)
-			return new NumberType(1);
+			return 1;
 		else
-			return new NumberType(0);
+			return 0;
 	if (auto _V = dynamic_cast<NumberType *>(V))
-		return _V;
+		return _V->_getValue();
 	if (auto _V = dynamic_cast<StringType *>(V))
 		try{
-			return new NumberType(stod(_V->_getValue()));
+			return stod(_V->_getValue());
 		} catch (const invalid_argument) {
-			return new NumberType(NAN);
+			return NAN;
 		}
 	if (auto _V = dynamic_cast<SymbolType *>(V))
 	std::puts("TypeError");

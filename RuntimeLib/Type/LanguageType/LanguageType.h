@@ -9,7 +9,7 @@ class LanguageType : public Type{
 public:
 	virtual ~LanguageType() {};
 	string _getType() override;
-	friend LanguageType * ToLanguageType(Type *);
+	friend LanguageType * ToLanguage(Type *);
 };
 
 //Functions for Language LanguageTyped LanguageTypes(or values)

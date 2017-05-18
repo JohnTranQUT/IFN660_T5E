@@ -12,11 +12,11 @@ using namespace std;
 class EnviRecordType : public SpecificationType {
 public:
 	map<string, Type * > ER;
-	Type * value = nullptr;
 	bool HasBinding(string);
 	Type * CreateMutableBinding(string, bool);
 	Type * InitializeBinding(string, LanguageType *);
-	string GetBindingValue(string, bool);
+	Type * GetBindingValue(string, bool);
+	Type * SetMutableBinding(string, Type *, bool);
 };
 
 class DeclEnviRecordType : public EnviRecordType {

@@ -7,7 +7,7 @@ string LanguageType::_getType() {
 	return "undefined";
 }
 
-LanguageType *ToLanguageType(Type * argu)
+LanguageType *ToLanguage(Type * argu)
 {
 	auto _argu = dynamic_cast<LanguageType *>(argu);
 	return _argu;

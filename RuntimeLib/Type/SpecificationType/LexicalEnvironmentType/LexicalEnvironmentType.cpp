@@ -27,7 +27,7 @@ Type * GetIdentRefe(LexiEnviType * lex, string name, bool strict)
 	}
 }
 
-LexiEnviType * NewDeclEnvi(LexiEnviType * E= nullptr)
+LexiEnviType * NewDeclEnvi(LexiEnviType * E)
 {
 	auto envRecord = new DeclEnviRecordType();
 	auto env = new LexiEnviType(envRecord , E);

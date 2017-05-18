@@ -29,15 +29,10 @@ void main(int argc, char *argv[]) {
 	auto LexEnv = NewDeclEnvi(nullptr); 
 		LexEnv->getER()->CreateMutableBinding("x", false);
 		LexEnv->getER()->CreateMutableBinding("y", false);
-		cout << "2" << endl;
-		ResolveBinding("x", LexEnv);
-	auto xvalue = InitializeReferencedBinding(ResolveBinding("x", LexEnv), new NumberType(42));
-		InitializeReferencedBinding(ResolveBinding("y", LexEnv), new UndefinedType("")); 
-	auto yref = ResolveBinding("y", LexEnv); 
-	auto yleft = ResolveBinding("x", LexEnv);
-	auto y = additiveOperator(yleft, new NumberType(1));
-	AssignmentOperator(yref, y); 
-	auto _temp = dynamic_cast<StringType *>(y);
-	string newtemp = _temp->_getValue();
-	cout << newtemp << endl;
+	auto xvalue = InitializeReferencedBinding(ResolveBinding("x", LexEnv), new StringType("20"));
+	auto yvalue = InitializeReferencedBinding(ResolveBinding("y", LexEnv), new UndefinedType("")); 
+	auto yright = AdditiveOperator(xvalue, new NumberType(17));
+	auto y = AssignmentOperator(yvalue, yright);
+	auto value = ToNumber(ToLanguage(y));
+	cout << value << endl;
 }
