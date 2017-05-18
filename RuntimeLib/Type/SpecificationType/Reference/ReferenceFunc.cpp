@@ -16,7 +16,7 @@ LanguageType* GetValue(Type* V) {
 			if (!dynamic_cast<UndefinedType *>(base) && !!dynamic_cast<NullType *>(base))
 				true;//WIP base ToObject(base); // Return base in object form?!?!?
 		}
-		return base;//->.Get(GetReferenceName(V),GetThisValue(V)) //UNSURE OF THE THIS METHOD. Recursively return the object within the object for property types?
+		return dynamic_cast<LanguageType*>(base);//->.Get(GetReferenceName(V),GetThisValue(V)) //UNSURE OF THE THIS METHOD. Recursively return the object within the object for property types?
 	}else{
 		auto _base = dynamic_cast<EnvironmentRecord *>(base);
 		auto _GetReferenceName = dynamic_cast<StringType *>(_V->GetReferenceName());

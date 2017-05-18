@@ -2,7 +2,7 @@
 
 using namespace std;
 
-LanguageType* Reference::GetBase() const {
+Type* Reference::GetBase() const {
 	return _base;
 }
 

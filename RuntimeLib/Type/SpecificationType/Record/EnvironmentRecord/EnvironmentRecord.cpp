@@ -1,11 +1,13 @@
 #include <RuntimeLib\Type\SpecificationType\Record\EnvironmentRecord\EnvironmentRecord.h>
 
-CompletionRecord* EnvironmentRecord::SetMutableBinding(StringType * N, LanguageType * V, BooleanType * S){
+CompletionRecord* EnvironmentRecord::SetMutableBinding(StringType* N, LanguageType* V, BooleanType* S){
 	if (S->_getValue()) {
 		puts("TypeError");
 		exit(0);
 	}
 	//Perform Binding
+	auto envRec = this;
+	_setValue(N, V);
 	return NormalCompletion(nullptr);
 }
 LanguageType* EnvironmentRecord::GetBindingValue(StringType* N, BooleanType* S) {
@@ -18,7 +20,7 @@ LanguageType* EnvironmentRecord::GetBindingValue(StringType* N, BooleanType* S) 
 	//If S is false, return the value undefined; otherwise throw a ReferenceError exception.
 	//Return ? Get(bindings, N).
 
-	auto envRec = this;
+	//auto envRec = this;
 	//auto bindings = bindingObject;
 	//auto value = HasProperty(binding, N);
 	//if (!value->_getValue()){
@@ -30,7 +32,16 @@ LanguageType* EnvironmentRecord::GetBindingValue(StringType* N, BooleanType* S) 
 	//	}
 	//}
 	//return Get(bindings, N);
-	return new UndefinedType();
+	if (!_hasValue(N)->_getValue()) {
+		if (!S->_getValue())
+			return new UndefinedType();
+		else {
+			puts("ReferenceError");
+			exit(0);
+		}
+	}
+
+	return dynamic_cast<LanguageType*>(_getValue2(N));
 }
 
 CompletionRecord * EnvironmentRecord::InitializeBinding(StringType * N, Type * V)

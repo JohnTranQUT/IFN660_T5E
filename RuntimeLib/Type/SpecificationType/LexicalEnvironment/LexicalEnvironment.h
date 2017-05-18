@@ -4,9 +4,10 @@
 
 
 class LexicalEnvironment : public SpecificationType {
-
+	LexicalEnvironment* _outer;
+	EnvironmentRecord* env;
 public :
-	LexicalEnvironment() {};
+	LexicalEnvironment(LexicalEnvironment* outer = nullptr): _outer(outer) {};
 };
 
 LexicalEnvironment* NewDeclarativeEnvironment(LexicalEnvironment* E);

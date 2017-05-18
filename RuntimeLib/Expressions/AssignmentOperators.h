@@ -3,6 +3,6 @@
 #include <RuntimeLib\Type\SpecificationType\Reference\ReferenceFunc.h>
 #include <string>
 
-LanguageType* Evaluation(Type* lref, LanguageType* rref);
+LanguageType* Assignment(Type* lref, LanguageType* rref);
 bool IsAnonymousFunctionDefinition();
 bool HasOwnProperty(LanguageType * O, string P);

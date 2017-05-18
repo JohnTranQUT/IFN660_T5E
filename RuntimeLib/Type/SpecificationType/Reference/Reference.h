@@ -12,14 +12,14 @@
 using namespace std;
 
 class Reference : public SpecificationType {
-	LanguageType* _base; //Works with all except Null Type
+	Type* _base; //Works with all except Null Type
 	LanguageType* _reference_name;//Only works with StringType and SymbolType
 	BooleanType* _strict_reference;
 	Reference* _thisValue;
 public:
-	explicit Reference(LanguageType* base, LanguageType* reference_name, BooleanType* strict_reference, Reference* thisValue)
+	explicit Reference(Type* base, LanguageType* reference_name, BooleanType* strict_reference, Reference* thisValue)
 		: _base(base), _reference_name(reference_name), _strict_reference(strict_reference), _thisValue(thisValue) { };
-	LanguageType* GetBase() const;
+	Type* GetBase() const;
 	LanguageType* GetReferenceName() const;
 	BooleanType* IsStrictReference() const;
 	BooleanType* HasPrimitiveBase() const;

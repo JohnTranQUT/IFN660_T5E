@@ -17,29 +17,31 @@ void outputToScreenType(LanguageType* temp) {
 
 void main(int argc, char *argv[]) {
 	/* ADDITION TESTING */
-	auto temp = AdditiveOperator(new NumberType(1), new NumberType(2));
+	auto temp = Additive(new NumberType(1), new NumberType(2));
 	outputToScreenType(temp);
-	temp = AdditiveOperator(new StringType("hi"), new NumberType(2));
+	temp = Additive(new StringType("hi"), new NumberType(2));
 	outputToScreenType(temp);
-	temp = AdditiveOperator(new NumberType(3), new StringType("hi"));
+	temp = Additive(new NumberType(3), new StringType("hi"));
 	outputToScreenType(temp);
-	temp = AdditiveOperator(new StringType("hi"), new StringType("john"));
+	temp = Additive(new StringType("hi"), new StringType("john"));
 	outputToScreenType(temp);
-	temp = SubtractiveOperator(new NumberType(1), new NumberType(2));
+	temp = Subtractive(new NumberType(1), new NumberType(2));
 	outputToScreenType(temp);
-	temp = SubtractiveOperator(new StringType("g0"), new StringType("ao"));
+	temp = Subtractive(new StringType("g0"), new StringType("ao"));
 	outputToScreenType(temp);
 
 	/* FOR TESTING*/
 
 	//Type* e1 = ResolveName("x", env);
-	auto e1 = new Reference(new UndefinedType(), new StringType("x"), new BooleanType(false), nullptr);
+	auto temp2 = new EnvironmentRecord();
+	auto e1 = new Reference(temp2, new StringType("x"), new BooleanType(false), nullptr);
 	auto e2 = new NumberType(42);
-	auto e3 = Evaluation(e1, e2);
-	auto e4 = new Reference(new UndefinedType(), new StringType("y"), new BooleanType(false), nullptr);
-	auto e5 = AdditiveOperator(e4, e2);
-	auto e6 = Evaluation(e4, e2);
-	outputToScreenType(e6);
+	auto e3 = Assignment(e1, e2);
+	auto e4 = new Reference(temp2, new StringType("y"), new BooleanType(false), nullptr);
+	auto e0 = new NumberType(1);
+	auto e5 = Additive(e1, e0);
+	auto e6 = Assignment(e4, e5);
+	outputToScreenType(GetValue(e4));
 
 	/* Real Code
 	** let x;
