@@ -1,28 +1,21 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <limits>
 #include <parser.h>
-#include <RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h>
-#include <RuntimeLib/Types/LanguageTypes/NullType/NullType.h>
-#include <RuntimeLib/Types/LanguageTypes/ObjectType/Objects/ObjectConstructor.h>
-#include <RuntimeLib/Evaluations/Expression/AssignmentOperators/AssignmentOperators.h>
-#include <RuntimeLib/Evaluations/Expression/AdditiveOperators/AdditiveOperators.h>
-#include <RuntimeLib/ExecutionContexts/ExecutionContexts.h>
-#include <RuntimeLib/Types/SpecificationTypes/LexicalEnvironment/LexicalEnvironmentFunc.h>
-#include <RuntimeLib/Types/SpecificationTypes/Reference/ReferenceFunc.h>
-#include <RuntimeLib/_Helpers/_Helpers.h>
+#include "RuntimeLib.h"
 
 #define INC_AST
-//#define AST
-//#define ARITH
-//#define ER_B1
-//#define ER_B2
-//#define ER
+#define AST
+#define ARITH
+#define ER_B1
+#define ER_B2
+#define ER
 #define CG
 
 extern FILE *yyin;
 extern Node *root;
 
 int Node::numRef = 1;
+int Node::numLex = 1;
 vector<string> Node::refs;
 vector<string> Node::lexs;
 
