@@ -9,14 +9,23 @@ void Node::dump(string message, int indent) {
 	cout << message << endl;
 }
 
-void Node::genCode(string code, bool isLex) {
-	auto newRef = string("L") + to_string(numRef++);
-	if (isLex) {
-		lexs.push_back(newRef);
+void Node::genCode(string code, bool saveRef, bool isLex, bool semicolon, bool pure) {
+	if (pure) {
+		cout << code << (semicolon ? ";" : "") << endl;
 	} else {
-		refs.push_back(newRef);
+		if (isLex) {
+			auto newLex = string("LE") + to_string(numLex++);
+			lexs.push_back(newLex);
+			cout << "\t" << "auto " << newLex << " = " << code << (semicolon ? ";" : "") << endl;
+		}
+		else {
+			auto newRef = string("R") + to_string(numRef++);
+			if (saveRef) {
+				refs.push_back(newRef);
+			}
+			cout << "\t" << "auto " << newRef << " = " << code << (semicolon ? ";" : "") << endl;
+		}
 	}
-	cout << "auto " << newRef << " = " << code << endl;
 }
 
 
@@ -37,8 +46,8 @@ void Container::dump(int indent) {
 	}
 }
 
-void Container::genCode() {
+void Container::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }

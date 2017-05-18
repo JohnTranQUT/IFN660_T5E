@@ -17,9 +17,9 @@ void BlockStatement::dump(int indent) {
 	}
 }
 
-void BlockStatement::genCode() {
+void BlockStatement::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -35,9 +35,9 @@ void Block::dump(int indent) {
 	}
 }
 
-void Block::genCode() {
+void Block::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -53,9 +53,9 @@ void ExpressionStatement::dump(int indent) {
 	}
 }
 
-void ExpressionStatement::genCode() {
+void ExpressionStatement::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -88,8 +88,8 @@ void IfStatement::dump(int indent) {
 	}
 }
 
-void IfStatement::genCode() {
+void IfStatement::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }

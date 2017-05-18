@@ -7,7 +7,7 @@ class Declaration : public Node {
 public:
 	virtual ~Declaration() = default;
 	void dump(int = 0) override = 0;
-	void genCode() override = 0;
+	void genCode(bool = false) override = 0;
 };
 
 class LexicalBinding : public Declaration {
@@ -18,7 +18,7 @@ public:
 	explicit LexicalBinding(Expression *);
 	explicit LexicalBinding(Expression *, Expression *);
 	void dump(int = 0) override;
-	void genCode() override;
+	void genCode(bool = false) override;
 };
 
 class BindingList : public Declaration {
@@ -28,7 +28,7 @@ public:
 	explicit BindingList(Declaration *);
 	explicit BindingList(BindingList *, Declaration *);
 	void dump(int = 0) override;
-	void genCode() override;
+	void genCode(bool = false) override;
 };
 
 class LexicalDeclaration : public Declaration {
@@ -37,5 +37,5 @@ class LexicalDeclaration : public Declaration {
 public:
 	explicit LexicalDeclaration(BindingList *);
 	void dump(int = 0) override;
-	void genCode() override;
+	void genCode(bool = false) override;
 };

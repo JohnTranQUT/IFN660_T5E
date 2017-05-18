@@ -19,20 +19,23 @@ void LexicalBinding::dump(int indent) {
 	}
 }
 
-void LexicalBinding::genCode() {
+void LexicalBinding::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
-	if (next.size() > 1) {
-		auto ident = refs.back();
-		refs.pop_back();
-		auto initializer = refs.back();
-		refs.pop_back();
-		Node::genCode(string("InitializeReferencedBinding(") + ident + ", " + initializer + string(")"));
-	} else {
-		auto ident = refs.back();
-		refs.pop_back();
-		Node::genCode(string("InitializeReferencedBinding(") + ident + ", " + "new UndefinedType()" + string(")"));
+	if (!OnlyPrimitive) {
+		if (next.size() > 1) {
+			auto ident = refs.back();
+			refs.pop_back();
+			auto initializer = refs.back();
+			refs.pop_back();
+			Node::genCode(string("InitializeReferencedBinding(") + ident + ", " + initializer + string(")"), false);
+		}
+		else {
+			auto ident = refs.back();
+			refs.pop_back();
+			Node::genCode(string("InitializeReferencedBinding(") + ident + ", " + "new UndefinedType()" + string(")"), false);
+		}
 	}
 }
 
@@ -55,9 +58,9 @@ void BindingList::dump(int indent) {
 	}
 }
 
-void BindingList::genCode() {
+void BindingList::genCode(bool OnlyPrimitive) {
 	for (auto &i : declarations) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -73,8 +76,8 @@ void LexicalDeclaration::dump(int indent) {
 	}
 }
 
-void LexicalDeclaration::genCode() {
+void LexicalDeclaration::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }

@@ -11,7 +11,8 @@ class StatementListItem : public Node {
 public:
 	explicit StatementListItem(Node *);
 	void dump(int = 0) override;
-	void genCode() override;
+	void genCode(bool = false) override;
+	bool isStatement;
 };
 
 class StatementList : public Node {
@@ -21,7 +22,7 @@ public:
 	explicit StatementList(Node *);
 	explicit StatementList(StatementList *, Node *);
 	void dump(int = 0) override;
-	void genCode() override;
+	void genCode(bool = false) override;
 };
 
 class StatementList_opt : public Node { };
@@ -32,7 +33,7 @@ class ScriptBody : public Node {
 public:
 	explicit ScriptBody(StatementList *);
 	void dump(int = 0) override;
-	void genCode() override;
+	void genCode(bool = false) override;
 };
 
 class ScriptBody_opt : public Node { };
@@ -43,5 +44,5 @@ class Script : public Node {
 public:
 	explicit Script(Node *);
 	void dump(int = 0) override;
-	void genCode() override;
+	void genCode(bool = false) override;
 };

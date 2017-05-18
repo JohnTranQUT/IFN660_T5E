@@ -7,6 +7,11 @@
 using namespace std;
 
 StatementListItem::StatementListItem(Node *_node) : node(_node) {
+	if (dynamic_cast<Statement *>(node)) {
+		isStatement = true;
+	} else {
+		isStatement = false;
+	}
 	next.push_back(node);
 }
 
@@ -18,9 +23,9 @@ void StatementListItem::dump(int indent) {
 	}
 }
 
-void StatementListItem::genCode() {
+void StatementListItem::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -43,12 +48,33 @@ void StatementList::dump(int indent) {
 	}
 }
 
-void StatementList::genCode() {
-	Node::genCode("NewDeclarativeEnvironment(nullptr)", true);
-	for (auto &i : nodes) {
-		i->genCode();
+void StatementList::genCode(bool OnlyPrimitive) {
+	if (!OnlyPrimitive) {
+		if (lexs.size() == 0) {
+			Node::genCode("NewDeclarativeEnvironment(nullptr)", false, true);
+		}
+		else {
+			auto lex = lexs.back();
+			Node::genCode(string("NewDeclarativeEnvironment(") + lex + string(")"), false, true);
+		}
+		for (auto &i : nodes) {
+			if (auto _i = dynamic_cast<StatementListItem *>(i)) {
+				if (!_i->isStatement) {
+					_i->genCode(true);
+					auto lex = lexs.back();
+					auto ident = refs.back();
+					refs.pop_back();
+					Node::genCode(lex + string("->_getEnvRec()->CreateMutableBinding(" + ident + ", new BooleanType(false))"), false);
+				}
+			}
+		}
 	}
-	lexs.pop_back();
+	for (auto &i : nodes) {
+		i->genCode(OnlyPrimitive);
+	}
+	if (!OnlyPrimitive) {
+		lexs.pop_back();
+	}
 }
 
 ScriptBody::ScriptBody(StatementList *_statementlist) : statementlist(_statementlist) {
@@ -63,9 +89,9 @@ void ScriptBody::dump(int indent) {
 	}
 }
 
-void ScriptBody::genCode() {
+void ScriptBody::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -81,8 +107,11 @@ void Script::dump(int indent) {
 	}
 }
 
-void Script::genCode() {
+void Script::genCode(bool OnlyPrimitive) {
+	Node::genCode("#include \"RuntimeLib.h\"", false ,false, false, true);
+	Node::genCode("void main() {", false, false, false, true);
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
+	Node::genCode("}", false, false, false, true);
 }

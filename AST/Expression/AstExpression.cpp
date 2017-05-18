@@ -10,9 +10,8 @@ void IdentifierName::dump(int indent) {
 	Node::dump(message, indent);
 }
 
-void IdentifierName::genCode() {
-	Node::genCode(string("new StringType(") + LHS + string(");"));
-	;
+void IdentifierName::genCode(bool OnlyPrimitive) {
+	Node::genCode(string("new StringType(\"") + LHS + string("\");"));
 }
 
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
@@ -22,9 +21,8 @@ void DecimalLiteral::dump(int indent) {
 	Node::dump(message, indent);
 }
 
-void DecimalLiteral::genCode() {
+void DecimalLiteral::genCode(bool OnlyPrimitive) {
 	Node::genCode(string("new NumberType(") + to_string(LHS) + string(");"));
-	;
 }
 
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
@@ -39,14 +37,16 @@ void Identifier::dump(int indent) {
 	}
 }
 
-void Identifier::genCode() {
+void Identifier::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
-	auto ident = refs.back();
-	refs.pop_back();
+	if (!OnlyPrimitive) {
+		auto ident = refs.back();
+		refs.pop_back();
 
-	Node::genCode(string("ResolveBinding(") + ident + ", " + lexs.back() + string(")"));
+		Node::genCode(string("ResolveBinding(") + ident + ", " + lexs.back() + string(")"));
+	}
 }
 
 NumericLiteral::NumericLiteral(Expression *_LHS) : LHS(_LHS) {
@@ -61,9 +61,9 @@ void NumericLiteral::dump(int indent) {
 	}
 }
 
-void NumericLiteral::genCode() {
+void NumericLiteral::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -79,9 +79,9 @@ void Literal::dump(int indent) {
 	}
 }
 
-void Literal::genCode() {
+void Literal::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -97,9 +97,9 @@ void IdentifierReference::dump(int indent) {
 	}
 }
 
-void IdentifierReference::genCode() {
+void IdentifierReference::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -115,9 +115,9 @@ void BindingIdentifier::dump(int indent) {
 	}
 }
 
-void BindingIdentifier::genCode() {
+void BindingIdentifier::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -133,9 +133,9 @@ void PrimaryExpression::dump(int indent) {
 	}
 }
 
-void PrimaryExpression::genCode() {
+void PrimaryExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -151,9 +151,9 @@ void MemberExpression::dump(int indent) {
 	}
 }
 
-void MemberExpression::genCode() {
+void MemberExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -169,9 +169,9 @@ void NewExpression::dump(int indent) {
 	}
 }
 
-void NewExpression::genCode() {
+void NewExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -187,9 +187,9 @@ void LeftHandSideExpression::dump(int indent) {
 	}
 }
 
-void LeftHandSideExpression::genCode() {
+void LeftHandSideExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -205,9 +205,9 @@ void UpdateExpression::dump(int indent) {
 	}
 }
 
-void UpdateExpression::genCode() {
+void UpdateExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -223,9 +223,9 @@ void UnaryExpression::dump(int indent) {
 	}
 }
 
-void UnaryExpression::genCode() {
+void UnaryExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -241,9 +241,9 @@ void ExponentiationExpression::dump(int indent) {
 	}
 }
 
-void ExponentiationExpression::genCode() {
+void ExponentiationExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -259,9 +259,9 @@ void MultiplicativeExpression::dump(int indent) {
 	}
 }
 
-void MultiplicativeExpression::genCode() {
+void MultiplicativeExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -277,9 +277,9 @@ void AdditiveExpression::dump(int indent) {
 	}
 }
 
-void AdditiveExpression::genCode() {
+void AdditiveExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -295,9 +295,9 @@ void ShiftExpression::dump(int indent) {
 	}
 }
 
-void ShiftExpression::genCode() {
+void ShiftExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -323,9 +323,9 @@ void RelationalExpression::dump(int indent) {
 	}
 }
 
-void RelationalExpression::genCode() {
+void RelationalExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -351,9 +351,9 @@ void EqualityExpression::dump(int indent) {
 	}
 }
 
-void EqualityExpression::genCode() {
+void EqualityExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -369,9 +369,9 @@ void BitwiseANDExpression::dump(int indent) {
 	}
 }
 
-void BitwiseANDExpression::genCode() {
+void BitwiseANDExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -387,9 +387,9 @@ void BitwiseXORExpression::dump(int indent) {
 	}
 }
 
-void BitwiseXORExpression::genCode() {
+void BitwiseXORExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -405,9 +405,9 @@ void BitwiseORExpression::dump(int indent) {
 	}
 }
 
-void BitwiseORExpression::genCode() {
+void BitwiseORExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -423,9 +423,9 @@ void LogicalANDExpression::dump(int indent) {
 	}
 }
 
-void LogicalANDExpression::genCode() {
+void LogicalANDExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -441,9 +441,9 @@ void LogicalORExpression::dump(int indent) {
 	}
 }
 
-void LogicalORExpression::genCode() {
+void LogicalORExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -459,9 +459,9 @@ void ConditionalExpression::dump(int indent) {
 	}
 }
 
-void ConditionalExpression::genCode() {
+void ConditionalExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
 
@@ -484,16 +484,18 @@ void AssignmentExpression::dump(int indent) {
 	}
 }
 
-void AssignmentExpression::genCode() {
+void AssignmentExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
-	if (next.size() > 1) {
-		auto lhs = refs.back();
-		refs.pop_back();
-		auto rhs = refs.back();
-		refs.pop_back();
-		Node::genCode(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(")"));
+	if (!OnlyPrimitive) {
+		if (next.size() > 1) {
+			auto lhs = refs.back();
+			refs.pop_back();
+			auto rhs = refs.back();
+			refs.pop_back();
+			Node::genCode(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(")"), false);
+		}
 	}
 }
 
@@ -511,8 +513,8 @@ void Initializer::dump(int indent) {
 	}
 }
 
-void Initializer::genCode() {
+void Initializer::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
-		i->genCode();
+		i->genCode(OnlyPrimitive);
 	}
 }
