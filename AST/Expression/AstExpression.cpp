@@ -292,13 +292,22 @@ void AdditiveExpression::genCode(bool OnlyPrimitive) {
 	for (auto &i : next) {
 		i->genCode(OnlyPrimitive);
 	}
-	if (next.size() > 1) {
-		if (OP == "+") {
-			auto lhs = refs.back();
-			refs.pop_back();
-			auto rhs = refs.back();
-			refs.pop_back();
-			Node::genCode(string("AdditionOperator(" + lhs + ", " + rhs + ")"));
+	if (!OnlyPrimitive) {
+		if (next.size() > 1) {
+			if (OP == "+") {
+				auto lhs = refs.back();
+				refs.pop_back();
+				auto rhs = refs.back();
+				refs.pop_back();
+				Node::genCode(string("AdditionOperator(" + lhs + ", " + rhs + ")"));
+			}
+			else if (OP == "-") {
+				auto lhs = refs.back();
+				refs.pop_back();
+				auto rhs = refs.back();
+				refs.pop_back();
+				Node::genCode(string("SubtractionOperator(" + lhs + ", " + rhs + ")"));
+			}
 		}
 	}
 }

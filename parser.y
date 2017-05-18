@@ -388,7 +388,7 @@ ShiftExpression
 AdditiveExpression
 	: MultiplicativeExpression													{ $$ = new AdditiveExpression($1); }
 	| AdditiveExpression '+' MultiplicativeExpression							{ $$ = new AdditiveExpression($1, "+", $3); }
-	| AdditiveExpression '-' MultiplicativeExpression
+	| AdditiveExpression '-' MultiplicativeExpression							{ $$ = new AdditiveExpression($1, "-", $3); }
 	;
 
 /* Level 15 */
