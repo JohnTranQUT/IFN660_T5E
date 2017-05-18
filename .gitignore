@@ -15,3 +15,5 @@ parser.cpp
 parser.h
 test.js
 y.tab.h
+/.vs/
+/.gitignore

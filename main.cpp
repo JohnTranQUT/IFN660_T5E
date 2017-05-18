@@ -1,25 +1,25 @@
-#include <cstdio>
-#include <RuntimeLib\Type\BooleanType\BooleanType.h>
-#include <RuntimeLib\Type\NullType\NullType.h>
-#include <RuntimeLib\Type\NumberType\NumberType.h>
-#include <RuntimeLib\Type\ObjectType\ObjectType.h>
-#include <RuntimeLib\Type\StringType\StringType.h>
-#include <RuntimeLib\Type\SymbolType\SymbolType.h>
-#include <RuntimeLib\Type\UndefinedType\UndefinedType.h>
+#include <iostream>
+#include "RuntimeLib/Operation.h"
+#include "RuntimeLib/JSValue/JSValue.h"
+#include "AST/AstNode.h"
+#include "AST/AstScript.h"
 
-#include <RuntimeLib\Expressions\AdditiveOperators.h>
-#include <string>
 
-//#include <parser.h>
-//extern FILE *yyin;
-using namespace std;
+//#define testParser
 
-void main(int argc, char *argv[]) {
-	auto temp = additiveOperator(new NumberType(1), new NumberType(2));
-	auto _temp = dynamic_cast<NumberType *>(temp);
-	puts(to_string(_temp->_getValue()).c_str());
-	puts(_temp->_getType().c_str());
-//	fopen_s(&yyin, argv[1], "r");
-//	yyparse();
-//	addition();
+int yylex();
+int yyparse();
+
+extern FILE *yyin;
+extern Node *root;
+
+
+
+int main(int argc, char* argv[]) {
+
+	fopen_s(&yyin, argv[1], "r");
+	yyparse();
+	root->dump(0);
+	getchar();
+
 }
