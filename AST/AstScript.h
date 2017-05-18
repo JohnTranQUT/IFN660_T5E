@@ -1,44 +1,60 @@
 #pragma once
 #include <vector>
-#include "AST/AstNode.h"
 
 
-class Statement;
+
 using namespace std;
 
 class StatementListItem : public Node {
 	Statement *statement;
 public:
-	explicit StatementListItem(Statement *);
-	void dump(int indent) override;
+	explicit StatementListItem(Statement *statement) :statement(statement) {
+	}
+	void dump(int indent) override {
+		label(indent, "StatementListItem\n");
+		statement->dump(indent + 1);
+	}
 };
 
 
 class StatementList : public Node {
 	vector<StatementListItem*> *items;
 public:
-	explicit StatementList(StatementListItem* item);
-	void push_back(StatementListItem *item);
-	void dump(int indent) override;
+	explicit StatementList(StatementListItem* item)
+	{
+		items = new vector<StatementListItem*>();
+		items->push_back(item);
+	}
+	void push_back(StatementListItem *item)
+	{
+		items->push_back(item);
+	}
+	void dump(int indent) override {
+		label(indent, "StatementList\n");
+		for (std::vector<StatementListItem*>::iterator iter = items->begin(); iter != items->end(); ++iter)
+			(*iter)->dump(indent + 1);
+	}
 };
-
-//Jason: Could I remove this class? We dont use it.
-class StatementList_opt : public Node { };
 
 class ScriptBody : public Node {
 private:
 	StatementList* stmtList;
 public:
-	explicit ScriptBody(StatementList *stmtList);
-	void dump(int indent) override;
+	explicit ScriptBody(StatementList *stmtList) : stmtList(stmtList){}
+	void dump(int indent) override {
+		label(indent, "ScriptBody\n");
+		stmtList->dump(indent = 1);
+	}
 };
 
-//Jason: Could I remove this class? We dont use it.
-class ScriptBody_opt : public Node { };
+
 
 class Script : public Node {
 	ScriptBody *scriptBody;
 public:
-	explicit Script(ScriptBody *scriptBody);
-	void dump(int indent) override;
+	explicit Script(ScriptBody *scriptBody) :scriptBody(scriptBody) {}
+	void dump(int indent) override {
+		label(indent, "Script\n");
+		scriptBody->dump(indent + 1);
+	}
 };

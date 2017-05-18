@@ -44,6 +44,7 @@ LexicalEnvironment* NewDeclarativeEnvironment(LexicalEnvironment *lexicalEnv)
 	env->outer = lexicalEnv;
 	return env;
 }
+//8.3.2 Implementation
 //Execution context
 Reference* ResolveBinding(std::string name, LexicalEnvironment *env)
 {
