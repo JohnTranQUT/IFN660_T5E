@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <limits>
 #include <parser.h>
+#include <fstream>
 #include "RuntimeLib.h"
 
 #define INC_AST
@@ -18,6 +19,7 @@ int Node::numRef = 1;
 int Node::numLex = 1;
 vector<string> Node::refs;
 vector<string> Node::lexs;
+ofstream output;
 
 using namespace std;
 
@@ -227,7 +229,9 @@ void main(int argc, char *argv[]) {
 
 #ifdef CG
 
+	output.open(argv[2], ofstream::out | ofstream::trunc);
 	root->genCode();
+	output.close();
 	puts("");
 
 #endif

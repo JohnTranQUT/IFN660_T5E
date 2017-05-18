@@ -2,7 +2,10 @@
 #include <string>
 #include <iostream>
 #include <AST/Node/AstNode.h>
+#include <fstream>
 using namespace std;
+
+extern ofstream output;
 
 void Node::dump(string message, int indent) {
 	indentation(indent);
@@ -11,22 +14,24 @@ void Node::dump(string message, int indent) {
 
 void Node::genCode(string code, bool saveRef, bool isLex, bool semicolon, bool pure) {
 	if (pure) {
-		puts("");
-		cout << code << (semicolon ? ";" : "") << endl;
-		puts("");
+		auto str = code + (semicolon ? ";" : "");
+		output << str.c_str();
 	} else {
 		if (isLex) {
 			auto newLex = string("LE") + to_string(numLex++);
 			lexs.push_back(newLex);
-			cout << "\t" << "auto " << newLex << " = " << code << (semicolon ? ";" : "") << endl;
+			auto str = string("\t") + string("auto ") + newLex + string(" = ") + code + (semicolon ? ";" : "");
+			output << str.c_str();
 		} else {
 			auto newRef = string("R") + to_string(numRef++);
 			if (saveRef) {
 				refs.push_back(newRef);
 			}
-			cout << "\t" << "auto " << newRef << " = " << code << (semicolon ? ";" : "") << endl;
+			auto str = string("\t") + string("auto ") + newRef + string(" = ") + code + (semicolon ? ";" : "");
+			output << str.c_str();
 		}
 	}
+	output << "\r\n";
 }
 
 void Node::indentation(int indent) {
