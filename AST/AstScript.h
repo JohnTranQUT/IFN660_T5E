@@ -1,9 +1,18 @@
 #pragma once
 #include <vector>
-
+#include "AstNode.h"
 
 
 using namespace std;
+
+class Statement : public Node {
+public:
+	explicit Statement() {}
+};
+class Expression : public Node {
+public:
+	explicit Expression() {}
+};
 
 class StatementListItem : public Node {
 	Statement *statement;

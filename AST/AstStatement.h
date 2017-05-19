@@ -1,15 +1,10 @@
 #pragma once
 #include <vector>
-#include "AST/AstNode.h"
-#include "AST/AstExpression.h"
-#include "AST/AstScript.h"
+#include "AstScript.h"
+
 
 using namespace std;
 
-class Statement : public Node {
-public:
-	explicit Statement() {}
-};
 
 
 class BlockStatement : public Statement {

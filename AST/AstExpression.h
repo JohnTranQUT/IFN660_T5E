@@ -1,12 +1,8 @@
 #pragma once
-#include "AST/AstNode.h"
+#include "AstScript.h"
 
 using namespace std;
 
-class Expression : public Node {
-public:
-	explicit Expression() {}
-};
 
 
 class IdentifierName : public Expression {
@@ -139,12 +135,19 @@ public:
 
 class MultiplicativeExpression : public Expression {
 	Expression *LHS;
+	Expression *RHS;
+	char op;
 public:
 	explicit MultiplicativeExpression(Expression *LHS) :LHS(LHS) {};
+	explicit MultiplicativeExpression(Expression *LHS, Expression *RHS, char op) :LHS(LHS), RHS(RHS), op(op) {};
 	void dump(int indent) override {
-		label(indent, "MultiplicativeExpression\n");
-		LHS->dump(indent + 1);
+		label(indent, "MultiplicativeExpression %c\n", op);
+		LHS->dump(indent + 1, "lhs");
+		if (RHS != nullptr) {
+			RHS->dump(indent + 1, "rhs");
+		}
 	}
+	
 };
 
 class AdditiveExpression : public Expression {
@@ -272,7 +275,7 @@ class AssignmentExpression : public Expression {
 	Expression *RHS;
 public:
 	explicit AssignmentExpression(Expression *LHS, Expression *RHS):LHS(LHS),RHS(RHS){};
-	explicit AssignmentExpression(Expression *LHS):LHS(LHS),RHS(nullptr);
+	explicit AssignmentExpression(Expression *LHS):LHS(LHS),RHS(nullptr){};
 	void dump(int indent) override {
 		label(indent, "AssignmentExpression\n");
 		LHS->dump(indent + 1, "lhs");
