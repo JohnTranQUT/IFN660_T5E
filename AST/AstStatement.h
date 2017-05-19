@@ -5,8 +5,6 @@
 
 using namespace std;
 
-
-
 class BlockStatement : public Statement {
 	Statement *statement;
 public:
@@ -15,6 +13,7 @@ public:
 		label(indent, "BlockStatement\n");
 		statement->dump(indent + 1);
 	}
+	void GenCode(FILE* file) override {}
 };
 
 class Block : public Statement {
@@ -25,6 +24,7 @@ public:
 		label(indent, "Block\n");
 		stmtList->dump(indent + 1);
 	}
+	void GenCode(FILE* file) override {}
 };
 
 class ExpressionStatement : public Statement {
@@ -35,6 +35,9 @@ public:
 		label(indent, "ExpressionStatement\n");
 		expression->dump(indent + 1);
 	}
+	void GenCode(FILE* file) override {
+		expression->GenCode(file);
+	};
 };
 
 class IfStatement : public Statement {
@@ -56,4 +59,5 @@ public:
 			elseStmt->dump(indent + 1, "else");
 		}
 	}
+	void GenCode(FILE* file) override {}
 };

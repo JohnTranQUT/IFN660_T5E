@@ -6,7 +6,7 @@ class LexicalEnvironment:public SpecificationType {
 public:
 	EnvironmentRecord *envRec;
 	LexicalEnvironment *outer;
-	explicit LexicalEnvironment(EnvironmentRecord *envRec):envRec(envRec) ,outer(nullptr){}
+	explicit LexicalEnvironment(EnvironmentRecord *environmentRecord);
 	virtual ~LexicalEnvironment(){};
 };
 

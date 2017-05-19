@@ -4,10 +4,14 @@
 
 
 class LexicalEnvironment;
-JSValue* addition(Type *lref, Type *rref);
-JSValue* substraction(JSValue* lref, JSValue *rref);
-JSValue* assignment(Type* lref, Type* rref);
 
+JSValue* addition(Type *lref, Type *rref);
+JSValue* substraction(Type* lref, Type *rref);
+
+JSValue* multiplication(Type* lref, Type* rref);
+JSValue* division(Type* lref, Type* rref);
+
+JSValue* assignment(Type* lref, Type* rref);
 //The folloing operations are used to operate on references
 JSValue* GetValue(Type *v);
 void PutValue(Type* v, JSValue* w);

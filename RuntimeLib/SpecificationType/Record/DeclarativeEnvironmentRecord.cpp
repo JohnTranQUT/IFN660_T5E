@@ -29,7 +29,6 @@ JSValue* DeclarativeEnvironmentRecord::GetBindingValue(std::string n)
 
 void DeclarativeEnvironmentRecord::SetMutableBinding(std::string n, JSValue* v)
 {
-	
 		symbol_table[n] = v;
 }
 
