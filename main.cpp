@@ -1,37 +1,40 @@
 #include <iostream>
-#include "RuntimeLib/JSValue/JSValue.h"
 #include "AST/AstScript.h"
-#include "RuntimeLib/SpecificationType/LexicalEnvironment.h"
-#include "RuntimeLib/RuntimeSemantic.h"
-#include "RuntimeLib/Operation.h"
-
-
-
+using namespace std;
 
 int yylex();
 int yyparse();
 
 extern FILE *yyin;
 extern Script *root;
+int CounterLabel = 0;
 
-
-
+void CodeGeneration(char* inputfile, Script* root)
+{
+	char* outputFilename = (char*)malloc(strlen(inputfile) + 4);
+	sprintf(outputFilename, "%s.cpp", inputfile);
+	FILE* outputFile = fopen(outputFilename, "w");
+	//include header files
+	root->emit(outputFile, "#include \"RuntimeLib/SpecificationType/LexicalEnvironment.h\"");
+	root->emit(outputFile, "#include \"RuntimeLib/RuntimeSemantic.h\"");
+	root->emit(outputFile, "#include \"RuntimeLib/Operation.h\"");
+	root->emit(outputFile, "#include <iostream>");
+	//main function
+	root->emit(outputFile, "int main(int argc, char* argv[])");
+	root->emit(outputFile, "{");
+	//global environment
+	root->emit(outputFile, "LexicalEnvironment* lexEnv = NewDeclarativeEnvironment(nullptr);");
+	root->GenCode(outputFile);
+	//log the value to test
+	root->emit(outputFile, "std::cout << dynamic_cast<JSValue*>(r%d)->ToString();", CounterLabel - 1);
+	root->emit(outputFile, "}"); // end of Main
+}
 int main(int argc, char* argv[]) {
 
 	fopen_s(&yyin, argv[1], "r");
 	yyparse();
 	root->dump(0);
+	//CodeGeneration(argv[1], root);
 	getchar();
-	//
-	LexicalEnvironment* lexEnv = NewDeclarativeEnvironment(nullptr);
-	Type* r0 = ResolveBinding("x", lexEnv);
-	Type* r1 = new NumberValue(42);
-	Type* r2 = assignment(r0, r1);
-	Type* r3 = ResolveBinding("y", lexEnv);
-	Type* r4 = ResolveBinding("x", lexEnv);
-	Type* r5 = new NumberValue(1);
-	Type* r6 = addition(r4, r5);
-	Type* r7 = assignment(r3, r6);
-	std::cout << dynamic_cast<JSValue*>(r7)->ToString();
-	getchar();
+
 }
