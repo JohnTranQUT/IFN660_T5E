@@ -297,8 +297,19 @@ public:
 		}
 	}
 	int GenCode(FILE* file) override {
-
-		return LHS->GenCode(file);
+		if (RHS==nullptr)
+		{
+			return LHS->GenCode(file);
+		} else
+		{
+			int lrefno = LHS->GenCode(file);
+			int rrefno = RHS->GenCode(file);
+			if (strcmp(op,"<")==0)
+			{
+				emit(file, "Type* r%d = lessThan(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			}
+			return CounterLabel++;
+		}
 	}
 };
 
