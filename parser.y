@@ -454,11 +454,6 @@ AssignmentOperator
 	| EXPASS
 	;
 
-MultiplicativeOperator
-	: '*'
-	| '/'
-	| '%'
-	;
 
 empty
 	:
