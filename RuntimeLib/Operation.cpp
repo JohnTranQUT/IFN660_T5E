@@ -6,13 +6,9 @@
 
 JSValue* addition(Type *lref, Type *rref) {
 	//AdditiveExpression: AdditiveExpression + MultiplicativeExpression
-
-	//Let lref be the result of evaluating AdditiveExpression.
-	//Let rref be the result of evaluating MultiplicativeExpression.
-
-	//Let lval be ? GetValue(lref).
+	//Let lval be  GetValue(lref).
 	JSValue* lval = GetValue(lref);
-	//Let rval be ? GetValue(rref).
+	//Let rval be  GetValue(rref).
 	JSValue* rval = GetValue(rref);
 	
 	//Let lprim be ? ToPrimitive(lval).
@@ -34,7 +30,7 @@ JSValue* addition(Type *lref, Type *rref) {
 	}
 }
 
-JSValue* substraction(JSValue* lref, JSValue* rref)
+JSValue* substraction(Type* lref, Type* rref)
 {
 	JSValue* lval = GetValue(lref);
 	JSValue* rval = GetValue(rref);
@@ -44,6 +40,30 @@ JSValue* substraction(JSValue* lref, JSValue* rref)
 
 	NumberValue *result = new NumberValue(lnum - rnum);
 	//substraction funtion always returns a NumberValue
+	return result;
+}
+
+JSValue* multiplication(Type* lref, Type* rref)
+{
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+
+	double lnum = lval->ToNumber();
+	double rnum = rval->ToNumber();
+
+	NumberValue *result = new NumberValue(lnum * rnum);
+	return result;
+}
+
+JSValue* division(Type* lref, Type* rref)
+{
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+
+	double lnum = lval->ToNumber();
+	double rnum = rval->ToNumber();
+
+	NumberValue *result = new NumberValue(lnum / rnum);
 	return result;
 }
 
@@ -105,7 +125,11 @@ void PutValue(Type* v, JSValue* w)
 		Type* base = reference->GetBase();
 		if (reference->isUnresolvableReference())
 		{
-			
+			if (reference->isStrictReference())
+			{
+				printf("ReferenceError");
+				exit(0);
+			}
 		}
 		//base must be an Environment Record
 		EnvironmentRecord *envr = dynamic_cast<EnvironmentRecord*>(base);
@@ -116,7 +140,6 @@ void PutValue(Type* v, JSValue* w)
 
 JSValue* assignment(Type* lref, Type* rref)
 {
-
 	//Assignment Expression: LeftHandSideExpression = AssignmentExpression
 	JSValue *rval = GetValue(rref);
 	PutValue(lref, rval);
