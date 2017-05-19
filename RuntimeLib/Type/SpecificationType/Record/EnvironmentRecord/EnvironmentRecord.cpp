@@ -1,16 +1,41 @@
 #include <RuntimeLib\Type\SpecificationType\Record\EnvironmentRecord\EnvironmentRecord.h>
 
 
+CompletionRecord * EnvironmentRecord::InitializeBinding(StringType * N, Type * V)
+{
+	//Let envRec be the declarative Environment Record for which the method was invoked.
+	auto envRec = this;
+	//Assert: envRec must have an uninitialized binding for N.
+	//Set the bound value for N in envRec to V.
+	//Record that the binding for N in envRec has been initialized.
+	_setValue(N, V);
+	return NormalCompletion(new UndefinedType());
+}
+
 CompletionRecord* EnvironmentRecord::SetMutableBinding(StringType* N, LanguageType* V, BooleanType* S){
 	if (S->_getValue()) {
 		puts("TypeError");
 		exit(0);
 	}
-	//Perform Binding
-	auto envRec = this;
 	_setValue(N, V);
 	return NormalCompletion(nullptr);
 }
+
+BooleanType* EnvironmentRecord::HasBinding(StringType* N) {
+	return _hasValue(N);
+}
+
+CompletionRecord* EnvironmentRecord::CreateMutableBinding(StringType * N, BooleanType * D) {
+	_insertKey(N, nullptr);
+	return NormalCompletion(new UndefinedType());
+}
+
+
+CompletionRecord* EnvironmentRecord::CreateImmutableBinding(StringType * N, BooleanType * S) {
+	this->_insertKey(N, nullptr);//may need 3rd parameter to enforce strictness
+	return NormalCompletion(new UndefinedType());
+}
+
 LanguageType* EnvironmentRecord::GetBindingValue(StringType* N, BooleanType* S) {
 	//The concrete Environment Record method GetBindingValue for object Environment Records returns the value of its associated binding object's property whose name is the String value of the argument identifier N. The property should already exist but if it does not the result depends upon the value of the S argument:
 
@@ -43,26 +68,6 @@ LanguageType* EnvironmentRecord::GetBindingValue(StringType* N, BooleanType* S) 
 	}
 
 	return dynamic_cast<LanguageType*>(_getValue2(N));
-}
-
-CompletionRecord * EnvironmentRecord::InitializeBinding(StringType * N, Type * V)
-{
-	//Let envRec be the declarative Environment Record for which the method was invoked.
-	auto envRec = this;
-	//Assert: envRec must have an uninitialized binding for N.
-	//Set the bound value for N in envRec to V.
-	//Record that the binding for N in envRec has been initialized.
-	_setValue(N,V);
-	return NormalCompletion(new UndefinedType());
-}
-
-BooleanType* EnvironmentRecord::HasBinding(StringType* N) {
-	return _hasValue(N);
-}
-
-CompletionRecord* EnvironmentRecord::CreateMutableBinding(StringType * N, BooleanType * D){
-	this->_insertKey(N,nullptr);
-	return NormalCompletion(new UndefinedType());
 }
 
 //for testing

@@ -17,4 +17,5 @@ public:
 	void _setValue(StringType* key, Type* data);
 	BooleanType* _hasValue(StringType* key);
 	void _insertKey(StringType* key, Type* data);
+	BooleanType* _isInitialized(StringType* key);
 };

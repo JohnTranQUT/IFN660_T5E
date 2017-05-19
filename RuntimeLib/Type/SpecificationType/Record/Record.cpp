@@ -23,3 +23,7 @@ BooleanType* Record::_hasValue(StringType * key){
 void Record::_insertKey(StringType* key, Type* data) {
 	_value.insert(pair<StringType *, Type *>(key, data));
 }
+
+BooleanType* Record::_isInitialized(StringType* key) {
+	return new BooleanType(_value.find(key) != _value.end() || _value.find(key)->second != nullptr);
+}

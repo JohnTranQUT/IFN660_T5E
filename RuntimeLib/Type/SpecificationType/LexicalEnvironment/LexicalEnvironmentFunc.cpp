@@ -10,7 +10,7 @@ LexicalEnvironment * NewGlobalEnvironment(Type * G, Type * thisValue){
 	//auto objRec = NewObjectRecord();
 	//auto dclRec = NewDeclarativeEnvironmentRecord();
 	//auto globalRec = NewGlobalEnvironmentRecord(objRec, thisValue, dclRec);
-	auto globalRec = NewDeclarativeEnvironmentRecord(); //temp
+	auto globalRec = NewDeclarativeEnvironmentRecord(); //temp until above are made
 	auto env = new LexicalEnvironment(globalRec, nullptr);
 	return env;
 }
