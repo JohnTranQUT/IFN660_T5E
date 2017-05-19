@@ -1,5 +1,6 @@
 #pragma once
-#include "AstScript.h"
+#include "AST/AstScript.h"
+#include "parser.h"
 
 using namespace std;
 extern int CounterLabel;
@@ -145,15 +146,32 @@ public:
 
 class UpdateExpression : public Expression {
 	Expression *LHS;
+	int op;
 public:
-	explicit UpdateExpression(Expression *LHS):LHS(LHS) {};
+	explicit UpdateExpression(Expression *LHS):LHS(LHS) {}
+	explicit UpdateExpression(Expression *LHS,int op) :LHS(LHS),op(op) {}
 	void dump(int indent) override {
-		label(indent, "UpdateExpression\n");
+		label(indent, "UpdateExpression: %d\n",op);
 		LHS->dump(indent + 1);
 	}
 	int GenCode(FILE* file) override {
-
-		return LHS->GenCode(file);
+		if (op==0)
+		{
+			return LHS->GenCode(file);
+		} else
+		{
+			int lrefno = LHS->GenCode(file);
+			switch (op)
+			{
+			case 310:
+				emit(file, "Type* r%d = increment(r%d);", CounterLabel, lrefno);
+				break;
+			default:
+				break;
+			}
+			return CounterLabel++;
+		}
+		
 	}
 };
 

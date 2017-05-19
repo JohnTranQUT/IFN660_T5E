@@ -394,7 +394,7 @@ UnaryExpression
 
 UpdateExpression
 	: LeftHandSideExpression													{ $$ = new UpdateExpression($1); }
-	| LeftHandSideExpression INCREASE
+	| LeftHandSideExpression INCREASE											{ $$ = new UpdateExpression($1,INCREASE);}
 	| LeftHandSideExpression DECREASE
 	| INCREASE UnaryExpression
 	| DECREASE UnaryExpression
