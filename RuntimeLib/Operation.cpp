@@ -2,6 +2,7 @@
 #include <iostream>
 #include "SpecificationType/Reference.h"
 #include "SpecificationType/Record/EnvironmentRecord.h"
+#include <algorithm>
 
 
 JSValue* addition(Type *lref, Type *rref) {
@@ -145,4 +146,76 @@ JSValue* assignment(Type* lref, Type* rref)
 	PutValue(lref, rval);
 	return rval;
 
+}
+//7.2.12 Implementaion
+JSValue* abstractComparision(JSValue* x, JSValue* y,bool leftFirst)
+{
+	JSValue* px;
+	JSValue* py;
+	if (leftFirst)
+	{
+		px = x->ToPrimitive();
+		py = y->ToPrimitive();
+	}else
+	{
+		px = y->ToPrimitive();
+		py = x->ToPrimitive();
+	}
+	
+	if (GetType(px)=="string" && GetType(py)=="string" )
+	{
+		string sx = px->ToString();
+		string sy = py->ToString();
+		auto res = std::mismatch(sx.begin(), sx.end(), sy.begin());
+		if (res.first == sx.end())
+		{
+			//px is prefix of py
+			return new BooleanValue(true);
+		}
+		else return new BooleanValue(false);
+	} else
+	{
+		double nx = px->ToNumber();
+		double ny = py->ToNumber();
+		if (isnan(nx) || isnan(ny))
+		{
+			//return Undefined if x or y is NaN
+			return new UndefinedValue();
+		} else
+		{
+			return new BooleanValue(nx < ny);
+		}
+	}
+}
+//12.10.3 Implementation
+JSValue* lessthan(Type* lref, Type* rref)
+{
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+	//Let r be the result of performing Abstract Relational Comparison lval < rval.
+	JSValue* r = abstractComparision(lval, rval,true);
+	//If r is undefined, return false
+	if (dynamic_cast<UndefinedValue*>(r))
+	{
+		return new BooleanValue(false);
+	}
+	//Otherwise, return r.
+	else return r;
+}
+//12.10.3 Implementation
+JSValue* less_or_EQ(Type* lref, Type* rref)
+{
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+	JSValue* r = abstractComparision(lval, rval, true);
+	//If r is undefined, return false
+	if (dynamic_cast<UndefinedValue*>(r))
+	{
+		return new BooleanValue(false);
+	} else
+	{
+		BooleanValue *result = dynamic_cast<BooleanValue*>(r);
+		if (result->ToBoolean()) return new BooleanValue(false);
+		else return new BooleanValue(true);
+	}
 }
