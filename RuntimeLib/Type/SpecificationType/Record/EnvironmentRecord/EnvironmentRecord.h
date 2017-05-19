@@ -1,10 +1,7 @@
 #pragma once
-#include <RuntimeLib\Type\SpecificationType\Record\Record.h>
-#include <RuntimeLib\Type\LanguageType\BooleanType\BooleanType.h>
-#include <RuntimeLib\Type\LanguageType\StringType\StringType.h>
 #include <RuntimeLib\Type\SpecificationType\Record\CompletionRecord\CompletionRecordFunc.h>
 
-#include <RuntimeLib\Type\LanguageType\NumberType\NumberType.h>
+#include <RuntimeLib\Type\LanguageType\NumberType\NumberType.h> // for data dumping
 
 //Making Object EnvironmentRecord
 class EnvironmentRecord : public Record {
