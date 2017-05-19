@@ -76,6 +76,7 @@ CompletionRecord* InitializedReferencedBinding(Type * V, Type * W){
 	return _base->InitializeBinding(_GetReferenceName, W);
 }
 
+
 //Specification Type methods?
 
 Type* GetGlobalObject() {

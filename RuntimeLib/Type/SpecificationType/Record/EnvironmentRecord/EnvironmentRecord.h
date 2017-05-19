@@ -14,7 +14,7 @@ public:
 	LanguageType* GetBindingValue(StringType* N, BooleanType* S);
 	CompletionRecord* InitializeBinding(StringType* N, Type* V);
 	BooleanType* HasBinding(StringType* N);
-	//BooleanType* CreateMutableBinding(StringType* N, BooleanType* D);
+	CompletionRecord* CreateMutableBinding(StringType* N, BooleanType* D);
 	//for testing
 	void dumpEnvRecords();
 };

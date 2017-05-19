@@ -5,4 +5,3 @@
 LexicalEnvironment* NewDeclarativeEnvironment(LexicalEnvironment* outerEnv = nullptr);
 Reference* ResolveBinding(StringType* name, LexicalEnvironment* env = nullptr);
 Reference* GetIdentifierReference(LexicalEnvironment* lex, StringType* name, BooleanType* strict);
-

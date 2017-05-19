@@ -20,6 +20,7 @@ void outputToScreenType(Type* temp) {
 
 void main(int argc, char *argv[]) {
 	/* ADDITION TESTING */
+	puts("========ADDITION TESTING========");
 	auto temp = Additive(new NumberType(1), new NumberType(2));
 	outputToScreenType(temp);
 	temp = Additive(new StringType("hi"), new NumberType(2));
@@ -36,16 +37,21 @@ void main(int argc, char *argv[]) {
 	/* FOR TESTING*/
 
 	//Type* e1 = ResolveName("x", env);
-	auto temp2 = NewDeclarativeEnvironment();
-	auto e1 = new Reference(temp2->getEnvRec(), new StringType("x"), new BooleanType(false));
-	auto e2 = new NumberType(42);
-	auto e3 = Assignment(e1, e2);
-	auto e4 = new Reference(temp2->getEnvRec(), new StringType("y"), new BooleanType(false));
-	auto e0 = new NumberType(1);
-	auto e5 = Additive(e1, e0);
-	auto e6 = Assignment(e4, e5);
-	outputToScreenType(GetValue(e4));
-	outputToScreenType(temp2);
+	puts("======== X = 42; Y = X + 1 TESTING========");
+	auto r1 = NewDeclarativeEnvironment();
+	auto r2 = r1->getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false));
+	auto r3 = r1->getEnvRec()->CreateMutableBinding(new StringType("y"), new BooleanType(false));
+	auto r4 = InitializedReferencedBinding(ResolveBinding(new StringType("x"), r1), new UndefinedType());
+	auto r5 = InitializedReferencedBinding(ResolveBinding(new StringType("y"), r1), new UndefinedType());
+	auto r6 = new NumberType(42);
+	auto r7 = Assignment(ResolveBinding(new StringType("x"),r1), r6);
+	auto r8 = new NumberType(1);
+	auto r9 = Additive(ResolveBinding(new StringType("x"), r1), r8);
+	auto r10 = Assignment(ResolveBinding(new StringType("y"), r1), r9);
+	puts("========Y RESULT========");
+	outputToScreenType(GetValue(ResolveBinding(new StringType("y"), r1)));
+	puts("========LEXICAL ENVIRONMENT RECORDS DUMP========");
+	outputToScreenType(r1);
 
 	/* Real Code
 	** let x;

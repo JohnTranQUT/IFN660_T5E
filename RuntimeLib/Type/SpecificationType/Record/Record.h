@@ -16,4 +16,5 @@ public:
 	Type* _getValue2(StringType* key) const;
 	void _setValue(StringType* key, Type* data);
 	BooleanType* _hasValue(StringType* key);
+	void _insertKey(StringType* key, Type* data);
 };

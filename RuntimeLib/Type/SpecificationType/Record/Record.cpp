@@ -19,3 +19,7 @@ void Record::_setValue(StringType* key, Type* data) {
 BooleanType* Record::_hasValue(StringType * key){
 	return new BooleanType(_value.find(key) != _value.end());
 }
+
+void Record::_insertKey(StringType* key, Type* data) {
+	_value.insert(pair<StringType *, Type *>(key, data));
+}

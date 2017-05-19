@@ -6,6 +6,7 @@ LexicalEnvironment* NewDeclarativeEnvironment(LexicalEnvironment* outerEnv) {
 	return new LexicalEnvironment(envRec, outerEnv);
 }
 
+
 Reference* ResolveBinding(StringType* name, LexicalEnvironment* env){
 	/*
 	If env was not passed or if env is undefined, then
@@ -26,12 +27,12 @@ Return ? GetIdentifierReference(env, name, strict).
 }
 
 Reference* GetIdentifierReference(LexicalEnvironment* lex, StringType* name, BooleanType* strict) {
-	if (lex = nullptr) {
+	if (lex == nullptr || dynamic_cast<UndefinedType*>(lex)) {
 		return new Reference(new UndefinedType(), name, strict);
 	}
 	auto envRec = lex->getEnvRec();
 	if (envRec->HasBinding(name)->_getValue()) {
-		return new Reference(lex, name, strict);
+		return new Reference(lex->getEnvRec(), name, strict);
 	}
 	else {
 		auto outer = lex->getOuter();

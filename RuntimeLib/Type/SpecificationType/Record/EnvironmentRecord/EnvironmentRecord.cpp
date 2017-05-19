@@ -52,11 +52,17 @@ CompletionRecord * EnvironmentRecord::InitializeBinding(StringType * N, Type * V
 	//Assert: envRec must have an uninitialized binding for N.
 	//Set the bound value for N in envRec to V.
 	//Record that the binding for N in envRec has been initialized.
+	_setValue(N,V);
 	return NormalCompletion(new UndefinedType());
 }
 
 BooleanType* EnvironmentRecord::HasBinding(StringType* N) {
 	return _hasValue(N);
+}
+
+CompletionRecord* EnvironmentRecord::CreateMutableBinding(StringType * N, BooleanType * D){
+	this->_insertKey(N,nullptr);
+	return NormalCompletion(new UndefinedType());
 }
 
 //for testing
