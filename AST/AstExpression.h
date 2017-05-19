@@ -307,6 +307,17 @@ public:
 			if (strcmp(op,"<")==0)
 			{
 				emit(file, "Type* r%d = lessThan(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			} else  if (strcmp(op, "<=") == 0)
+			{
+				emit(file, "Type* r%d = lessOrEQual(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			}
+			else  if (strcmp(op, ">") == 0)
+			{
+				emit(file, "Type* r%d = greaterThan(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			}
+			else  if (strcmp(op, ">=") == 0)
+			{
+				emit(file, "Type* r%d = greaterOrEQual(r%d,r%d);", CounterLabel, lrefno, rrefno);
 			}
 			return CounterLabel++;
 		}
