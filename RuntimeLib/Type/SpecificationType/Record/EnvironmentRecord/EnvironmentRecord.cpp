@@ -1,5 +1,6 @@
 #include <RuntimeLib\Type\SpecificationType\Record\EnvironmentRecord\EnvironmentRecord.h>
 
+
 CompletionRecord* EnvironmentRecord::SetMutableBinding(StringType* N, LanguageType* V, BooleanType* S){
 	if (S->_getValue()) {
 		puts("TypeError");
@@ -52,4 +53,22 @@ CompletionRecord * EnvironmentRecord::InitializeBinding(StringType * N, Type * V
 	//Set the bound value for N in envRec to V.
 	//Record that the binding for N in envRec has been initialized.
 	return NormalCompletion(new UndefinedType());
+}
+
+BooleanType* EnvironmentRecord::HasBinding(StringType* N) {
+	return _hasValue(N);
+}
+
+//for testing
+void EnvironmentRecord::dumpEnvRecords() {
+	auto temp = _getValue();
+	map<StringType*, Type*, RECORD_COMPARE>::iterator it;
+	for (it = temp.begin(); it != temp.end(); it++)
+	{
+		puts(it->first->_getValue().c_str());
+		if (auto _temp = dynamic_cast<NumberType *>(it->second))
+			puts(to_string(_temp->_getValue()).c_str());
+		if (auto _temp = dynamic_cast<StringType *>(it->second))
+			puts(_temp->_getValue().c_str());
+	}
 }

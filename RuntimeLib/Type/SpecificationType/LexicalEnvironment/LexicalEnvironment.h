@@ -1,15 +1,17 @@
 #pragma once
 #include <RuntimeLib\Type\SpecificationType\SpecificationType.h>
+#include <RuntimeLib\Type\SpecificationType\Reference\Reference.h>
 #include <RuntimeLib\Type\SpecificationType\Record\EnvironmentRecord\EnvironmentRecord.h>
 
 
 class LexicalEnvironment : public SpecificationType {
 	LexicalEnvironment* _outer;
-	EnvironmentRecord* env;
+	EnvironmentRecord* _envRec;
 public :
-	LexicalEnvironment(LexicalEnvironment* outer = nullptr): _outer(outer) {};
+	LexicalEnvironment(EnvironmentRecord* envRec, LexicalEnvironment* outer) : _envRec(envRec), _outer(outer) {};
+	EnvironmentRecord* getEnvRec();
+	LexicalEnvironment* getOuter();
 };
 
-LexicalEnvironment* NewDeclarativeEnvironment(LexicalEnvironment* E);
 //LexicalEnvironment* NewObjectEnvironment(BindingObject* O, LexicalEnvironment* E);
 //LexicalEnvironment* NewGlobalEnvironment(G, thisValue);

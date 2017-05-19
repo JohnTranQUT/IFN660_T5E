@@ -1,5 +1,9 @@
 #include <RuntimeLib\Type\SpecificationType\LexicalEnvironment\LexicalEnvironment.h>
 
-LexicalEnvironment* NewDeclarativeEnvironment(LexicalEnvironment* E) {
-	return new LexicalEnvironment();
+EnvironmentRecord* LexicalEnvironment::getEnvRec(){
+	return _envRec;
+}
+
+LexicalEnvironment* LexicalEnvironment::getOuter(){
+	return _outer;
 }

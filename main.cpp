@@ -8,11 +8,14 @@
 //using namespace std;
 
 
-void outputToScreenType(LanguageType* temp) {
+void outputToScreenType(Type* temp) {
 	if (auto _temp = dynamic_cast<NumberType *>(temp))
 		puts(to_string(_temp->_getValue()).c_str());
 	if (auto _temp = dynamic_cast<StringType *>(temp))
 		puts(_temp->_getValue().c_str());
+	if (auto _temp = dynamic_cast<LexicalEnvironment *>(temp)) {
+		_temp->getEnvRec()->dumpEnvRecords();
+	}
 }
 
 void main(int argc, char *argv[]) {
@@ -33,15 +36,16 @@ void main(int argc, char *argv[]) {
 	/* FOR TESTING*/
 
 	//Type* e1 = ResolveName("x", env);
-	auto temp2 = new EnvironmentRecord();
-	auto e1 = new Reference(temp2, new StringType("x"), new BooleanType(false), nullptr);
+	auto temp2 = NewDeclarativeEnvironment();
+	auto e1 = new Reference(temp2->getEnvRec(), new StringType("x"), new BooleanType(false));
 	auto e2 = new NumberType(42);
 	auto e3 = Assignment(e1, e2);
-	auto e4 = new Reference(temp2, new StringType("y"), new BooleanType(false), nullptr);
+	auto e4 = new Reference(temp2->getEnvRec(), new StringType("y"), new BooleanType(false));
 	auto e0 = new NumberType(1);
 	auto e5 = Additive(e1, e0);
 	auto e6 = Assignment(e4, e5);
 	outputToScreenType(GetValue(e4));
+	outputToScreenType(temp2);
 
 	/* Real Code
 	** let x;
