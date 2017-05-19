@@ -15,8 +15,19 @@ JSValue* assignment(Type* lref, Type* rref);
 
 
 JSValue* abstractComparision(JSValue* x, JSValue* y, bool leftFirst);
-JSValue* lessthan(Type* lref, Type* rref);
-JSValue* less_or_EQ(Type* lref, Type* rref);
+JSValue* lessThan(Type* lref, Type* rref);
+JSValue* lessOrEQual(Type* lref, Type* rref);
+JSValue* greaterThan(Type* lref, Type* rref);
+JSValue* greaterOrEQual(Type* lref, Type* rref);
+
+//The folloing operations are used to operate on references
+JSValue* abstractEqualityComparision(JSValue* x, JSValue* y);
+JSValue* isEqual(Type* lref, Type* rref);
+
+//The folloing operations are used to operate on postfix increment operator
+//12.4 Implementation
+JSValue* increment(Type* expr);
+
 //The folloing operations are used to operate on references
 JSValue* GetValue(Type *v);
 void PutValue(Type* v, JSValue* w);

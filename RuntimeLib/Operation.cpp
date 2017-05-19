@@ -98,6 +98,7 @@ std::string GetType(Type* type)
 }
 
 
+
 JSValue* GetValue(Type *v) {
 	if (GetType(v)!="reference")
 	{
@@ -188,7 +189,7 @@ JSValue* abstractComparision(JSValue* x, JSValue* y,bool leftFirst)
 	}
 }
 //12.10.3 Implementation
-JSValue* lessthan(Type* lref, Type* rref)
+JSValue* lessThan(Type* lref, Type* rref)
 {
 	JSValue* lval = GetValue(lref);
 	JSValue* rval = GetValue(rref);
@@ -203,12 +204,13 @@ JSValue* lessthan(Type* lref, Type* rref)
 	else return r;
 }
 //12.10.3 Implementation
-JSValue* less_or_EQ(Type* lref, Type* rref)
+JSValue* lessOrEQual(Type* lref, Type* rref)
 {
 	JSValue* lval = GetValue(lref);
 	JSValue* rval = GetValue(rref);
 	JSValue* r = abstractComparision(lval, rval, true);
-	//If r is undefined, return false
+	//If r is true or undefined, return false. 
+	//Otherwise, return true.
 	if (dynamic_cast<UndefinedValue*>(r))
 	{
 		return new BooleanValue(false);
@@ -218,4 +220,70 @@ JSValue* less_or_EQ(Type* lref, Type* rref)
 		if (result->ToBoolean()) return new BooleanValue(false);
 		else return new BooleanValue(true);
 	}
+}
+JSValue* greaterThan(Type* lref, Type* rref)
+{
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+	JSValue* r = abstractComparision(lval,rval, false);
+	//If r is undefined, return false
+	if (dynamic_cast<UndefinedValue*>(r))
+	{
+		return new BooleanValue(false);
+	}
+	//Otherwise, return r.
+	else return r;
+}
+
+JSValue* greaterOrEQual(Type* lref, Type* rref)
+{
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+	JSValue* r = abstractComparision(lval,rval, true);
+	//If r is true or undefined, return false. 
+	//Otherwise, return true.
+	if (dynamic_cast<UndefinedValue*>(r))
+	{
+		return new BooleanValue(false);
+	}
+	else
+	{
+		BooleanValue *result = dynamic_cast<BooleanValue*>(r);
+		if (result->ToBoolean()) return new BooleanValue(false);
+		else return new BooleanValue(true);
+	}
+}
+
+//7.2.13 Implementation
+//Fix me
+JSValue* abstractEqualityComparision(JSValue* x, JSValue* y)
+{
+	if (GetType(x)=="number"&& GetType(y)=="number")
+	{
+		if (x->ToNumber()==y->ToNumber())
+		{
+			return new BooleanValue(true);
+		}
+		else return new BooleanValue(false);
+	} else return new BooleanValue(false);
+}
+
+//12.11.3 implementation
+JSValue* isEqual(Type* lref, Type* rref)
+{
+	JSValue* lval = GetValue(lref);
+	JSValue* rval = GetValue(rref);
+	return abstractEqualityComparision(lval, rval);
+}
+
+JSValue* increment(Type* expr)
+{
+	//Let oldValue be ? ToNumber(? GetValue(lhs)).
+	JSValue *val = GetValue(expr);
+	double oldValue = val->ToNumber();
+	//Let newValue be the result of adding the value 1 to oldValue, 
+	NumberValue *new_value = new NumberValue(oldValue + 1);
+	PutValue(expr, new_value);
+	return new NumberValue(oldValue);
+
 }
