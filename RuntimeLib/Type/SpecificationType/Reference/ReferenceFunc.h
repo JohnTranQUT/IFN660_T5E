@@ -5,7 +5,7 @@
 
 LanguageType* GetValue(Type* V);
 CompletionRecord* PutValue(Type* V, Type* W);
-CompletionRecord* InitializedReferencedBinding(Type* V,Type* W);
+CompletionRecord* InitializeReferencedBinding(Type* V,Type* W);
 
 //Specification Functions?
 Type* GetGlobalObject();

@@ -8,4 +8,4 @@ Semantic Analysis
 [x] Working Referece
 [x] Working Environment Records
 [x] Working Lexical Environment
-[x] Additive Rework
+[ ] Additive Rework

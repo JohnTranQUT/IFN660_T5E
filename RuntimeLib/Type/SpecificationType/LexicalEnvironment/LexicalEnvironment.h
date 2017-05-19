@@ -1,6 +1,5 @@
 #pragma once
 #include <RuntimeLib\Type\SpecificationType\SpecificationType.h>
-#include <RuntimeLib\Type\SpecificationType\Reference\Reference.h>
 #include <RuntimeLib\Type\SpecificationType\Record\EnvironmentRecord\EnvironmentRecord.h>
 
 
@@ -12,6 +11,7 @@ public :
 	EnvironmentRecord* getEnvRec();
 	LexicalEnvironment* getOuter();
 };
+
 
 //LexicalEnvironment* NewObjectEnvironment(BindingObject* O, LexicalEnvironment* E);
 //LexicalEnvironment* NewGlobalEnvironment(G, thisValue);

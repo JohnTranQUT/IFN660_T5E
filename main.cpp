@@ -41,8 +41,8 @@ void main(int argc, char *argv[]) {
 	auto r1 = NewDeclarativeEnvironment();
 	auto r2 = r1->getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false));
 	auto r3 = r1->getEnvRec()->CreateMutableBinding(new StringType("y"), new BooleanType(false));
-	auto r4 = InitializedReferencedBinding(ResolveBinding(new StringType("x"), r1), new UndefinedType());
-	auto r5 = InitializedReferencedBinding(ResolveBinding(new StringType("y"), r1), new UndefinedType());
+	auto r4 = InitializeReferencedBinding(ResolveBinding(new StringType("x"), r1), new UndefinedType());
+	auto r5 = InitializeReferencedBinding(ResolveBinding(new StringType("y"), r1), new UndefinedType());
 	auto r6 = new NumberType(42);
 	auto r7 = Assignment(ResolveBinding(new StringType("x"),r1), r6);
 	auto r8 = new NumberType(1);
