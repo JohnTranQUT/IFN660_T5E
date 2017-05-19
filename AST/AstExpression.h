@@ -2,7 +2,7 @@
 #include "AstScript.h"
 
 using namespace std;
-
+extern int CounterLabel;
 
 
 class IdentifierName : public Expression {
@@ -12,6 +12,11 @@ public:
 	void dump(int indent) override {
 		label(indent, "IdentifierName %s\n", LHS);
 	}
+
+	int GenCode(FILE* file) override {
+		emit(file, "Type* r%d = ResolveBinding(\"%s\", lexEnv);", CounterLabel, LHS);
+		return CounterLabel++;
+	};
 };
 
 class DecimalLiteral : public Expression {
@@ -21,6 +26,10 @@ public:
 	void dump(int indent) override{
 		label(indent, "DecimalLiteral %f\n", value);
 	}
+	int GenCode(FILE* file) override {
+		emit(file, "Type* r%d = new NumberValue(%f);", CounterLabel, value);
+		return CounterLabel++;
+	};
 };
 
 class Identifier : public Expression {
@@ -31,6 +40,10 @@ public:
 		label(indent, "Identifier\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+		return LHS->GenCode(file);
+	}
+
 };
 
 class NumericLiteral : public Expression {
@@ -41,6 +54,11 @@ public:
 		label(indent, "NumericLiteral\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+		
+		return LHS->GenCode(file);
+	}
+
 };
 
 class Literal : public Expression {
@@ -50,6 +68,9 @@ public:
 	void dump(int indent) override {
 		label(indent, "Literal\n");
 		LHS->dump(indent + 1);
+	}
+	int GenCode(FILE* file) override {
+		return LHS->GenCode(file);;
 	}
 };
 
@@ -61,6 +82,9 @@ public:
 		label(indent, "IdentifierReference\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+		return LHS->GenCode(file);
+	}
 };
 
 class PrimaryExpression : public Expression {
@@ -70,6 +94,10 @@ public:
 	void dump(int indent) override {
 		label(indent, "PrimaryExpression\n");
 		LHS->dump(indent + 1);
+	}
+	int GenCode(FILE* file) override {
+		
+		return LHS->GenCode(file);
 	}
 };
 
@@ -81,6 +109,10 @@ public:
 		label(indent, "MemberExpression\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+		
+		return LHS->GenCode(file);
+	}
 };
 
 class NewExpression : public Expression {
@@ -90,6 +122,10 @@ public:
 	void dump(int indent) override {
 		label(indent, "NewExpression\n");
 		LHS->dump(indent + 1);
+	}
+	int GenCode(FILE* file) override {
+		
+		return LHS->GenCode(file);
 	}
 };
 
@@ -101,6 +137,10 @@ public:
 		label(indent, "LeftHandSideExpression\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
+	}
 };
 
 class UpdateExpression : public Expression {
@@ -110,6 +150,10 @@ public:
 	void dump(int indent) override {
 		label(indent, "UpdateExpression\n");
 		LHS->dump(indent + 1);
+	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
 	}
 };
 
@@ -121,6 +165,10 @@ public:
 		label(indent, "UnaryExpression\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
+	}
 };
 
 class ExponentiationExpression : public Expression {
@@ -131,6 +179,10 @@ public:
 		label(indent, "ExponentiationExpression\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
+	}
 };
 
 class MultiplicativeExpression : public Expression {
@@ -139,7 +191,7 @@ class MultiplicativeExpression : public Expression {
 	char op;
 public:
 	explicit MultiplicativeExpression(Expression *LHS) :LHS(LHS) {};
-	explicit MultiplicativeExpression(Expression *LHS, Expression *RHS, char op) :LHS(LHS), RHS(RHS), op(op) {};
+	explicit MultiplicativeExpression(Expression *LHS,Expression *RHS,char op) :LHS(LHS), RHS(RHS), op(op) {};
 	void dump(int indent) override {
 		label(indent, "MultiplicativeExpression %c\n", op);
 		LHS->dump(indent + 1, "lhs");
@@ -147,7 +199,22 @@ public:
 			RHS->dump(indent + 1, "rhs");
 		}
 	}
-	
+	int GenCode(FILE* file) override {
+		if (RHS == nullptr)
+		{
+			return LHS->GenCode(file);
+		}
+		else
+		{
+			int lrefno = LHS->GenCode(file);
+			int rrefno = RHS->GenCode(file);
+			if (op == '*')
+				emit(file, "Type* r%d = multiplication(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			else if (op == '/')
+				emit(file, "Type* r%d = division(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			return CounterLabel++;
+		}
+	}
 };
 
 class AdditiveExpression : public Expression {
@@ -164,6 +231,22 @@ public:
 			RHS->dump(indent + 1, "rhs");
 		}
 	}
+	int GenCode(FILE* file) override {
+		if (RHS==nullptr)
+		{
+			return LHS->GenCode(file);
+		} else
+		{
+			int lrefno = LHS->GenCode(file);
+			int rrefno = RHS->GenCode(file);
+			if (op == '+')
+				emit(file, "Type* r%d = addition(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			else if (op == '-')
+				emit(file, "Type* r%d = substraction(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			return CounterLabel++;
+		}
+		
+	};
 };
 
 class ShiftExpression : public Expression {
@@ -173,6 +256,10 @@ public:
 	void dump(int indent) override {
 		label(indent, "ShiftExpression\n");
 		LHS->dump(indent + 1);
+	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
 	}
 };
 
@@ -191,6 +278,10 @@ public:
 			RHS->dump(indent + 1, "rhs");
 		}
 	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
+	}
 };
 
 class EqualityExpression : public Expression {
@@ -208,6 +299,10 @@ public:
 			RHS->dump(indent + 1, "rhs");
 		}
 	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
+	}
 };
 
 class BitwiseANDExpression : public Expression {
@@ -217,6 +312,10 @@ public:
 	void dump(int indent) override {
 		label(indent, "BitwiseANDExpression\n");
 		LHS->dump(indent + 1);
+	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
 	}
 };
 
@@ -228,6 +327,10 @@ public:
 		label(indent, "BitwiseXORExpression\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
+	}
 };
 
 class BitwiseORExpression : public Expression {
@@ -237,6 +340,10 @@ public:
 	void dump(int indent) override {
 		label(indent, "BitwiseORExpression\n");
 		LHS->dump(indent + 1);
+	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
 	}
 };
 
@@ -248,6 +355,10 @@ public:
 		label(indent, "LogicalANDExpression\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
+	}
 };
 
 class LogicalORExpression : public Expression {
@@ -258,6 +369,10 @@ public:
 		label(indent, "LogicalORExpression\n");
 		LHS->dump(indent + 1);
 	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
+	}
 };
 
 class ConditionalExpression : public Expression {
@@ -267,6 +382,10 @@ public:
 	void dump(int indent) override {
 		label(indent, "ConditionalExpression\n");
 		LHS->dump(indent + 1);
+	}
+	int GenCode(FILE* file) override {
+
+		return LHS->GenCode(file);
 	}
 };
 
@@ -284,4 +403,18 @@ public:
 			RHS->dump(indent + 1, "rhs");
 		}
 	}
+
+	int GenCode(FILE* file) {
+		if (RHS==nullptr)
+		{
+			return LHS->GenCode(file);
+		} else
+		{
+			int lrefno = LHS->GenCode(file);
+			int rrefno = RHS->GenCode(file);
+			emit(file, "Type* r%d = assignment(r%d,r%d);", CounterLabel, lrefno, rrefno);
+			return CounterLabel++;
+		}
+		
+	};
 };
