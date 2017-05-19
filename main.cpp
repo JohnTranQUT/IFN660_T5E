@@ -11,8 +11,10 @@ int CounterLabel = 0;
 
 void CodeGeneration(char* inputfile, Script* root)
 {
-	char* outputFilename = (char*)malloc(strlen(inputfile) + 4);
-	sprintf(outputFilename, "%s.cpp", inputfile);
+	char* outputFilename = (char *)malloc(strlen(inputfile) + 1);
+	outputFilename[strlen(inputfile) - 3] = '\0'; //insert end string charracter
+	memcpy(outputFilename, inputfile + 0 /* Offset */, (strlen(inputfile)-3) /* Length */);
+	sprintf(outputFilename, "%s.cpp", outputFilename);
 	FILE* outputFile = fopen(outputFilename, "w");
 	//include header files
 	root->emit(outputFile, "#include \"RuntimeLib/SpecificationType/LexicalEnvironment.h\"");
@@ -30,11 +32,9 @@ void CodeGeneration(char* inputfile, Script* root)
 	root->emit(outputFile, "}"); // end of Main
 }
 int main(int argc, char* argv[]) {
-
 	fopen_s(&yyin, argv[1], "r");
 	yyparse();
 	root->dump(0);
-	//CodeGeneration(argv[1], root);
+	CodeGeneration(argv[1], root);
 	getchar();
-
 }
