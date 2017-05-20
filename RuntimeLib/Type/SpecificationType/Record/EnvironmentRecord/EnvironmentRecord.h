@@ -7,7 +7,7 @@
 //This type is basically the Declaration type
 class EnvironmentRecord : public Record {
 public:
-	explicit EnvironmentRecord() {};
+	virtual ~EnvironmentRecord() {};
 	virtual BooleanType* HasBinding(StringType* N);
 	virtual CompletionRecord* CreateMutableBinding(StringType* N, BooleanType* D);
 	virtual CompletionRecord* CreateImmutableBinding(StringType* N, BooleanType* S);
