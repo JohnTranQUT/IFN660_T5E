@@ -12,10 +12,12 @@ class Record :public SpecificationType {
 	map<StringType*, Type*, RECORD_COMPARE> _value;
 public:
 	virtual ~Record() {};
-	map<StringType*, Type*, RECORD_COMPARE> _getValue() const;
-	Type* _getValue2(StringType* key) const;
+	map<StringType*, Type*, RECORD_COMPARE> _getBinding() const;
+	void _setBinding(map<StringType*, Type*, RECORD_COMPARE> binding);
+	Type* _getValue(StringType* key) const;
 	void _setValue(StringType* key, Type* data);
 	BooleanType* _hasValue(StringType* key);
 	void _insertKey(StringType* key, Type* data);
+	void _deleteKey(StringType* key);
 	BooleanType* _isInitialized(StringType* key);
 };

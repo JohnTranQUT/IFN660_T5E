@@ -8,16 +8,16 @@
 class EnvironmentRecord : public Record {
 public:
 	explicit EnvironmentRecord() {};
-	BooleanType* HasBinding(StringType* N);
-	CompletionRecord* CreateMutableBinding(StringType* N, BooleanType* D);
-	CompletionRecord* CreateImmutableBinding(StringType* N, BooleanType* S);
-	CompletionRecord* InitializeBinding(StringType* N, Type* V);
-	CompletionRecord* SetMutableBinding(StringType* N, LanguageType* V,BooleanType* S);
-	LanguageType* GetBindingValue(StringType* N, BooleanType* S);
-	BooleanType* DeleteBinding(StringType* N);
-	BooleanType* HasThisBinding() { return new BooleanType(false); };
-	BooleanType* HasSuperBinding() { return new BooleanType(false); };
-	Type* WithBaseObject() { return new UndefinedType(); };
+	virtual BooleanType* HasBinding(StringType* N);
+	virtual CompletionRecord* CreateMutableBinding(StringType* N, BooleanType* D);
+	virtual CompletionRecord* CreateImmutableBinding(StringType* N, BooleanType* S);
+	virtual CompletionRecord* InitializeBinding(StringType* N, Type* V);
+	virtual CompletionRecord* SetMutableBinding(StringType* N, LanguageType* V,BooleanType* S);
+	virtual LanguageType* GetBindingValue(StringType* N, BooleanType* S);
+	virtual BooleanType* DeleteBinding(StringType* N);
+	virtual BooleanType* HasThisBinding() { return new BooleanType(false); };
+	virtual BooleanType* HasSuperBinding() { return new BooleanType(false); };
+	virtual Type* WithBaseObject() { return new UndefinedType(); };
 	//for testing
-	void dumpEnvRecords();
+	virtual void dumpEnvRecords();
 };

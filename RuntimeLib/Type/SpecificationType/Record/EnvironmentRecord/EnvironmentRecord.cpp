@@ -67,12 +67,17 @@ LanguageType* EnvironmentRecord::GetBindingValue(StringType* N, BooleanType* S) 
 		}
 	}
 
-	return dynamic_cast<LanguageType*>(_getValue2(N));
+	return dynamic_cast<LanguageType*>(_getValue(N));
+}
+
+BooleanType* EnvironmentRecord::DeleteBinding(StringType* N){
+	_deleteKey(N);
+	return new BooleanType(true);
 }
 
 //for testing
 void EnvironmentRecord::dumpEnvRecords() {
-	auto temp = _getValue();
+	auto temp = _getBinding();
 	map<StringType*, Type*, RECORD_COMPARE>::iterator it;
 	for (it = temp.begin(); it != temp.end(); it++)
 	{

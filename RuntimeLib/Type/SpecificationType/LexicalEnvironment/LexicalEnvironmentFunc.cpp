@@ -6,11 +6,16 @@ LexicalEnvironment* NewDeclarativeEnvironment(LexicalEnvironment* E) {
 	return env;
 }
 
-LexicalEnvironment * NewGlobalEnvironment(Type * G, Type * thisValue){
-	//auto objRec = NewObjectRecord();
-	//auto dclRec = NewDeclarativeEnvironmentRecord();
-	//auto globalRec = NewGlobalEnvironmentRecord(objRec, thisValue, dclRec);
-	auto globalRec = NewDeclarativeEnvironmentRecord(); //temp until above are made
+LexicalEnvironment* NewObjectEnvironment(map<StringType*, Type*, RECORD_COMPARE> O, LexicalEnvironment* E){
+	auto envRec = NewObjectEnvironmentRecord(O);
+	auto env = new LexicalEnvironment(envRec, E);
+	return env;
+}
+
+LexicalEnvironment * NewGlobalEnvironment(map<StringType*, Type*, RECORD_COMPARE> G, Type * thisValue){
+	auto objRec = NewObjectEnvironmentRecord(G);
+	auto dclRec = NewDeclarativeEnvironmentRecord();
+	auto globalRec = NewGlobalEnvironmentRecord(objRec, thisValue, dclRec);
 	auto env = new LexicalEnvironment(globalRec, nullptr);
 	return env;
 }

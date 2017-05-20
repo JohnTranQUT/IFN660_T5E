@@ -4,5 +4,6 @@
 #include <RuntimeLib\Type\SpecificationType\Reference\Reference.h>
 
 LexicalEnvironment* NewDeclarativeEnvironment(LexicalEnvironment* E = nullptr);
-LexicalEnvironment* NewGlobalEnvironment(Type* G, Type* thisValue);
+LexicalEnvironment* NewObjectEnvironment(map<StringType*, Type*, RECORD_COMPARE> O, LexicalEnvironment* E);
+LexicalEnvironment* NewGlobalEnvironment(map<StringType*, Type*, RECORD_COMPARE> G, Type* thisValue);
 Reference* GetIdentifierReference(LexicalEnvironment* lex, StringType* name, BooleanType* strict);

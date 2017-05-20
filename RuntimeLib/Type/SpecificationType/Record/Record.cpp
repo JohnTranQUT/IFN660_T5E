@@ -4,11 +4,15 @@ bool RECORD_COMPARE::operator()(StringType* a, StringType* b) const {
 	return a->_getValue() < b->_getValue();
 }
 
-map<StringType*, Type*, RECORD_COMPARE> Record::_getValue() const {
+map<StringType*, Type*, RECORD_COMPARE> Record::_getBinding() const {
 	return _value;
 }
 
-Type* Record::_getValue2(StringType* key) const{
+void Record::_setBinding(map<StringType*, Type*, RECORD_COMPARE> binding) {
+	_value = binding;
+}
+
+Type* Record::_getValue(StringType* key) const{
 	return _value.find(key)->second;
 }
 
@@ -22,6 +26,10 @@ BooleanType* Record::_hasValue(StringType * key){
 
 void Record::_insertKey(StringType* key, Type* data) {
 	_value.insert(pair<StringType *, Type *>(key, data));
+}
+
+void Record::_deleteKey(StringType* key) {
+	_value.erase(key);
 }
 
 BooleanType* Record::_isInitialized(StringType* key) {
