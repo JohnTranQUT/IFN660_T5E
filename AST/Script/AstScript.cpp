@@ -12,20 +12,26 @@ StatementListItem::StatementListItem(Node *_node) : node(_node) {
 	} else {
 		isStatement = false;
 	}
-	next.push_back(node);
+	children.push_back(node);
 }
 
 void StatementListItem::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void StatementListItem::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void StatementListItem::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
+	}
+}
+
+void StatementListItem::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
 	}
 }
 
@@ -48,69 +54,89 @@ void StatementList::dump(int indent) {
 	}
 }
 
-void StatementList::genCode(bool Exec) {
-	if (Exec) {
-		if (lexs.size() == 0) {
-			Node::genCode("NewDeclarativeEnvironment(nullptr)", false, true);
-		} else {
-			auto lex = lexs.back();
-			Node::genCode(string("NewDeclarativeEnvironment(") + lex + string(")"), false, true);
-		}
-		for (auto &i : nodes) {
-			if (auto _i = dynamic_cast<StatementListItem *>(i)) {
-				if (!_i->isStatement) {
-					_i->genCode(false);
-					auto lex = lexs.back();
-					auto ident = refs.back();
-					refs.pop_back();
-					Node::genCode(lex + string("->_getEnvRec()->CreateMutableBinding(" + ident + ", new BooleanType(false))"), false);
-				}
+void StatementList::evaluate() {
+	for (auto &i : nodes) {
+		i->evaluate();
+	}
+}
+
+void StatementList::instantiate() {
+	for (auto &i : nodes) {
+		if (auto _i = dynamic_cast<StatementListItem *>(i)) {
+			if (!_i->isStatement) {
+				_i->instantiate();
+				auto lex = lexs.back();
+				auto ident = refs.back();
+				refs.pop_back();
+				emit(lex + string("->_getEnvRec()->CreateMutableBinding(" + ident + ", new BooleanType(false))"), false);
 			}
 		}
-	}
-	for (auto &i : nodes) {
-		i->genCode(Exec);
-	}
-	if (Exec) {
-		lexs.pop_back();
 	}
 }
 
 ScriptBody::ScriptBody(StatementList *_statementlist) : statementlist(_statementlist) {
-	next.push_back(statementlist);
+	children.push_back(statementlist);
 }
 
 void ScriptBody::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void ScriptBody::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void ScriptBody::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
+	}
+}
+
+void ScriptBody::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
 	}
 }
 
 Script::Script(Node *_node) : node(_node) {
-	next.push_back(node);
+	children.push_back(node);
 }
 
 void Script::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void Script::genCode(bool Exec) {
-	Node::genCode("#include \"RuntimeLib.h\"", false, false, false, true);
-	Node::genCode("void main() {", false, false, false, true);
-	for (auto &i : next) {
-		i->genCode(Exec);
+void Script::evaluate() {
+	emit("#include \"RuntimeLib.h\"", false, false, false, true);
+	emit("void main() {", false, false, false, true);
+
+	if (lexs.size() == 0) {
+		emit("NewDeclarativeEnvironment(nullptr)", false, true);
 	}
-	Node::genCode("}", false, false, false, true);
+	else {
+		auto lex = lexs.back();
+		emit(string("NewDeclarativeEnvironment(") + lex + string(")"), false, true);
+	}
+
+	for (auto &i : children) {
+		i->instantiate();
+	}
+
+	for (auto &i : children) {
+		i->evaluate();
+	}
+
+	lexs.pop_back();
+
+	emit("}", false, false, false, true);
+}
+
+void Script::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
+	}
 }

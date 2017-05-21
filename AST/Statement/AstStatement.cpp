@@ -6,56 +6,70 @@
 using namespace std;
 
 BlockStatement::BlockStatement(Statement *_statement) : statement(_statement) {
-	next.push_back(statement);
+	children.push_back(statement);
 }
 
 void BlockStatement::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void BlockStatement::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void BlockStatement::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
+	}
+}
+
+void BlockStatement::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
 	}
 }
 
 Block::Block(StatementList *_statementlist) : statementlist(_statementlist) {
-	next.push_back(statementlist);
+	children.push_back(statementlist);
 }
 
 void Block::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void Block::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void Block::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
 	}
 }
 
+void Block::instantiate() { }
+
 ExpressionStatement::ExpressionStatement(Expression *_expression) : expression(_expression) {
-	next.push_back(expression);
+	children.push_back(expression);
 }
 
 void ExpressionStatement::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void ExpressionStatement::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void ExpressionStatement::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
+	}
+}
+
+void ExpressionStatement::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
 	}
 }
 
@@ -68,28 +82,34 @@ IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement, State
 	auto expCont = new Container(expComp, "(CONDITIONS)");
 	auto ifCont = new Container(ifComp, "(IF)");
 	auto elseCont = new Container(elseComp, "(ELSE)");
-	next.push_back(expCont);
-	next.push_back(ifCont);
-	next.push_back(elseCont);
+	children.push_back(expCont);
+	children.push_back(ifCont);
+	children.push_back(elseCont);
 }
 
 IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement) : expression(_expression),
                                                                              ifStatement(_ifStatement),
                                                                              elseStatement(nullptr) {
-	next.push_back(expression);
-	next.push_back(ifStatement);
+	children.push_back(expression);
+	children.push_back(ifStatement);
 }
 
 void IfStatement::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void IfStatement::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void IfStatement::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
+	}
+}
+
+void IfStatement::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
 	}
 }

@@ -230,7 +230,7 @@ void main(int argc, char *argv[]) {
 #ifdef CG
 
 	output.open(argv[2], ofstream::out | ofstream::trunc);
-	root->genCode();
+	root->evaluate();
 	output.close();
 	puts("");
 

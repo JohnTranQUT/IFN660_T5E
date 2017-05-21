@@ -4,39 +4,43 @@ using namespace std;
 
 LexicalBinding::LexicalBinding(Expression *_LHS) : LHS(_LHS),
                                                    RHS(nullptr) {
-	next.push_back(LHS);
+	children.push_back(LHS);
 }
 
 LexicalBinding::LexicalBinding(Expression *_LHS, Expression *_RHS) : LHS(_LHS),
                                                                      RHS(_RHS) {
-	next.push_back(RHS);
-	next.push_back(LHS);
+	children.push_back(RHS);
+	children.push_back(LHS);
 }
 
 void LexicalBinding::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void LexicalBinding::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void LexicalBinding::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
 	}
-	if (Exec) {
-		if (next.size() > 1) {
-			auto ident = refs.back();
-			refs.pop_back();
-			auto initializer = refs.back();
-			refs.pop_back();
-			Node::genCode(string("InitializeReferencedBinding(") + ident + ", " + initializer + string(")"), false);
-		} else {
-			auto ident = refs.back();
-			refs.pop_back();
-			Node::genCode(string("InitializeReferencedBinding(") + ident + ", " + "new UndefinedType()" + string(")"), false);
-		}
+	if (children.size() > 1) {
+		auto ident = refs.back();
+		refs.pop_back();
+		auto initializer = refs.back();
+		refs.pop_back();
+		emit(string("InitializeReferencedBinding(") + ident + ", " + initializer + string(")"), false);
+	} else {
+		auto ident = refs.back();
+		refs.pop_back();
+		emit(string("InitializeReferencedBinding(") + ident + ", " + "new UndefinedType()" + string(")"), false);
+	}
+}
+
+void LexicalBinding::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
 	}
 }
 
@@ -59,26 +63,38 @@ void BindingList::dump(int indent) {
 	}
 }
 
-void BindingList::genCode(bool Exec) {
+void BindingList::evaluate() {
 	for (auto &i : declarations) {
-		i->genCode(Exec);
+		i->evaluate();
+	}
+}
+
+void BindingList::instantiate() {
+	for (auto &i : declarations) {
+		i->instantiate();
 	}
 }
 
 LexicalDeclaration::LexicalDeclaration(BindingList *_bindingList) : bindingList(_bindingList) {
-	next.push_back(bindingList);
+	children.push_back(bindingList);
 }
 
 void LexicalDeclaration::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void LexicalDeclaration::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void LexicalDeclaration::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
+	}
+}
+
+void LexicalDeclaration::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
 	}
 }

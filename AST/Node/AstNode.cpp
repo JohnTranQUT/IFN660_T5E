@@ -12,7 +12,7 @@ void Node::dump(string message, int indent) {
 	cout << message << endl;
 }
 
-void Node::genCode(string code, bool saveRef, bool isLex, bool semicolon, bool pure) {
+void Node::emit(string code, bool saveRef, bool isLex, bool semicolon, bool pure) {
 	if (pure) {
 		auto str = code + (semicolon ? ";" : "");
 		output << str.c_str();
@@ -40,19 +40,25 @@ void Node::indentation(int indent) {
 	}
 }
 
-Container::Container(vector<Node *> _next, string _name) : next(_next),
+Container::Container(vector<Node *> _next, string _name) : children(_next),
                                                            name(_name) { }
 
 void Container::dump(int indent) {
 	auto message = name + ": ";
 	Node::dump(message, indent);
-	for (auto &i : next) {
+	for (auto &i : children) {
 		i->dump(indent + 1);
 	}
 }
 
-void Container::genCode(bool Exec) {
-	for (auto &i : next) {
-		i->genCode(Exec);
+void Container::evaluate() {
+	for (auto &i : children) {
+		i->evaluate();
+	}
+}
+
+void Container::instantiate() {
+	for (auto &i : children) {
+		i->instantiate();
 	}
 }
