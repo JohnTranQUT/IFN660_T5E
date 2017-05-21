@@ -4,6 +4,7 @@ using namespace std;
 
 class Node {
 protected:
+	static int indent;
 	static int numRef;
 	static int numLex;
 	static vector<string> refs;
@@ -14,7 +15,7 @@ public:
 	virtual void evaluate() = 0;
 	virtual void instantiate() = 0;
 	static void dump(string, int);
-	static void emit(string code, bool saveRef = true, bool isLex = false, bool semicolon = true, bool pure = false);
+	static void emit(string code, bool saveRef = true, bool isLex = false, bool pure = false);
 	static void indentation(int);
 };
 

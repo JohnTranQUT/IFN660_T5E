@@ -68,7 +68,7 @@ void StatementList::instantiate() {
 				auto lex = lexs.back();
 				auto ident = refs.back();
 				refs.pop_back();
-				emit(lex + string("->_getEnvRec()->CreateMutableBinding(" + ident + ", new BooleanType(false))"), false);
+				emit(lex + string("->_getEnvRec()->CreateMutableBinding(" + ident + ", new BooleanType(false));"), false);
 			}
 		}
 	}
@@ -111,15 +111,17 @@ void Script::dump(int indent) {
 }
 
 void Script::evaluate() {
-	emit("#include \"RuntimeLib.h\"", false, false, false, true);
-	emit("void main() {", false, false, false, true);
+	emit("#include \"RuntimeLib.h\"", false, false, true);
+	emit("void main() {", false, false, true);
+
+	indent++;
 
 	if (lexs.size() == 0) {
-		emit("NewDeclarativeEnvironment(nullptr)", false, true);
+		emit("NewDeclarativeEnvironment(nullptr);", false, true);
 	}
 	else {
 		auto lex = lexs.back();
-		emit(string("NewDeclarativeEnvironment(") + lex + string(")"), false, true);
+		emit(string("NewDeclarativeEnvironment(") + lex + string(");"), false, true);
 	}
 
 	for (auto &i : children) {
@@ -132,7 +134,9 @@ void Script::evaluate() {
 
 	lexs.pop_back();
 
-	emit("}", false, false, false, true);
+	indent--;
+
+	emit("}", false, false, true);
 }
 
 void Script::instantiate() {

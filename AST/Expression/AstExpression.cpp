@@ -13,11 +13,11 @@ void IdentifierName::dump(int indent) {
 }
 
 void IdentifierName::evaluate() {
-	emit(string("new StringType(\"") + LHS + string("\")"));
+	emit(string("new StringType(\"") + LHS + string("\");"));
 }
 
 void IdentifierName::instantiate() {
-	emit(string("new StringType(\"") + LHS + string("\")"));
+	emit(string("new StringType(\"") + LHS + string("\");"));
 }
 
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
@@ -28,7 +28,7 @@ void DecimalLiteral::dump(int indent) {
 }
 
 void DecimalLiteral::evaluate() {
-	emit(string("new NumberType(") + _TrimDecimal(to_string(LHS)) + string(")"));
+	emit(string("new NumberType(") + _TrimDecimal(to_string(LHS)) + string(");"));
 }
 
 void DecimalLiteral::instantiate() { }
@@ -52,7 +52,7 @@ void Identifier::evaluate() {
 	auto ident = refs.back();
 	refs.pop_back();
 
-	emit(string("ResolveBinding(") + ident + ", " + lexs.back() + string(")"));
+	emit(string("ResolveBinding(") + ident + ", " + lexs.back() + string(");"));
 }
 
 void Identifier::instantiate() {
@@ -382,13 +382,13 @@ void AdditiveExpression::evaluate() {
 			refs.pop_back();
 			auto rhs = refs.back();
 			refs.pop_back();
-			emit(string("AdditionOperator(" + lhs + ", " + rhs + ")"));
+			emit(string("AdditionOperator(" + lhs + ", " + rhs + ");"));
 		} else if (OP == "-") {
 			auto lhs = refs.back();
 			refs.pop_back();
 			auto rhs = refs.back();
 			refs.pop_back();
-			emit(string("SubtractionOperator(" + lhs + ", " + rhs + ")"));
+			emit(string("SubtractionOperator(" + lhs + ", " + rhs + ");"));
 		}
 	}
 }
@@ -663,7 +663,7 @@ void AssignmentExpression::evaluate() {
 		refs.pop_back();
 		auto rhs = refs.back();
 		refs.pop_back();
-		emit(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(")"), false);
+		emit(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(");"), false);
 	}
 }
 

@@ -17,6 +17,7 @@ extern Node *root;
 
 int Node::numRef = 1;
 int Node::numLex = 1;
+int Node::indent = 0;
 vector<string> Node::refs;
 vector<string> Node::lexs;
 ofstream output;

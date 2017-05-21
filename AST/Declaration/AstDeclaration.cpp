@@ -30,11 +30,11 @@ void LexicalBinding::evaluate() {
 		refs.pop_back();
 		auto initializer = refs.back();
 		refs.pop_back();
-		emit(string("InitializeReferencedBinding(") + ident + ", " + initializer + string(")"), false);
+		emit(string("InitializeReferencedBinding(") + ident + ", " + initializer + string(");"), false);
 	} else {
 		auto ident = refs.back();
 		refs.pop_back();
-		emit(string("InitializeReferencedBinding(") + ident + ", " + "new UndefinedType()" + string(")"), false);
+		emit(string("InitializeReferencedBinding(") + ident + ", " + "new UndefinedType()" + string(");"), false);
 	}
 }
 

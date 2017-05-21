@@ -12,26 +12,29 @@ void Node::dump(string message, int indent) {
 	cout << message << endl;
 }
 
-void Node::emit(string code, bool saveRef, bool isLex, bool semicolon, bool pure) {
+void Node::emit(string code, bool saveRef, bool isLex, bool pure) {
 	if (pure) {
-		auto str = code + (semicolon ? ";" : "");
-		output << str.c_str();
+		output << code;
 	} else {
+		string newRef;
 		if (isLex) {
-			auto newLex = string("LE") + to_string(numLex++);
-			lexs.push_back(newLex);
-			auto str = string("\t") + string("auto ") + newLex + string(" = ") + code + (semicolon ? ";" : "");
-			output << str.c_str();
-		} else {
-			auto newRef = string("R") + to_string(numRef++);
+			newRef = string("LE") + to_string(numLex++);
+			lexs.push_back(newRef);
+		}
+		else {
+			newRef = string("R") + to_string(numRef++);
 			if (saveRef) {
 				refs.push_back(newRef);
 			}
-			auto str = string("\t") + string("auto ") + newRef + string(" = ") + code + (semicolon ? ";" : "");
-			output << str.c_str();
 		}
+		string str;
+		for (auto i = 0; i < indent; i++) {
+			str += string("\t");
+		}
+		str += string("auto ") + newRef + string(" = ") + code;
+		output << str.c_str();
 	}
-	output << "\r\n";
+	output << "\n";
 }
 
 void Node::indentation(int indent) {
