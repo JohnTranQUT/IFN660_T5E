@@ -16,7 +16,7 @@
 	char *binary;
 	char *octal;
 	char *hex;
-	bool booelan;
+	bool boolean;
 	char *ident;
 
 	Node *root;
@@ -34,10 +34,9 @@
 %token <binary> BINARY_L
 %token <octal> OCTAL_L
 %token <hex> HEX_L
-%token <bool> BooleanLiteral
 %token <ident> IDENT
 
-%token CONSOLE_LOG BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR LET CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
+%token CONSOLE_LOG TRUE FALSE BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR LET CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
 %{
 Node *root;
@@ -48,7 +47,7 @@ Node *root;
 %type <statement> Statement BlockStatement Block ExpressionStatement IfStatement ConsoleLogStatement
 %type <declaration> Declaration LexicalDeclaration LexicalBinding
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
-%type <expression> IdentifierReference BindingIdentifier Initializer_opt Initializer Literal NumericLiteral Identifier DecimalLiteral IdentifierName
+%type <expression> IdentifierReference BindingIdentifier Initializer_opt Initializer Literal NumericLiteral StringLiteral NullLiteral BooleanLiteral Identifier DecimalLiteral IdentifierName
 
 %start Script
 
@@ -309,10 +308,10 @@ IdentifierReference
 	;
 
 Literal
-	: NullLiteral
-	| BooleanLiteral
+	: NullLiteral																{ $$ = new Literal($1); }
+	| BooleanLiteral															{ $$ = new Literal($1); }
 	| NumericLiteral															{ $$ = new Literal($1); }
-	| StringLiteral
+	| StringLiteral																{ $$ = new Literal($1); }
 	;
 
 ArrayLiteral
@@ -443,12 +442,17 @@ RegularExpressionLiteral
 	:
 	;
 
+BooleanLiteral
+	: TRUE																		{ $$ = new BooleanLiteral(true); }
+	| FALSE																		{ $$ = new BooleanLiteral(false); }
+	;
+
 NullLiteral
-	:
+	: NULL_L																	{ $$ = new NullLiteral(); }
 	;
 
 StringLiteral
-	:
+	: STRING_L																	{ $$ = new StringLiteral($1); }
 	;
 
 DecimalLiteral

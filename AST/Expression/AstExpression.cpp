@@ -61,6 +61,43 @@ void Identifier::instantiate() {
 	}
 }
 
+StringLiteral::StringLiteral(string _LHS) : LHS(_LHS) { }
+
+void StringLiteral::dump(int indent) {
+	auto message = string(typeid(*this).name()).substr(6) + ": " + LHS;
+	Node::dump(message, indent);
+}
+
+void StringLiteral::evaluate() {
+	emit(string("new StringType(\"") + LHS + string("\");"));
+}
+
+void StringLiteral::instantiate() { }
+
+BooleanLiteral::BooleanLiteral(bool _LHS) : LHS(_LHS) { }
+
+void BooleanLiteral::dump(int indent) {
+	auto message = string(typeid(*this).name()).substr(6) + ": " + to_string(LHS);
+	Node::dump(message, indent);
+}
+
+void BooleanLiteral::evaluate() {
+	emit(string("new BooleanType(") + to_string(LHS) + string(");"));
+}
+
+void BooleanLiteral::instantiate() { }
+
+void NullLiteral::dump(int indent) {
+	auto message = string(typeid(*this).name()).substr(6) + ": null";
+	Node::dump(message, indent);
+}
+
+void NullLiteral::evaluate() {
+	emit(string("new NullType();"));
+}
+
+void NullLiteral::instantiate() { }
+
 NumericLiteral::NumericLiteral(Expression *_LHS) : LHS(_LHS) {
 	children.push_back(LHS);
 }

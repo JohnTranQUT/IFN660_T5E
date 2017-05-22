@@ -39,6 +39,34 @@ public:
 	void instantiate() override;
 };
 
+class BooleanLiteral : public Expression {
+	vector<Node*> children;
+	bool LHS;
+public:
+	explicit BooleanLiteral(bool);
+	void dump(int = 0) override;
+	void evaluate() override;
+	void instantiate() override;
+};
+
+class StringLiteral : public Expression {
+	vector<Node*> children;
+	string LHS;
+public:
+	explicit StringLiteral(string);
+	void dump(int = 0) override;
+	void evaluate() override;
+	void instantiate() override;
+};
+
+class NullLiteral : public Expression {
+public:
+	explicit NullLiteral() { };
+	void dump(int = 0) override;
+	void evaluate() override;
+	void instantiate() override;
+};
+
 class NumericLiteral : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
