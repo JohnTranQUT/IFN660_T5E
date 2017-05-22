@@ -5,6 +5,7 @@ Code Generation
 
 ## Project Logs
 - Implemented AST -> NullLiteral, StringLiteral, BooleanLiteral
+- Implemented `console.log()`
 - Implemented AST -> MultiplicativeExpression, ExponentiationExpression, EqualityExpression, RelationalExpression, IfStatement
 - Separated `instantiate()` from `evaluate()`
 - Renamed `genCode()` to `evaluate()`
