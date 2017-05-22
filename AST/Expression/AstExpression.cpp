@@ -325,7 +325,19 @@ void ExponentiationExpression::instantiate() {
 	}
 }
 
-MultiplicativeExpression::MultiplicativeExpression(Expression *_LHS) : LHS(_LHS) {
+MultiplicativeExpression::MultiplicativeExpression(Expression *_LHS) : LHS(_LHS),
+                                                                       RHS(nullptr) {
+	children.push_back(LHS);
+}
+
+MultiplicativeExpression::MultiplicativeExpression(
+	Expression *_LHS,
+	string _OP,
+	Expression *_RHS
+) : LHS(_LHS),
+    OP(_OP),
+    RHS(_RHS) {
+	children.push_back(RHS);
 	children.push_back(LHS);
 }
 
@@ -340,6 +352,19 @@ void MultiplicativeExpression::dump(int indent) {
 void MultiplicativeExpression::evaluate() {
 	for (auto &i : children) {
 		i->evaluate();
+	}
+	if (children.size() > 1) {
+		auto lhs = refs.back();
+		refs.pop_back();
+		auto rhs = refs.back();
+		refs.pop_back();
+		if (OP == "*") {
+			emit(string("MultiplicationOperator(") + lhs + string(", ") + rhs + string(");"));
+		} else if (OP == "/") {
+			emit(string("DivisionOperator(") + lhs + string(", ") + rhs + string(");"));
+		} else if (OP == "%") {
+			emit(string("ModulusOperator(") + lhs + string(", ") + rhs + string(");"));
+		}
 	}
 }
 
@@ -377,17 +402,13 @@ void AdditiveExpression::evaluate() {
 		i->evaluate();
 	}
 	if (children.size() > 1) {
+		auto lhs = refs.back();
+		refs.pop_back();
+		auto rhs = refs.back();
+		refs.pop_back();
 		if (OP == "+") {
-			auto lhs = refs.back();
-			refs.pop_back();
-			auto rhs = refs.back();
-			refs.pop_back();
 			emit(string("AdditionOperator(" + lhs + ", " + rhs + ");"));
 		} else if (OP == "-") {
-			auto lhs = refs.back();
-			refs.pop_back();
-			auto rhs = refs.back();
-			refs.pop_back();
 			emit(string("SubtractionOperator(" + lhs + ", " + rhs + ");"));
 		}
 	}

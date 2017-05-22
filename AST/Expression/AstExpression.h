@@ -152,8 +152,11 @@ public:
 class MultiplicativeExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
+	string OP;
+	Expression *RHS;
 public:
 	explicit MultiplicativeExpression(Expression *);
+	explicit MultiplicativeExpression(Expression *, string, Expression *);
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;

@@ -7,7 +7,11 @@ void main() {
 	auto R4 = new StringType("x");
 	auto R5 = ResolveBinding(R4, LE1);
 	auto R6 = InitializeReferencedBinding(R5, R3);
-	auto R7 = new StringType("x");
-	auto R8 = ResolveBinding(R7, LE1);
-	auto R9 = _log(R8);
+	auto R7 = new NumberType(2);
+	auto R8 = new StringType("x");
+	auto R9 = ResolveBinding(R8, LE1);
+	auto R10 = MultiplicationOperator(R9, R7);
+	auto R11 = new NumberType(2);
+	auto R12 = AdditionOperator(R11, R10);
+	auto R13 = _log(R12);
 }
