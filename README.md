@@ -4,9 +4,11 @@
 Code Generation
 
 ## Project Logs
+- Separated `instantiate()` from `evaluate()`
+- Renamed `genCode()` to `evaluate()`
 - Implemented AST -> Addition, AST -> Subtraction
 - Implemented Register(`R`) and LexicalEnvironment(`LE`) routing
-- Implemented virtual method `AstNode::genCode(bool)` for code generation
+- Implemented virtual method `Astemit(bool)` for code generation
 - Implemented `Reference` -> `InitializeReferencedBinding()`
 - Tests for `LexicalEnvironment` and `EnvironmentRecord` are now available
 - Implemented `_listItemsInRecord()` under _Helpers/

@@ -104,6 +104,8 @@ true|false			    {
 							return BooleanLiteral;
 						}
 
+console.log					{ return CONSOLE_LOG; }
+
 break						{ return BREAK; }
 do							{ return DO; }
 in							{ return IN; }

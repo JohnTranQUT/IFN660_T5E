@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-#include <AST/Node/AstNode.h>
-#include <AST/Expression/AstExpression.h>
-#include <AST/Script/AstScript.h>
+#include "AST/Node/AstNode.h"
+#include "AST/Expression/AstExpression.h"
+#include "AST/Script/AstScript.h"
 using namespace std;
 
 class Statement : public Node {
@@ -51,6 +51,16 @@ class IfStatement : public Statement {
 public:
 	explicit IfStatement(Expression *, Statement *, Statement *);
 	explicit IfStatement(Expression *, Statement *);
+	void dump(int = 0) override;
+	void evaluate() override;
+	void instantiate() override;
+};
+
+class ConsoleLogStatement : public Statement {
+	vector<Node*> children;
+	Expression *expression;
+public:
+	explicit ConsoleLogStatement(Expression *);
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;

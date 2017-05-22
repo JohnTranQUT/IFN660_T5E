@@ -1,8 +1,8 @@
+#include "AST/Script/AstScript.h"
 #include <typeinfo>
-#include <AST/Node/AstNode.h>
-#include <AST/Statement/AstStatement.h>
-#include <AST/Script/AstScript.h>
 #include <iostream>
+#include "AST/Node/AstNode.h"
+#include "AST/Statement/AstStatement.h"
 
 using namespace std;
 
@@ -116,13 +116,7 @@ void Script::evaluate() {
 
 	indent++;
 
-	if (lexs.size() == 0) {
-		emit("NewDeclarativeEnvironment(nullptr);", false, true);
-	}
-	else {
-		auto lex = lexs.back();
-		emit(string("NewDeclarativeEnvironment(") + lex + string(");"), false, true);
-	}
+	emit(string("NewGlobalEnvironment(new ObjectType(), new ObjectType());"), false, true);
 
 	for (auto &i : children) {
 		i->instantiate();
@@ -139,8 +133,4 @@ void Script::evaluate() {
 	emit("}", false, false, true);
 }
 
-void Script::instantiate() {
-	for (auto &i : children) {
-		i->instantiate();
-	}
-}
+void Script::instantiate() { }

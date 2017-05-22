@@ -11,7 +11,7 @@
 
 %union {
 	char *regex;
-	char * str;
+	char *str;
 	double decimal;
 	char *binary;
 	char *octal;
@@ -37,7 +37,7 @@
 %token <bool> BooleanLiteral
 %token <ident> IDENT
 
-%token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR LET CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
+%token CONSOLE_LOG BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR LET CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
 %{
 Node *root;
@@ -45,7 +45,7 @@ Node *root;
 %type <statementlist> StatementList StatementList_opt
 %type <bindinglist> BindingList
 %type <root> Script ScriptBody_opt ScriptBody StatementListItem
-%type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
+%type <statement> Statement BlockStatement Block ExpressionStatement IfStatement ConsoleLogStatement
 %type <declaration> Declaration LexicalDeclaration LexicalBinding
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
 %type <expression> IdentifierReference BindingIdentifier Initializer_opt Initializer Literal NumericLiteral Identifier DecimalLiteral IdentifierName
@@ -99,6 +99,7 @@ Statement
 	| ThrowStatement
 	| TryStatement
 	| DebuggerStatement
+	| ConsoleLogStatement														{ $$ = $1; }
 	;
 
 Declaration
@@ -162,6 +163,10 @@ TryStatement
 
 DebuggerStatement
 	:
+	;
+
+ConsoleLogStatement
+	: CONSOLE_LOG '(' AssignmentExpression ')' ';'								{ $$ = new ConsoleLogStatement($3); }
 	;
 
 LexicalDeclaration

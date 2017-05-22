@@ -1,5 +1,6 @@
+#include "AST/Declaration/AstDeclaration.h"
 #include <typeinfo>
-#include <AST/Declaration/AstDeclaration.h>
+
 using namespace std;
 
 LexicalBinding::LexicalBinding(Expression *_LHS) : LHS(_LHS),

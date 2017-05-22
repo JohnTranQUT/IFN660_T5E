@@ -1,8 +1,8 @@
+#include "AST/Expression/AstExpression.h"
 #include <string>
 #include <typeinfo>
-#include <AST/Node/AstNode.h>
-#include <AST/Expression/AstExpression.h>
-#include "RuntimeLib.h"
+#include "AST/Node/AstNode.h"
+#include "AST/_Helpers/_Helpers.h"
 
 using namespace std;
 IdentifierName::IdentifierName(char *_LHS) : LHS(_LHS) { }
@@ -23,7 +23,7 @@ void IdentifierName::instantiate() {
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
 
 void DecimalLiteral::dump(int indent) {
-	auto message = string(typeid(*this).name()).substr(6) + ": " + to_string(LHS) + " (" + string(typeid(LHS).name()) + ")";
+	auto message = string(typeid(*this).name()).substr(6) + ": " + _TrimDecimal(to_string(LHS)) + " (" + string(typeid(LHS).name()) + ")";
 	Node::dump(message, indent);
 }
 

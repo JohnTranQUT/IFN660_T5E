@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <AST/Node/AstNode.h>
+#include "AST/Node/AstNode.h"
 using namespace std;
 
 class Expression : public Node {
