@@ -14,7 +14,11 @@ void Node::dump(string message, int indent) {
 
 void Node::emit(string code, bool saveRef, bool isLex, bool pure) {
 	if (pure) {
-		output << code;
+		string str;
+		for (auto i = 0; i < indent; i++) {
+			str += string("\t");
+		}
+		output << str + code;
 	} else {
 		string newRef;
 		if (isLex) {

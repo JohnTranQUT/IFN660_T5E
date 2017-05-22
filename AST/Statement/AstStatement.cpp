@@ -42,9 +42,21 @@ void Block::dump(int indent) {
 }
 
 void Block::evaluate() {
+	if (lexs.size() < 1) {
+		emit(string("NewDeclarativeEnvironment(nullptr"), false, true);
+	} else {
+		auto lex = lexs.back();
+		emit(string("NewDeclarativeEnvironment(") + lex + string(");"), false, true);
+	}
+
+	for (auto &i : children) {
+		i->instantiate();
+	}
+
 	for (auto &i : children) {
 		i->evaluate();
 	}
+	lexs.pop_back();
 }
 
 void Block::instantiate() { }
@@ -76,15 +88,9 @@ void ExpressionStatement::instantiate() {
 IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement, Statement *_elseStatement) : expression(_expression),
                                                                                                         ifStatement(_ifStatement),
                                                                                                         elseStatement(_elseStatement) {
-	vector<Node*> expComp = { expression };
-	vector<Node*> ifComp = { ifStatement };
-	vector<Node*> elseComp = { elseStatement };
-	auto expCont = new Container(expComp, "(CONDITIONS)");
-	auto ifCont = new Container(ifComp, "(IF)");
-	auto elseCont = new Container(elseComp, "(ELSE)");
-	children.push_back(expCont);
-	children.push_back(ifCont);
-	children.push_back(elseCont);
+	children.push_back(expression);
+	children.push_back(ifStatement);
+	children.push_back(elseStatement);
 }
 
 IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement) : expression(_expression),
@@ -103,8 +109,24 @@ void IfStatement::dump(int indent) {
 }
 
 void IfStatement::evaluate() {
-	for (auto &i : children) {
-		i->evaluate();
+	expression->evaluate();
+	auto exprRef = refs.back();
+	refs.pop_back();
+	emit(string("ToBoolean(_ToLanguageType(GetValue(") + exprRef + string(")));"));
+	auto exprValue = refs.back();
+	refs.pop_back();
+	emit(string("if (") + exprValue + string("->_getValue()) {"), false, false, true);
+	indent++;
+	ifStatement->evaluate();
+	indent--;
+	if (elseStatement == nullptr) {
+		emit(string("}"), false, false, true);
+	} else {
+		emit(string("} else {"), false, false, true);
+		indent++;
+		elseStatement->evaluate();
+		indent--;
+		emit(string("}"), false, false, true);
 	}
 }
 
