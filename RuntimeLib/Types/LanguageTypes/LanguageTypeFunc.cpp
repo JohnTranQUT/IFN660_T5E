@@ -6,6 +6,7 @@
 #include "RuntimeLib/Types/LanguageTypes/ObjectType/Objects/BooleanObject/BooleanObject.h"
 #include "RuntimeLib/Types/LanguageTypes/ObjectType/Objects/NumberObject/NumberObject.h"
 #include "RuntimeLib/Types/LanguageTypes/ObjectType/Objects/StringObject/StringObject.h"
+#include "RuntimeLib/_Helpers/_Helpers.h"
 
 LanguageType *ToPrimitive(LanguageType *input, LanguageType *PreferredType) {
 	if (auto _input = dynamic_cast<ObjectType *>(input)) {
@@ -277,4 +278,78 @@ string _TrimDecimal(string value) {
 		value.pop_back();
 	}
 	return value;
+}
+
+BooleanType *StrictEqualityComparison(LanguageType *LHS, LanguageType *RHS) {
+	if (!_sameType(LHS ,RHS)->_getValue()) {
+		return new BooleanType(false);
+	}
+	if (auto _LHS = dynamic_cast<NumberType *>(LHS)) {
+		if (isnan(_LHS->_getValue())) {
+			return new BooleanType(false);
+		}
+		auto _RHS = dynamic_cast<NumberType *>(RHS);
+		if (isnan(_RHS->_getValue())) {
+			return new BooleanType(false);
+		}
+		if (_LHS->_getValue() == _RHS->_getValue()) {
+			return new BooleanType(true);
+		}
+		return new BooleanType(false);
+	}
+	return SameValueNonNumber(LHS, RHS);
+}
+
+BooleanType *SameValueNonNumber(LanguageType *LHS, LanguageType *RHS) {
+	if (dynamic_cast<UndefinedType *>(LHS)) {
+		return new BooleanType(true);
+	}
+	if (dynamic_cast<NullType *>(LHS)) {
+		return new BooleanType(true);
+	}
+	if (auto _LHS = dynamic_cast<StringType *>(LHS)) {
+		auto _RHS = dynamic_cast<StringType *>(RHS);
+		return new BooleanType(_LHS->_getValue() == _RHS->_getValue());
+	}
+	if (auto _LHS = dynamic_cast<BooleanType *>(LHS)) {
+		auto _RHS = dynamic_cast<BooleanType *>(RHS);
+		return new BooleanType(_LHS->_getValue() == _RHS->_getValue());
+	}
+	if (auto _LHS = dynamic_cast<SymbolType *>(LHS)) {
+		auto _RHS = dynamic_cast<SymbolType *>(RHS);
+		return new BooleanType(_LHS->_getValue() == _RHS->_getValue());
+	}
+	if (auto _LHS = dynamic_cast<ObjectType *>(LHS)) {
+		auto _RHS = dynamic_cast<ObjectType *>(RHS);
+		return new BooleanType(_LHS->_getValue() == _RHS->_getValue());
+	}
+	return new BooleanType(false);
+}
+
+BooleanType *AbstractEqualityComparison(LanguageType *LHS, LanguageType *RHS) {
+	if (_sameType(LHS, RHS)) {
+		return StrictEqualityComparison(LHS, RHS);
+	}
+	if (dynamic_cast<NullType *>(LHS) && dynamic_cast<UndefinedType *>(RHS) || dynamic_cast<UndefinedType *>(LHS) && dynamic_cast<NullType *> (RHS)) {
+		return new BooleanType(true);
+	}
+	if (dynamic_cast<NumberType *>(LHS) && dynamic_cast<StringType *>(RHS)) {
+		return AbstractEqualityComparison(LHS, ToNumber(RHS));
+	}
+	if (dynamic_cast<StringType *>(LHS) && dynamic_cast<NumberType *>(RHS)) {
+		return AbstractEqualityComparison(ToNumber(LHS), RHS);
+	}
+	if (dynamic_cast<BooleanType *>(LHS)) {
+		return AbstractEqualityComparison(ToNumber(LHS), RHS);
+	}
+	if (dynamic_cast<BooleanType *>(RHS)) {
+		return AbstractEqualityComparison(LHS, ToNumber(RHS));
+	}
+	if ((dynamic_cast<StringType *>(LHS) || dynamic_cast<NumberType *>(LHS) || dynamic_cast<SymbolType *>(LHS)) && dynamic_cast<ObjectType *>(RHS)) {
+		return AbstractEqualityComparison(LHS, ToPrimitive(RHS));
+	}
+	if ((dynamic_cast<StringType *>(RHS) || dynamic_cast<NumberType *>(RHS) || dynamic_cast<SymbolType *>(RHS)) && dynamic_cast<ObjectType *>(LHS)) {
+		return AbstractEqualityComparison(ToPrimitive(LHS), RHS);
+	}
+	return new BooleanType(false);
 }

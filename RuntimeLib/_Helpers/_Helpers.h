@@ -4,4 +4,5 @@
 
 void _calculate(LanguageType *, string, LanguageType *);
 void _listItemsInRecord(Record *);
+BooleanType *_sameType(LanguageType *, LanguageType *);
 CompletionRecord *_log(Type *);

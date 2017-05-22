@@ -16,3 +16,8 @@ ObjectType *ToObject(LanguageType *);
 LanguageType *_ToLanguageType(Type *, bool = true);
 bool _CheckIfObject(LanguageType *);
 string _TrimDecimal(string);
+
+BooleanType *StrictEqualityComparison(LanguageType *, LanguageType *);
+BooleanType *SameValueNonNumber(LanguageType *, LanguageType *);
+BooleanType *AbstractEqualityComparison(LanguageType *, LanguageType *);
+BooleanType *AbstractRelationalComparison(LanguageType *, LanguageType *, BooleanType *);

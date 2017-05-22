@@ -492,8 +492,7 @@ void RelationalExpression::instantiate() {
 }
 
 EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS),
-                                                           RHS(nullptr),
-                                                           OP(nullptr) {
+                                                           RHS(nullptr) {
 	children.push_back(LHS);
 }
 
