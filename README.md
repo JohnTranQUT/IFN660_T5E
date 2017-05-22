@@ -4,7 +4,8 @@
 Code Generation
 
 ## Project Logs
-- Implemented ASt -> MultiplicativeExpression, ExponentiationExpression, EqualityExpression, RelationalExpression, IfStatement
+- Implemented AST -> NullLiteral, StringLiteral, BooleanLiteral
+- Implemented AST -> MultiplicativeExpression, ExponentiationExpression, EqualityExpression, RelationalExpression, IfStatement
 - Separated `instantiate()` from `evaluate()`
 - Renamed `genCode()` to `evaluate()`
 - Implemented AST -> Addition, AST -> Subtraction
