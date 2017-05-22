@@ -353,3 +353,50 @@ BooleanType *AbstractEqualityComparison(LanguageType *LHS, LanguageType *RHS) {
 	}
 	return new BooleanType(false);
 }
+
+LanguageType *AbstractRelationalComparison(LanguageType *x, LanguageType *y, BooleanType *LeftFirst) {
+	LanguageType *px;
+	LanguageType *py;
+	if (LeftFirst->_getValue()) {
+		px = ToPrimitive(x);
+		py = ToPrimitive(y);
+	} else {
+		py = ToPrimitive(y);
+		px = ToPrimitive(x);
+	}
+	if (dynamic_cast<StringType *>(px) && dynamic_cast<StringType *>(py)) {
+		auto _px = dynamic_cast<StringType *>(px);
+		auto _py = dynamic_cast<StringType *>(py);
+		if (_px->_getValue().find(_py->_getValue()) == 0) {
+			return new BooleanType(false);
+		}
+		if (_py->_getValue().find(_px->_getValue()) == 0) {
+			return new BooleanType(true);
+		}
+		return new BooleanType(_px->_getValue() < _py->_getValue());
+	}
+	auto nx = ToNumber(px);
+	auto ny = ToNumber(py);
+	if (isnan(nx->_getValue()) || isnan(ny->_getValue())) {
+		return new UndefinedType();
+	}
+	if (nx->_getValue() == ny->_getValue()) {
+		return new BooleanType(false);
+	}
+	if (nx->_getValue() == 0 && ny->_getValue() == 0 && signbit(nx->_getValue()) != signbit(ny->_getValue())) {
+		return new BooleanType(false);
+	}
+	if (!signbit(nx->_getValue()) && isinf(nx->_getValue())) {
+		return new BooleanType(false);
+	}
+	if (!signbit(ny->_getValue()) && isinf(ny->_getValue())) {
+		return new BooleanType(true);
+	}
+	if (signbit(ny->_getValue()) && isinf(ny->_getValue())) {
+		return new BooleanType(false);
+	}
+	if (signbit(nx->_getValue()) && isinf(nx->_getValue())) {
+		return new BooleanType(true);
+	}
+	return new BooleanType(nx->_getValue() < ny->_getValue());
+}

@@ -20,4 +20,4 @@ string _TrimDecimal(string);
 BooleanType *StrictEqualityComparison(LanguageType *, LanguageType *);
 BooleanType *SameValueNonNumber(LanguageType *, LanguageType *);
 BooleanType *AbstractEqualityComparison(LanguageType *, LanguageType *);
-BooleanType *AbstractRelationalComparison(LanguageType *, LanguageType *, BooleanType *);
+LanguageType *AbstractRelationalComparison(LanguageType *, LanguageType *, BooleanType * = new BooleanType(true));

@@ -190,11 +190,11 @@ public:
 class RelationalExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
+	string OP;
 	Expression *RHS;
-	char *op;
 public:
 	explicit RelationalExpression(Expression *);
-	explicit RelationalExpression(Expression *, Expression *, char *);
+	explicit RelationalExpression(Expression *, string, Expression *);
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;

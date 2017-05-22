@@ -373,12 +373,12 @@ EqualityExpression
 /* Level 12 */
 RelationalExpression
 	: ShiftExpression															{ $$ = new RelationalExpression($1); }
-	| RelationalExpression '<' ShiftExpression									{ $$ = new RelationalExpression($1, $3, "<"); }
-	| RelationalExpression '>' ShiftExpression									{ $$ = new RelationalExpression($1, $3, ">"); }
-	| RelationalExpression LE ShiftExpression									{ $$ = new RelationalExpression($1, $3, "<="); }
-	| RelationalExpression GE ShiftExpression									{ $$ = new RelationalExpression($1, $3, ">="); }
-	| RelationalExpression INSTANCEOF ShiftExpression							{ $$ = new RelationalExpression($1, $3, "instanceof"); }
-	| RelationalExpression IN ShiftExpression									{ $$ = new RelationalExpression($1, $3, "in"); }
+	| RelationalExpression '<' ShiftExpression									{ $$ = new RelationalExpression($1, "<", $3); }
+	| RelationalExpression '>' ShiftExpression									{ $$ = new RelationalExpression($1, ">", $3); }
+	| RelationalExpression LE ShiftExpression									{ $$ = new RelationalExpression($1, "<=", $3); }
+	| RelationalExpression GE ShiftExpression									{ $$ = new RelationalExpression($1, ">=", $3); }
+	| RelationalExpression INSTANCEOF ShiftExpression							{ $$ = new RelationalExpression($1, "instanceof", $3); }
+	| RelationalExpression IN ShiftExpression									{ $$ = new RelationalExpression($1, "in", $3); }
 	;
 
 /* Level 13 */

@@ -458,17 +458,15 @@ void ShiftExpression::instantiate() {
 }
 
 RelationalExpression::RelationalExpression(Expression *_LHS) : LHS(_LHS),
-                                                               RHS(nullptr),
-                                                               op(nullptr) {
+                                                               RHS(nullptr) {
 	children.push_back(LHS);
 }
 
-RelationalExpression::RelationalExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS),
+RelationalExpression::RelationalExpression(Expression *_LHS, string _OP, Expression *_RHS) : LHS(_LHS),
                                                                                             RHS(_RHS),
-                                                                                            op(_op) {
-	vector<Node *> components = { LHS, RHS };
-	auto container = new Container(components, "('" + string(op) + "' OP)");
-	children.push_back(container);
+                                                                                            OP(_OP) {
+	children.push_back(RHS);
+	children.push_back(LHS);
 }
 
 void RelationalExpression::dump(int indent) {
@@ -482,6 +480,21 @@ void RelationalExpression::dump(int indent) {
 void RelationalExpression::evaluate() {
 	for (auto &i : children) {
 		i->evaluate();
+	}
+	if (children.size() > 1) {
+		auto lhs = refs.back();
+		refs.pop_back();
+		auto rhs = refs.back();
+		refs.pop_back();
+		if (OP == "<") {
+			emit(string("LessThanOperator(") + lhs + string(", ") + rhs + string(");"));
+		} else if (OP == ">") {
+			emit(string("GreaterThanOperator(") + lhs + string(", ") + rhs + string(");"));
+		} else if (OP == "<=") {
+			emit(string("LessEqualOperator(") + lhs + string(", ") + rhs + string(");"));
+		} else if (OP == ">=") {
+			emit(string("GreaterEqualOperator(") + lhs + string(", ") + rhs + string(");"));
+		}
 	}
 }
 
