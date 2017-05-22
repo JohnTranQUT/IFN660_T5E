@@ -142,8 +142,10 @@ public:
 class ExponentiationExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
+	Expression *RHS;
 public:
 	explicit ExponentiationExpression(Expression *);
+	explicit ExponentiationExpression(Expression *, Expression *);
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;
@@ -202,10 +204,10 @@ class EqualityExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
 	Expression *RHS;
-	char *op;
+	string OP;
 public:
 	explicit EqualityExpression(Expression *);
-	explicit EqualityExpression(Expression *, Expression *, char *);
+	explicit EqualityExpression(Expression *, string, Expression *);
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;

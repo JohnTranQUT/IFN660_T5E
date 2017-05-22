@@ -301,7 +301,13 @@ void UnaryExpression::instantiate() {
 	}
 }
 
-ExponentiationExpression::ExponentiationExpression(Expression *_LHS) : LHS(_LHS) {
+ExponentiationExpression::ExponentiationExpression(Expression *_LHS) : LHS(_LHS),
+                                                                       RHS(nullptr) {
+	children.push_back(LHS);
+}
+
+ExponentiationExpression::ExponentiationExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS), RHS(_RHS) {
+	children.push_back(RHS);
 	children.push_back(LHS);
 }
 
@@ -316,6 +322,13 @@ void ExponentiationExpression::dump(int indent) {
 void ExponentiationExpression::evaluate() {
 	for (auto &i : children) {
 		i->evaluate();
+	}
+	if (children.size() > 1) {
+		auto lhs = refs.back();
+		refs.pop_back();
+		auto rhs = refs.back();
+		refs.pop_back();
+		emit(string("ExponentiationOperator(" + lhs + string(", ") + rhs + string(");")));
 	}
 }
 
@@ -480,16 +493,15 @@ void RelationalExpression::instantiate() {
 
 EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS),
                                                            RHS(nullptr),
-                                                           op(nullptr) {
+                                                           OP(nullptr) {
 	children.push_back(LHS);
 }
 
-EqualityExpression::EqualityExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS),
+EqualityExpression::EqualityExpression(Expression *_LHS, string _OP, Expression *_RHS) : LHS(_LHS),
                                                                                         RHS(_RHS),
-                                                                                        op(_op) {
-	vector<Node *> components = { LHS, RHS };
-	auto container = new Container(components, "('" + string(op) + "' OP)");
-	children.push_back(container);
+                                                                                        OP(_OP) {
+	children.push_back(RHS);
+	children.push_back(LHS);
 }
 
 void EqualityExpression::dump(int indent) {
@@ -503,6 +515,21 @@ void EqualityExpression::dump(int indent) {
 void EqualityExpression::evaluate() {
 	for (auto &i : children) {
 		i->evaluate();
+	}
+	if (children.size() > 1) {
+		auto lhs = refs.back();
+		refs.pop_back();
+		auto rhs = refs.back();
+		refs.pop_back();
+		if (OP == "==") {
+			emit(string("AbstractEqualityOperator(" + lhs + string(", ") + rhs + string(");")));
+		} else if (OP == "!=") {
+			emit(string("AbstractEqualityOperator(" + lhs + string(", ") + rhs + string(", new BooleanType(true));")));
+		} else if (OP == "===") {
+			emit(string("StrictEqualityOperator(" + lhs + string(", ") + rhs + string(");")));
+		} else if (OP == "!==") {
+			emit(string("StrictEqualityOperator(" + lhs + string(", ") + rhs + string(", new BooleanType(true));")));
+		}
 	}
 }
 

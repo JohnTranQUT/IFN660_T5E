@@ -10,8 +10,6 @@ void main() {
 	auto R7 = new NumberType(2);
 	auto R8 = new StringType("x");
 	auto R9 = ResolveBinding(R8, LE1);
-	auto R10 = MultiplicationOperator(R9, R7);
-	auto R11 = new NumberType(2);
-	auto R12 = AdditionOperator(R11, R10);
-	auto R13 = _log(R12);
+	auto R10 = ExponentiationOperator(R9, R7);
+	auto R11 = _log(R10);
 }

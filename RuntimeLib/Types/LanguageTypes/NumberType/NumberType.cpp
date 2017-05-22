@@ -153,3 +153,89 @@ NumberType *NumberType::operator%(NumberType &rhs) const {
 	auto _result = fmod(lhs._getValue(), rhs._getValue());
 	return new NumberType(_result);
 }
+
+NumberType *NumberType::operator^(NumberType &exponent) const {
+	auto base = *this;
+	auto _baseSign = signbit(base._getValue());
+	auto _expSign = signbit(exponent._getValue());
+	if (isnan(exponent._getValue())) {
+		return new NumberType(NAN);
+	}
+	if (exponent._getValue() == 0) {
+		return new NumberType(1);
+	}
+	if (isnan(base._getValue()) && exponent._getValue() != 0) {
+		return new NumberType(NAN);
+	}
+	if (abs(base._getValue()) > 1 && isinf(exponent._getValue()) && !_expSign) {
+		return new NumberType(INFINITY);
+	}
+	if (abs(base._getValue() < 1) && isinf(exponent._getValue()) && _expSign) {
+		return new NumberType(0);
+	}
+	if (abs(base._getValue() == 1) && isinf(exponent._getValue())) {
+		return new NumberType(NAN);
+	}
+	if (abs(base._getValue() < 1) && isinf(exponent._getValue()) && !_expSign) {
+		return new NumberType(0);
+	}
+	if (abs(base._getValue() < 1) && isinf(exponent._getValue()) && _expSign) {
+		return new NumberType(INFINITY);
+	}
+	if (!_baseSign && isinf(base._getValue()) && exponent._getValue() > 0) {
+		return new NumberType(INFINITY);
+	}
+	if (!_baseSign && isinf(base._getValue()) && exponent._getValue() < 0) {
+		return new NumberType(0);
+	}
+	auto even = new NumberType(2);
+	if (_baseSign && isinf(base._getValue()) && exponent._getValue() > 0 && (exponent % *even)->_getValue() == 1) {
+		return new NumberType(-INFINITY);
+	}
+	if (_baseSign && isinf(base._getValue()) && exponent._getValue() > 0 && (exponent % *even)->_getValue() == 0) {
+		return new NumberType(INFINITY);
+	}
+	if (_baseSign && isinf(base._getValue()) && exponent._getValue() < 0 && (exponent % *even)->_getValue() == 1) {
+		return new NumberType(-0);
+	}
+	if (_baseSign && isinf(base._getValue()) && exponent._getValue() < 0 && (exponent % *even)->_getValue() == 0) {
+		return new NumberType(0);
+	}
+	if (!_baseSign && base._getValue() == 0 && exponent._getValue() > 0) {
+		return new NumberType(0);
+	}
+	if (!_baseSign && base._getValue() == 0 && exponent._getValue() < 0) {
+		return new NumberType(INFINITY);
+	}
+	if (_baseSign && base._getValue() == 0 && exponent._getValue() > 0 && (exponent % *even)->_getValue() == 1) {
+		return new NumberType(-0);
+	}
+	if (_baseSign && base._getValue() == 0 && exponent._getValue() > 0 && (exponent % *even)->_getValue() == 0) {
+		return new NumberType(0);
+	}
+	if (_baseSign && base._getValue() == 0 && exponent._getValue() < 0 && (exponent % *even)->_getValue() == 1) {
+		return new NumberType(-INFINITY);
+	}
+	if (_baseSign && base._getValue() == 0 && exponent._getValue() < 0 && (exponent % *even)->_getValue() == 0) {
+		return new NumberType(INFINITY);
+	}
+
+	feclearexcept(FE_OVERFLOW);
+	feclearexcept(FE_UNDERFLOW);
+
+	auto _result = pow(base._getValue(), exponent._getValue());
+
+	if (static_cast<bool>(fetestexcept(FE_OVERFLOW))) {
+		if ((exponent % *even)->_getValue() == 0 || !_baseSign) {
+			return new NumberType(INFINITY);
+		}
+		return new NumberType(-INFINITY);
+	}
+	if (static_cast<bool>(fetestexcept(FE_UNDERFLOW))) {
+		if ((exponent % *even)->_getValue() == 0 || !_baseSign) {
+			return new NumberType(0);
+		}
+		return new NumberType(-0);
+	}
+	return new NumberType(_result);
+}

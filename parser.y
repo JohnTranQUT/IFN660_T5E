@@ -364,10 +364,10 @@ NumericLiteral
 /* Level 11 */
 EqualityExpression
 	: RelationalExpression														{ $$ = new EqualityExpression($1); }
-	| EqualityExpression EQ RelationalExpression								{ $$ = new EqualityExpression($1, $3, "=="); }
-	| EqualityExpression DIFF RelationalExpression								{ $$ = new EqualityExpression($1, $3, "!="); }
-	| EqualityExpression EQTYPE RelationalExpression							{ $$ = new EqualityExpression($1, $3, "==="); }
-	| EqualityExpression DFTYPE RelationalExpression							{ $$ = new EqualityExpression($1, $3, "!=="); }
+	| EqualityExpression EQ RelationalExpression								{ $$ = new EqualityExpression($1, "==", $3); }
+	| EqualityExpression DIFF RelationalExpression								{ $$ = new EqualityExpression($1, "!=", $3); }
+	| EqualityExpression EQTYPE RelationalExpression							{ $$ = new EqualityExpression($1, "===", $3); }
+	| EqualityExpression DFTYPE RelationalExpression							{ $$ = new EqualityExpression($1, "!==", $3); }
 	;
 
 /* Level 12 */
@@ -407,7 +407,7 @@ MultiplicativeExpression
 /* Level 16 */
 ExponentiationExpression
 	: UnaryExpression															{ $$ = new ExponentiationExpression($1); }
-	| UpdateExpression EXP ExponentiationExpression
+	| UpdateExpression EXP ExponentiationExpression								{ $$ = new ExponentiationExpression($1, $3); }
 	;
 
 /* Level 17 */

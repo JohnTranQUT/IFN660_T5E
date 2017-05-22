@@ -15,4 +15,5 @@ public:
 	NumberType *operator*(NumberType &) const;
 	NumberType *operator/(NumberType &) const;
 	NumberType *operator%(NumberType &) const;
+	NumberType *operator^(NumberType &) const;
 };
