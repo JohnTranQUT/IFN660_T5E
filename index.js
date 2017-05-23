@@ -1,4 +1,4 @@
-if (x = 0) {
-	x = 5;
+if (true && false) {
+	console.log(1);
 }
-console.log(x);
+console.log(2);

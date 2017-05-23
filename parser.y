@@ -262,7 +262,7 @@ MemberExpression
 
 LogicalANDExpression
 	: BitwiseORExpression														{ $$ = new LogicalANDExpression($1); }
-	| LogicalANDExpression LOGAND BitwiseORExpression
+	| LogicalANDExpression LOGAND BitwiseORExpression							{ $$ = new LogicalANDExpression($1, $3); }
 	;
 
 /* Level 8 */

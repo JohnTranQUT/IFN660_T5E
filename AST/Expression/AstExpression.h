@@ -274,8 +274,10 @@ public:
 class LogicalANDExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
+	Expression *RHS;
 public:
 	explicit LogicalANDExpression(Expression *);
+	explicit LogicalANDExpression(Expression *, Expression *);
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;
@@ -284,6 +286,7 @@ public:
 class LogicalORExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
+	Expression *RHS;
 public:
 	explicit LogicalORExpression(Expression *);
 	void dump(int = 0) override;

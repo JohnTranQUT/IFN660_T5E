@@ -82,7 +82,7 @@ void BooleanLiteral::dump(int indent) {
 }
 
 void BooleanLiteral::evaluate() {
-	emit(string("new BooleanType(") + to_string(LHS) + string(");"));
+	emit(string("new BooleanType(") + (LHS ? string("true") : string("false")) + string(");"));
 }
 
 void BooleanLiteral::instantiate() { }
@@ -664,6 +664,11 @@ LogicalANDExpression::LogicalANDExpression(Expression *_LHS) : LHS(_LHS) {
 	children.push_back(LHS);
 }
 
+LogicalANDExpression::LogicalANDExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS), RHS(_RHS) {
+	children.push_back(RHS);
+	children.push_back(LHS);
+}
+
 void LogicalANDExpression::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
@@ -675,6 +680,13 @@ void LogicalANDExpression::dump(int indent) {
 void LogicalANDExpression::evaluate() {
 	for (auto &i : children) {
 		i->evaluate();
+	}
+	if (children.size() > 1) {
+		auto lref = refs.back();
+		refs.pop_back();
+		auto rref = refs.back();
+		refs.pop_back();
+		emit(string("LogicalANDOperator(" + lref + ", " + rref + ");"));
 	}
 }
 
