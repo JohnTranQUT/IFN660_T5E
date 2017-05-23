@@ -4,6 +4,7 @@
 Code Generation
 
 ## Project Logs
+- Implemented AST -> AssignmentExpression -> CompoundAssignmentOperators -> +=, -=. *=, %=, /=, **=
 - Implemented AST -> UpdateExpression
 - Implemented AST -> UnaryExpression -> UnaryPLUSOperator, UnaryMINUSOperator, LogicalNOTOperator
 - Implemented AST -> LogicalANDExpression, LogicalORExpression
