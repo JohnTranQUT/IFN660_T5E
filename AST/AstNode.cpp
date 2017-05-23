@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <string>
 #include <iostream>
-#include <AstNode.h>
+#include <AST/AstNode.h>
 
 using namespace std;
 
@@ -25,5 +25,6 @@ void Container::dump(int indent) {
 		i->dump(indent + 1);
 	}
 }
+
 
 

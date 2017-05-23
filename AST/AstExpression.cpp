@@ -1,7 +1,7 @@
 #include <string>
 #include <typeinfo>
-#include <AstNode.h>
-#include <AstExpression.h>
+#include <AST/AstNode.h>
+#include <AST/AstExpression.h>
 
 using namespace std;
 

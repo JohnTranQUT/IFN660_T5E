@@ -9,7 +9,6 @@ public:
 	virtual void dump(int = 0) = 0;
 	static void dump(string, int);
 	static void indentation(int);
-
 };
 
 class Container : public Node {

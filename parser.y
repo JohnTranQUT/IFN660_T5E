@@ -1,9 +1,9 @@
 %code requires {
 	#include <cstdio>
-	#include "AstNode.h"
-	#include "AstExpression.h"
-	#include "AstStatement.h"
-	#include "AstScript.h"
+	#include <AST/AstNode.h>
+	#include <AST/AstExpression.h>
+	#include <AST/AstStatement.h>
+	#include <AST/AstScript.h>
 	int yylex();
 	void yyerror(char *);
 }
