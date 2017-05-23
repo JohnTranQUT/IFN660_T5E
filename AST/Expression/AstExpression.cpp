@@ -760,7 +760,7 @@ void AssignmentExpression::evaluate() {
 		refs.pop_back();
 		auto rhs = refs.back();
 		refs.pop_back();
-		emit(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(");"), false);
+		emit(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(");"));
 	}
 }
 
