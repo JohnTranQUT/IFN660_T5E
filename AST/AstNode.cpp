@@ -26,5 +26,12 @@ void Container::dump(int indent) {
 	}
 }
 
+void Container::Gecode()
+{
+	for (auto i : next) {
+		i->Gecode();
+	}
+}
+
 
 

@@ -10,6 +10,7 @@ class Statement : public Node {
 public:
 	virtual ~Statement() = default;
 	void dump(int = 0) override = 0;
+	void Gecode() override= 0;
 };
 
 class BlockStatement : public Statement {
@@ -18,6 +19,7 @@ class BlockStatement : public Statement {
 public:
 	explicit BlockStatement(Statement *);
 	void dump(int = 0) override;
+	void Gecode() override;
 };
 
 class Block : public Statement {
@@ -26,6 +28,7 @@ class Block : public Statement {
 public:
 	explicit Block(StatementList *);
 	void dump(int = 0) override;
+	void Gecode() override;
 };
 
 class ExpressionStatement : public Statement {
@@ -34,6 +37,7 @@ class ExpressionStatement : public Statement {
 public:
 	explicit ExpressionStatement(Expression *);
 	void dump(int = 0) override;
+	void Gecode() override;
 };
 
 class IfStatement : public Statement {
@@ -45,4 +49,5 @@ public:
 	explicit IfStatement(Expression *, Statement *, Statement *);
 	explicit IfStatement(Expression *, Statement *);
 	void dump(int = 0) override;
+	void Gecode() override;
 };

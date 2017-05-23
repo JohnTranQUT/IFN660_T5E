@@ -16,6 +16,7 @@ void main(int argc, char *argv[]) {
 #ifdef AST
 	fopen_s(&yyin, argv[1], "r");
 	yyparse();
+
 #endif
 
 

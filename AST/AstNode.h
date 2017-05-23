@@ -9,6 +9,7 @@ public:
 	virtual void dump(int = 0) = 0;
 	static void dump(string, int);
 	static void indentation(int);
+	virtual void Gecode() = 0;
 };
 
 class Container : public Node {
@@ -17,4 +18,5 @@ class Container : public Node {
 public:
 	explicit Container(vector<Node*>, string);
 	void dump(int = 0) override;
+	void Gecode() override;
 };

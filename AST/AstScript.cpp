@@ -2,6 +2,7 @@
 #include <AST/AstNode.h>
 #include <AST/AstStatement.h>
 #include <AST/AstScript.h>
+#include <iostream>
 
 using namespace std;
 
@@ -17,22 +18,36 @@ void StatementListItem::dump(int indent) {
 	}
 }
 
+void StatementListItem::Gecode()
+{
+	for (auto i : next) {
+		i->Gecode();
+	}
+}
+
 StatementList::StatementList(Node *_node) : node(_node) {
-	nodes.push_back(node);
+	next.push_back(node);
 }
 
 StatementList::StatementList(StatementList *_statementlist, Node *_node) : node(_node) {
-	for (auto &i : _statementlist->nodes) {
-		nodes.push_back(i);
+	for (auto &i : _statementlist->next) {
+		next.push_back(i);
 	}
-	nodes.push_back(node);
+	next.push_back(node);
 }
 
 void StatementList::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
-	for (auto &i : nodes) {
+	for (auto &i : next) {
 		i->dump(indent + 1);
+	}
+}
+
+void StatementList::Gecode()
+{
+	for (auto i : next) {
+		i->Gecode();
 	}
 }
 
@@ -48,6 +63,13 @@ void ScriptBody::dump(int indent) {
 	}
 }
 
+void ScriptBody::Gecode()
+{
+	for (auto i : next) {
+		i->Gecode();
+	}
+}
+
 Script::Script(Node *_node) : node(_node) {
 	next.push_back(node);
 }
@@ -58,4 +80,15 @@ void Script::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void Script::Gecode()
+{
+	cout << "#include <C:\\Users\\Administrator\\Desktop\\rita\\SA_ENV\\RuntimeLib\\Runtime.h>" << endl;
+	cout << "void main() {" << endl;
+	cout << "auto r0 = NewDeclEnvi(nullptr);" << endl;
+	for (auto i : next) {
+		i->Gecode();
+	}
+	cout << "}" << endl;
 }

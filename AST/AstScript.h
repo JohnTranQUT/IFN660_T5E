@@ -12,15 +12,17 @@ class StatementListItem : public Node {
 public:
 	explicit StatementListItem(Statement *);
 	void dump(int = 0) override;
+	void Gecode() override;
 };
 
 class StatementList : public Node {
 	Node *node;
 public:
-	vector<Node*> nodes;
+	vector<Node*> next;
 	explicit StatementList(Node *);
 	explicit StatementList(StatementList *, Node *);
 	void dump(int = 0) override;
+	void Gecode() override;
 };
 
 class StatementList_opt : public Node { };
@@ -31,6 +33,7 @@ class ScriptBody : public Node {
 public:
 	explicit ScriptBody(StatementList *);
 	void dump(int = 0) override;
+	void Gecode() override;
 };
 
 class ScriptBody_opt : public Node { };
@@ -41,4 +44,5 @@ class Script : public Node {
 public:
 	explicit Script(Node *);
 	void dump(int = 0) override;
+	void Gecode() override;
 };
