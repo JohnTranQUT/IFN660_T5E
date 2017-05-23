@@ -4,6 +4,10 @@
 Code Generation
 
 ## Project Logs
+- Implemented AST -> UpdateExpression
+- Implemented AST -> UnaryExpression -> UnaryPLUSOperator, UnaryMINUSOperator, LogicalNOTOperator
+- Implemented AST -> LogicalANDExpression, LogicalORExpression
+- Implemented minimal ObjectType for globalObject, GlobalScope online
 - Implemented AST -> NullLiteral, StringLiteral, BooleanLiteral
 - Implemented `console.log()`
 - Implemented AST -> MultiplicativeExpression, ExponentiationExpression, EqualityExpression, RelationalExpression, IfStatement
