@@ -160,8 +160,9 @@ public:
 class UnaryExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
+	string OP;
 public:
-	explicit UnaryExpression(Expression *);
+	explicit UnaryExpression(Expression *, string = "");
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;
@@ -289,6 +290,7 @@ class LogicalORExpression : public Expression {
 	Expression *RHS;
 public:
 	explicit LogicalORExpression(Expression *);
+	explicit LogicalORExpression(Expression *, Expression *);
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;

@@ -1,4 +1,5 @@
-if (true && false) {
-	console.log(1);
+let x = 0;
+if (!x) {
+	console.log(x);
 }
-console.log(2);
+console.log(x);

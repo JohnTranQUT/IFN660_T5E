@@ -32,6 +32,7 @@
 #include "RuntimeLib/Evaluations/Expression/EqualityOperators/EqualityOperators.h"
 #include "RuntimeLib/Evaluations/Expression/RelationalOperators/RelationalOperators.h"
 #include "RuntimeLib/Evaluations/Expression/BinaryLogicalOperators/BinaryLogicalOperators.h"
+#include "RuntimeLib/Evaluations/Expression/UnaryOperators/UnaryOperators.h"
 #include "RuntimeLib/Evaluations/Expression/Identifiers/Identifiers.h"
 #include "RuntimeLib/ExecutionContexts/ExecutionContexts.h"
 #include "RuntimeLib/_Helpers/_Helpers.h"

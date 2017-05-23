@@ -242,7 +242,7 @@ CallExpression
 
 LogicalORExpression
 	: LogicalANDExpression														{ $$ = new LogicalORExpression($1); }
-	| LogicalORExpression LOOR LogicalANDExpression
+	| LogicalORExpression LOOR LogicalANDExpression								{ $$ = new LogicalORExpression($1, $3); }
 	;
 
 Initializer
@@ -415,10 +415,10 @@ UnaryExpression
 	| DELETE UnaryExpression
 	| VOID UnaryExpression
 	| TYPEOF UnaryExpression
-	| '+' UnaryExpression
-	| '-' UnaryExpression
+	| '+' UnaryExpression														{ $$ = new UnaryExpression($2, "+"); }
+	| '-' UnaryExpression														{ $$ = new UnaryExpression($2, "-"); }															
 	| '~' UnaryExpression
-	| '!' UnaryExpression
+	| '!' UnaryExpression														{ $$ = new UnaryExpression($2, "!"); }
 	;
 
 UpdateExpression

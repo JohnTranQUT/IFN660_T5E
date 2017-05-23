@@ -314,7 +314,7 @@ void UpdateExpression::instantiate() {
 	}
 }
 
-UnaryExpression::UnaryExpression(Expression *_LHS) : LHS(_LHS) {
+UnaryExpression::UnaryExpression(Expression *_LHS, string _OP) : LHS(_LHS), OP(_OP) {
 	children.push_back(LHS);
 }
 
@@ -329,6 +329,17 @@ void UnaryExpression::dump(int indent) {
 void UnaryExpression::evaluate() {
 	for (auto &i : children) {
 		i->evaluate();
+	}
+	if (OP.size() > 0) {
+		auto expr = refs.back();
+		refs.pop_back();
+		if (OP == "+") {
+			emit(string("UnaryPLUSOperator(") + expr + string(");"));
+		} else if (OP == "-") {
+			emit(string("UnaryMINUSOperator(") + expr + string(");"));
+		} else if (OP == "!") {
+			emit(string("LogicalNOTOperator(") + expr + string(");"));
+		}
 	}
 }
 
@@ -660,7 +671,8 @@ void BitwiseORExpression::instantiate() {
 	}
 }
 
-LogicalANDExpression::LogicalANDExpression(Expression *_LHS) : LHS(_LHS) {
+LogicalANDExpression::LogicalANDExpression(Expression *_LHS) : LHS(_LHS),
+                                                               RHS(nullptr) {
 	children.push_back(LHS);
 }
 
@@ -696,7 +708,13 @@ void LogicalANDExpression::instantiate() {
 	}
 }
 
-LogicalORExpression::LogicalORExpression(Expression *_LHS) : LHS(_LHS) {
+LogicalORExpression::LogicalORExpression(Expression *_LHS) : LHS(_LHS),
+                                                             RHS(nullptr) {
+	children.push_back(LHS);
+}
+
+LogicalORExpression::LogicalORExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS), RHS(_RHS) {
+	children.push_back(RHS);
 	children.push_back(LHS);
 }
 
@@ -711,6 +729,13 @@ void LogicalORExpression::dump(int indent) {
 void LogicalORExpression::evaluate() {
 	for (auto &i : children) {
 		i->evaluate();
+	}
+	if (children.size() > 1) {
+		auto lref = refs.back();
+		refs.pop_back();
+		auto rref = refs.back();
+		refs.pop_back();
+		emit(string("LogicalOROperator(" + lref + ", " + rref + ");"));
 	}
 }
 
