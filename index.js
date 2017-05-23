@@ -5,8 +5,9 @@ if (!z && x > -y || false) {
 	let x = 0;
 	y = ++x || null;
 	if (y--) {
-		let x = "IFN";
-		let y = x + 660;
+		let x = "660";
+		let y = "IFN";
+		y += x;
 		console.log("Layer 3 - IfStatement");
 		console.log(x);
 		console.log(y);

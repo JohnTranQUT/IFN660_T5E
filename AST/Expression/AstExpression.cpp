@@ -787,8 +787,7 @@ void ConditionalExpression::instantiate() {
 	}
 }
 
-AssignmentExpression::AssignmentExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS),
-                                                                                 RHS(_RHS) {
+AssignmentExpression::AssignmentExpression(Expression *_LHS, Expression *_RHS, string _OP) : LHS(_LHS), RHS(_RHS), OP(_OP) {
 	children.push_back(RHS);
 	children.push_back(LHS);
 }
@@ -815,7 +814,11 @@ void AssignmentExpression::evaluate() {
 		refs.pop_back();
 		auto rhs = refs.back();
 		refs.pop_back();
-		emit(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(");"));
+		if (OP.size() > 0) {
+			emit(string("CompoundAssignmentOperator(") + lhs + string(", \"") + OP + string("\", ") + rhs + string(");"));
+		} else {
+			emit(string("SimpleAssignmentOperator(") + lhs + string(", ") + rhs + string(");"));
+		}
 	}
 }
 

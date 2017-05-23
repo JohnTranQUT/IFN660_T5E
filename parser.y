@@ -194,6 +194,12 @@ AssignmentExpression
 	| YieldExpression
 	| ArrowFunction
 	| LeftHandSideExpression '=' AssignmentExpression							{ $$ = new AssignmentExpression($1, $3); }
+	| LeftHandSideExpression ADDASS AssignmentExpression						{ $$ = new AssignmentExpression($1, $3, "+"); }
+	| LeftHandSideExpression SUBASS AssignmentExpression						{ $$ = new AssignmentExpression($1, $3, "-"); }
+	| LeftHandSideExpression MULASS AssignmentExpression						{ $$ = new AssignmentExpression($1, $3, "*"); }
+	| LeftHandSideExpression REMASS AssignmentExpression						{ $$ = new AssignmentExpression($1, $3, "%"); }
+	| LeftHandSideExpression DIVASS AssignmentExpression						{ $$ = new AssignmentExpression($1, $3, "/"); }
+	| LeftHandSideExpression EXPASS AssignmentExpression						{ $$ = new AssignmentExpression($1, $3, "**"); }
 	| LeftHandSideExpression AssignmentOperator AssignmentExpression
 	;
 
@@ -474,18 +480,12 @@ HexIntegerLiteral
 /* Utility */
 
 AssignmentOperator
-	: ADDASS
-	| SUBASS
-	| MULASS
-	| REMASS
-	| DIVASS
-	| LSHIFTASS
+	: LSHIFTASS
 	| RSHIFTASS
 	| URSHIFTASS
 	| BWANDASS
 	| BWXORASS
 	| BWORASS
-	| EXPASS
 	;
 
 empty

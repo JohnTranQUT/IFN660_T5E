@@ -312,8 +312,9 @@ class AssignmentExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
 	Expression *RHS;
+	string OP;
 public:
-	explicit AssignmentExpression(Expression *, Expression *);
+	explicit AssignmentExpression(Expression *, Expression *, string = "");
 	explicit AssignmentExpression(Expression *);
 	void dump(int = 0) override;
 	void evaluate() override;
