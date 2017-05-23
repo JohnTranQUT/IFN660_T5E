@@ -22,15 +22,22 @@ LexicalEnvironment * NewGlobalEnvironment(map<StringType*, Type*, RECORD_COMPARE
 
 
 Reference* GetIdentifierReference(LexicalEnvironment* lex, StringType* name, BooleanType* strict) {
-	if (lex == nullptr || dynamic_cast<UndefinedType*>(lex)) {
-		return new Reference(new UndefinedType(), name, strict);
-	}
+	/* SPECIFICATIONS VERSION*/
+	//if (lex == nullptr || dynamic_cast<UndefinedType*>(lex)) {
+	//	return new Reference(new UndefinedType(), name, strict);
+	//}
 	auto envRec = lex->getEnvRec();
 	if (envRec->HasBinding(name)->_getValue()) {
 		return new Reference(lex->getEnvRec(), name, strict);
 	}
 	else {
 		auto outer = lex->getOuter();
-		return GetIdentifierReference(outer, name, strict);
-	}
+		/* BELOW TO SUBSTITUTE FOR GLOBAL ENVIRONMENT*/
+		if(outer == nullptr){
+			envRec->CreateImmutableBinding(name, strict);
+			envRec->InitializeBinding(name, new UndefinedType());
+			return new Reference(envRec, name, strict);
+		}else
+			return GetIdentifierReference(outer, name, strict);
+		}
 }

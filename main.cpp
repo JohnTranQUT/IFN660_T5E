@@ -3,9 +3,9 @@
 #include <string>
 
 
-//#include <parser.h>
-//extern FILE *yyin;
-//using namespace std;
+#include <parser.h>
+extern FILE *yyin;
+using namespace std;
 
 
 void outputToScreenType(Type* temp) {
@@ -39,42 +39,27 @@ void main(int argc, char *argv[]) {
 	//Type* e1 = ResolveName("x", env);
 	puts("======== X = 42; Y = X + 1 TESTING========");
 	auto r1 = NewDeclarativeEnvironment();
-	auto r2 = r1->getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false));
-	auto r3 = r1->getEnvRec()->CreateMutableBinding(new StringType("y"), new BooleanType(false));
-	auto r4 = InitializeReferencedBinding(ResolveBinding(new StringType("x"), r1), new UndefinedType());
-	auto r5 = InitializeReferencedBinding(ResolveBinding(new StringType("y"), r1), new UndefinedType());
-	auto r6 = new NumberType(42);
-	auto r7 = Assignment(ResolveBinding(new StringType("x"),r1), r6);
+	auto r2 = new StringType("x");
+	auto r3 = ResolveBinding(r2, r1);
+	//auto rX1 = r1->getEnvRec()->CreateMutableBinding(r2, new BooleanType(false));
+	//auto rY1 = r1->getEnvRec()->CreateMutableBinding(r3, new BooleanType(false));
+	//auto rX2 = InitializeReferencedBinding(ResolveBinding(r2, r1), new UndefinedType());
+	//auto rY2 = InitializeReferencedBinding(ResolveBinding(r3, r1), new UndefinedType());
+	auto r4 = new NumberType(42);
+	auto r5 = Assignment(r3, r4);
+	auto r6 = new StringType("y");
+	auto r7 = new StringType("x");
 	auto r8 = new NumberType(1);
-	auto r9 = Additive(ResolveBinding(new StringType("x"), r1), r8);
-	auto r10 = Assignment(ResolveBinding(new StringType("y"), r1), r9);
+	auto r9 = ResolveBinding(r7, r1);
+	auto r10 = Additive(r9, r8);
+	auto r11 = ResolveBinding(r6, r1);
+	auto r12 = Assignment(r11, r10);
 	puts("========Y RESULT========");
 	outputToScreenType(GetValue(ResolveBinding(new StringType("y"), r1)));
 	puts("========LEXICAL ENVIRONMENT RECORDS DUMP========");
 	outputToScreenType(r1);
 
-	/* Real Code
-	** let x;
-	** let y;
-	** x = 42;
-	** y = x + 1;
-	** for x = 41
-	*/
 
-	/*
-	Type* r1 = NewDeclaretiveEnv(nullptr);
-	Type* r2 = r1->getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false));
-	Type* r3 = r1->getEnvRec()->CreateMutableBinding(new StringType("x"), new BooleanType(false));
-
-	Type* r4 = ResolveBinding(new StringType("x"), r1);
-
-	Type* r5 = InitializeReferencedBinding(ResolveBinding(new StringType("x"), r1), new UndefinedType()));
-	Type* r6 = 
-	
-	Type* r4 = r1->getEnvRec()->
-	*/
-
-
-	//fopen_s(&yyin, argv[1], "r");
-	//yyparse();
+	fopen_s(&yyin, argv[1], "r");
+	yyparse();
 }
