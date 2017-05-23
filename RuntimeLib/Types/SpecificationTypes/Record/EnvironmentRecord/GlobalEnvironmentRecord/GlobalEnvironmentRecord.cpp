@@ -74,8 +74,7 @@ BooleanType *GlobalEnvironmentRecord::DeleteBinding(StringType *N) {
 		return DclRec->DeleteBinding(N);
 	}
 	auto ObjRec = dynamic_cast<ObjectEnvironmentRecord *>(_findValue(new StringType("ObjectRecord")));
-	puts("GlobalEnvironmentRecord::DeleteBinding()");
-	exit(0);
+	return ObjRec->DeleteBinding(N);
 }
 
 BooleanType *GlobalEnvironmentRecord::HasThisBinding() {

@@ -3,6 +3,8 @@
 #include "RuntimeLib/Types/SpecificationTypes/Record/EnvironmentRecord/GlobalEnvironmentRecord/GlobalEnvironmentRecord.h"
 #include "RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h"
 
+ObjectType *globalObject;
+
 Reference *GetIdentifierReference(LexicalEnvironment *lex, StringType *name, BooleanType *strict) {
 	if (lex == nullptr) {
 		return new Reference(new UndefinedType(), name, strict);
@@ -32,5 +34,6 @@ LexicalEnvironment *NewGlobalEnvironment(ObjectType *G, ObjectType *) {
 	auto dclRec = new DeclarativeEnvironmentRecord();
 	auto globalRec = new GlobalEnvironmentRecord(objRec, G, dclRec);
 	auto env = new LexicalEnvironment(globalRec);
+	globalObject = G;
 	return env;
 }

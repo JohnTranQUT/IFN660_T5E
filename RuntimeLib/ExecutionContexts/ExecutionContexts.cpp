@@ -6,5 +6,5 @@ Reference *ResolveBinding(StringType *name, LexicalEnvironment *env) {
 		puts("Set env to the running Execution context's LexicalEnvironment.");
 		exit(0);
 	}
-	return GetIdentifierReference(env, name, new BooleanType(true));
+	return GetIdentifierReference(env, name, new BooleanType(false));
 }

@@ -3,6 +3,8 @@
 #include "RuntimeLib/Types/LanguageTypes/LanguageTypeFunc.h"
 #include "RuntimeLib/Types/SpecificationTypes/Record/CompletionRecord/CompletionRecordFunc.h"
 
+extern ObjectType *globalObject;
+
 using namespace std;
 
 Type *GetValue(Type *V) {
@@ -23,8 +25,8 @@ Type *GetValue(Type *V) {
 			if (_V->HasPrimitiveBase()->_getValue()) {
 				base = ToObject(dynamic_cast<LanguageType *>(base));
 			}
-			puts("Return ? base.[[Get]](_V->GetReferenceName(), GetThisValue(_V)");
-			exit(0);
+			auto _base = dynamic_cast<ObjectType *>(base);
+			return _base->Get(dynamic_cast<StringType *>(_V->GetReferencedName()));
 		}
 		auto _base = dynamic_cast<EnvironmentRecord *>(base);
 		return _base->GetBindingValue(dynamic_cast<StringType *>(_V->GetReferencedName()), _V->IsStrictReference());
@@ -56,9 +58,9 @@ Type *PutValue(Type *V, Type *W) {
 			}
 			//	auto globalObj = GetGlobalObject();
 			//	return Set(globalObject, V->GetReferencedName(), W, new BooleanType(false));
-			puts("Set(globalObject, V->GetReferencedName(), W, new BooleanType(false))");
-			exit(0);
-		} else if (_V->IsPropertyReference()->_getValue()) {
+			return globalObject->Set(dynamic_cast<StringType *>(_V->GetReferencedName()), W);
+		} 
+		if (_V->IsPropertyReference()->_getValue()) {
 			if (_V->HasPrimitiveBase()->_getValue()) {
 				base = ToObject(dynamic_cast<LanguageType *>(base));
 			}
@@ -67,7 +69,8 @@ Type *PutValue(Type *V, Type *W) {
 			//		puts("TypeError");
 			//		exit(0);
 			//	}
-			puts("base.[[Set]](_V->GetReferencedName(), W, GetThisValue(_V))");
+			auto _base = dynamic_cast<ObjectType *>(base);
+			_base->Set(dynamic_cast<StringType *>(_V->GetReferencedName()), W);
 			exit(0);
 		}
 		auto _base = dynamic_cast<EnvironmentRecord *>(base);

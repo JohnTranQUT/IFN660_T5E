@@ -2,19 +2,14 @@
 #include "RuntimeLib/Types/LanguageTypes/UndefinedType/UndefinedType.h"
 
 BooleanType *ObjectEnvironmentRecord::HasBinding(StringType *N) {
-	puts("ObjectEnvironmentRecord::HasBinding()");
-	exit(0);
+	auto bindings = bindingObject;
+	auto foundBinding = bindings->_hasProperty(N);
+	return foundBinding;
 }
 
-CompletionRecord *ObjectEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *D) {
-	BooleanType *configValue;
-	if (D->_getValue()) {
-		configValue = new BooleanType(true);
-	} else {
-		configValue = new BooleanType(false);
-	}
-	puts("Return ? DefinePropertyOrThrow(bindings, N, PropertyDescriptor{[[Value]]: undefined, [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: configValue})");
-	exit(0);
+CompletionRecord *ObjectEnvironmentRecord::CreateMutableBinding(StringType *N, BooleanType *) {
+	auto bindings = bindingObject;
+	return bindingObject->Set(N, new UndefinedType());
 }
 
 CompletionRecord *ObjectEnvironmentRecord::CreateImmutableBinding(StringType *, BooleanType *) {
@@ -27,18 +22,26 @@ CompletionRecord *ObjectEnvironmentRecord::InitializeBinding(StringType *N, Lang
 }
 
 CompletionRecord *ObjectEnvironmentRecord::SetMutableBinding(StringType *N, LanguageType *V, BooleanType *S) {
-	puts("Return ? Set(bindings, N, V, S)");
-	exit(0);
+	auto bindings = bindingObject;
+	return bindingObject->Set(N, V);
 }
 
 Type *ObjectEnvironmentRecord::GetBindingValue(StringType *N, BooleanType *S) {
-	puts("ObjectEnvironmentRecord::GetBindingValue()");
-	exit(0);
+	auto bindings = bindingObject;
+	auto value = bindings->_hasProperty(N);
+	if (!value->_getValue()) {
+		if (!S->_getValue()) {
+			return new UndefinedType();
+		}
+		puts("ReferenceError");
+		exit(0);
+	}
+	return bindings->Get(N);
 }
 
 BooleanType *ObjectEnvironmentRecord::DeleteBinding(StringType *N) {
-	puts("Return ? bindings.[[Delete]](N)");
-	exit(0);
+	auto bindings = bindingObject;
+	return bindings->Delete(N);
 }
 
 BooleanType *ObjectEnvironmentRecord::HasThisBinding() {
