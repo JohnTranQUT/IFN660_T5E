@@ -290,7 +290,7 @@ void LeftHandSideExpression::instantiate() {
 	}
 }
 
-UpdateExpression::UpdateExpression(Expression *_LHS) : LHS(_LHS) {
+UpdateExpression::UpdateExpression(Expression *_LHS, bool _prefix, string _OP) : LHS(_LHS), prefix(_prefix), OP(_OP) {
 	children.push_back(LHS);
 }
 
@@ -305,6 +305,24 @@ void UpdateExpression::dump(int indent) {
 void UpdateExpression::evaluate() {
 	for (auto &i : children) {
 		i->evaluate();
+	}
+	if (OP.size() > 0) {
+		auto expr = refs.back();
+		refs.pop_back();
+		if (prefix) {
+			if (OP == "++") {
+				emit(string("PrefixIncrementOperator(") + expr + string(");"));
+			} else if (OP==  "--") {
+				emit(string("PrefixDecrementOperator(") + expr + string(");"));
+			}
+		} else {
+			if (OP == "++") {
+				emit(string("PostfixIncrementOperator(") + expr + string(");"));
+			}
+			else if (OP == "--") {
+				emit(string("PostfixDecrementOperator(") + expr + string(");"));
+			}
+		}
 	}
 }
 

@@ -423,10 +423,10 @@ UnaryExpression
 
 UpdateExpression
 	: LeftHandSideExpression													{ $$ = new UpdateExpression($1); }
-	| LeftHandSideExpression INCREASE
-	| LeftHandSideExpression DECREASE
-	| INCREASE UnaryExpression
-	| DECREASE UnaryExpression
+	| LeftHandSideExpression INCREASE											{ $$ = new UpdateExpression($1, false, "++"); }
+	| LeftHandSideExpression DECREASE											{ $$ = new UpdateExpression($1, false, "--"); }
+	| INCREASE UnaryExpression													{ $$ = new UpdateExpression($2, true, "++"); }
+	| DECREASE UnaryExpression													{ $$ = new UpdateExpression($2, true, "--"); }
 	;
 
 /* END */

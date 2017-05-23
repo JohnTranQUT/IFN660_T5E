@@ -150,8 +150,10 @@ public:
 class UpdateExpression : public Expression {
 	vector<Node*> children;
 	Expression *LHS;
+	bool prefix;
+	string OP;
 public:
-	explicit UpdateExpression(Expression *);
+	explicit UpdateExpression(Expression *, bool = true, string = "");
 	void dump(int = 0) override;
 	void evaluate() override;
 	void instantiate() override;
