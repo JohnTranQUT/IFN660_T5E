@@ -1,287 +1,220 @@
 #pragma once
-#include "AstScript.h"
+#include <vector>
+#include <AstNode.h>
 
 using namespace std;
 
-
+class Expression : public Node {
+public:
+	virtual ~Expression() = default;
+	virtual void dump(int = 0) = 0;
+};
 
 class IdentifierName : public Expression {
 	char *LHS;
 public:
-	explicit IdentifierName(char *LHS):LHS(LHS){}
-	void dump(int indent) override {
-		label(indent, "IdentifierName %s\n", LHS);
-	}
+	explicit IdentifierName(char *);
+	void dump(int = 0) override;
 };
 
 class DecimalLiteral : public Expression {
-	double value;
+	double LHS;
 public:
-	explicit DecimalLiteral(double value):value(value){}
-	void dump(int indent) override{
-		label(indent, "DecimalLiteral %f\n", value);
-	}
+	explicit DecimalLiteral(double);
+	void dump(int = 0) override;
 };
 
 class Identifier : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit Identifier(Expression *LHS):LHS(LHS){};
-	void dump(int indent) override {
-		label(indent, "Identifier\n");
-		LHS->dump(indent + 1);
-	}
+	explicit Identifier(Expression *);
+	void dump(int = 0) override;
 };
 
 class NumericLiteral : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit NumericLiteral(Expression *LHS):LHS(LHS){};
-	void dump(int indent) override {
-		label(indent, "NumericLiteral\n");
-		LHS->dump(indent + 1);
-	}
+	explicit NumericLiteral(Expression *);
+	void dump(int = 0) override;
 };
 
 class Literal : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit Literal(Expression *LHS) :LHS(LHS) {};
-	void dump(int indent) override {
-		label(indent, "Literal\n");
-		LHS->dump(indent + 1);
-	}
+	explicit Literal(Expression *);
+	void dump(int = 0) override;
 };
 
 class IdentifierReference : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit IdentifierReference(Expression *LHS) :LHS(LHS) {};
-	void dump(int indent) override {
-		label(indent, "IdentifierReference\n");
-		LHS->dump(indent + 1);
-	}
+	explicit IdentifierReference(Expression *);
+	void dump(int = 0) override;
 };
 
 class PrimaryExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit PrimaryExpression(Expression *LHS) :LHS(LHS) {};
-	void dump(int indent) override {
-		label(indent, "PrimaryExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit PrimaryExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class MemberExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit MemberExpression(Expression *LHS) :LHS(LHS) {};
-	void dump(int indent) override {
-		label(indent, "MemberExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit MemberExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class NewExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit NewExpression(Expression *LHS) :LHS(LHS) {};
-	void dump(int indent) override {
-		label(indent, "NewExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit NewExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class LeftHandSideExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit LeftHandSideExpression(Expression *LHS) :LHS(LHS) {};
-	void dump(int indent) override {
-		label(indent, "LeftHandSideExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit LeftHandSideExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class UpdateExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit UpdateExpression(Expression *LHS):LHS(LHS) {};
-	void dump(int indent) override {
-		label(indent, "UpdateExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit UpdateExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class UnaryExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit UnaryExpression(Expression *LHS) :LHS(LHS) {};
-	void dump(int indent) override 	{
-		label(indent, "UnaryExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit UnaryExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class ExponentiationExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit ExponentiationExpression(Expression *LHS) :LHS(LHS) {};
-	void dump(int indent) override {
-		label(indent, "ExponentiationExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit ExponentiationExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class MultiplicativeExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 	Expression *RHS;
-	char op;
 public:
-	explicit MultiplicativeExpression(Expression *LHS) :LHS(LHS) {};
-	explicit MultiplicativeExpression(Expression *LHS, Expression *RHS, char op) :LHS(LHS), RHS(RHS), op(op) {};
-	void dump(int indent) override {
-		label(indent, "MultiplicativeExpression %c\n", op);
-		LHS->dump(indent + 1, "lhs");
-		if (RHS != nullptr) {
-			RHS->dump(indent + 1, "rhs");
-		}
-	}
-	
+	explicit MultiplicativeExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class AdditiveExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 	Expression *RHS;
-	char op;
 public:
-	explicit AdditiveExpression(Expression *LHS) :LHS(LHS) {};
-	explicit AdditiveExpression(Expression *LHS, Expression *RHS, char op) :LHS(LHS), RHS(RHS), op(op){}
-	void dump(int indent) override {
-		label(indent, "AdditiveExpression %c\n", op);
-		LHS->dump(indent + 1, "lhs");
-		if (RHS != nullptr) {
-			RHS->dump(indent + 1, "rhs");
-		}
-	}
+	explicit AdditiveExpression(Expression *);
+	explicit AdditiveExpression(Expression * , Expression *);
+	void dump(int = 0) override;
 };
 
 class ShiftExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit ShiftExpression(Expression *LHS) :LHS(LHS) {}
-	void dump(int indent) override {
-		label(indent, "ShiftExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit ShiftExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class RelationalExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 	Expression *RHS;
 	char *op;
 public:
-	explicit RelationalExpression(Expression *LHS):LHS(LHS),RHS(nullptr),op(nullptr) {};
-	explicit RelationalExpression(Expression *LHS, Expression *RHS, char *op) :LHS(LHS), RHS(RHS), op(op) {}
-	void dump(int indent) override {
-		label(indent, "RelationalExpression %s\n", op);
-		LHS->dump(indent + 1, "lhs");
-		if (RHS != nullptr)
-		{
-			RHS->dump(indent + 1, "rhs");
-		}
-	}
+	explicit RelationalExpression(Expression *);
+	explicit RelationalExpression(Expression *, Expression *, char *);
+	void dump(int = 0) override;
 };
 
 class EqualityExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 	Expression *RHS;
 	char *op;
 public:
-	explicit EqualityExpression(Expression *LHS):LHS(LHS), RHS(nullptr),op(nullptr){}
-	explicit EqualityExpression(Expression *LHS, Expression *RHS, char *op) :LHS(LHS), RHS(RHS), op(op) {}
-	void dump(int indent) override {
-		label(indent, "EqualityExpression %s\n", op);
-		LHS->dump(indent + 1, "lhs");
-		if (RHS != nullptr)
-		{
-			RHS->dump(indent + 1, "rhs");
-		}
-	}
+	explicit EqualityExpression(Expression *);
+	explicit EqualityExpression(Expression *, Expression *, char *);
+	void dump(int = 0) override;
 };
 
 class BitwiseANDExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit BitwiseANDExpression(Expression *LHS) :LHS(LHS) {}
-	void dump(int indent) override {
-		label(indent, "BitwiseANDExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit BitwiseANDExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class BitwiseXORExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit BitwiseXORExpression(Expression *LHS) :LHS(LHS) {}
-	void dump(int indent) override {
-		label(indent, "BitwiseXORExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit BitwiseXORExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class BitwiseORExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit BitwiseORExpression(Expression *LHS) :LHS(LHS) {}
-	void dump(int indent) override {
-		label(indent, "BitwiseORExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit BitwiseORExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class LogicalANDExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit LogicalANDExpression(Expression *LHS) :LHS(LHS) {}
-	void dump(int indent) override {
-		label(indent, "LogicalANDExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit LogicalANDExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class LogicalORExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit LogicalORExpression(Expression *LHS) :LHS(LHS) {}
-	void dump(int indent) override {
-		label(indent, "LogicalORExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit LogicalORExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class ConditionalExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 public:
-	explicit ConditionalExpression(Expression *LHS) :LHS(LHS) {}
-	void dump(int indent) override {
-		label(indent, "ConditionalExpression\n");
-		LHS->dump(indent + 1);
-	}
+	explicit ConditionalExpression(Expression *);
+	void dump(int = 0) override;
 };
 
 class AssignmentExpression : public Expression {
+	vector<Node*> next;
 	Expression *LHS;
 	Expression *RHS;
 public:
-	explicit AssignmentExpression(Expression *LHS, Expression *RHS):LHS(LHS),RHS(RHS){};
-	explicit AssignmentExpression(Expression *LHS):LHS(LHS),RHS(nullptr){};
-	void dump(int indent) override {
-		label(indent, "AssignmentExpression\n");
-		LHS->dump(indent + 1, "lhs");
-		if (RHS != nullptr)
-		{
-			RHS->dump(indent + 1, "rhs");
-		}
-	}
+	explicit AssignmentExpression(Expression *, Expression *);
+	explicit AssignmentExpression(Expression *);
+	void dump(int = 0) override;
 };

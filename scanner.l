@@ -1,5 +1,6 @@
 %{
 #include <parser.h>
+#include <cstdio>
 
 int lines = 0;
 

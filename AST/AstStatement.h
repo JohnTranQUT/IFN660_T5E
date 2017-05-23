@@ -1,59 +1,48 @@
 #pragma once
 #include <vector>
-#include "AstScript.h"
-
+#include <AstNode.h>
+#include <AstExpression.h>
+#include <AstScript.h>
 
 using namespace std;
 
-
+class Statement : public Node {
+public:
+	virtual ~Statement() = default;
+	void dump(int = 0) override = 0;
+};
 
 class BlockStatement : public Statement {
+	vector<Node*> next;
 	Statement *statement;
 public:
-	explicit BlockStatement(Statement *statement):statement(statement){}
-	void dump(int indent) override {
-		label(indent, "BlockStatement\n");
-		statement->dump(indent + 1);
-	}
+	explicit BlockStatement(Statement *);
+	void dump(int = 0) override;
 };
 
 class Block : public Statement {
-	StatementList *stmtList;
+	vector<Node*> next;
+	StatementList *statementlist;
 public:
-	explicit Block(StatementList *stmtList):stmtList(stmtList){}
-	void dump(int indent) override {
-		label(indent, "Block\n");
-		stmtList->dump(indent + 1);
-	}
+	explicit Block(StatementList *);
+	void dump(int = 0) override;
 };
 
 class ExpressionStatement : public Statement {
+	vector<Node*> next;
 	Expression *expression;
 public:
-	explicit ExpressionStatement(Expression *expression):expression(expression){}
-	void dump(int indent) override{
-		label(indent, "ExpressionStatement\n");
-		expression->dump(indent + 1);
-	}
+	explicit ExpressionStatement(Expression *);
+	void dump(int = 0) override;
 };
 
 class IfStatement : public Statement {
-	Expression *cond;
-	Statement *thenStmt;
-	Statement *elseStmt;
+	vector<Node*> next;
+	Expression *expression;
+	Statement *ifStatement;
+	Statement *elseStatement;
 public:
-	explicit IfStatement(Expression *cond, Statement *thenStmt, Statement *elseStmt):cond(cond), thenStmt(thenStmt), elseStmt(elseStmt){}
-	explicit IfStatement(Expression *cond, Statement *thenStmt):cond(cond), thenStmt(thenStmt)
-	{
-		elseStmt = nullptr;
-	}
-	void dump(int indent) override {
-		label(indent, "IfStatement\n");
-		cond->dump(indent + 1, "cond");
-		thenStmt->dump(indent + 1, "then");
-		if (elseStmt != nullptr)
-		{
-			elseStmt->dump(indent + 1, "else");
-		}
-	}
+	explicit IfStatement(Expression *, Statement *, Statement *);
+	explicit IfStatement(Expression *, Statement *);
+	void dump(int = 0) override;
 };

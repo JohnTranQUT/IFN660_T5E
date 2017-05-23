@@ -1,0 +1,15 @@
+#pragma once
+#include <RuntimeLib\Type\LanguageType\BooleanType\BooleanType.h>
+#include <RuntimeLib\Type\LanguageType\NullType\NullType.h>
+#include <RuntimeLib\Type\LanguageType\NumberType\NumberType.h>
+#include <RuntimeLib\Type\LanguageType\ObjectType\ObjectType.h>
+#include <RuntimeLib\Type\LanguageType\StringType\StringType.h>
+#include <RuntimeLib\Type\LanguageType\SymbolType\SymbolType.h>
+#include <RuntimeLib\Type\LanguageType\UndefinedType\UndefinedType.h>
+#include <RuntimeLib\Expressions\ExecutionContexts.h>
+#include <RuntimeLib\Expressions\AssignmentOperators.h>
+#include <RuntimeLib\Type\SpecificationType\EnvironmentRecordType\EnvironmentRecordType.h>
+#include <RuntimeLib\Type\SpecificationType\LexicalEnvironmentType\LexicalEnvironmentType.h>
+#include <RuntimeLib\Expressions\AdditiveOperators.h>
+#include <iostream>
+#include <string>

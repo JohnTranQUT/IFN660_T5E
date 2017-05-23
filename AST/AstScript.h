@@ -1,69 +1,44 @@
 #pragma once
 #include <vector>
-#include "AstNode.h"
+#include <AstNode.h>
+#include <AstStatement.h>
 
-
+class Statement;
 using namespace std;
 
-class Statement : public Node {
-public:
-	explicit Statement() {}
-};
-class Expression : public Node {
-public:
-	explicit Expression() {}
-};
-
 class StatementListItem : public Node {
+	vector<Node*> next;
 	Statement *statement;
 public:
-	explicit StatementListItem(Statement *statement) :statement(statement) {
-	}
-	void dump(int indent) override {
-		label(indent, "StatementListItem\n");
-		statement->dump(indent + 1);
-	}
+	explicit StatementListItem(Statement *);
+	void dump(int = 0) override;
 };
-
 
 class StatementList : public Node {
-	vector<StatementListItem*> *items;
+	Node *node;
 public:
-	explicit StatementList(StatementListItem* item)
-	{
-		items = new vector<StatementListItem*>();
-		items->push_back(item);
-	}
-	void push_back(StatementListItem *item)
-	{
-		items->push_back(item);
-	}
-	void dump(int indent) override {
-		label(indent, "StatementList\n");
-		for (std::vector<StatementListItem*>::iterator iter = items->begin(); iter != items->end(); ++iter)
-			(*iter)->dump(indent + 1);
-	}
+	vector<Node*> nodes;
+	explicit StatementList(Node *);
+	explicit StatementList(StatementList *, Node *);
+	void dump(int = 0) override;
 };
+
+class StatementList_opt : public Node { };
 
 class ScriptBody : public Node {
-private:
-	StatementList* stmtList;
+	vector<Node*> next;
+	StatementList *statementlist;
 public:
-	explicit ScriptBody(StatementList *stmtList) : stmtList(stmtList){}
-	void dump(int indent) override {
-		label(indent, "ScriptBody\n");
-		stmtList->dump(indent = 1);
-	}
+	explicit ScriptBody(StatementList *);
+	void dump(int = 0) override;
 };
 
-
+class ScriptBody_opt : public Node { };
 
 class Script : public Node {
-	ScriptBody *scriptBody;
+	vector<Node*> next;
+	Node *node;
 public:
-	explicit Script(ScriptBody *scriptBody) :scriptBody(scriptBody) {}
-	void dump(int indent) override {
-		label(indent, "Script\n");
-		scriptBody->dump(indent + 1);
-	}
+	explicit Script(Node *);
+	void dump(int = 0) override;
 };

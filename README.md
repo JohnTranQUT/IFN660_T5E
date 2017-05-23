@@ -12,7 +12,7 @@ Semantic Analysis
 - finish Resolvebinding()
 - finish environmentrecordtype 
 - finish lexicalenvironmenttype 
-- finish referencetype
+- finish ReferenceType
 - testing main function
 - finish Getvalue
 - finish Putvalue
