@@ -6,6 +6,7 @@ class Node {
 public:
 	virtual ~Node() = default;
 	virtual void dump(int = 0) = 0;
+	//virtual void GENCODE() = 0;
 	static void dump(string, int);
 	static void indentation(int);
 };

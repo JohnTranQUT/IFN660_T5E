@@ -53,7 +53,7 @@ void main(int argc, char *argv[]) {
 	auto r9 = ResolveBinding(r7, r1);
 	auto r10 = Additive(r9, r8);
 	auto r11 = ResolveBinding(r6, r1);
-	auto r12 = Assignment(r11, r10);
+	auto r12 = Assignment(r11, r10);//
 	puts("========Y RESULT========");
 	outputToScreenType(GetValue(ResolveBinding(new StringType("y"), r1)));
 	puts("========LEXICAL ENVIRONMENT RECORDS DUMP========");
