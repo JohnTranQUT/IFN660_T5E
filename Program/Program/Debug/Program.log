@@ -1,0 +1,28 @@
+﻿  Process "parser.y" bison file
+  Process "scanner.l" flex file
+  scanner.cpp
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(48): warning C4005: 'INT8_MIN': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(137): note: see previous definition of 'INT8_MIN'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(49): warning C4005: 'INT16_MIN': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(140): note: see previous definition of 'INT16_MIN'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(50): warning C4005: 'INT32_MIN': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(143): note: see previous definition of 'INT32_MIN'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(52): warning C4005: 'INT8_MAX': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(146): note: see previous definition of 'INT8_MAX'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(53): warning C4005: 'INT16_MAX': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(149): note: see previous definition of 'INT16_MAX'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(54): warning C4005: 'INT32_MAX': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(152): note: see previous definition of 'INT32_MAX'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(56): warning C4005: 'UINT8_MAX': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(155): note: see previous definition of 'UINT8_MAX'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(57): warning C4005: 'UINT16_MAX': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(158): note: see previous definition of 'UINT16_MAX'
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\stdint.h(58): warning C4005: 'UINT32_MAX': macro redefinition
+  c:\users\cem\desktop\ifn660\masterfile\program\program\scanner.cpp(161): note: see previous definition of 'UINT32_MAX'
+  parser.cpp
+c:\users\cem\desktop\ifn660\masterfile\program\program\parser.cpp(1459): warning C4065: switch statement contains 'default' but no 'case' labels
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  main.cpp
+  Program.vcxproj -> C:\Users\Cem\Desktop\IFN660\masterfile\Program\Debug\Program.exe
+  Program.vcxproj -> C:\Users\Cem\Desktop\IFN660\masterfile\Program\Debug\Program.pdb (Full PDB)

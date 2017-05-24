@@ -4,6 +4,7 @@
 #include "RuntimeLib/SpecificationType/LexicalEnvironment.h"
 #include "RuntimeLib/RuntimeSemantic.h"
 #include "RuntimeLib/Operation.h"
+#include <parser.h>
 
 
 
@@ -24,6 +25,7 @@ int main(int argc, char* argv[]) {
 	getchar();
 	//
 	LexicalEnvironment* lexEnv = NewDeclarativeEnvironment(nullptr);
+
 	Type* r0 = ResolveBinding("x", lexEnv);
 	Type* r1 = new NumberValue(42);
 	Type* r2 = assignment(r0, r1);
