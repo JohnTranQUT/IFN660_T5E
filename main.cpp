@@ -58,8 +58,7 @@ void main(int argc, char *argv[]) {
 	outputToScreenType(GetValue(ResolveBinding(new StringType("y"), r1)));
 	puts("========LEXICAL ENVIRONMENT RECORDS DUMP========");
 	outputToScreenType(r1);
-
-
+	
 	fopen_s(&yyin, argv[1], "r");
 	yyparse();
 }

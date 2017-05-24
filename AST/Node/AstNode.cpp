@@ -15,6 +15,10 @@ void Node::indentation(int indent) {
 	}
 }
 
+void Node::codeGen(string message) {
+	cout << message << endl;
+}
+
 Container::Container(vector<Node *> _next, string _name) : next(_next),
                                                            name(_name) { }
 
@@ -24,4 +28,9 @@ void Container::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void Container::genCode(){
+	auto message = "new Lexical Envinroment(new String(" + name + "))"; // Temporary environment, require fixing later.
+
 }

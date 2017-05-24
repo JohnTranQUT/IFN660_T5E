@@ -10,11 +10,19 @@ void IdentifierName::dump(int indent) {
 	Node::dump(message, indent);
 }
 
+void IdentifierName::genCode()
+{
+}
+
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
 
 void DecimalLiteral::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": " + to_string(LHS) + " (" + string(typeid(LHS).name()) + ")";
 	Node::dump(message, indent);
+}
+
+void DecimalLiteral::genCode()
+{
 }
 
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
@@ -29,6 +37,10 @@ void Identifier::dump(int indent) {
 	}
 }
 
+void Identifier::genCode()
+{
+}
+
 NumericLiteral::NumericLiteral(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -39,6 +51,10 @@ void NumericLiteral::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void NumericLiteral::genCode()
+{
 }
 
 Literal::Literal(Expression *_LHS) : LHS(_LHS) {
@@ -53,6 +69,10 @@ void Literal::dump(int indent) {
 	}
 }
 
+void Literal::genCode()
+{
+}
+
 IdentifierReference::IdentifierReference(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -63,6 +83,10 @@ void IdentifierReference::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void IdentifierReference::genCode()
+{
 }
 
 PrimaryExpression::PrimaryExpression(Expression *_LHS) : LHS(_LHS) {
@@ -77,6 +101,10 @@ void PrimaryExpression::dump(int indent) {
 	}
 }
 
+void PrimaryExpression::genCode()
+{
+}
+
 MemberExpression::MemberExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -87,6 +115,10 @@ void MemberExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void MemberExpression::genCode()
+{
 }
 
 NewExpression::NewExpression(Expression *_LHS) : LHS(_LHS) {
@@ -101,6 +133,10 @@ void NewExpression::dump(int indent) {
 	}
 }
 
+void NewExpression::genCode()
+{
+}
+
 LeftHandSideExpression::LeftHandSideExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -111,6 +147,10 @@ void LeftHandSideExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void LeftHandSideExpression::genCode()
+{
 }
 
 UpdateExpression::UpdateExpression(Expression *_LHS) : LHS(_LHS) {
@@ -125,6 +165,10 @@ void UpdateExpression::dump(int indent) {
 	}
 }
 
+void UpdateExpression::genCode()
+{
+}
+
 UnaryExpression::UnaryExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -135,6 +179,10 @@ void UnaryExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void UnaryExpression::genCode()
+{
 }
 
 ExponentiationExpression::ExponentiationExpression(Expression *_LHS) : LHS(_LHS) {
@@ -149,6 +197,10 @@ void ExponentiationExpression::dump(int indent) {
 	}
 }
 
+void ExponentiationExpression::genCode()
+{
+}
+
 MultiplicativeExpression::MultiplicativeExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -161,8 +213,20 @@ void MultiplicativeExpression::dump(int indent) {
 	}
 }
 
-AdditiveExpression::AdditiveExpression(Expression *_LHS) : LHS(_LHS) {
+void MultiplicativeExpression::genCode()
+{
+}
+
+
+AdditiveExpression::AdditiveExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr), op(nullptr) {
 	next.push_back(LHS);
+}
+
+AdditiveExpression::AdditiveExpression(Expression *_LHS, Expression *_RHS, char *_op) :	LHS(_LHS),
+																						RHS(_RHS),
+																						op(_op) {
+	next.push_back(LHS);
+	next.push_back(RHS);
 }
 
 void AdditiveExpression::dump(int indent) {
@@ -171,6 +235,10 @@ void AdditiveExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void AdditiveExpression::genCode()
+{
 }
 
 ShiftExpression::ShiftExpression(Expression *_LHS) : LHS(_LHS) {
@@ -183,6 +251,10 @@ void ShiftExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void ShiftExpression::genCode()
+{
 }
 
 RelationalExpression::RelationalExpression(Expression *_LHS) : LHS(_LHS),
@@ -207,6 +279,10 @@ void RelationalExpression::dump(int indent) {
 	}
 }
 
+void RelationalExpression::genCode()
+{
+}
+
 EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS),
                                                            RHS(nullptr),
                                                            op(nullptr) {
@@ -229,6 +305,10 @@ void EqualityExpression::dump(int indent) {
 	}
 }
 
+void EqualityExpression::genCode()
+{
+}
+
 BitwiseANDExpression::BitwiseANDExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -239,6 +319,10 @@ void BitwiseANDExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void BitwiseANDExpression::genCode()
+{
 }
 
 BitwiseXORExpression::BitwiseXORExpression(Expression *_LHS) : LHS(_LHS) {
@@ -253,6 +337,10 @@ void BitwiseXORExpression::dump(int indent) {
 	}
 }
 
+void BitwiseXORExpression::genCode()
+{
+}
+
 BitwiseORExpression::BitwiseORExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -263,6 +351,10 @@ void BitwiseORExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void BitwiseORExpression::genCode()
+{
 }
 
 LogicalANDExpression::LogicalANDExpression(Expression *_LHS) : LHS(_LHS) {
@@ -277,6 +369,10 @@ void LogicalANDExpression::dump(int indent) {
 	}
 }
 
+void LogicalANDExpression::genCode()
+{
+}
+
 LogicalORExpression::LogicalORExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -289,6 +385,10 @@ void LogicalORExpression::dump(int indent) {
 	}
 }
 
+void LogicalORExpression::genCode()
+{
+}
+
 ConditionalExpression::ConditionalExpression(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }
@@ -299,6 +399,10 @@ void ConditionalExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void ConditionalExpression::genCode()
+{
 }
 
 AssignmentExpression::AssignmentExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS),
@@ -318,4 +422,8 @@ void AssignmentExpression::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void AssignmentExpression::genCode()
+{
 }

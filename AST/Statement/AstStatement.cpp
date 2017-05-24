@@ -17,6 +17,10 @@ void BlockStatement::dump(int indent) {
 	}
 }
 
+void BlockStatement::genCode()
+{
+}
+
 Block::Block(StatementList *_statementlist) : statementlist(_statementlist) {
 	next.push_back(statementlist);
 }
@@ -29,6 +33,10 @@ void Block::dump(int indent) {
 	}
 }
 
+void Block::genCode()
+{
+}
+
 ExpressionStatement::ExpressionStatement(Expression *_expression) : expression(_expression) {
 	next.push_back(expression);
 }
@@ -39,6 +47,10 @@ void ExpressionStatement::dump(int indent) {
 	for (auto &i : next) {
 		i->dump(indent + 1);
 	}
+}
+
+void ExpressionStatement::genCode()
+{
 }
 
 IfStatement::IfStatement(Expression *_expression, Statement *_ifStatement, Statement *_elseStatement) : expression(_expression),
@@ -69,3 +81,8 @@ void IfStatement::dump(int indent) {
 		i->dump(indent + 1);
 	}
 }
+
+void IfStatement::genCode()
+{
+}
+
