@@ -125,6 +125,9 @@
     <ClCompile Include="..\..\RuntimeLib\Operation.cpp">
       <Filter>Resource Files\RuntimeLib</Filter>
     </ClCompile>
+    <ClCompile Include="CodeGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Flex Include="..\..\scanner.l">

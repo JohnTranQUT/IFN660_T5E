@@ -179,6 +179,7 @@
     <ClCompile Include="..\..\RuntimeLib\SpecificationType\Record\DeclarativeEnvironmentRecord.cpp" />
     <ClCompile Include="..\..\RuntimeLib\SpecificationType\Reference.cpp" />
     <ClCompile Include="..\..\scanner.cpp" />
+    <ClCompile Include="CodeGenerator.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>

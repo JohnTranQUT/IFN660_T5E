@@ -11,6 +11,15 @@ public:
 		label(i, "%s:\n", name);
 		dump(i + 1);
 	}
+
+	void emit(FILE* outputfile, char* fmt, ...)
+	{
+		va_list args;
+		va_start(args, fmt);
+		vfprintf(outputfile, fmt, args);
+		fprintf(outputfile, "\n");
+		va_end(args);
+	}
 protected: //Protected members are accessible in the sub-class
 	void indent(int N)
 	{

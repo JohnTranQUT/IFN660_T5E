@@ -15,6 +15,9 @@ public:
 		label(indent, "BlockStatement\n");
 		statement->dump(indent + 1);
 	}
+	void GenCode(FILE* file) override {
+		statement->GenCode(file);
+	}
 };
 
 class Block : public Statement {
@@ -24,6 +27,9 @@ public:
 	void dump(int indent) override {
 		label(indent, "Block\n");
 		stmtList->dump(indent + 1);
+	}
+	void GenCode(FILE* file) override {
+		stmtList->GenCode(file);
 	}
 };
 
@@ -35,6 +41,9 @@ public:
 		label(indent, "ExpressionStatement\n");
 		expression->dump(indent + 1);
 	}
+	void GenCode(FILE* file) override {
+		expression->GenCode(file);
+	};
 };
 
 class IfStatement : public Statement {
@@ -54,6 +63,18 @@ public:
 		if (elseStmt != nullptr)
 		{
 			elseStmt->dump(indent + 1, "else");
+		}
+	}
+	void GenCode(FILE* file) override {
+		int refno;
+		refno = cond->GenCode(file);
+		emit(file, "if (GetValue(r%d)->ToBoolean()) {", refno);
+		thenStmt->GenCode(file);
+		emit(file, "}");
+		if (elseStmt != nullptr) {
+			emit(file, "else {");
+			elseStmt->GenCode(file);
+			emit(file, "}");
 		}
 	}
 };

@@ -8,10 +8,14 @@ using namespace std;
 class Statement : public Node {
 public:
 	explicit Statement() {}
+	virtual void GenCode(FILE* file) = 0;
+	~Statement() {}
 };
 class Expression : public Node {
 public:
 	explicit Expression() {}
+	virtual int GenCode(FILE* file) = 0;
+	~Expression() {}
 };
 
 class StatementListItem : public Node {
@@ -23,6 +27,10 @@ public:
 		label(indent, "StatementListItem\n");
 		statement->dump(indent + 1);
 	}
+	void GenCode(FILE* file) {
+		statement->GenCode(file);
+	}
+	~StatementListItem() {}
 };
 
 
@@ -43,6 +51,11 @@ public:
 		for (std::vector<StatementListItem*>::iterator iter = items->begin(); iter != items->end(); ++iter)
 			(*iter)->dump(indent + 1);
 	}
+	void GenCode(FILE* file) {
+		for (std::vector<StatementListItem*>::iterator iter = items->begin(); iter != items->end(); ++iter)
+			(*iter)->GenCode(file);
+	}
+	~StatementList() {}
 };
 
 class ScriptBody : public Node {
@@ -54,6 +67,10 @@ public:
 		label(indent, "ScriptBody\n");
 		stmtList->dump(indent = 1);
 	}
+	void GenCode(FILE* file) {
+		stmtList->GenCode(file);
+	}
+	~ScriptBody() {}
 };
 
 
@@ -66,4 +83,8 @@ public:
 		label(indent, "Script\n");
 		scriptBody->dump(indent + 1);
 	}
+	void GenCode(FILE* file) {
+		scriptBody->GenCode(file);
+	}
+	~Script() {}
 };
