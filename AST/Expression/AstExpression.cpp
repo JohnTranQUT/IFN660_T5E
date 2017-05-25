@@ -13,9 +13,9 @@ void IdentifierName::dump(int indent) {
 void IdentifierName::genCode(int *registerNum) {
 	auto name = string(LHS);
 	string registerVar = "r" + std::to_string((*registerNum)++);
-	string message = "Type* " + registerVar + " = new StringType(\"" + name + "\");";
+	string message = "auto " + registerVar + " = new StringType(\"" + name + "\");";
 	string registerVar2 = "r" + std::to_string((*registerNum)++);
-	string message2 = "Type* " + registerVar2 + " = ResolveBinding(" + registerVar + ", r1);";
+	string message2 = "auto " + registerVar2 + " = ResolveBinding(" + registerVar + ", r1);";
 	Node::genCode(message);
 	Node::genCode(message2);
 }
@@ -30,7 +30,7 @@ void DecimalLiteral::dump(int indent) {
 void DecimalLiteral::genCode(int *registerNum){
 	string number = std::to_string(LHS);
 	string registerVar = "r" + std::to_string((*registerNum)++);
-	string message = "Type* " + registerVar + " = new NumberType(" + number + ");";
+	string message = "auto " + registerVar + " = new NumberType(" + number + ");";
 	Node::genCode(message);
 }
 
@@ -282,11 +282,11 @@ void AdditiveExpression::genCode(int *registerNum){
 		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
 		string registerVar = "r" + std::to_string((*registerNum)++);
 		if (op == "+") {
-			string message = "Type* " + registerVar + " = Additive(" + registerVarLHS + "," + registerVarRHS + ");";
+			string message = "auto " + registerVar + " = Additive(" + registerVarLHS + "," + registerVarRHS + ");";
 			Node::genCode(message);
 		}
 		if (op == "-") {
-			string message = "Type* " + registerVar + " = Subtractive(" + registerVarLHS + "," + registerVarRHS + ");";
+			string message = "auto " + registerVar + " = Subtractive(" + registerVarLHS + "," + registerVarRHS + ");";
 			Node::genCode(message);
 		}
 	}
@@ -507,7 +507,7 @@ void AssignmentExpression::genCode(int *registerNum){
 		LHS->genCode(registerNum);
 		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
 		string registerVar = "r" + std::to_string((*registerNum)++);
-		string message = "Type* " + registerVar + " = Assignment(" + registerVarLHS + "," + registerVarRHS + ");";
+		string message = "auto " + registerVar + " = Assignment(" + registerVarLHS + "," + registerVarRHS + ");";
 		Node::genCode(message);
 	}
 	else {

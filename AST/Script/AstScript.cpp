@@ -80,8 +80,8 @@ void Script::dump(int indent) {
 
 void Script::genCode(int *registerNum){
 	string registerVar = "r" + std::to_string((*registerNum)++);
-	string message = "Type* " + registerVar + " = NewDeclarativeEnvironment();";
-	Node::genCode("#include <RuntimeLib\RuntimeLib.h>");
+	string message = "auto " + registerVar + " = NewDeclarativeEnvironment();";
+	Node::genCode("#include <RuntimeLib\\RuntimeLib.h>");
 	Node::genCode("void main(int argc, char *argv[]) {");
 	Node::genCode(message);
 	for (auto &i : next) {

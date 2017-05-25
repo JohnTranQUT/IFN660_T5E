@@ -16,7 +16,6 @@ void main(int argc, char *argv[]) {
 	puts("========AST TEST========");
 	fopen_s(&yyin, argv[1], "r");
 	yyparse();
-
 	outfile.open(argv[2]);
 	root->genCode(new int(1));
 	outfile.close();
