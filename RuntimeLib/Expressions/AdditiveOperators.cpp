@@ -65,7 +65,11 @@ string ToString(LanguageType* V) {
 		if (isnan(_V->_getValue()))
 			return  "Nan";
 		else
-			return to_string(_V->_getValue());
+		{
+			char value[100];
+			_itoa_s(_V->_getValue(), value, 10);
+			return value;
+		}
 	if (auto _V = dynamic_cast<StringType *>(V)) 
 		return _V->_getValue();
 	

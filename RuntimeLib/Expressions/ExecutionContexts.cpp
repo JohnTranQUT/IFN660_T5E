@@ -11,7 +11,8 @@ ReferenceType * ResolveBinding(string name , LexiEnviType * ENVI)
 	}
 	else
 	{
-		auto ref = dynamic_cast<ReferenceType *>(GetIdenRefe(ENVI, name, false));
+		auto _ref = GetIdenRefe(ENVI, name, false);
+		auto ref = dynamic_cast<ReferenceType *>(_ref);
 		return ref;
 	}
 	

@@ -50,7 +50,7 @@ Node *root;
 %%
 
 Script
-	: ScriptBody_opt															{ $$ = new Script($1); root=$$; }
+	: ScriptBody_opt															{ $$ = new Script($1); root = $$; }
 	;
 
 ScriptBody_opt
