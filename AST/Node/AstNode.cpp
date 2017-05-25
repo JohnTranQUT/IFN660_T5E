@@ -37,7 +37,7 @@ void Container::dump(int indent) {
 void Container::genCode(int *registerNum){
 	auto regNum = *registerNum;
 	string registerVar = "r" + std::to_string(regNum++);
-	auto message = registerVar + "new Lexical Envinroment(new String(" + name + "))"; // Temporary environment, require fixing later.
+	auto message = registerVar + "new LexicalEnvonroment(new String(" + name + "))"; // Temporary environment, require fixing later.
 	Node::genCode(message);
 	for (auto &i : next) {
 		i->genCode(registerNum);
