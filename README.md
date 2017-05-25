@@ -1,10 +1,10 @@
-# Gode Gen - John Tran
+# IFN645-T5E Github Repository
 
 ## Current Status
-Code Generator
+Code Generation
 
 ## Project Logs
-<<<<<<< HEAD
+- finish code generation for the AST
 - finish addition function
 - test two number addition and two string addition, worked.
 - finish ToBoolean ToString ToNumber
@@ -22,20 +22,3 @@ Code Generator
 whole porgram worked
 
 	
-=======
-[x] Working Additive but not accurate
-[x] Working Referece
-[x] Working Environment Records
-[x] Working Lexical Environment
-	[x] Working Declarative Lexical Environment
-	[x] Working Declarative Lexical Environment as substitude for Global Environment
-[x] Working Declarative Environment Records
-	[x] Working Declarative Environment Records as Global Envronment Records Substitute
-[ ] Working Global Environment Records
-	[ ] Structured Global Enviroment Records Class
-	[ ] Completed Class virutal Functions/methods
-[x] Outputs pesuedo Code file
-[x] Tested output code file
-## Additive Rework
-[ ] ???
->>>>>>> origin/john-sa-enr-gc
