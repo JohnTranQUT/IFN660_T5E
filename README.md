@@ -32,9 +32,9 @@ Runtime Library
 - finish ReferenceType
 - finish Getvalue
 - finish Putvalue
-- finish InitializeReferencedBinding
-CODE Generation	
+- finish InitializeReferencedBinding		
 	
+CODE Generation	
 - finish gecode method in script expression
 - generate outputfile
 - connect outputfile and Runtime Library's main		
