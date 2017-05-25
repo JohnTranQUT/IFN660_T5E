@@ -16,6 +16,14 @@ void Node::indentation(int indent) {
 	}
 }
 
+int Node::regnum = 0;
+vector <int> Node :: reg;
+
+void Node::push()
+{
+	reg.push_back(regnum++);
+}
+
 Container::Container(vector<Node *> _next, string _name) : next(_next), name(_name) { }
 
 void Container::dump(int indent) {

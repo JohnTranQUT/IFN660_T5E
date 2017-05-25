@@ -16,14 +16,10 @@ void IdentifierName::dump(int indent) {
 
 void IdentifierName::Gecode()
 {
-	static int s = 0;
-	 s++;
-	 if (s==1)
-	cout << "auto r1 = \"" << LHS << "\";" << endl;
-	 if (s==2)
-	cout << "auto r5 = \"" << LHS << "\";" << endl;
-	 if (s==3)
-	cout << "auto r7 = \"" << LHS << "\";" << endl;
+	push();
+	auto r = reg.back();
+	cout << "auto r" << r << " = \"" << LHS << "\";" << endl;
+	
 }
 
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
@@ -35,13 +31,24 @@ void DecimalLiteral::dump(int indent) {
 
 void DecimalLiteral::Gecode()
 {
-	static int i = 0;
-	i++;
-	if (i == 1)
-		cout << "auto r3 = new NumberType(" << LHS << ");" << endl;
-	if (i == 2)
-		cout << "auto r9 = new NumberType(" << LHS << ");" << endl;
+	push();
+	auto r = reg.back();
+	cout << "auto r" << r << " = new NumberType(" << LHS << ");" << endl;
 	
+}
+
+StringLiteral::StringLiteral(string _LHS) : LHS(_LHS) { }
+
+void StringLiteral::dump(int indent) {
+	auto message = string(typeid(*this).name()).substr(6) + ": " + LHS + " (" + string(typeid(LHS).name()) + ")";
+	Node::dump(message, indent);
+}
+
+void StringLiteral::Gecode()
+{
+	push();
+	auto r = reg.back();
+	cout << "auto r" << r << " = new StringType(" << LHS << ");" << endl;
 }
 
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
@@ -62,20 +69,12 @@ void Identifier::Gecode()
 	{
 		s->Gecode();
 	}
-	static int k = 0;
-	k++;
-	if (k == 1)
-	{
-		cout << "auto r2 = ResolveBinding(r1, r0);" << endl; 
-	}
-	if (k == 2) 
-	{
-		cout << "auto r6 = ResolveBinding(r5, r0);" << endl;
-	}
-	if (k == 3) 
-	{
-		cout << "auto r8 = ResolveBinding(r7, r0);" << endl;
-	}
+	auto x = reg.back();
+	reg.pop_back();
+	push();
+	auto r = reg.back();
+	cout << "auto r" << r << " = ResolveBinding(r" << x << ", r0);" << endl;
+	
 }
 
 NumericLiteral::NumericLiteral(Expression *_LHS) : LHS(_LHS) {
@@ -292,8 +291,8 @@ AdditiveExpression::AdditiveExpression(Expression *_LHS) : LHS(_LHS) {
 }
 
 AdditiveExpression::AdditiveExpression(Expression *_LHS , Expression *_RHS) : LHS(_LHS), RHS(_RHS) {
-	next.push_back(LHS);
 	next.push_back(RHS);
+	next.push_back(LHS);
 }
 
 void AdditiveExpression::dump(int indent) {
@@ -309,8 +308,15 @@ void AdditiveExpression::Gecode()
 	for (auto i : next) {
 		i->Gecode();
 	}
-	if (next.size() > 1) {
-		cout << "auto r10 = AdditiveOperator(r8, r9);" << endl;
+	if (next.size() > 1)
+	{
+		auto ls = reg.back();
+		reg.pop_back();
+		auto rs = reg.back();
+		reg.pop_back();
+		push();
+		auto r = reg.back();
+		cout << "auto r" << r << " = AdditiveOperator(r" << ls << ",r" << rs << ");" << endl;
 	}
 }
 
@@ -498,8 +504,8 @@ void ConditionalExpression::Gecode()
 }
 
 AssignmentExpression::AssignmentExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS), RHS(_RHS) {
-	next.push_back(LHS);
 	next.push_back(RHS);
+	next.push_back(LHS);
 }
 
 AssignmentExpression::AssignmentExpression(Expression *_LHS) : LHS(_LHS), RHS(nullptr) {
@@ -520,21 +526,16 @@ void AssignmentExpression::Gecode()
 	{
 		s->Gecode();
 	}
-	static int a = 0;
-	a++;
 	if (next.size() > 1)
 	{
-		if (a == 2)
-		{
-			
-			cout << "auto r4 = AssignmentOperator(r2, r3);" << endl;
-		}
-		if (a == 4)
-		{
-		
-			cout << "auto r11 = AssignmentOperator(r6, r10);" << endl;
-		}
-		
+
+		auto ls = reg.back();
+		reg.pop_back();
+		auto rs = reg.back();
+		reg.pop_back();
+		push();
+		auto r = reg.back();
+		cout << "auto r" << r << " = AssignmentOperator(r" << ls << ",r" << rs << ");" << endl;
 	}
-	
 }
+

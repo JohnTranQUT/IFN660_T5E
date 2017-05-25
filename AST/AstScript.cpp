@@ -87,6 +87,7 @@ void Script::Gecode()
 	cout << "#include <C:\\Users\\Administrator\\Desktop\\rita\\SA_ENV\\RuntimeLib\\Runtime.h>" << endl;
 	cout << "void main() {" << endl;
 	cout << "auto r0 = NewDeclEnvi(nullptr);" << endl;
+	push();
 	for (auto i : next) {
 		i->Gecode();
 	}

@@ -11,20 +11,23 @@ Code Generation
 - y = x +1;
 - to:
 - #include <C:\Users\Administrator\Desktop\rita\SA_ENV\RuntimeLib\Runtime.h>
-- void main() { 
-- auto r0 = NewDeclEnvi(nullptr); 
-- auto r1 = "x";
-- auto r2 = ResolveBinding(r1, r0);
-- auto r3 = new NumberType(42);
-- auto r4 = AssignmentOperator(r2, r3);
-- auto r5 = "y";
-- auto r6 = ResolveBinding(r5, r0);
-- auto r7 = "x";
-- auto r8 = ResolveBinding(r7, r0);
-- auto r9 = new NumberType(1);
-- auto r10 = AdditiveOperator(r8, r9);
-- auto r11 = AssignmentOperator(r6, r10);
+- void main() {
+- auto r0 = NewDeclEnvi(nullptr);
+- auto r1 = new NumberType(42);
+- auto r2 = "x";
+- auto r3 = ResolveBinding(r2, r0);
+- auto r4 = AssignmentOperator(r3,r1);
+- auto r5 = new NumberType(23);
+- auto r6 = "y";
+- auto r7 = ResolveBinding(r6, r0);
+- auto r8 = AssignmentOperator(r7,r5);
+- auto r9 = "y";
+- auto r10 = ResolveBinding(r9, r0);
+- auto r11 = "x";
+- auto r12 = ResolveBinding(r11, r0);
+- auto r13 = AdditiveOperator(r12,r10);
+- auto r14 = "z";
+- auto r15 = ResolveBinding(r14, r0);
+- auto r16 = AssignmentOperator(r15,r13);
 - }
-
-
 	

@@ -37,6 +37,14 @@ public:
 	void Gecode() override;
 };
 
+class StringLiteral : public Expression {
+	string LHS;
+public:
+	explicit StringLiteral(string);
+	void dump(int = 0) override;
+	void Gecode() override;
+};
+
 class NumericLiteral : public Expression {
 	vector<Node*> next;
 	Expression *LHS;
