@@ -13,9 +13,9 @@ void IdentifierName::dump(int indent) {
 void IdentifierName::genCode(int *registerNum) {
 	auto name = string(LHS);
 	string registerVar = "r" + std::to_string((*registerNum)++);
-	string message = "Type* " + registerVar + " = new StringType(\""+name+"\")";
+	string message = "Type* " + registerVar + " = new StringType(\"" + name + "\");";
 	string registerVar2 = "r" + std::to_string((*registerNum)++);
-	string message2 = "Type* " + registerVar2 + " = ResolveBinding(" + registerVar +", r1)";
+	string message2 = "Type* " + registerVar2 + " = ResolveBinding(" + registerVar + ", r1);";
 	Node::genCode(message);
 	Node::genCode(message2);
 }

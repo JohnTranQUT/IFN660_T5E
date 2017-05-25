@@ -1,12 +1,26 @@
 #include <cstdio>
 #include <RuntimeLib\RuntimeLib.h>
 #include <string>
-
-
 #include <parser.h>
-extern FILE *yyin;
-using namespace std;
+#include <fstream>
 
+extern FILE *yyin;
+extern Node *root;
+using namespace std;
+ofstream outfile;
+
+
+
+
+void main(int argc, char *argv[]) {
+	puts("========AST TEST========");
+	fopen_s(&yyin, argv[1], "r");
+	yyparse();
+
+	outfile.open(argv[2]);
+	root->genCode(new int(1));
+	outfile.close();
+}
 
 void outputToScreenType(Type* temp) {
 	if (auto _temp = dynamic_cast<NumberType *>(temp))
@@ -18,7 +32,7 @@ void outputToScreenType(Type* temp) {
 	}
 }
 
-void main(int argc, char *argv[]) {
+void addtionTesting() {
 	/* ADDITION TESTING */
 	puts("========ADDITION TESTING========");
 	auto temp = Additive(new NumberType(1), new NumberType(2));
@@ -33,9 +47,9 @@ void main(int argc, char *argv[]) {
 	outputToScreenType(temp);
 	temp = Subtractive(new StringType("g0"), new StringType("ao"));
 	outputToScreenType(temp);
+}
 
-	/* FOR TESTING*/
-
+void yxTest() {
 	//Type* e1 = ResolveName("x", env);
 	puts("======== X = 42; Y = X + 1 TESTING========");
 	auto r1 = NewDeclarativeEnvironment();
@@ -53,12 +67,9 @@ void main(int argc, char *argv[]) {
 	auto r9 = ResolveBinding(r7, r1);
 	auto r10 = Additive(r9, r8);
 	auto r11 = ResolveBinding(r6, r1);
-	auto r12 = Assignment(r11, r10);//
+	auto r12 = Assignment(r11, r10);
 	puts("========Y RESULT========");
 	outputToScreenType(GetValue(ResolveBinding(new StringType("y"), r1)));
 	puts("========LEXICAL ENVIRONMENT RECORDS DUMP========");
 	outputToScreenType(r1);
-	puts("========AST TEST========");
-	fopen_s(&yyin, argv[1], "r");
-	yyparse();
 }

@@ -2,6 +2,7 @@
 #include <AST/Node/AstNode.h>
 #include <AST/Statement/AstStatement.h>
 #include <AST/Script/AstScript.h>
+
 using namespace std;
 
 StatementListItem::StatementListItem(Statement *_statement) : statement(_statement) {
@@ -80,8 +81,11 @@ void Script::dump(int indent) {
 void Script::genCode(int *registerNum){
 	string registerVar = "r" + std::to_string((*registerNum)++);
 	string message = "Type* " + registerVar + " = NewDeclarativeEnvironment();";
+	Node::genCode("#include <RuntimeLib\RuntimeLib.h>");
+	Node::genCode("void main(int argc, char *argv[]) {");
 	Node::genCode(message);
 	for (auto &i : next) {
 		i->genCode(registerNum);
 	}
+	Node::genCode("}");
 }

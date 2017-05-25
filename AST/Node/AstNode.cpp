@@ -2,7 +2,10 @@
 #include <string>
 #include <iostream>
 #include <AST/Node/AstNode.h>
+#include <fstream>
 using namespace std;
+
+extern ofstream outfile;
 
 void Node::dump(string message, int indent) {
 	indentation(indent);
@@ -17,6 +20,7 @@ void Node::indentation(int indent) {
 
 void Node::genCode(string message) {
 	cout << message << endl;
+	outfile << message << endl;
 }
 
 Container::Container(vector<Node *> _next, string _name) : next(_next),

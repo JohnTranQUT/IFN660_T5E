@@ -15,7 +15,6 @@ public:
 
 class Container : public Node {
 	vector<Node*> next;
-	vector<Node*> nextCode;
 	string name;
 public:
 	explicit Container(vector<Node*>, string);
