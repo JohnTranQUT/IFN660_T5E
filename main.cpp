@@ -21,9 +21,8 @@ int Counter = 0;
 
 void GeneratingCode(char* input, Script* root) {
 
-	char* outputFilename = (char*)malloc(strlen(input) + 1);
-	sprintf(outputFilename, "%s.cpp", input);
-	FILE* outputFile = fopen(outputFilename, "generetedFile");
+	
+	FILE* outputFile = fopen("test.cpp", "w");
 
 	//Header Files
 	root->emit(outputFile, "#include \"RuntimeLib/SpecificationType/LexicalEnvironment.h\"");
@@ -48,8 +47,9 @@ void GeneratingCode(char* input, Script* root) {
 }
 int main(int argc, char* argv[]) {
 
-	fopen_s(&yyin, argv[1], "r");
+	fopen_s(&yyin, "Test.js", "r");
 	yyparse();
+	//FILE* outputFile = fopen("generetedOutput.cpp","");
 	root->dump(0);
 	getchar();
 	
@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
 	std::cout << dynamic_cast<JSValue*>(r7)->ToString();
 	getchar();
 
-	//GeneratingCode(argv[1], root);
+	GeneratingCode(argv[1], root);
 	puts("1");
 }
 
