@@ -12,12 +12,14 @@ SCANNER
 - false
 - DoubleStringCharacters
 - SingleStringCharacters
-- LineContinuation
+- LineContinuation	
+	
 PARSER
 - ExpressionStatement
 - Expression
 - AssignmentExpression
-- LeftHandSideExpression
+- LeftHandSideExpression	
+
 Runtime Library
 - finish additive function
 - test two number addition and two string addition, worked.
@@ -31,10 +33,12 @@ Runtime Library
 - finish Getvalue
 - finish Putvalue
 - finish InitializeReferencedBinding
-CODE Generation
+CODE Generation	
+	
 - finish gecode method in script expression
 - generate outputfile
-- connect outputfile and Runtime Library's main
+- connect outputfile and Runtime Library's main		
+	
 TESting
 - TEST code generation, worked.
 - TEST outputfile in Runtime Library, worked.
