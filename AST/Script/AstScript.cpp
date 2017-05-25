@@ -82,8 +82,12 @@ void Script::dump(int indent) {
 }
 
 int Script::eval(int line, FILE* output) {
+	fprintf(output, "#include \"RTLib.h\"\n");
+	fprintf(output, "int main(){\n");
+	fprintf(output, "LexicalEnvironment* lexEnv = NewDeclarativeEnvironment(nullptr);\n");
 	for (auto &i : next) {
 		line = i->eval(line, output);
 	}
+	fprintf(output, "}");
 	return line;
 }
