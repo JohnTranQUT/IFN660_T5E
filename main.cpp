@@ -38,7 +38,8 @@ void GeneratingCode(char* input, Script* root) {
 
 	root->emit(outputFile, "LexicalEnvironment* lexEnv = NewDeclarativeEnvironment(nullptr);");
 	root->GenCode(outputFile);
-
+	
+	
 	//value logging
 
 	root->emit(outputFile, "std::cout << dynamic_cast<JSValue*>(r%d)->ToString();", Counter - 1);
