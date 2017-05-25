@@ -15,7 +15,7 @@ void Node::indentation(int indent) {
 	}
 }
 
-void Node::codeGen(string message) {
+void Node::genCode(string message) {
 	cout << message << endl;
 }
 
@@ -30,7 +30,12 @@ void Container::dump(int indent) {
 	}
 }
 
-void Container::genCode(){
-	auto message = "new Lexical Envinroment(new String(" + name + "))"; // Temporary environment, require fixing later.
-
+void Container::genCode(int *registerNum){
+	auto regNum = *registerNum;
+	string registerVar = "r" + std::to_string(regNum++);
+	auto message = registerVar + "new Lexical Envinroment(new String(" + name + "))"; // Temporary environment, require fixing later.
+	Node::genCode(message);
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }

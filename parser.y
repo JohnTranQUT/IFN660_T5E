@@ -47,7 +47,7 @@
 %%
 
 Script
-	: ScriptBody_opt															{ $$ = new Script($1); $$->dump(); }
+	: ScriptBody_opt															{ $$ = new Script($1); $$->dump(); $$->genCode(new int(1)); }
 	;
 
 ScriptBody_opt

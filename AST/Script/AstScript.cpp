@@ -16,8 +16,10 @@ void StatementListItem::dump(int indent) {
 	}
 }
 
-void StatementListItem::genCode()
-{
+void StatementListItem::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 StatementList::StatementList(Node *_node) : node(_node) {
@@ -39,8 +41,10 @@ void StatementList::dump(int indent) {
 	}
 }
 
-void StatementList::genCode()
-{
+void StatementList::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 ScriptBody::ScriptBody(StatementList *_statementlist) : statementlist(_statementlist) {
@@ -55,8 +59,10 @@ void ScriptBody::dump(int indent) {
 	}
 }
 
-void ScriptBody::genCode()
-{
+void ScriptBody::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 Script::Script(Node *_node) : node(_node) {
@@ -71,6 +77,11 @@ void Script::dump(int indent) {
 	}
 }
 
-void Script::genCode()
-{
+void Script::genCode(int *registerNum){
+	string registerVar = "r" + std::to_string((*registerNum)++);
+	string message = "Type* " + registerVar + " = NewDeclarativeEnvironment();";
+	Node::genCode(message);
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }

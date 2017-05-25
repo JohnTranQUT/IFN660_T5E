@@ -10,8 +10,14 @@ void IdentifierName::dump(int indent) {
 	Node::dump(message, indent);
 }
 
-void IdentifierName::genCode()
-{
+void IdentifierName::genCode(int *registerNum) {
+	auto name = string(LHS);
+	string registerVar = "r" + std::to_string((*registerNum)++);
+	string message = "Type* " + registerVar + " = new StringType(\""+name+"\")";
+	string registerVar2 = "r" + std::to_string((*registerNum)++);
+	string message2 = "Type* " + registerVar2 + " = ResolveBinding(" + registerVar +", r1)";
+	Node::genCode(message);
+	Node::genCode(message2);
 }
 
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
@@ -21,8 +27,11 @@ void DecimalLiteral::dump(int indent) {
 	Node::dump(message, indent);
 }
 
-void DecimalLiteral::genCode()
-{
+void DecimalLiteral::genCode(int *registerNum){
+	string number = std::to_string(LHS);
+	string registerVar = "r" + std::to_string((*registerNum)++);
+	string message = "Type* " + registerVar + " = new NumberType(" + number + ");";
+	Node::genCode(message);
 }
 
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
@@ -37,8 +46,10 @@ void Identifier::dump(int indent) {
 	}
 }
 
-void Identifier::genCode()
-{
+void Identifier::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 NumericLiteral::NumericLiteral(Expression *_LHS) : LHS(_LHS) {
@@ -53,8 +64,10 @@ void NumericLiteral::dump(int indent) {
 	}
 }
 
-void NumericLiteral::genCode()
-{
+void NumericLiteral::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 Literal::Literal(Expression *_LHS) : LHS(_LHS) {
@@ -69,8 +82,10 @@ void Literal::dump(int indent) {
 	}
 }
 
-void Literal::genCode()
-{
+void Literal::genCode(int *registerNum) {
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 IdentifierReference::IdentifierReference(Expression *_LHS) : LHS(_LHS) {
@@ -85,8 +100,10 @@ void IdentifierReference::dump(int indent) {
 	}
 }
 
-void IdentifierReference::genCode()
-{
+void IdentifierReference::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 PrimaryExpression::PrimaryExpression(Expression *_LHS) : LHS(_LHS) {
@@ -101,8 +118,10 @@ void PrimaryExpression::dump(int indent) {
 	}
 }
 
-void PrimaryExpression::genCode()
-{
+void PrimaryExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 MemberExpression::MemberExpression(Expression *_LHS) : LHS(_LHS) {
@@ -117,8 +136,10 @@ void MemberExpression::dump(int indent) {
 	}
 }
 
-void MemberExpression::genCode()
-{
+void MemberExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 NewExpression::NewExpression(Expression *_LHS) : LHS(_LHS) {
@@ -133,8 +154,10 @@ void NewExpression::dump(int indent) {
 	}
 }
 
-void NewExpression::genCode()
-{
+void NewExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 LeftHandSideExpression::LeftHandSideExpression(Expression *_LHS) : LHS(_LHS) {
@@ -149,8 +172,10 @@ void LeftHandSideExpression::dump(int indent) {
 	}
 }
 
-void LeftHandSideExpression::genCode()
-{
+void LeftHandSideExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 UpdateExpression::UpdateExpression(Expression *_LHS) : LHS(_LHS) {
@@ -165,8 +190,10 @@ void UpdateExpression::dump(int indent) {
 	}
 }
 
-void UpdateExpression::genCode()
-{
+void UpdateExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 UnaryExpression::UnaryExpression(Expression *_LHS) : LHS(_LHS) {
@@ -181,8 +208,10 @@ void UnaryExpression::dump(int indent) {
 	}
 }
 
-void UnaryExpression::genCode()
-{
+void UnaryExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 ExponentiationExpression::ExponentiationExpression(Expression *_LHS) : LHS(_LHS) {
@@ -197,8 +226,10 @@ void ExponentiationExpression::dump(int indent) {
 	}
 }
 
-void ExponentiationExpression::genCode()
-{
+void ExponentiationExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 MultiplicativeExpression::MultiplicativeExpression(Expression *_LHS) : LHS(_LHS) {
@@ -213,8 +244,10 @@ void MultiplicativeExpression::dump(int indent) {
 	}
 }
 
-void MultiplicativeExpression::genCode()
-{
+void MultiplicativeExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 
@@ -237,8 +270,30 @@ void AdditiveExpression::dump(int indent) {
 	}
 }
 
-void AdditiveExpression::genCode()
-{
+void AdditiveExpression::genCode(int *registerNum){
+	//for (auto &i : next) {
+	//	i->genCode(registerNum);
+	//}
+
+	if (RHS != nullptr && op != nullptr) {
+		RHS->genCode(registerNum);
+		string registerVarRHS = "r" + std::to_string((*registerNum) - 1);
+		LHS->genCode(registerNum);
+		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
+		string registerVar = "r" + std::to_string((*registerNum)++);
+		if (op == "+") {
+			string message = "Type* " + registerVar + " = Additive(" + registerVarLHS + "," + registerVarRHS + ");";
+			Node::genCode(message);
+		}
+		if (op == "-") {
+			string message = "Type* " + registerVar + " = Subtractive(" + registerVarLHS + "," + registerVarRHS + ");";
+			Node::genCode(message);
+		}
+	}
+	else {
+		LHS->genCode(registerNum);
+		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
+	}
 }
 
 ShiftExpression::ShiftExpression(Expression *_LHS) : LHS(_LHS) {
@@ -253,8 +308,10 @@ void ShiftExpression::dump(int indent) {
 	}
 }
 
-void ShiftExpression::genCode()
-{
+void ShiftExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 RelationalExpression::RelationalExpression(Expression *_LHS) : LHS(_LHS),
@@ -279,8 +336,10 @@ void RelationalExpression::dump(int indent) {
 	}
 }
 
-void RelationalExpression::genCode()
-{
+void RelationalExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 EqualityExpression::EqualityExpression(Expression *_LHS) : LHS(_LHS),
@@ -305,8 +364,10 @@ void EqualityExpression::dump(int indent) {
 	}
 }
 
-void EqualityExpression::genCode()
-{
+void EqualityExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 BitwiseANDExpression::BitwiseANDExpression(Expression *_LHS) : LHS(_LHS) {
@@ -321,8 +382,10 @@ void BitwiseANDExpression::dump(int indent) {
 	}
 }
 
-void BitwiseANDExpression::genCode()
-{
+void BitwiseANDExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 BitwiseXORExpression::BitwiseXORExpression(Expression *_LHS) : LHS(_LHS) {
@@ -337,8 +400,10 @@ void BitwiseXORExpression::dump(int indent) {
 	}
 }
 
-void BitwiseXORExpression::genCode()
-{
+void BitwiseXORExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 BitwiseORExpression::BitwiseORExpression(Expression *_LHS) : LHS(_LHS) {
@@ -353,8 +418,10 @@ void BitwiseORExpression::dump(int indent) {
 	}
 }
 
-void BitwiseORExpression::genCode()
-{
+void BitwiseORExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 LogicalANDExpression::LogicalANDExpression(Expression *_LHS) : LHS(_LHS) {
@@ -369,8 +436,10 @@ void LogicalANDExpression::dump(int indent) {
 	}
 }
 
-void LogicalANDExpression::genCode()
-{
+void LogicalANDExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 LogicalORExpression::LogicalORExpression(Expression *_LHS) : LHS(_LHS) {
@@ -385,8 +454,10 @@ void LogicalORExpression::dump(int indent) {
 	}
 }
 
-void LogicalORExpression::genCode()
-{
+void LogicalORExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 ConditionalExpression::ConditionalExpression(Expression *_LHS) : LHS(_LHS) {
@@ -401,8 +472,10 @@ void ConditionalExpression::dump(int indent) {
 	}
 }
 
-void ConditionalExpression::genCode()
-{
+void ConditionalExpression::genCode(int *registerNum){
+	for (auto &i : next) {
+		i->genCode(registerNum);
+	}
 }
 
 AssignmentExpression::AssignmentExpression(Expression *_LHS, Expression *_RHS) : LHS(_LHS),
@@ -424,6 +497,21 @@ void AssignmentExpression::dump(int indent) {
 	}
 }
 
-void AssignmentExpression::genCode()
-{
+void AssignmentExpression::genCode(int *registerNum){
+	//for (auto &i : next) {
+	//	i->genCode(registerNum);
+	//}
+	if (RHS != nullptr) {
+		RHS->genCode(registerNum);
+		string registerVarRHS = "r" + std::to_string((*registerNum) - 1);
+		LHS->genCode(registerNum);
+		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
+		string registerVar = "r" + std::to_string((*registerNum)++);
+		string message = "Type* " + registerVar + " = Assignment(" + registerVarLHS + "," + registerVarRHS + ");";
+		Node::genCode(message);
+	}
+	else {
+		LHS->genCode(registerNum);
+		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
+	}
 }
