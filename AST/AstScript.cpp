@@ -93,5 +93,6 @@ void Script::Gecode()
 	for (auto &i : next) {
 		i->Gecode();
 	}
+	SaveFile << "GetERvalue(r0->getER());" << endl;
 	SaveFile << "}" << endl;
 }

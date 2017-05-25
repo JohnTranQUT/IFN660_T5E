@@ -77,9 +77,11 @@ SingleLineComment "/""/"{SingleLineCommentCharsopt}
 null						{ return NULL_L; }
 
 (\"{DoubleStrChar}*\")		{
+								yylval.str = _strdup(yytext);
 								return STRING_L;
 							}
 (\'{SingleStrChar}*\')		{
+								yylval.str = _strdup(yytext);
 								return STRING_L;
 							}
 

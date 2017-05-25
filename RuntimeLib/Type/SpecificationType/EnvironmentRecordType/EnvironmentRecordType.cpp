@@ -80,3 +80,25 @@ Type * EnviRecordType::SetMutableBinding(string N, Type * V, bool S)
 	}
 	return nullptr;
 }
+
+map<string, Type*> EnviRecordType::getmap()
+{
+	return ER;
+}
+
+void GetERvalue(EnviRecordType * _ER)
+{
+	auto ERmap = _ER->getmap();
+	map<string, Type*>::iterator it;
+	for (it = ERmap.begin(); it != ERmap.end(); it++)
+	{
+		cout << it->first << " = ";	
+		if (auto _it = dynamic_cast<NumberType *>(it->second))
+				cout << ToNumber(_it) << endl;
+		if (auto _it = dynamic_cast<StringType *>(it->second))
+				cout << ToString(_it) << endl;
+
+		
+	}
+}
+

@@ -18,9 +18,12 @@ public:
 	Type * InitializeBinding(string, LanguageType *);
 	Type * GetBindingValue(string, bool);
 	Type * SetMutableBinding(string, Type *, bool);
+	map<string, Type * > getmap();
 };
 
 class DeclEnviRecordType : public EnviRecordType {
 public:
 	DeclEnviRecordType() {};
 };
+
+void GetERvalue(EnviRecordType *);
