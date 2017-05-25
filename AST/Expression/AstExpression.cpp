@@ -12,8 +12,7 @@ void IdentifierName::dump(int indent) {
 
 int IdentifierName::eval(int line, FILE* output) {
 	fprintf(output, "auto r%i = \"%s\";\n",line,LHS);
-	fprintf(output, "auto r%i = ResolveBinding(r%i, lexEnv);\n", line + 1, line);
-	return line + 2;
+	return line + 1;
 }
 
 DecimalLiteral::DecimalLiteral(double _LHS) : LHS(_LHS) { }
@@ -101,7 +100,8 @@ int IdentifierReference::eval(int line, FILE* output) {
 	for (auto &i : next) {
 		line = i->eval(line, output);
 	}
-	return line;
+	fprintf(output, "auto r%i = ResolveBinding(r%i, lexEnv);\n", line , line-1);
+	return line+1;
 }
 
 PrimaryExpression::PrimaryExpression(Expression *_LHS) : LHS(_LHS) {

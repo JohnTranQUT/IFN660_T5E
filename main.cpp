@@ -16,5 +16,5 @@ int main(int argc, char* argv[]) {
 	yyparse();
 	FILE* outputFile = fopen(argv[2], "w");
 	root->eval(0, outputFile);
-	printf("Finish code gen");
+	printf("Finish code gen...\n");
 }
