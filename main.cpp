@@ -48,12 +48,12 @@ void GeneratingCode(char* input, Script* root) {
 }
 int main(int argc, char* argv[]) {
 
-	/*fopen_s(&yyin, argv[1], "r");
+	fopen_s(&yyin, argv[1], "r");
 	yyparse();
 	root->dump(0);
-	getchar();*/
+	getchar();
 	
-	/*LexicalEnvironment* lexEnv = NewDeclarativeEnvironment(nullptr);
+	LexicalEnvironment* lexEnv = NewDeclarativeEnvironment(nullptr);
 
 	Type* r0 = ResolveBinding("x", lexEnv);
 	Type* r1 = new NumberValue(42);
@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
 	std::cout << dynamic_cast<JSValue*>(r7)->ToString();
 	getchar();
 
-	GeneratingCode(argv[1], root);*/
+	//GeneratingCode(argv[1], root);
 	puts("1");
 }
 

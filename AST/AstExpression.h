@@ -214,7 +214,7 @@ class MultiplicativeExpression : public Expression {
 	Expression *RHS;
 	char op;
 public:
-	explicit MultiplicativeExpression(Expression *LHS) :LHS(LHS) {};
+	explicit MultiplicativeExpression(Expression *LHS) :LHS(LHS) { RHS = nullptr; };
 	explicit MultiplicativeExpression(Expression *LHS, Expression *RHS, char op) :LHS(LHS), RHS(RHS), op(op) {};
 	void dump(int indent) override {
 		label(indent, "MultiplicativeExpression %c\n", op);
@@ -247,7 +247,7 @@ class AdditiveExpression : public Expression {
 	Expression *RHS;
 	char op;
 public:
-	explicit AdditiveExpression(Expression *LHS) :LHS(LHS) {};
+	explicit AdditiveExpression(Expression *LHS) :LHS(LHS) { RHS = nullptr; };
 	explicit AdditiveExpression(Expression *LHS, Expression *RHS, char op) :LHS(LHS), RHS(RHS), op(op){}
 	void dump(int indent) override {
 		label(indent, "AdditiveExpression %c\n", op);
