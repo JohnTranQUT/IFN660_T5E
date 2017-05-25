@@ -36,6 +36,10 @@
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
 
+%{
+Node *root;
+%}
+
 %type <statementlist> StatementList StatementList_opt
 %type <root> Script ScriptBody_opt ScriptBody StatementListItem
 %type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
@@ -43,11 +47,10 @@
 %type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName StringLiteral
 
 %start Script
-
 %%
 
 Script
-	: ScriptBody_opt															{ $$ = new Script($1); $$->Gecode(); }
+	: ScriptBody_opt															{ $$ = new Script($1); root=$$; }
 	;
 
 ScriptBody_opt

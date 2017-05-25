@@ -3,7 +3,9 @@
 #include <AST/AstStatement.h>
 #include <AST/AstScript.h>
 #include <iostream>
+#include <fstream>
 
+extern ofstream SaveFile;
 using namespace std;
 
 StatementListItem::StatementListItem(Statement *_statement) : statement(_statement) {
@@ -84,12 +86,12 @@ void Script::dump(int indent) {
 
 void Script::Gecode()
 {
-	cout << "#include <C:\\Users\\Administrator\\Desktop\\rita\\SA_ENV\\RuntimeLib\\Runtime.h>" << endl;
-	cout << "void main() {" << endl;
-	cout << "auto r0 = NewDeclEnvi(nullptr);" << endl;
+	SaveFile << "#include <C:\\Users\\Administrator\\Desktop\\rita\\SA_ENV\\RuntimeLib\\Runtime.h>" << endl;
+	SaveFile << "void main() {" << endl;
+	SaveFile << "auto r0 = NewDeclEnvi(nullptr);" << endl;
 	push();
-	for (auto i : next) {
+	for (auto &i : next) {
 		i->Gecode();
 	}
-	cout << "}" << endl;
+	SaveFile << "}" << endl;
 }

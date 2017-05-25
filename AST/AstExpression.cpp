@@ -3,9 +3,11 @@
 #include <AST/AstNode.h>
 #include <AST/AstExpression.h>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 extern int CounterLabel;
+extern ofstream SaveFile;
 
 IdentifierName::IdentifierName(char *_LHS) : LHS(_LHS) { }
 
@@ -18,7 +20,7 @@ void IdentifierName::Gecode()
 {
 	push();
 	auto r = reg.back();
-	cout << "auto r" << r << " = \"" << LHS << "\";" << endl;
+	SaveFile << "auto r" << r << " = \"" << LHS << "\";" << endl;
 	
 }
 
@@ -33,7 +35,7 @@ void DecimalLiteral::Gecode()
 {
 	push();
 	auto r = reg.back();
-	cout << "auto r" << r << " = new NumberType(" << LHS << ");" << endl;
+	SaveFile << "auto r" << r << " = new NumberType(" << LHS << ");" << endl;
 	
 }
 
@@ -48,7 +50,7 @@ void StringLiteral::Gecode()
 {
 	push();
 	auto r = reg.back();
-	cout << "auto r" << r << " = new StringType(" << LHS << ");" << endl;
+	SaveFile << "auto r" << r << " = new StringType(" << LHS << ");" << endl;
 }
 
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
@@ -73,7 +75,7 @@ void Identifier::Gecode()
 	reg.pop_back();
 	push();
 	auto r = reg.back();
-	cout << "auto r" << r << " = ResolveBinding(r" << x << ", r0);" << endl;
+	SaveFile << "auto r" << r << " = ResolveBinding(r" << x << ", r0);" << endl;
 	
 }
 
@@ -316,7 +318,7 @@ void AdditiveExpression::Gecode()
 		reg.pop_back();
 		push();
 		auto r = reg.back();
-		cout << "auto r" << r << " = AdditiveOperator(r" << ls << ",r" << rs << ");" << endl;
+		SaveFile << "auto r" << r << " = AdditiveOperator(r" << ls << ",r" << rs << ");" << endl;
 	}
 }
 
@@ -528,14 +530,13 @@ void AssignmentExpression::Gecode()
 	}
 	if (next.size() > 1)
 	{
-
 		auto ls = reg.back();
 		reg.pop_back();
 		auto rs = reg.back();
 		reg.pop_back();
 		push();
 		auto r = reg.back();
-		cout << "auto r" << r << " = AssignmentOperator(r" << ls << ",r" << rs << ");" << endl;
+		SaveFile << "auto r" << r << " = AssignmentOperator(r" << ls << ",r" << rs << ");" << endl;
 	}
 }
 

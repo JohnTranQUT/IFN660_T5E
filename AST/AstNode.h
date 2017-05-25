@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
+#include <fstream>
 
 using namespace std;
+extern ofstream SaveFile;
 
 class Node {	
 public:
@@ -23,3 +25,4 @@ public:
 	void dump(int = 0) override;
 	void Gecode() override;
 };
+
