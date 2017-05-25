@@ -1,40 +1,66 @@
-#include <iostream>
-#include "AST/AstScript.h"
-using namespace std;
+#include <stdio.h>
+#include "AST\AstScript.h"
+#include "parser.h"
 
-int yylex();
-int yyparse();
+using namespace std;
 
 extern FILE *yyin;
 extern Script *root;
+
 int CounterLabel = 0;
+
 
 void CodeGeneration(char* inputfile, Script* root)
 {
-	char* outputFilename = (char *)malloc(strlen(inputfile) + 1);
-	outputFilename[strlen(inputfile) - 3] = '\0'; //insert end string charracter
-	memcpy(outputFilename, inputfile + 0 /* Offset */, (strlen(inputfile)-3) /* Length */);
+	int namecount = 0;
+	char* outputFilename = (char*)malloc(strlen(inputfile) + 3);
+	while ((inputfile[namecount] != '.') && (namecount < strlen(inputfile))) {
+		outputFilename[namecount] = inputfile[namecount];
+		namecount++;
+	}
+	outputFilename[namecount] = '\0'; //insert end string charracter
 	sprintf(outputFilename, "%s.cpp", outputFilename);
 	FILE* outputFile = fopen(outputFilename, "w");
-	//include header files
-	root->emit(outputFile, "#include \"RuntimeLib/SpecificationType/LexicalEnvironment.h\"");
-	root->emit(outputFile, "#include \"RuntimeLib/RuntimeSemantic.h\"");
-	root->emit(outputFile, "#include \"RuntimeLib/Operation.h\"");
-	root->emit(outputFile, "#include <iostream>");
-	//main function
-	root->emit(outputFile, "int main(int argc, char* argv[])");
-	root->emit(outputFile, "{");
-	//global environment
-	root->emit(outputFile, "LexicalEnvironment* lexEnv = NewDeclarativeEnvironment(nullptr);");
+
+	// this toy language doesn't have classes or methods so we need to create a dummy class and main method to host user code ...
+	root->emit(outputFile, "#include \"RuntimeLib\\RTlib.h\"", inputfile);
+	root->emit(outputFile, "void main(int argc, char *argv[]) {", inputfile);
+	root->emit(outputFile, "LexicalEnvironment* globalenv = NewDeclarativeEnvironment(nullptr);");
+
 	root->GenCode(outputFile);
-	//log the value to test
-	root->emit(outputFile, "std::cout << dynamic_cast<JSValue*>(r%d)->ToString();", CounterLabel - 1);
+	
+	root->emit(outputFile, "");
 	root->emit(outputFile, "}"); // end of Main
 }
-int main(int argc, char* argv[]) {
-	fopen_s(&yyin, argv[1], "r");
-	yyparse();
-	root->dump(0);
-	CodeGeneration(argv[1], root);
-	getchar();
+
+int main(int argc, char* argv[])
+{
+
+#ifdef testScanner
+	int token = 1;
+	while (token > 0)
+	{
+		token = yylex();
+		switch (token)
+		{
+			case IDENT: printf("IDENT %s\n", yylval.name); break;
+			case NUMBER: printf("NUMBER %d\n", yylval.num); break;
+			case INT: printf("INT\n"); break;
+			case BOOL: printf("BOOL\n"); break;
+			case IF: printf("IF\n"); break;
+			case ELSE: printf("ELSE\n"); break;
+			case EOF: printf("EOF\n"); break;
+			default: printf("'%c'\n", token);
+		}
+	}
+#else
+
+
+		fopen_s(&yyin, argv[1], "r");
+		yyparse();
+
+		CodeGeneration(argv[1], root);
+		getchar();
+
+#endif
 }

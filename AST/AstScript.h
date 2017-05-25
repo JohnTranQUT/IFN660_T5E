@@ -1,10 +1,6 @@
 #pragma once
-#include <vector>
-#include "AST/AstNode.h"
-
-
+#include <AST/AstNode.h>
 using namespace std;
-
 
 class Statement : public Node {
 public:
@@ -25,68 +21,37 @@ class StatementListItem : public Node {
 public:
 	explicit StatementListItem(Statement *statement) :statement(statement) {
 	}
-	void dump(int indent) override {
-		label(indent, "StatementListItem\n");
-		statement->dump(indent + 1);
-	}
-	void GenCode(FILE* file) {
-		statement->GenCode(file);
-	}
-	~StatementListItem(){}
+	void dump(int indent) override;
+	void GenCode(FILE* file);
+	~StatementListItem() {}
 };
 
 
 class StatementList : public Node {
 	vector<StatementListItem*> *items;
 public:
-	explicit StatementList(StatementListItem* item)
-	{
-		items = new vector<StatementListItem*>();
-		items->push_back(item);
-	}
-	void push_back(StatementListItem *item)
-	{
-		items->push_back(item);
-	}
-	void dump(int indent) override {
-		label(indent, "StatementList\n");
-		for (std::vector<StatementListItem*>::iterator iter = items->begin(); iter != items->end(); ++iter)
-			(*iter)->dump(indent + 1);
-	}
-	void GenCode(FILE* file) {
-		for (std::vector<StatementListItem*>::iterator iter = items->begin(); iter != items->end(); ++iter)
-			(*iter)->GenCode(file);
-	}
-	~StatementList(){}
+	explicit StatementList(StatementListItem* item);
+	void push_back(StatementListItem *item);
+	void dump(int indent) override;
+	void GenCode(FILE* file);
+	~StatementList() {}
 };
 
 class ScriptBody : public Node {
 private:
 	StatementList* stmtList;
 public:
-	explicit ScriptBody(StatementList *stmtList) : stmtList(stmtList){}
-	void dump(int indent) override {
-		label(indent, "ScriptBody\n");
-		stmtList->dump(indent = 1);
-	}
-	void GenCode(FILE* file)  {
-		 stmtList->GenCode(file);
-	}
-	~ScriptBody(){}
+	explicit ScriptBody(StatementList *stmtList) : stmtList(stmtList) {}
+	void dump(int indent) override;
+	void GenCode(FILE* file);
+	~ScriptBody() {}
 };
-
-
 
 class Script : public Node {
 	ScriptBody *scriptBody;
 public:
 	explicit Script(ScriptBody *scriptBody) :scriptBody(scriptBody) {}
-	void dump(int indent) override {
-		label(indent, "Script\n");
-		scriptBody->dump(indent + 1);
-	}
-	void GenCode(FILE* file)  {
-		scriptBody->GenCode(file);
-	}
-	~Script(){}
+	void dump(int indent) override;
+	void GenCode(FILE* file);
+	~Script() {}
 };
