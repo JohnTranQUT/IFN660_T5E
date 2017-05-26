@@ -10,10 +10,14 @@ flex.vcxproj.user
 scanner.cpp
 win_bison.exe
 win_flex.exe
-.gitignore
 parser.cpp
 parser.h
-test.js
 y.tab.h
 /.vs/
 /.gitignore
+/Program/Program.VC.VC.opendb
+IFN660_T5E.vcxproj
+IFN660_T5E.vcxproj.filters
+IFN660_T5E.vcxproj.user
+test.cpp
+.gitignore
