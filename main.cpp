@@ -6,11 +6,8 @@
 
 extern FILE *yyin;
 extern Node *root;
+extern ofstream outfile;
 using namespace std;
-ofstream outfile;
-
-
-
 
 void main(int argc, char *argv[]) {
 	puts("========AST TEST========");

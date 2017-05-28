@@ -1,6 +1,5 @@
 #include <RuntimeLib\ExecutionContext\ExecutionContext.h>
 
-
 Reference* ResolveBinding(StringType* name, LexicalEnvironment* env){
 	/*
 	If env was not passed or if env is undefined, then
