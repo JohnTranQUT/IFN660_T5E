@@ -43,7 +43,7 @@ Node *root;
 %type <root> Script ScriptBody_opt ScriptBody StatementListItem
 %type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
-%type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName
+%type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName StringLiteral
 
 %start Script
 
@@ -275,7 +275,7 @@ Literal
 	: NullLiteral
 	| BooleanLiteral
 	| NumericLiteral															{ $$ = new Literal($1); }
-	| StringLiteral
+	| StringLiteral																{ $$ = new Literal($1); }
 	;
 
 ArrayLiteral
@@ -409,7 +409,7 @@ NullLiteral
 	;
 
 StringLiteral
-	:
+	: STRING_L																	{ $$ = new StringLiteral($1); }
 	;
 
 DecimalLiteral

@@ -34,6 +34,21 @@ void DecimalLiteral::genCode(int *registerNum){
 	Node::genCode(message);
 }
 
+StringLiteral::StringLiteral(char *_LHS) : LHS(_LHS) { }
+
+void StringLiteral::dump(int indent){
+	auto message = string(typeid(*this).name()).substr(6) + ": " + string(LHS) + " (" + string(typeid(LHS).name()) + ")";
+	Node::dump(message, indent);
+}
+
+void StringLiteral::genCode(int * registerNum){
+	auto name = string(LHS);
+	string registerVar = "r" + std::to_string((*registerNum)++);
+	string message = "auto " + registerVar + " = new StringType(\"" + name + "\");";
+	Node::genCode(message);
+}
+
+
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }

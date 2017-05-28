@@ -26,6 +26,14 @@ public:
 	void genCode(int *registerNum) override;
 };
 
+class StringLiteral : public Expression {
+	char *LHS;
+public:
+	explicit StringLiteral(char *);
+	void dump(int = 0) override;
+	void genCode(int *registerNum) override;
+};
+
 class Identifier : public Expression {
 	vector<Node*> next;
 	Expression *LHS;

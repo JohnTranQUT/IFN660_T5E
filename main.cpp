@@ -13,9 +13,12 @@ using namespace std;
 void main(int argc, char *argv[]) {
 	puts("========AST TEST========");
 	fopen_s(&yyin, argv[1], "r");
+	puts("========File Read========");
 	yyparse();
+	puts("========File Parsed========");
 	outfile.open(argv[2]);
 	root->genCode(new int(1));
+	//root->dump();
 	outfile.close();
 }
 
