@@ -365,6 +365,11 @@ void EqualityExpression::dump(int indent) {
 }
 
 void EqualityExpression::genCode(int *registerNum){
+	/*
+	for (auto &i : next) {
+	i->genCode(registerNum);
+	}
+	*/
 	if (RHS != nullptr) {
 		RHS->genCode(registerNum);
 		string registerRHS = "r" + std::to_string(*registerNum - 1);
@@ -376,12 +381,8 @@ void EqualityExpression::genCode(int *registerNum){
 	}
 	else {
 		LHS->genCode(registerNum);
+		string registerLHS = "r" + std::to_string((*registerNum) - 1);
 	}
-	/*
-	for (auto &i : next) {
-		i->genCode(registerNum);
-	}
-	*/
 }
 
 BitwiseANDExpression::BitwiseANDExpression(Expression *_LHS) : LHS(_LHS) {

@@ -91,20 +91,13 @@ void IfStatement::dump(int indent) {
 void IfStatement::genCode(int *registerNum){
 	expression->genCode(registerNum);
 	string registerExpression = "r" + std::to_string(*registerNum - 1);
+	Node::genCode("if(" + registerExpression + "->_getValue()){");
 	ifStatement->genCode(registerNum);
-	string registerIfStatement = "r" + std::to_string(*registerNum - 1);
-	if(elseStatement!=nullptr){
+	if (elseStatement != nullptr) {
+		Node::genCode("}else{");
 		elseStatement->genCode(registerNum);
-		string registerElseStatement = "r" + std::to_string(*registerNum - 1);
-		string registerIf = "r" + std::to_string((*registerNum)++);
-		string message = "auto " + registerIf + " = new ifstatementeval(" + registerExpression + ", " + registerIfStatement + ",r" + registerElseStatement + ");";
-		Node::genCode(message);
 	}
-	else {
-		string registerIf = "r" + std::to_string((*registerNum)++);
-		string message = "auto " + registerIf + " = new ifstatementeval(" + registerExpression + ", " + registerIfStatement + ");";
-		Node::genCode(message);
-	}
+	Node::genCode("}");
 	/*
 	for (auto &i : next) {
 		i->genCode(registerNum);

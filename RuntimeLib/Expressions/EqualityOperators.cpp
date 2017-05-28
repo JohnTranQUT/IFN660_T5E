@@ -26,7 +26,31 @@ BooleanType* StrictEqualityComparsion(LanguageType* x, LanguageType* y) {
 	if (TypeOf(x) != TypeOf(y)) {
 		return new BooleanType(false);
 	}
-	return nullptr;
+	if (auto _x = dynamic_cast<NumberType*>(x)) {
+		if (_x->_getValue() == NAN)
+			return new BooleanType(false);
+		if ((dynamic_cast<NumberType*>(y))->_getValue() == NAN)
+			return new BooleanType(false);
+		if (_x->_getValue() == (dynamic_cast<NumberType*>(y))->_getValue())
+			return new BooleanType(true);
+		return new BooleanType(false);
+	}
+	return SameValueNonNumber(x,y);
+}
+
+BooleanType* SameValueNonNumber(LanguageType* x, LanguageType* y) {
+	if (dynamic_cast<UndefinedType*>(x))
+		return new BooleanType(true);
+	if (dynamic_cast<UndefinedType*>(x))
+		return new BooleanType(true);
+	if (auto _x = dynamic_cast<StringType*>(x))
+		return new BooleanType(_x->_getValue() == (dynamic_cast<StringType*>(y))->_getValue());
+	if (auto _x = dynamic_cast<BooleanType*>(x))
+		return new BooleanType(_x->_getValue() == (dynamic_cast<BooleanType*>(y))->_getValue());
+	if (auto _x = dynamic_cast<SymbolType*>(x))
+		return new BooleanType(_x->_getValue() == (dynamic_cast<SymbolType*>(y))->_getValue());
+	if (auto _x = dynamic_cast<ObjectType*>(x))
+		return new BooleanType(false);//return false for now
 }
 
 string TypeOf(LanguageType* x) {

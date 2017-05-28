@@ -10,10 +10,6 @@ extern ofstream outfile;
 using namespace std;
 
 
-void equalityTest() {
-	auto test = Equality(new NumberType(1), new NumberType(1));
-}
-
 void main(int argc, char *argv[]) {
 	puts("========AST TEST========");
 	fopen_s(&yyin, argv[1], "r");
@@ -21,8 +17,6 @@ void main(int argc, char *argv[]) {
 	outfile.open(argv[2]);
 	root->genCode(new int(1));
 	outfile.close();
-	root->dump();
-	equalityTest();
 }
 
 void outputToScreenType(Type* temp) {
@@ -35,7 +29,12 @@ void outputToScreenType(Type* temp) {
 	}
 }
 
-void addtionTesting() {
+void equalityTest() {
+	puts("========Equality TESTING========");
+	auto test = Equality(new NumberType(1), new NumberType(1));
+}
+
+void additionTest() {
 	/* ADDITION TESTING */
 	puts("========ADDITION TESTING========");
 	auto temp = Additive(new NumberType(1), new NumberType(2));
