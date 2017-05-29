@@ -1,7 +1,6 @@
 #include <RuntimeLib\Expressions\MultiplicativeOperators.h>
 #include <string>
-
-//Evaluation Functions
+#include <math.h>
 
 LanguageType * Multiplicative(Type * left, Type * right, string _operator){
 	auto leftValue = GetValue(left);
@@ -33,7 +32,7 @@ LanguageType * Multiplicative(Type * left, Type * right, string _operator){
 	}
 	if (_operator == "%") {
 		/* skipped exceptions for now*/
-		return  new NumberType((int)round(lnum) % (int)round(rnum));
+		return new NumberType(fmod(lnum, rnum));
 	}
 	return  new NumberType(0);
 }

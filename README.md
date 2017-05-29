@@ -12,9 +12,6 @@ Code Generator
 	- [x] Working Declarative Lexical Environment as substitude for Global Environment
 - [x] Working Declarative Environment Records
 	- [x] Working Declarative Environment Records as Global Envronment Records Substitute
-- [ ] Working Global Environment Records
-	- [ ] Structured Global Enviroment Records Class
-	- [ ] Completed Class virutal Functions/methods
 - [x] Outputs pesuedo Code file
 - [x] Tested output code file
 ## Additive Rework
@@ -24,3 +21,12 @@ Code Generator
 - [x] Enabled If Statements
 	- [x] Added runtime function for Equality test
 	- [x] Made codeGen in AST
+- [x] Enabled Multiplication Operators
+	- [x] Added /
+	- [x] Added %
+- [x] Enabled Boolean Type
+- [x] Enabled Null Type
+- [x] Enabled Undefined Type
+- [ ] Working Global Environment Records
+	- [ ] Structured Global Enviroment Records Class
+	- [ ] Completed Class virutal Functions/methods
