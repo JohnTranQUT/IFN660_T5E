@@ -21,7 +21,7 @@ BooleanType* Equality(Type* lref, Type* rref, string op){
 		auto rval = GetValue(rref);
 		return new BooleanType(!StrictEqualityComparsion(lval, rval)->_getValue());
 	}
-	return new BooleanType(NULL);
+	return nullptr; //no operator identified
 }
 
 BooleanType* AbstractEqualityComparison(LanguageType* x, LanguageType* y) {

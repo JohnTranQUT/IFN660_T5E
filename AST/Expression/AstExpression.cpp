@@ -282,6 +282,11 @@ MultiplicativeExpression::MultiplicativeExpression(Expression *_LHS) : LHS(_LHS)
 	next.push_back(LHS);
 }
 
+MultiplicativeExpression::MultiplicativeExpression(Expression *_LHS, Expression *_RHS, char *_op) : LHS(_LHS), RHS(_RHS), op(_op) {
+	next.push_back(LHS);
+	next.push_back(RHS);
+}
+
 void MultiplicativeExpression::dump(int indent) {
 	auto message = string(typeid(*this).name()).substr(6) + ": ";
 	Node::dump(message, indent);
@@ -291,8 +296,21 @@ void MultiplicativeExpression::dump(int indent) {
 }
 
 void MultiplicativeExpression::genCode(int *registerNum){
-	for (auto &i : next) {
+	/*for (auto &i : next) {
 		i->genCode(registerNum);
+	}*/
+	if (RHS != nullptr && op != nullptr) {
+		RHS->genCode(registerNum);
+		string registerVarRHS = "r" + std::to_string((*registerNum) - 1);
+		LHS->genCode(registerNum);
+		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
+		string registerVar = "r" + std::to_string((*registerNum)++);
+		string message = "auto " + registerVar + " = Multiplicative(" + registerVarLHS + ", " + registerVarRHS + ", \"" + string(op) + "\");";
+		Node::genCode(message);
+	}
+	else {
+		LHS->genCode(registerNum);
+		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
 	}
 }
 
@@ -568,7 +586,7 @@ void AssignmentExpression::genCode(int *registerNum){
 		LHS->genCode(registerNum);
 		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
 		string registerVar = "r" + std::to_string((*registerNum)++);
-		string message = "auto " + registerVar + " = Assignment(" + registerVarLHS + "," + registerVarRHS + ");";
+		string message = "auto " + registerVar + " = Assignment(" + registerVarLHS + ", " + registerVarRHS + ");";
 		Node::genCode(message);
 	}
 	else {

@@ -362,7 +362,9 @@ AdditiveExpression
 /* Level 15 */
 MultiplicativeExpression
 	: ExponentiationExpression													{ $$ = new MultiplicativeExpression($1); }
-	| MultiplicativeExpression MultiplicativeOperator ExponentiationExpression
+	| MultiplicativeExpression '*' ExponentiationExpression						{ $$ = new MultiplicativeExpression($1, $3, "*"); }
+	| MultiplicativeExpression '/' ExponentiationExpression						{ $$ = new MultiplicativeExpression($1, $3, "/"); }
+	| MultiplicativeExpression '%' ExponentiationExpression						{ $$ = new MultiplicativeExpression($1, $3, "%"); }
 	;
 
 /* Level 16 */
@@ -447,12 +449,6 @@ AssignmentOperator
 	| BWXORASS
 	| BWORASS
 	| EXPASS
-	;
-
-MultiplicativeOperator
-	: '*'
-	| '/'
-	| '%'
 	;
 
 empty
