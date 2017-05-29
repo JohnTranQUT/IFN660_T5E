@@ -3,7 +3,7 @@
 #include <RuntimeLib\Type\SpecificationType\Reference\ReferenceFunc.h>
 #include <string>
 
-BooleanType* Equality(Type* lref, Type* rref);
+BooleanType* Equality(Type* lref, Type* rref, string op);
 BooleanType* AbstractEqualityComparison(LanguageType* x, LanguageType* y);
 BooleanType* StrictEqualityComparsion(LanguageType* x, LanguageType* y);
 BooleanType* SameValueNonNumber(LanguageType* x, LanguageType* y);

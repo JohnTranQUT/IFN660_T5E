@@ -422,7 +422,7 @@ void EqualityExpression::genCode(int *registerNum){
 		LHS->genCode(registerNum);
 		string registerLHS = "r" + std::to_string(*registerNum - 1);
 		string registerEqualityExpression = "r" + std::to_string((*registerNum)++);
-		string message = "auto " + registerEqualityExpression + " = Equality(" + registerLHS + ", " + registerRHS + ");";
+		string message = "auto " + registerEqualityExpression + " = Equality(" + registerLHS + ", " + registerRHS + ", \"" + string(op) + "\");";
 		Node::genCode(message);
 	}
 	else {

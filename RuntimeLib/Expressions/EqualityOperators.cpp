@@ -1,9 +1,27 @@
 #include <RuntimeLib\Expressions\EqualityOperators.h>
 
-BooleanType* Equality(Type* lref, Type* rref){
-	auto lval = GetValue(lref);
-	auto rval = GetValue(rref);
-	return AbstractEqualityComparison(lval, rval);
+BooleanType* Equality(Type* lref, Type* rref, string op){
+	if (op == "==") {
+		auto lval = GetValue(lref);
+		auto rval = GetValue(rref);
+		return AbstractEqualityComparison(lval, rval);
+	}
+	if (op == "!=") {
+		auto lval = GetValue(lref);
+		auto rval = GetValue(rref);
+		return new BooleanType(!AbstractEqualityComparison(lval, rval)->_getValue());
+	}
+	if (op == "===") {
+		auto lval = GetValue(lref);
+		auto rval = GetValue(rref);
+		return StrictEqualityComparsion(lval, rval);
+	}
+	if (op == "!==") {
+		auto lval = GetValue(lref);
+		auto rval = GetValue(rref);
+		return new BooleanType(!StrictEqualityComparsion(lval, rval)->_getValue());
+	}
+	return new BooleanType(NULL);
 }
 
 BooleanType* AbstractEqualityComparison(LanguageType* x, LanguageType* y) {

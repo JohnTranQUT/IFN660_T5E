@@ -34,7 +34,7 @@ void outputToScreenType(Type* temp) {
 
 void equalityTest() {
 	puts("========Equality TESTING========");
-	auto test = Equality(new NumberType(1), new NumberType(1));
+	auto test = Equality(new NumberType(1), new NumberType(1), "==" );
 }
 
 void additionTest() {
