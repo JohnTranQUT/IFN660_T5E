@@ -43,6 +43,13 @@ public:
 	void dump(int = 0) override;
 	int eval(int, FILE*)override;
 };
+class StringLiteral : public Expression {
+	string LHS;
+public:
+	explicit StringLiteral(char *);
+	void dump(int = 0) override;
+	int eval(int, FILE*)override;
+};
 
 class Literal : public Expression {
 	vector<Node*> next;

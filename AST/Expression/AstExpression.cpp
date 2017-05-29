@@ -65,6 +65,20 @@ int NumericLiteral::eval(int line, FILE* output) {
 	return line;
 }
 
+StringLiteral::StringLiteral(char *_LHS) : LHS(string(_LHS)) {
+}
+
+void StringLiteral::dump(int indent) {
+	auto message = string(typeid(*this).name()).substr(6) + ": " + LHS + " (" + string(typeid(LHS).name()) + ")";
+	Node::dump(message, indent);
+}
+
+int StringLiteral::eval(int line, FILE* output) {
+	fprintf(output, "auto r%i = new StringValue(\"%s\");\n", line, LHS.c_str());
+	line++;
+	return line;
+}
+
 Literal::Literal(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);
 }

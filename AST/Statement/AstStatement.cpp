@@ -94,11 +94,15 @@ void IfStatement::dump(int indent) {
 
 
 int IfStatement::eval(int line, FILE* output) {
-	string conditionsString = "";
-	for (auto &i : next) {
-		int linenumber = line = i->eval(line, output);
-		conditionsString+="e"+ linenumber;
+	line = next[0]->eval(line, output);
+	fprintf(output, "if (r%d) {\n", line-1);
+	line = next[1]->eval(line, output);
+	fprintf(output, "}\n");
+	if (next.size() > 2)
+	{
+		fprintf(output, "else {\n");
+		line = next[1]->eval(line, output);
+		fprintf(output, "}\n");
 	}
-	fprintf(output, "if (%s)\n", conditionsString.c_str());
 	return line;
 }
