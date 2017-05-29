@@ -1,6 +1,6 @@
 #include <RuntimeLib\Expressions\AssignmentOperators.h>
 
-LanguageType* Assignment(Type* lref, LanguageType* rref) {
+LanguageType* Assignment(Type* lref, Type* rref) {
 	if(true){ // if not lref is ObjectLiteral or ArrayLiteral //THIS INCLUDES REFERENCES
 		ReturnIfAbrupt(lref);
 		auto rval = GetValue(rref);

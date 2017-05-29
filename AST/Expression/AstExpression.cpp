@@ -48,6 +48,37 @@ void StringLiteral::genCode(int * registerNum){
 	Node::genCode(message);
 }
 
+NullLiteral::NullLiteral() { }
+
+void NullLiteral::dump(int indent) {
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	Node::dump(message, indent);
+}
+
+void NullLiteral::genCode(int *registerNum) {
+	string registerVar = "r" + std::to_string((*registerNum)++);
+	string message = "auto " + registerVar + " = new NullType();";
+	Node::genCode(message);
+}
+
+
+BooleanLiteral::BooleanLiteral(bool _LHS) : LHS(_LHS) { }
+
+void BooleanLiteral::dump(int indent) {
+	auto message = string(typeid(*this).name()).substr(6) + ": ";
+	Node::dump(message, indent);
+}
+
+void BooleanLiteral::genCode(int *registerNum) {
+	string registerVar = "r" + std::to_string((*registerNum)++);
+	if (LHS) {
+		string message = "auto " + registerVar + " = new BooleanType(true);";
+		Node::genCode(message);
+	}else if(!LHS){
+		string message = "auto " + registerVar + " = new BooleanType(false);";
+		Node::genCode(message);
+	}
+}
 
 Identifier::Identifier(Expression *_LHS) : LHS(_LHS) {
 	next.push_back(LHS);

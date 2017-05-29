@@ -91,7 +91,9 @@ void IfStatement::dump(int indent) {
 void IfStatement::genCode(int *registerNum){
 	expression->genCode(registerNum);
 	string registerExpression = "r" + std::to_string(*registerNum - 1);
-	Node::genCode("if(" + registerExpression + "->_getValue()){");
+	string registerBooleanExpression = "r" + std::to_string((*registerNum)++);
+	Node::genCode("auto " + registerBooleanExpression + " = ToBoolean(" + registerExpression + ");");
+	Node::genCode("if(" + registerBooleanExpression + "->_getValue()){");
 	ifStatement->genCode(registerNum);
 	if (elseStatement != nullptr) {
 		Node::genCode("}else{");

@@ -67,7 +67,7 @@ SingleLineComment "/""/"{SingleLineCommentCharsopt}
 %%
 
 
-{MultiLineComment}|{SingleLineComment}		{  return COMMENT;}
+{MultiLineComment}|{SingleLineComment} /* DO NOTHING WITH COMMENTS */
 
 [\/]{_regex_char}+[\/]{_regex_flags}*	{	// Regex Literal
 											return REGEX_LITERAL;
@@ -103,9 +103,14 @@ null						{ return NULL_L; }
 								return HEX_L;
 							}
 
-true|false			    {
-							return BooleanLiteral;
-						}
+true						{
+							yylval.booelan = true;
+							return BOOL_L;
+							}
+false						{
+							yylval.booelan = false;
+							return BOOL_L;
+							}
 
 break						{ return BREAK; }
 do							{ return DO; }

@@ -34,6 +34,21 @@ public:
 	void genCode(int *registerNum) override;
 };
 
+class NullLiteral : public Expression {
+public:
+	explicit NullLiteral();
+	void dump(int = 0) override;
+	void genCode(int *registerNum) override;
+};
+
+class BooleanLiteral : public Expression {
+	bool LHS;
+public:
+	explicit BooleanLiteral(bool);
+	void dump(int = 0) override;
+	void genCode(int *registerNum) override;
+};
+
 class Identifier : public Expression {
 	vector<Node*> next;
 	Expression *LHS;

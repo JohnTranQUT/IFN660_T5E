@@ -24,14 +24,14 @@
 	Expression *expression;
 }
 
-%token COMMENT NULL_L
+%token NULL_L
 %token <regex> REGEX_LITERAL
 %token <str> STRING_L
 %token <decimal> DECIMAL_L
 %token <binary> BINARY_L
 %token <octal> OCTAL_L
 %token <hex> HEX_L
-%token <bool> BooleanLiteral
+%token <booelan> BOOL_L
 %token <ident> IDENT
 
 %token BREAK DO IN TYPEOF CASE ELSE INSTANCEOF VAR CATCH EXPORT NEW VOID CLASS EXTENDS RETURN WHILE CONST FINALLY SUPER WITH CONTINUE FOR SWITCH YIELD DEBUGGER FUNCTION THIS DEFAULT IF THROW DELETE IMPORT TRY AWAIT ENUM TDOT LE GE EQ DIFF EQTYPE DFTYPE INCREASE DECREASE LSHIFT RSHIFT URSHIFT LOGAND LOOR ADDASS SUBASS MULASS REMASS LSHIFTASS RSHIFTASS URSHIFTASS BWANDASS BWORASS BWXORASS ARROWF EXP EXPASS DIVASS LINE_TERM
@@ -43,7 +43,7 @@ Node *root;
 %type <root> Script ScriptBody_opt ScriptBody StatementListItem
 %type <statement> Statement BlockStatement Block ExpressionStatement IfStatement
 %type <expression> Expression AssignmentExpression ConditionalExpression LogicalORExpression LogicalANDExpression BitwiseORExpression BitwiseXORExpression BitwiseANDExpression EqualityExpression RelationalExpression ShiftExpression AdditiveExpression MultiplicativeExpression ExponentiationExpression UnaryExpression UpdateExpression LeftHandSideExpression NewExpression MemberExpression PrimaryExpression 
-%type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName StringLiteral
+%type <expression> IdentifierReference Literal NumericLiteral Identifier DecimalLiteral IdentifierName StringLiteral NullLiteral BooleanLiteral
 
 %start Script
 
@@ -272,8 +272,8 @@ IdentifierReference
 	;
 
 Literal
-	: NullLiteral
-	| BooleanLiteral
+	: NullLiteral																{ $$ = new Literal($1); }
+	| BooleanLiteral															{ $$ = new Literal($1); }
 	| NumericLiteral															{ $$ = new Literal($1); }
 	| StringLiteral																{ $$ = new Literal($1); }
 	;
@@ -405,11 +405,15 @@ RegularExpressionLiteral
 	;
 
 NullLiteral
-	:
+	: NULL_L																	{ $$ = new NullLiteral(); }
 	;
 
 StringLiteral
 	: STRING_L																	{ $$ = new StringLiteral($1); }
+	;
+
+BooleanLiteral
+	: BOOL_L																	{ $$ = new BooleanLiteral($1); }
 	;
 
 DecimalLiteral
