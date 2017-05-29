@@ -17,8 +17,9 @@ void main(int argc, char *argv[]) {
 	yyparse();
 	puts("========File Parsed========");
 	outfile.open(argv[2]);
-	root->genCode(new int(1));
+	puts("========Output to code file========");
 	//root->dump();
+	root->genCode(new int(1));
 	outfile.close();
 }
 
