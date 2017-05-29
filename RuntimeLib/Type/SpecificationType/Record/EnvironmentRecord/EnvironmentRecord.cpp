@@ -81,10 +81,17 @@ void EnvironmentRecord::dumpEnvRecords() {
 	map<StringType*, Type*, RECORD_COMPARE>::iterator it;
 	for (it = temp.begin(); it != temp.end(); it++)
 	{
-		puts(it->first->_getValue().c_str());
+		string name = it->first->_getValue();
 		if (auto _temp = dynamic_cast<NumberType *>(it->second))
-			puts(to_string(_temp->_getValue()).c_str());
+			puts((name + " = " + to_string(_temp->_getValue())).c_str());
 		if (auto _temp = dynamic_cast<StringType *>(it->second))
-			puts(_temp->_getValue().c_str());
+			puts((name + " = \"" + _temp->_getValue() + "\"").c_str());
+		if (auto _temp = dynamic_cast<UndefinedType *>(it->second))
+			puts((name + " = Undefined").c_str());
+		if (auto _temp = dynamic_cast<BooleanType *>(it->second))
+			if (_temp->_getValue())
+				puts((name + " = true").c_str());
+			else
+				puts((name + " = false").c_str());
 	}
 }
