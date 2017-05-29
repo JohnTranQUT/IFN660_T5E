@@ -95,13 +95,14 @@ void IfStatement::dump(int indent) {
 
 int IfStatement::eval(int line, FILE* output) {
 	line = next[0]->eval(line, output);
-	fprintf(output, "if (r%d) {\n", line-1);
+	fprintf(output, "auto r%d = r%d->ToBoolean();\nif (r%d) {\n", line,line - 1, line);
+	line++;
 	line = next[1]->eval(line, output);
 	fprintf(output, "}\n");
 	if (next.size() > 2)
 	{
 		fprintf(output, "else {\n");
-		line = next[1]->eval(line, output);
+		line = next[2]->eval(line, output);
 		fprintf(output, "}\n");
 	}
 	return line;
