@@ -18,4 +18,9 @@ Code Generator
 - [x] Outputs pesuedo Code file
 - [x] Tested output code file
 ## Additive Rework
-- [ ] ???
+- [x] Enabled String Literal in scanner
+	- [x] Passed to AST
+	- [x] Made codeGen in AST
+- [x] Enabled If Statements
+	- [x] Added runtime function for Equality test
+	- [x] Made codeGen in AST
