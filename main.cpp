@@ -56,7 +56,7 @@ void additionTest() {
 
 void yxTest() {
 	//Type* e1 = ResolveName("x", env);
-	puts("======== X = 42; Y = X + 1 TESTING========");
+	puts("======== X = 42; Y = X + 1; TESTING========");
 	auto r1 = NewDeclarativeEnvironment();
 	auto r2 = new StringType("x");
 	auto r3 = ResolveBinding(r2, r1);
