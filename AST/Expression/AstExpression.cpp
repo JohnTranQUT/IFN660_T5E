@@ -340,10 +340,10 @@ void AdditiveExpression::genCode(int *registerNum){
 	//}
 
 	if (RHS != nullptr && op != nullptr) {
-		RHS->genCode(registerNum);
-		string registerVarRHS = "r" + std::to_string((*registerNum) - 1);
 		LHS->genCode(registerNum);
 		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
+		RHS->genCode(registerNum);
+		string registerVarRHS = "r" + std::to_string((*registerNum) - 1);
 		string registerVar = "r" + std::to_string((*registerNum)++);
 		if (op == "+") {
 			string message = "auto " + registerVar + " = Additive(" + registerVarLHS + "," + registerVarRHS + ");";
@@ -581,10 +581,10 @@ void AssignmentExpression::genCode(int *registerNum){
 	//	i->genCode(registerNum);
 	//}
 	if (RHS != nullptr) {
-		RHS->genCode(registerNum);
-		string registerVarRHS = "r" + std::to_string((*registerNum) - 1);
 		LHS->genCode(registerNum);
 		string registerVarLHS = "r" + std::to_string((*registerNum) - 1);
+		RHS->genCode(registerNum);
+		string registerVarRHS = "r" + std::to_string((*registerNum) - 1);
 		string registerVar = "r" + std::to_string((*registerNum)++);
 		string message = "auto " + registerVar + " = Assignment(" + registerVarLHS + ", " + registerVarRHS + ");";
 		Node::genCode(message);
